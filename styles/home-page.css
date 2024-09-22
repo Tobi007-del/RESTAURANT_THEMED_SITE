@@ -368,42 +368,42 @@ main {
     width: 100%;
     height: 100%;
     scroll-snap-align: start;
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center right, black;
     background-size: cover;
 }
 
 .tastey-meal_one {
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center right, black;
     background-size: cover;
 }
 
 .tastey-meal_two {
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_two.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_two.jpg') no-repeat center right, black;
     background-size: cover;
 }
 
 .tastey-meal_three {
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_three.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_three.jpg') no-repeat center right, black;
     background-size: cover;
 }
 
 .tastey-meal_four {
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_four.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_four.jpg') no-repeat center right, black;
     background-size: cover;
 }
 
 .tastey-meal_five {
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_five.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_five.jpg') no-repeat center right, black;
     background-size: cover;
 }
 
 .tastey-meal_six {
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_six.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_six.jpg') no-repeat center right, black;
     background-size: cover;
 }
 
 .tastey-meal_seven {
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_seven.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_seven.jpg') no-repeat center right, black;
     background-size: cover;
 }
 
@@ -639,6 +639,7 @@ main {
         translate: 0vw;
     }
     .hero-content-wrapper {
+        margin-top: 20vh; 
         padding-inline-start: 5vw;
         width: 100%;
     } 
@@ -647,6 +648,6 @@ main {
         padding-inline-start: 2.5vw;
     }
     .welcome-text-wrapper h1 {
-        font-size: 4.5rem;
+        font-size: 4rem;
     }
 }
