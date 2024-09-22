@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wanna tease your taste buds, try a Tastey meal now!"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/tastey-meal-icons/tastey-icon.png">
+    <title>Tastey</title>
+    <link rel="stylesheet" href="styles/home-page.css">
+</head>
+<body>
+    <nav class="row">
+        <div class="backdrop-filter"></div>
+        <div class="company-name-section">
+            <div class="company-name-wrapper">
+                <span>
+                    <h3><a href="index.html">Tastey</a></h3>
+                </span>
+                <span>
+                    <h6>Food from Dreams</h6>
+                </span>
+            </div>
+        </div>
+        <div class="hamburger-icon">
+            <label for="menu" class="hamburger">
+                <input type="checkbox" name="menu" id="menu" title="Toggle Menu bar" tabindex="1">
+            </label>
+        </div>
+        <div class="navigation-section">
+            <ul>
+                <li class="nav-link active">
+                    <a href="">HOME</a>
+                </li>
+                <li class="nav-link">
+                    <a href="">ABOUT</a>
+                </li>
+                <li class="nav-link">
+                    <a href="">MENU</a>
+                </li>
+                <li class="nav-link">
+                    <a href="">BLOG</a>
+                </li>
+                <li class="nav-link">
+                    <a href="">CONTACT</a>
+                </li>
+            </ul>
+        </div>
+        <div class="user-service-section">
+            <div class="user-service-wrapper">
+                <div title="reservation" class="reservation-btn" >
+                    <a href="">RESERVATION</a>
+                </div>
+                <div class="cart-container">
+                    <span tabindex="0" title="Cart" class="cart" data-cart="0">
+                        <svg class="cart-icon" height="24px" viewBox="0 -960 960 960" width="24px">
+                            <path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"/>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="row">
+        <div class="hero-content-wrapper">
+            <div class="greeting-wrapper">
+                <p>HELLO, NEW FRIEND!</p>
+            </div>
+            <div class="welcome-text-wrapper">
+                <h1>Welcome to Tastey</h1>
+            </div>
+            <div class="welcome-message-wrapper">
+                <p>Wanna tease your taste buds? Try a Tastey meal now<span>!</span></p>
+            </div>
+            <div class="quick-links-wrapper">
+                <div title="reservation" class="reservation-btn">
+                    <a href="">RESERVATION</a>
+                </div>
+                <div title="open menu" class="open-menu-btn">
+                    <a href="">OPEN MENU</a>
+                </div>
+            </div>
+        </div>
+        <div class="tastey-meals-carousel" role="group" aria-label="Tastey meals Carousel" aria-roledescription="carousel" aria-atomic="false" aria-live="off">
+            <div class="tastey-meal_one tastey-meal"></div>
+            <div class="tastey-meal_two tastey-meal"></div>
+            <div class="tastey-meal_three tastey-meal"></div>
+            <div class="tastey-meal_four tastey-meal"></div>
+            <div class="tastey-meal_five tastey-meal"></div>
+            <div class="tastey-meal_six tastey-meal"></div>
+            <div class="tastey-meal_seven tastey-meal"></div>
+        </div>
+        <div class="tastey-meals-carousel-controls">
+            <div class="tastey-meals-toggler" aria-label="Choose meal slide to display" role="group">
+                <button title="1" class="toggler active" aria-label="1 of 7" aria-disabled="true"></button>
+                <button title="2" class="toggler" aria-label="2 of 7" aria-disabled="false"></button>
+                <button title="3" class="toggler" aria-label="3 of 7" aria-disabled="false"></button>
+                <button title="4" class="toggler" aria-label="4 of 7" aria-disabled="false"></button>
+                <button title="5" class="toggler" aria-label="5 of 7" aria-disabled="false"></button>
+                <button title="6" class="toggler" aria-label="6 of 7" aria-disabled="false"></button>
+                <button title="7" class="toggler" aria-label="7 of 7" aria-disabled="false"></button>
+            </div>
+            <div class="tastey-meals-switcher" aria-label="Move slides" role="group">
+                <button title="Previous" class="switcher-arrows bwd-arrow" aria-label="previous slide">
+                    <svg height="24px" viewBox="0 -960 960 960" width="24px" ><path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z"/></svg>
+                </button>
+                <button title="Next" class="switcher-arrows fwd-arrow" aria-label="next slide">
+                    <svg height="24px" viewBox="0 -960 960 960" width="24px" ><path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"/></svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="scripts/home-page.js"></script>
+</body>
+</html>
