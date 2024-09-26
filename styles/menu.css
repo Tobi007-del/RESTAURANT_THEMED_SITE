@@ -245,6 +245,8 @@ nav::after {
 }
 
 .cart svg {
+    width: 1.65rem;
+    height: 1.65rem;
     fill: var(--current-theme-inverse-color);
 }
 
@@ -323,7 +325,7 @@ aside.menu-cart-toggler-container {
 }
 
 aside.category-switcher-container {
-    top: 20.5vh;
+    bottom: calc(7.5vh + 5em);
     height: 60vh;
     right: .5rem;
 }
@@ -438,7 +440,10 @@ aside:hover .toggler div p, aside:hover .switcher div p {
     margin: 0;
 }
 
-.st0{fill-rule:evenodd;clip-rule:evenodd;}
+.st0 {
+    fill-rule:evenodd;
+    clip-rule:evenodd;
+}
 
 main {
     position: relative;
@@ -900,8 +905,8 @@ main h3 {
 #scroller-circle{
   position: absolute;
   border-radius: 50%;
-  height: 3.5rem;
-  width: 3.5rem;
+  height: 3rem;
+  width: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -914,9 +919,9 @@ main h3 {
 #quick-scroll-wrapper{
   position: fixed;
   bottom: 7.5vh;
-  right: .25rem;
-  height: 3.5rem;
-  width: 3.5rem;
+  right: .5rem;
+  height: 3rem;
+  width: 3rem;
   border-radius: 50%;
   background-color: var(--tastey-brand-color);
   display: flex;
@@ -930,11 +935,11 @@ main h3 {
 }
 
 #quick-scroll-show{
-  font-size: 2.25rem;
+  font-size: 2rem;
   color: var(--current-theme-inverse-accent-color);
   z-index: 1;
   width: 92%;
-  height: 91%;
+  height: 92%;
   border-radius: 50%;
   background: var(--current-theme-color);
   position: absolute;
@@ -950,7 +955,7 @@ main h3 {
   position: absolute;
   right: 1rem;
   height: 8.75rem;
-  min-width: 5rem;
+  min-width: 4.5rem;
   flex-direction: column;
   justify-content: space-between;
 }
@@ -976,16 +981,16 @@ main h3 {
 }
 
 #to-top,#to-bottom{
-  height: 3rem;
-  width: 3rem;
+  height: 2.75rem;
+  width: 2.75rem;
   font-size: 2rem;
   color: var(--current-theme-inverse-accent-color);
 }
 
 #remove-quick-scrolls{
-  height: 2.45rem;
-  width: 2.45rem;
-  font-size: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
+  font-size: 1.5rem;
   position: relative;
   right: 1rem;
   color: rgba(255, 0, 0, 0.75);
@@ -1171,6 +1176,9 @@ main h3 {
     aside.category-switcher-container {
         width: 3rem!important;
     }
+    aside.category-switcher-container, #quick-scroll-wrapper {
+        right: .15rem;
+    }
     aside::after {
         display: none!important;
     }
@@ -1200,13 +1208,17 @@ main h3 {
         width: 2rem!important;
         height: 2rem!important;
         display: flex;
-        align-items: center;
+        align-items: center!important;
     }
     .menu-sections {
         padding: 0;
     }
     .tastey-menu-title-wrapper h1::after, .tastey-menu-title-wrapper h1::before {
         display: none;
+    }
+    #main-cart {
+        display: flex;
+        align-items: center;
     }
 }
 
