@@ -118,18 +118,29 @@ nav::after {
     flex: 5;
 }
 
-.company-name-wrapper span h3, .company-name-wrapper span h6 {
+.company-name-section {
+    display: flex;
+    gap: 1vw;
+}
+
+.tastey-logo {
+    width: 2rem;
+    background: url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center center;
+    background-size: contain;
+}
+
+.company-name-section span h3, .company-name-section span h6 {
     margin: 0;
     white-space: nowrap;
 }
 
-.company-name-wrapper span h3 {
+.company-name-section span h3 {
     color: var(--current-theme-inverse-color);
     font-size: 1.25rem;
     font-family: 'Times New Roman', Times, serif;
 }
 
-.company-name-wrapper span h6 {
+.company-name-section span h6 {
     color: var(--tastey-brand-color);
 }
 
@@ -165,12 +176,14 @@ nav::after {
     top: 1.8rem;
     left: 0;
     transform: scaleX(0);
-    transition: transform 300ms ease;
+    transform-origin: bottom right;
+    transition: transform 200ms ease;
 }
 
 .navigation-section ul li.active::after, .navigation-section ul li:hover::after {
     transform: scaleX(100%);
-    transition: transform 300ms ease;
+    transform-origin: bottom left;
+    transition: transform 200ms ease;
 }
 
 .user-service-wrapper {
@@ -199,9 +212,12 @@ nav::after {
     outline-color: var(--current-theme-inverse-color)!important;
 }
 
-.cart {
+.Cart {
     position: relative;
     display: inline-block;
+}
+
+.cart {
     opacity: 0.85;
 }
 
@@ -214,9 +230,29 @@ nav::after {
     opacity: 1;
 }
 
-.cart::after {
+.Cart[data-cart = '0'] .cart-icon.empty {
+    display: block!important;
+}
+
+.Cart:not([data-cart='0']) .cart-icon.empty {
+    display: none!important;
+}
+
+.Cart[data-cart = '0'] .cart-icon {
+    display: none;
+}
+
+.Cart:not([data-cart='0']) .cart-icon {
+    display: block;
+}
+
+.Cart[data-cart = '0']::after {
+    display: none!important;
+}
+
+.Cart::after {
     content: attr(data-cart);
-    background-color: green;
+    background-color: var(--tastey-brand-color);
     color: var(--current-theme-color);
     width: .75rem;
     aspect-ratio: 1/1;
@@ -368,43 +404,35 @@ main {
     width: 100%;
     height: 100%;
     scroll-snap-align: start;
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center right, black;
-    background-size: cover;
+    background-size: cover!important;
 }
 
 .tastey-meal_one {
     background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center right, black;
-    background-size: cover;
 }
 
 .tastey-meal_two {
     background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_two.jpg') no-repeat center right, black;
-    background-size: cover;
 }
 
 .tastey-meal_three {
     background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_three.jpg') no-repeat center right, black;
-    background-size: cover;
 }
 
 .tastey-meal_four {
     background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_four.jpg') no-repeat center right, black;
-    background-size: cover;
 }
 
 .tastey-meal_five {
     background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_five.jpg') no-repeat center right, black;
-    background-size: cover;
 }
 
 .tastey-meal_six {
     background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_six.jpg') no-repeat center right, black;
-    background-size: cover;
 }
 
 .tastey-meal_seven {
     background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_seven.jpg') no-repeat center right, black;
-    background-size: cover;
 }
 
 .tastey-meals-carousel-controls {
@@ -617,7 +645,6 @@ main {
         padding: 0;
         margin: 0;
         outline-offset: .75rem;
-        /* outline: none; */
     }
     .hamburger:has(input:checked)::before {
         rotate: 45deg;

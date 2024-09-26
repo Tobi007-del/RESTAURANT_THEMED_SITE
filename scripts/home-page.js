@@ -5,13 +5,11 @@ const togglers = document.querySelectorAll(".toggler")
 const fwdArrow = document.querySelector(".fwd-arrow")
 const bwdArrow = document.querySelector(".bwd-arrow")
 
-
 let offsetWidth = tasteyMeals[0].offsetWidth
 
 const interval = 2500,
 nClonedSlides = 1,
 nSlides = tasteyMeals.length,
-{ innerWidth } = window,
 
 currentSlideIndex = () => {
     return Math.round(tasteyMealsCarousel.scrollLeft/offsetWidth - nClonedSlides) 
