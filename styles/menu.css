@@ -80,7 +80,7 @@ body {
     --global-mouse-y: 14rem;
     width: 100%;
     margin: 0;
-    background: url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center 5rem, rgb(15, 15, 15);
+    background: url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center 6rem, rgb(15, 15, 15);
     background-size: 300px;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -97,6 +97,15 @@ body::after {
     background: radial-gradient(var(--global-light-width) circle at var(--global-mouse-x) var(--global-mouse-y),rgba(255,255,255,0.45),transparent 40%);
     background-attachment: fixed;
     pointer-events: none;
+}
+
+
+.smooth-scroll {
+    scroll-behavior: smooth!important;
+}
+
+body.cart aside.category-switcher-container {
+    display: none!important;
 }
 
 nav {
@@ -300,11 +309,6 @@ nav::after {
     display: none;
 }
 
-.smooth-scroll {
-    scroll-behavior: smooth!important;
-}
-
-
 aside {
     position: fixed;
     background-color: var(--current-theme-color);
@@ -315,7 +319,7 @@ aside {
     justify-content: center;
     align-items: center;
     z-index: 4;
-    transition: width 200ms ease;
+    transition: width 150ms ease;
 }
 
 aside.menu-cart-toggler-container {
@@ -324,10 +328,18 @@ aside.menu-cart-toggler-container {
     left: .5rem;
 }
 
-aside.category-switcher-container {
-    bottom: calc(7.5vh + 5em);
-    height: 60vh;
+aside.category-switcher-container { 
+    display: flex;
     right: .5rem;
+    bottom: calc(7.5vh + 6em);
+    height: 0;
+    opacity: 0;
+    transition: height 300ms ease, opacity 250ms ease;
+}
+
+.category-switcher-container.show {
+    opacity: 1;
+    height: 50vh;
 }
 
 aside::after {
@@ -457,6 +469,7 @@ main p, main h1, main h3 {
 
 main h1 {
     font-size: 1.85rem;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .tastey-menu-title-wrapper {
@@ -520,7 +533,7 @@ main h1 {
 .tastey-menu-title-wrapper h1 {
     position: relative;
     width: fit-content;
-    margin: 5rem 0 5rem 0;
+    margin: 5rem 0 6.5rem 0;
 }
 
 .tastey-menu-title-wrapper h1::after, .tastey-menu-title-wrapper h1::before {
@@ -534,11 +547,11 @@ main h1 {
 }
 
 .tastey-menu-title-wrapper h1::after {
-    left: 110%;
+    left: 100%;
 }
 
 .tastey-menu-title-wrapper h1::before {
-    right: 110%;
+    right: 100%;
 }
 
 main h3 {
@@ -546,13 +559,13 @@ main h3 {
     color: greenyellow;
 }
 
-#magic{
+#magic {
     position: relative;
     display: flex;
     align-items: center;
     height: 10rem;
 }
-.magic-star{
+.magic-star {
     --size: clamp(20px,1.5vw,30px);
     display: block;
     height: var(--size);
@@ -597,7 +610,7 @@ main h3 {
     flex-wrap: wrap;
     justify-content: space-evenly;
     width: inherit;
-    row-gap: 3.5rem;
+    row-gap: 2.5rem;
     column-gap: .5rem;
 }
 
@@ -780,7 +793,7 @@ main h3 {
 }
 
 .main-menu-title-wrapper {
-    height: 18rem;
+    height: 19rem;
     display: flex;
     justify-content: center;
     align-items: end;
@@ -930,10 +943,6 @@ main h3 {
   z-index: 4;
 }
 
-#quick-scrolls.show {
-  display: flex;
-}
-
 #quick-scroll-show{
   font-size: 2rem;
   color: var(--current-theme-inverse-accent-color);
@@ -951,14 +960,22 @@ main h3 {
 }
 
 #quick-scrolls{
-  display: none;
   position: absolute;
   right: 1rem;
-  height: 8.75rem;
-  min-width: 4.5rem;
+  height: 8rem;
+  width: 2.5rem;
+  opacity: 0;
   flex-direction: column;
   justify-content: space-between;
+  pointer-events: none;
+  transition: width 300ms ease, opacity 250ms ease;
 }
+
+#quick-scrolls.show {
+    pointer-events: all;
+    width: 4.25rem;
+    opacity: 1;
+}  
 
 #quick-scroll-wrapper:hover{
   cursor: pointer;
@@ -970,7 +987,7 @@ main h3 {
   color: var(--current-theme-inverse-color);
 }
 
-#to-top,#to-bottom,#remove-quick-scrolls{
+#to-top, #to-bottom, #remove-quick-scrolls{
   position: relative;
   border-radius: 50%;
   display: flex;
@@ -988,16 +1005,19 @@ main h3 {
 }
 
 #remove-quick-scrolls{
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2.15rem;
+  width: 2.15rem;
   font-size: 1.5rem;
   position: relative;
   right: 1rem;
-  color: rgba(255, 0, 0, 0.75);
+  background-color: var(--current-theme-color);
+  color: var(--current-theme-inverse-accent-color);
+  transition: 200ms ease;
 }
 
-#remove-quick-scrolls:hover{
-  color: red;
+#remove-quick-scrolls:hover {
+  color: white;
+  background-color: red;
 }
 
 @media only screen and (max-width: 50rem) {
@@ -1219,6 +1239,10 @@ main h3 {
     #main-cart {
         display: flex;
         align-items: center;
+    }
+    #remove-quick-scrolls {
+        color: white;
+        background-color: red;
     }
 }
 

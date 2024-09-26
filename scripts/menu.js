@@ -91,14 +91,10 @@ document.getElementsByTagName("main")[0].onmousemove = e => {
 
 window.onmousemove = e => {
     if(e.target.closest('.tastey') !== null) {
-        document.body.style.setProperty("--global-light-width", "50rem")
+        document.body.style.setProperty("--global-light-width", "100rem")
     } else {
-        document.body.style.setProperty("--global-light-width", "35rem")
+        document.body.style.setProperty("--global-light-width", "25rem")
     }
-}
-
-window.onmouseout = e => {
-    document.body.style.setProperty("--global-light-width", "25rem")
 }
 
 
@@ -132,9 +128,11 @@ const removeScrolls = document.getElementById("remove-quick-scrolls");
 const quickScrollShow = document.getElementById("quick-scroll-show");
 const quickScroll = document.getElementById("quick-scroll-wrapper");
 const quickScrolls = document.getElementById("quick-scrolls");
+const categorySwitcherContainer = document.querySelector("aside.category-switcher-container");
 
 removeScrolls.addEventListener('click', ()=>{
    quickScroll.style.display = "none";
+   categorySwitcherContainer.classList.remove('show')
 })
 
 toTop.addEventListener('click', ()=>{
@@ -147,6 +145,7 @@ toBottom.addEventListener('click', ()=>{
 
 quickScrollShow.addEventListener('click', ()=>{
     quickScrolls.classList.toggle('show');
+    categorySwitcherContainer.classList.toggle('show');
 })
 
 function scrollToTop() {        
@@ -190,12 +189,13 @@ function scrollfunction() {
 function pageBottom () {
     const onscroll = () => {
       quickScrolls.classList.remove('show');
+      categorySwitcherContainer.classList.remove('show')
       const scrolledTo = window.scrollY + window.innerHeight;
       const threshold = 0;
       const isReachBottom = document.body.scrollHeight - threshold <= scrolledTo;
       const isReachTop = window.scrollY === 0;
       if (isReachBottom || isReachTop){
-        quickScroll.style.display = "flex";
+        quickScroll.style.display = "flex"
       }
       scrollfunction()
     };
