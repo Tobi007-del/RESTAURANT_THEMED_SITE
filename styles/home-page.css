@@ -410,31 +410,31 @@ main {
 }
 
 .tastey-meal_one {
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center center, black;
 }
 
 .tastey-meal_two {
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_two.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_two.jpg') no-repeat center center, black;
 }
 
 .tastey-meal_three {
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_three.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_three.jpg') no-repeat center center, black;
 }
 
 .tastey-meal_four {
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_four.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_four.jpg') no-repeat center center, black;
 }
 
 .tastey-meal_five {
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_five.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_five.jpg') no-repeat center center, black;
 }
 
 .tastey-meal_six {
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_six.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_six.jpg') no-repeat center center, black;
 }
 
 .tastey-meal_seven {
-    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_seven.jpg') no-repeat center right, black;
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_seven.jpg') no-repeat center center, black;
 }
 
 .tastey-meals-carousel-controls {

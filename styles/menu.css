@@ -75,7 +75,7 @@ html {
 }
 
 body {
-    --global-light-width: 25rem;
+    --global-light-width: 35rem;
     --global-mouse-x: 50%;
     --global-mouse-y: 14rem;
     width: 100%;
@@ -98,7 +98,6 @@ body::after {
     background-attachment: fixed;
     pointer-events: none;
 }
-
 
 .smooth-scroll {
     scroll-behavior: smooth!important;

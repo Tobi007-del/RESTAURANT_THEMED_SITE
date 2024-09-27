@@ -31,7 +31,7 @@ const options = {
 
 
 //Some utility functions for general use
-const tasteyDebouncer = (mainFunction,delay=10,immediate=false) => {
+const tasteyDebouncer = (mainFunction,delay=150,immediate=false) => {
     let timer;
 
     return function(...args) {
@@ -47,7 +47,7 @@ const tasteyDebouncer = (mainFunction,delay=10,immediate=false) => {
     }
 }
 
-const tasteyThrottler = (mainFunction,delay=10) => {
+const tasteyThrottler = (mainFunction,delay=100) => {
     let runTimerFlag
 
     return function(...args) {
@@ -118,13 +118,16 @@ document.getElementsByTagName("main")[0].onmousemove = e => {
     }
 }
 
-window.onmousemove = e => {
-    if(e.target.closest('.tastey') !== null) {
-        document.body.style.setProperty("--global-light-width", "40rem")
+let clickToggler
+document.querySelector(".tastey").addEventListener("click", () => {
+    clickToggler++
+    if(clickToggler == 1) {
+        document.body.style.setProperty("--global-light-width", "140rem")
     } else {
-        document.body.style.setProperty("--global-light-width", "25rem")
+        document.body.style.setProperty("--global-light-width", "35rem")
+        clickToggler = 0
     }
-}
+})
 
 
 const handleLikes = (i) => {
@@ -222,7 +225,7 @@ let index;
 const controlActiveSwitcher = (ordinate,arr) => {
     index = 0;
     for (const item of arr) {
-        if((ordinate) >= (item + tasteyOffSetTop + window.innerHeight)) {
+        if((ordinate) >= (item + tasteyOffSetTop + window.innerHeight + 300)) {
             index ++
         }
     }
@@ -249,7 +252,6 @@ getHeaderPositions(menuHeadersPosition)
 let scrollPosition;
 switchers.forEach((switcher,i) => {
     switcher.addEventListener('click', () => {
-        markSwitcher(i)
         scrollPosition = menuHeadersPosition[i]
         scrollContentTo(scrollPosition)
     })
