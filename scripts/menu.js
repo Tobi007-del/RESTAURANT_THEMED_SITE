@@ -223,12 +223,14 @@ let menuHeadersPosition = []
 let index;
 
 const controlActiveSwitcher = (ordinate,arr) => {
-    index = 0;
+    index = -1;
     for (const item of arr) {
-        if((ordinate) >= (item + tasteyOffSetTop + window.innerHeight + 300)) {
+        if(Math.floor(ordinate) >= Math.floor(item - 150)) {
             index ++
         }
     }
+    //clamping index incase of any error
+    index = Math.min(Math.max(index,0),arr.length - 1)
     markSwitcher(index)
 }
 
