@@ -332,14 +332,9 @@ aside.category-switcher-container {
     display: flex;
     right: .5rem;
     bottom: calc(7.5vh + 6em);
-    height: 0;
-    opacity: 0;
-    transition: height 300ms ease, opacity 250ms ease;
-}
-
-.category-switcher-container.show {
-    opacity: 1;
     height: 50vh;
+    opacity: 1;
+    transition: height 300ms ease, opacity 250ms ease;
 }
 
 aside::after {
@@ -367,12 +362,12 @@ aside:hover {
     width: 3.5rem;
 }
 
-aside:hover .icon, aside:hover .switcher-icon {
+aside:hover .icon, aside:hover .switcher-icon, aside:focus-within .icon, aside:focus-within .switcher-icon {
     width: 1.5rem;
     height: 1.5rem;
 }
 
-aside:hover .toggler div p, aside:hover .switcher div p {
+aside:hover .toggler div p, aside:hover .switcher div p, aside:focus-within .toggler div p, aside:focus-within .switcher div p {
     position: static;
     translate: 0;
     opacity: 1;
@@ -413,19 +408,19 @@ aside:hover .toggler div p, aside:hover .switcher div p {
     cursor: pointer;
 }
 
-.toggler.active, .toggler:hover, .switcher.active, .switcher:hover {
+.toggler.active, .toggler:hover, .switcher.active, .switcher:hover, aside:focus-within .toggler, aside:focus-within .switcher {
     background-color: var(--tastey-brand-color);  
 }
 
-.toggler.active, .switcher.active {
+.toggler.active, .switcher.active, aside:focus-within .toggler, aside:focus-within .switcher {
     border: .13rem solid var(--current-theme-inverse-color);
 }
 
-.toggler:hover .icon, .switcher:hover .icon {
+.toggler:hover .icon, .switcher:hover .icon, aside:hover .icon {
     opacity: 1;
 }
 
-.icon, .switcher-icon {
+.icon, .switcher-icon, .switcher-icon path {
     fill: var(--current-theme-inverse-color);
     width: 2rem;
     height: 2rem;
@@ -511,7 +506,6 @@ main h1 {
 .tastey-menu-title-wrapper.main-meals::before {
     background: url('../assets/tastey-meal-icons/food-dish-2-svgrepo-com.svg') no-repeat center center;
 }
-
 
 .tastey-menu-title-wrapper.drinks::after {
     background: url('../assets/tastey-meal-icons/glass-drinks-svgrepo-com.svg') no-repeat center center;
@@ -944,8 +938,6 @@ main h3 {
 }
 
 #quick-scroll-show{
-  font-size: 2rem;
-  color: var(--current-theme-inverse-accent-color);
   z-index: 1;
   width: 92%;
   height: 92%;
@@ -957,6 +949,16 @@ main h3 {
   align-items: center;
   justify-content: center;
   padding: 0;
+}
+
+#quick-scroll-show svg {
+    width: 1.75rem;
+    height: 1.75rem;
+    fill: var(--current-theme-inverse-accent-color);
+}
+
+#quick-scroll-show:hover svg {
+    fill: var(--current-theme-inverse-color);
 }
 
 #quick-scrolls{
@@ -1001,7 +1003,16 @@ main h3 {
   height: 2.75rem;
   width: 2.75rem;
   font-size: 2rem;
-  color: var(--current-theme-inverse-accent-color);
+}
+
+#to-top svg, #to-bottom svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill:  var(--current-theme-inverse-accent-color);;
+}
+
+#to-top:hover svg, #to-bottom svg:hover {
+    fill:  var(--current-theme-inverse-color);
 }
 
 #remove-quick-scrolls{
@@ -1011,12 +1022,21 @@ main h3 {
   position: relative;
   right: 1rem;
   background-color: var(--current-theme-color);
-  color: var(--current-theme-inverse-accent-color);
   transition: 200ms ease;
 }
 
+#remove-quick-scrolls svg {
+    width: 1rem;
+    height: 1rem;
+    fill: var(--current-theme-inverse-accent-color);
+    transition: inherit;
+}
+
+#remove-quick-scrolls:hover svg {
+    fill: var(--current-theme-color);
+}
+
 #remove-quick-scrolls:hover {
-  color: white;
   background-color: red;
 }
 
@@ -1202,6 +1222,14 @@ main h3 {
     aside::after {
         display: none!important;
     }
+    aside.category-switcher-container {
+        opacity: 0;
+        height: 0;   
+    }
+    aside.category-switcher-container.show {
+        opacity: 1;
+        height: 50vh;
+    }
     .toggler-wrapper {
         width: 95%;
         height: 100%;
@@ -1240,9 +1268,14 @@ main h3 {
         display: flex;
         align-items: center;
     }
+    #quick-scroll-show svg, #to-top svg, #to-bottom svg {
+        fill: var(--current-theme-inverse-color);
+    }
     #remove-quick-scrolls {
-        color: white;
         background-color: red;
+    }
+    #remove-quick-scrolls svg {
+        fill: var(--current-theme-color);
     }
 }
 

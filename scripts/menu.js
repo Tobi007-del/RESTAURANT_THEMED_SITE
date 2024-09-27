@@ -1,3 +1,19 @@
+//DOM Elements
+const likeIconWrappers = document.querySelectorAll(".heart-icon-wrapper")
+const tasteyMeals = document.querySelectorAll(".tastey-meal")
+const tasteyMealsImages = document.querySelectorAll(".tastey-meal-image")
+const toTop = document.getElementById("to-top");
+const toBottom = document.getElementById("to-bottom");
+const removeScrolls = document.getElementById("remove-quick-scrolls");
+const quickScrollShow = document.getElementById("quick-scroll-show");
+const quickScroll = document.getElementById("quick-scroll-wrapper");
+const quickScrolls = document.getElementById("quick-scrolls");
+const categorySwitcherContainer = document.querySelector("aside.category-switcher-container");
+const switchers = document.querySelectorAll(".switcher")
+const menuHeaders = document.querySelectorAll(".tastey-menu-title-wrapper h1")
+
+const tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y - 6;
+
 const options = {
     root: null,
     rootMargin: '0px',
@@ -13,14 +29,8 @@ const options = {
     })(),
 }
 
-let isIntersecting = true;
 
-const tasteyObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        
-    })
-},options)
-
+//Some utility functions for general use
 const tasteyDebouncer = (mainFunction,delay=10,immediate=false) => {
     let timer;
 
@@ -41,7 +51,7 @@ const tasteyThrottler = (mainFunction,delay=10) => {
     let runTimerFlag
 
     return function(...args) {
-        if(runTimerFlag === null) {
+        if(runTimerFlag == null) {
             mainFunction(...args)
 
             runTimerFlag = setTimeout(() => {
@@ -52,31 +62,50 @@ const tasteyThrottler = (mainFunction,delay=10) => {
 }
 
 
-if(isIntersecting) {
-    let index = 0, interval = 1000;
+const tasteyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        
+    })
+},options)
 
-    const rand = (min,max) =>
-        Math.floor(Math.random() * (max - min)) + min;
-    
-    const animate = star => {
-        star.style.setProperty("--star-left", `${rand(-20,120)}%`);
-        star.style.setProperty("--star-top", `${rand(-20,120)}%`);
-    
-        star.style.animation = "none";
-        star.offsetHeight;
-        star.style.animation = "";
-    }
+let starIntersecting = true;
+let starInterval
+let starTimeout
 
-    for(const star of document.getElementsByClassName("magic-star")) {
-        setTimeout(() => {
-            animate(star);
-            setInterval(() => {
+function starSetting(starIntersecting) {
+    if(starIntersecting) {
+        let index = 0, interval = 1000;
+    
+        const rand = (min,max) =>
+            Math.floor(Math.random() * (max - min)) + min;
+        
+        const animate = star => {
+            star.style.setProperty("--star-left", `${rand(-20,120)}%`);
+            star.style.setProperty("--star-top", `${rand(-20,120)}%`);
+        
+            star.style.animation = "none";
+            star.offsetHeight;
+            star.style.animation = "";
+        }
+    
+        for(const star of document.getElementsByClassName("magic-star")) {
+            starTimeout = setTimeout(() => {
                 animate(star);
-            }, 1000);
-        }, index++ * (interval / 3))
-    
+                starInterval = setInterval(() => {
+                    animate(star);
+                }, 1000);
+            }, index++ * (interval / 3))
+        
+        }
+    } else {
+        clearTimeout(starTimeout)
+        clearInterval(starInterval)
+        starTimeout = null
+        starInterval = null
     }
 }
+//calling star setting at page startup
+starSetting(starIntersecting)
 
 document.getElementsByTagName("main")[0].onmousemove = e => {
     for(const card of document.getElementsByClassName("tastey-meal")){
@@ -91,16 +120,12 @@ document.getElementsByTagName("main")[0].onmousemove = e => {
 
 window.onmousemove = e => {
     if(e.target.closest('.tastey') !== null) {
-        document.body.style.setProperty("--global-light-width", "100rem")
+        document.body.style.setProperty("--global-light-width", "40rem")
     } else {
         document.body.style.setProperty("--global-light-width", "25rem")
     }
 }
 
-
-const likeIconWrappers = document.querySelectorAll(".heart-icon-wrapper")
-const tasteyMeals = document.querySelectorAll(".tastey-meal")
-const tasteyMealsImages = document.querySelectorAll(".tastey-meal-image")
 
 const handleLikes = (i) => {
     tasteyMeals[i].classList.toggle('liked',!tasteyMeals[i].classList.contains("liked"))
@@ -118,36 +143,7 @@ tasteyMealsImages.forEach((tasteyMealsImage,i) => {
     })
 })
 
-
-
-
-function pager(){
-const toTop = document.getElementById("to-top");
-const toBottom = document.getElementById("to-bottom");
-const removeScrolls = document.getElementById("remove-quick-scrolls");
-const quickScrollShow = document.getElementById("quick-scroll-show");
-const quickScroll = document.getElementById("quick-scroll-wrapper");
-const quickScrolls = document.getElementById("quick-scrolls");
-const categorySwitcherContainer = document.querySelector("aside.category-switcher-container");
-
-removeScrolls.addEventListener('click', ()=>{
-   quickScroll.style.display = "none";
-   categorySwitcherContainer.classList.remove('show')
-})
-
-toTop.addEventListener('click', ()=>{
-   scrollToTop()
-})
-
-toBottom.addEventListener('click', ()=>{
-   scrollToBottom()
-})
-
-quickScrollShow.addEventListener('click', ()=>{
-    quickScrolls.classList.toggle('show');
-    categorySwitcherContainer.classList.toggle('show');
-})
-
+//Quick scrolls implementation
 function scrollToTop() {        
     setTimeout(function () {
         window.scrollTo({
@@ -164,7 +160,23 @@ function scrollToBottom() {
     }, 100);
 }
 
-
+removeScrolls.addEventListener('click', ()=>{
+    quickScroll.style.display = "none";
+    categorySwitcherContainer.classList.remove('show')
+ })
+ 
+ toTop.addEventListener('click', ()=>{
+    scrollToTop()
+ })
+ 
+ toBottom.addEventListener('click', ()=>{
+    scrollToBottom()
+ })
+ 
+ quickScrollShow.addEventListener('click', ()=>{
+     quickScrolls.classList.toggle('show');
+     categorySwitcherContainer.classList.toggle('show');
+ })
 
 var circle = document.getElementById("circle");
 var length = circle.getTotalLength();
@@ -186,23 +198,64 @@ function scrollfunction() {
 }
 
 
-function pageBottom () {
-    const onscroll = () => {
-      quickScrolls.classList.remove('show');
-      categorySwitcherContainer.classList.remove('show')
-      const scrolledTo = window.scrollY + window.innerHeight;
-      const threshold = 0;
-      const isReachBottom = document.body.scrollHeight - threshold <= scrolledTo;
-      const isReachTop = window.scrollY === 0;
-      if (isReachBottom || isReachTop){
+const onscroll = () => {
+    quickScrolls.classList.remove('show');
+    categorySwitcherContainer.classList.remove('show')
+    const scrolledTo = window.scrollY + window.innerHeight;
+    const threshold = 0;
+    const isReachBottom = document.body.scrollHeight - threshold <= scrolledTo;
+    const isReachTop = window.scrollY === 0;
+    if (isReachBottom || isReachTop){
         quickScroll.style.display = "flex"
-      }
-      scrollfunction()
-    };
+    }
+    scrollfunction()
+};
       
-      window.addEventListener("scroll", onscroll);    
-  }
- 
-pageBottom();
+window.addEventListener("scroll", tasteyThrottler(function(e){
+    onscroll()
+    controlActiveSwitcher(window.scrollY,menuHeadersPosition)
+}))   
+
+let menuHeadersPosition = []
+let index;
+
+const controlActiveSwitcher = (ordinate,arr) => {
+    index = 0;
+    for (const item of arr) {
+        if((ordinate) >= (item + tasteyOffSetTop + window.innerHeight)) {
+            index ++
+        }
+    }
+    markSwitcher(index)
 }
-pager()
+
+window.addEventListener('resize', () => {
+    menuHeadersPosition.splice(0,menuHeadersPosition.length)
+    menuHeadersPosition.length = 0
+    getHeaderPositions(menuHeadersPosition)
+})
+
+const scrollContentTo = (ordinate) => {
+    window.scrollTo(0,ordinate)
+}
+
+const getHeaderPositions = (arr) => {
+menuHeaders.forEach(menuHeader => {
+    arr.push(Math.round((menuHeader.getBoundingClientRect().top + window.scrollY) - tasteyOffSetTop))
+})
+}
+getHeaderPositions(menuHeadersPosition)
+
+let scrollPosition;
+switchers.forEach((switcher,i) => {
+    switcher.addEventListener('click', () => {
+        markSwitcher(i)
+        scrollPosition = menuHeadersPosition[i]
+        scrollContentTo(scrollPosition)
+    })
+})
+
+const markSwitcher = (id) => {
+    switchers.forEach(switcher => switcher.classList.remove("active"))
+    switchers[id].classList.add("active")
+}
