@@ -11,23 +11,8 @@ const quickScrolls = document.getElementById("quick-scrolls");
 const categorySwitcherContainer = document.querySelector("aside.category-switcher-container");
 const switchers = document.querySelectorAll(".switcher")
 const menuHeaders = document.querySelectorAll(".tastey-menu-title-wrapper h1")
+const tastey = document.querySelector(".tastey")
 
-const tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y;
-
-const options = {
-    root: null,
-    rootMargin: '0px',
-    threshold: (() => {
-        let threshold = []
-        let step = 5
-        for(let i = 1.0; i <= step; i++) {
-            let ratio = i/step
-            threshold.push(ratio)
-        }
-        threshold.push(0)
-        return threshold;
-    })(),
-}
 
 
 //Some utility functions for general use
@@ -61,12 +46,35 @@ const tasteyThrottler = (mainFunction,delay=10) => {
     }
 }
 
-
+//the options object for the intersection observer api
+const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: (() => {
+        let threshold = []
+        let step = 5
+        for(let i = 1.0; i <= step; i++) {
+            let ratio = i/step
+            threshold.push(ratio)
+        }
+        threshold.push(0)
+        return threshold;
+    })(),
+}
+//using the intersection observer to turn the lights off/on
 const tasteyObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        
+        if(entry.isIntersecting) {
+            document.body.style.setProperty("--global-light-width", "35rem")
+        } else if (!entry.target.classList.contains("tastey")) {
+            document.body.style.setProperty("--global-light-width", "0")
+        }
     })
 },options)
+menuHeaders.forEach(worthy => {
+    tasteyObserver.observe(worthy)
+})
+tasteyObserver.observe(tastey)
 
 let starIntersecting = true;
 let starInterval
@@ -118,7 +126,6 @@ document.getElementsByTagName("main")[0].onpointermove = e => {
     }
 }
 
-const tastey = document.querySelector(".tastey")
 tastey.addEventListener("click", () => {
     let active = getComputedStyle(tastey).getPropertyValue("--global-light-width") == "140rem" ? true : false
     if(active) {
@@ -213,7 +220,9 @@ const onscroll = () => {
     }
     scrollfunction()
 };
-      
+
+const tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y;
+
 window.addEventListener("scroll", tasteyThrottler(function(e){
     onscroll()
     controlActiveSwitcher(window.scrollY,menuHeadersPosition)
