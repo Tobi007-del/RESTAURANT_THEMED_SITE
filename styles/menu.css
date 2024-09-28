@@ -661,11 +661,11 @@ main h3 {
     border-color: var(--tastey-brand-light-accent-color) transparent transparent transparent;
 }
 
-.tastey-meal.liked .like-tooltip, .tastey-meal:not(.liked) .unlike-tooltip {
+.tastey-meal[data-like="true"] .like-tooltip, .tastey-meal:not([data-like="true"]) .unlike-tooltip {
     display: none;
 }
 
-.tastey-meal:not(.liked) .like-tooltip, .tastey-meal.liked .unlike-tooltip {
+.tastey-meal:not([data-like="true"]) .like-tooltip, .tastey-meal[data-like="true"] .unlike-tooltip {
     display: inline-block;
 }
 
