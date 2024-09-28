@@ -12,6 +12,9 @@
     --current-theme-accent-color: rgba(255, 255, 255, 0.75);
     --current-theme-inverse-color: black;
     --current-theme-inverse-accent-color: rgba(0, 0, 0, 0.75);
+    --global-light-width: 35rem;
+    --global-mouse-x: 50%;
+    --global-mouse-y: 14rem;
 }
 
 html {
@@ -75,9 +78,6 @@ html {
 }
 
 body {
-    --global-light-width: 35rem;
-    --global-mouse-x: 50%;
-    --global-mouse-y: 14rem;
     width: 100%;
     margin: 0;
     background: url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center 6rem, rgb(15, 15, 15);
@@ -447,7 +447,6 @@ aside:hover .toggler div p, aside:hover .switcher div p, aside:focus-within .tog
 main {
     position: relative;
     width: 100%;
-    /* touch-action: none; */
 }
 
 main p, main h1, main h3 {
@@ -467,7 +466,7 @@ main h1 {
     position: relative;
     display: flex;
     align-items: center;
-    padding: 5.75rem 0 5.75rem 0; 
+    padding: 1.5rem 0 1.5rem 0; 
 }
 
 .tastey-menu-title-wrapper::after, .tastey-menu-title-wrapper::before {
@@ -476,7 +475,7 @@ main h1 {
     height: 100%;
     width: 40%;
     top: 0;
-    background-size: 30%!important;
+    background-size: 25%!important;
 }
 
 .tastey-menu-title-wrapper::after {
@@ -488,36 +487,36 @@ main h1 {
 }
 
 .tastey-menu-title-wrapper.starters::after {
-    background: url('../assets/tastey-meal-icons/fast-food-svgrepo-com.svg') no-repeat center center;
+    background: url('../assets/tastey-meal-icons/fast-food-svgrepo-com.svg') no-repeat center;
 } 
 
 .tastey-menu-title-wrapper.starters::before {
-    background: url('../assets/tastey-meal-icons/fast-food-2-svgrepo-com.svg') no-repeat center center;
+    background: url('../assets/tastey-meal-icons/fast-food-2-svgrepo-com.svg') no-repeat center;
 }
 
 .tastey-menu-title-wrapper.main-meals::after {
-    background: url('../assets/tastey-meal-icons/food-dish-svgrepo-com.svg') no-repeat center center;
+    background: url('../assets/tastey-meal-icons/food-dish-svgrepo-com.svg') no-repeat center;
 }
 
 .tastey-menu-title-wrapper.main-meals::before {
-    background: url('../assets/tastey-meal-icons/food-dish-2-svgrepo-com.svg') no-repeat center center;
+    background: url('../assets/tastey-meal-icons/food-dish-2-svgrepo-com.svg') no-repeat center;
 }
 
 .tastey-menu-title-wrapper.drinks::after {
-    background: url('../assets/tastey-meal-icons/glass-drinks-svgrepo-com.svg') no-repeat center center;
+    background: url('../assets/tastey-meal-icons/glass-drinks-svgrepo-com.svg') no-repeat center;
 }
 
 .tastey-menu-title-wrapper.drinks::before {
-    background: url('../assets/tastey-meal-icons/glass-drinks-2-svgrepo-com.svg') no-repeat center center;
+    background: url('../assets/tastey-meal-icons/glass-drinks-2-svgrepo-com.svg') no-repeat center;
 }
 
 
 .tastey-menu-title-wrapper.desserts::after {
-    background: url('../assets/tastey-meal-icons/ice-cream-svgrepo-com.svg') no-repeat center center;
+    background: url('../assets/tastey-meal-icons/ice-cream-svgrepo-com.svg') no-repeat center;
 }
 
 .tastey-menu-title-wrapper.desserts::before {
-    background: url('../assets/tastey-meal-icons/ice-cream-2-svgrepo-com.svg') no-repeat center center;
+    background: url('../assets/tastey-meal-icons/ice-cream-2-svgrepo-com.svg') no-repeat center;
 }
 
 .tastey-menu-title-wrapper h1 {
@@ -525,26 +524,6 @@ main h1 {
     position: relative;
     width: fit-content;
 }
-
-/* .tastey-menu-title-wrapper h1::after, .tastey-menu-title-wrapper h1::before {
-    display: none;
-    content: '';
-    position: absolute;
-    background-color: greenyellow;
-    border-radius: 1000px;
-    height: .15rem;
-    width: 100%;
-}
-
-.tastey-menu-title-wrapper h1::after {
-    top: 0%;
-    left: 0%;
-}
-
-.tastey-menu-title-wrapper h1::before {
-    top: 85%;
-    right: 0%;
-} */
 
 main h3 {
     font-size: 1.25rem;
@@ -595,6 +574,7 @@ main h3 {
 .menu-sections {
     width: 100%;
     padding-inline: 4.5rem;
+    margin: 7.5rem 0 7.5rem 0;
 }
 
 .tastey-menu {
@@ -689,7 +669,6 @@ main h3 {
     display: inline-block;
 }
 
-
 .tastey-meal-image:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
@@ -778,10 +757,6 @@ main h3 {
         transparent 40%
     );
     z-index: 1;
-}
-
-.menu-sections {
-    margin: 5rem 0 5rem 0;
 }
 
 .main-menu-title-wrapper {

@@ -12,7 +12,7 @@ const categorySwitcherContainer = document.querySelector("aside.category-switche
 const switchers = document.querySelectorAll(".switcher")
 const menuHeaders = document.querySelectorAll(".tastey-menu-title-wrapper h1")
 
-const tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y - 5;
+const tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y;
 
 const options = {
     root: null,
@@ -118,13 +118,13 @@ document.getElementsByTagName("main")[0].onpointermove = e => {
     }
 }
 
-let clickToggler
 document.querySelector(".tastey").addEventListener("click", () => {
-    clickToggler++
-    if(clickToggler == 1) {
-        document.body.style.setProperty("--global-light-width", "140rem")
-    } else {
+    let active = getComputedStyle("tastey").getPropertyValue("--global-light-width") == "140rem" ? true : false
+    console.log(active)
+    if(active) {
         document.body.style.setProperty("--global-light-width", "35rem")
+    } else {
+        document.body.style.setProperty("--global-light-width", "140rem")
         clickToggler = 0
     }
 })
