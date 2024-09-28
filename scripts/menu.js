@@ -118,9 +118,9 @@ document.getElementsByTagName("main")[0].onpointermove = e => {
     }
 }
 
-document.querySelector(".tastey").addEventListener("click", () => {
-    let active = getComputedStyle("tastey").getPropertyValue("--global-light-width") == "140rem" ? true : false
-    console.log(active)
+const tastey = document.querySelector(".tastey")
+tastey.addEventListener("click", () => {
+    let active = getComputedStyle(tastey).getPropertyValue("--global-light-width") == "140rem" ? true : false
     if(active) {
         document.body.style.setProperty("--global-light-width", "35rem")
     } else {
