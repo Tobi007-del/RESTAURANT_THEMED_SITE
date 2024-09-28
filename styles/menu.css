@@ -526,7 +526,8 @@ main h1 {
     width: fit-content;
 }
 
-.tastey-menu-title-wrapper h1::after, .tastey-menu-title-wrapper h1::before {
+/* .tastey-menu-title-wrapper h1::after, .tastey-menu-title-wrapper h1::before {
+    display: none;
     content: '';
     position: absolute;
     background-color: greenyellow;
@@ -543,7 +544,7 @@ main h1 {
 .tastey-menu-title-wrapper h1::before {
     top: 85%;
     right: 0%;
-}
+} */
 
 main h3 {
     font-size: 1.25rem;
