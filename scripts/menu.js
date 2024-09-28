@@ -12,7 +12,7 @@ const categorySwitcherContainer = document.querySelector("aside.category-switche
 const switchers = document.querySelectorAll(".switcher")
 const menuHeaders = document.querySelectorAll(".tastey-menu-title-wrapper h1")
 
-const tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y - 6;
+const tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y - 5;
 
 const options = {
     root: null,
@@ -47,7 +47,7 @@ const tasteyDebouncer = (mainFunction,delay=150,immediate=false) => {
     }
 }
 
-const tasteyThrottler = (mainFunction,delay=100) => {
+const tasteyThrottler = (mainFunction,delay=10) => {
     let runTimerFlag
 
     return function(...args) {
@@ -107,7 +107,7 @@ function starSetting(starIntersecting) {
 //calling star setting at page startup
 starSetting(starIntersecting)
 
-document.getElementsByTagName("main")[0].onmousemove = e => {
+document.getElementsByTagName("main")[0].onpointermove = e => {
     for(const card of document.getElementsByClassName("tastey-meal")){
         const rect = card.getBoundingClientRect(),
              x = e.clientX - rect.left,
@@ -131,7 +131,7 @@ document.querySelector(".tastey").addEventListener("click", () => {
 
 
 const handleLikes = (i) => {
-    tasteyMeals[i].classList.toggle('liked',!tasteyMeals[i].classList.contains("liked"))
+    tasteyMeals[i].dataset.like = tasteyMeals[i].dataset.like === "false" ? "true" : "false"
     likeIconWrappers[i].title = tasteyMeals[i].classList.contains("liked") ? "" : "Tap to like!"
 }
 
@@ -225,7 +225,7 @@ let index;
 const controlActiveSwitcher = (ordinate,arr) => {
     index = -1;
     for (const item of arr) {
-        if(Math.floor(ordinate) >= Math.floor(item - 150)) {
+        if(Math.floor(ordinate) >= Math.floor(item - (window.innerHeight/4))) {
             index ++
         }
     }

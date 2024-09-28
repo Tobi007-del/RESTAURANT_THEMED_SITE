@@ -1,17 +1,112 @@
-[
-    [
-        
-    ],
-    [
-
-    ],
-    [
-
-    ],
-    [
-
-    ],
-    [
-
+{
+    "currency": "NGN",
+    "tasteyMeals": [
+        {"starters": [
+            {
+                "id": 101,
+                "label": "",
+                "description": "",
+                "price": {"value": 0, "discount": 0},
+                "like": false,
+                "picSrc": "assets/tastey-starters-images/"
+            },
+            {
+                  "id": 102,
+                "label": "",
+                "description": "",
+                "price": {"value": 0, "discount": 0},
+                "like": false,
+                "picSrc": "assets/tastey-starters-images/"
+            },
+            {
+                  "id": 103,
+                "label": "",
+                "description": "",
+                "price": {"value": 0, "discount": 0},
+                "like": false,
+                "picSrc": "assets/tastey-starters-images/"
+            },
+            {
+                  "id": 104,
+                "label": "",
+                "description": "",
+                "price": {"value": 0, "discount": 0},
+                "like": false,
+                "picSrc": "assets/tastey-starters-images/"
+            },
+            {
+                  "id": 105,
+                "label": "",
+                "description": "",
+                "price": {"value": 0, "discount": 0},
+                "like": false,
+                "picSrc": "assets/tastey-starters-images/"
+            },
+            {
+                  "id": 106,
+                "label": "",
+                "description": "",
+                "price": {"value": 0, "discount": 0},
+                "like": false,
+                "picSrc": "assets/tastey-starters-images/"
+            },
+            {
+                  "id": 107,
+                "label": "",
+                "description": "",
+                "price": {"value": 0, "discount": 0},
+                "like": false,
+                "picSrc": "assets/tastey-starters-images/"
+            },
+            {
+                  "id": 108,
+                "label": "",
+                "description": "",
+                "price": {"value": 0, "discount": 0},
+                "like": false,
+                "picSrc": "assets/tastey-starters-images/"
+            },
+            {
+                  "id": 109,
+                "label": "",
+                "description": "",
+                "price": {"value": 0, "discount": 0},
+                "like": false,
+                "picSrc": "assets/tastey-starters-images/"
+            },
+            {
+                  "id": 110,
+                "label": "",
+                "description": "",
+                "price": {"value": 0, "discount": 0},
+                "like": false,
+                "picSrc": "assets/tastey-starters-images/"
+            },
+            {
+                  "id": 111,
+                "label": "",
+                "description": "",
+                "price": {"value": 0, "discount": 0},
+                "like": false,
+                "picSrc": "assets/tastey-starters-images/"
+            },
+            {
+                  "id": 112,
+                "label": "",
+                "description": "",
+                "price": {"value": 0, "discount": 0},
+                "like": false,
+                "picSrc": "assets/tastey-starters-images/"
+            }
+        ]},
+        {"mainMeals": [
+    
+        ]},
+        {"drinks": [
+    
+        ]},
+        {"desserts": [
+    
+        ]}
     ]
-]
+}

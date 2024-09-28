@@ -322,7 +322,7 @@ aside {
 }
 
 aside.menu-cart-toggler-container {
-    top: 15vh;
+    bottom: 10vh;
     height: 75vh;
     left: .5rem;
 }
@@ -330,7 +330,7 @@ aside.menu-cart-toggler-container {
 aside.category-switcher-container { 
     display: flex;
     right: .5rem;
-    bottom: calc(7.5vh + 6em);
+    bottom: 25vh;
     height: 50vh;
     opacity: 1;
     transition: height 300ms ease, opacity 250ms ease;
@@ -393,14 +393,7 @@ aside:hover .toggler div p, aside:hover .switcher div p, aside:focus-within .tog
     align-items: center;
     overflow: hidden;
     position: relative;
-}
-
-.toggler {
-    height: 50%;
-}
-
-.switcher {
-    height: 25%;
+    flex: 1 1 auto;
 }
 
 .toggler:hover, .switcher:hover {
@@ -454,6 +447,7 @@ aside:hover .toggler div p, aside:hover .switcher div p, aside:focus-within .tog
 main {
     position: relative;
     width: 100%;
+    /* touch-action: none; */
 }
 
 main p, main h1, main h3 {
@@ -471,6 +465,9 @@ main h1 {
     --local-mouse-x: 50%;
     --local-mouse-y: 50%;
     position: relative;
+    display: flex;
+    align-items: center;
+    padding: 5.75rem 0 5.75rem 0; 
 }
 
 .tastey-menu-title-wrapper::after, .tastey-menu-title-wrapper::before {
@@ -524,9 +521,9 @@ main h1 {
 }
 
 .tastey-menu-title-wrapper h1 {
+    font-size: 1.85rem;
     position: relative;
     width: fit-content;
-    margin: 5rem 0 6.5rem 0;
 }
 
 .tastey-menu-title-wrapper h1::after, .tastey-menu-title-wrapper h1::before {
@@ -535,16 +532,17 @@ main h1 {
     background-color: greenyellow;
     border-radius: 1000px;
     height: .15rem;
-    width: 5vw;
-    top: 85%;
+    width: 100%;
 }
 
 .tastey-menu-title-wrapper h1::after {
-    left: 100%;
+    top: 0%;
+    left: 0%;
 }
 
 .tastey-menu-title-wrapper h1::before {
-    right: 100%;
+    top: 85%;
+    right: 0%;
 }
 
 main h3 {
@@ -638,7 +636,7 @@ main h3 {
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
-    background: url('../assets/tastey-meal-images/tastey_meal_five.jpg') center center;
+    background: url('../assets/tastey-meal-images/tastey_meal_one.jpg') center center;
 }
 
 .tastey-meal-image::after {
@@ -730,19 +728,19 @@ main h3 {
     cursor: pointer;
 }
 
-.tastey-meal:not(.liked) .liked-heart-icon {
+.tastey-meal[data-like="false"] .liked-heart-icon {
     display: none;
 }
 
-.tastey-meal:not(.liked) .unliked-heart-icon {
+.tastey-meal[data-like="false"] .unliked-heart-icon {
     display: block;
 }
 
-.tastey-meal.liked .liked-heart-icon {
+.tastey-meal[data-like="true"] .liked-heart-icon {
     display: block;
 }
 
-.tastey-meal.liked .unliked-heart-icon {
+.tastey-meal[data-like="true"] .unliked-heart-icon {
     display: none;
 }
 
@@ -902,13 +900,30 @@ main h3 {
     width: 50%;
     padding-inline-start: 1rem;
     color: greenyellow;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     display: flex;
     align-items: center;
     justify-content: start;
 }
 
-#scroller-circle{
+.product-price:not([data-discount="0"])::after {
+    content: '-'attr(data-discount) '%';
+    position: relative;
+    top: -.5rem;
+    left: .25rem;
+    font-size: .625rem;
+    color: var(--current-theme-color);
+    background-color: rgba(255, 0, 0, 0.75);
+    min-width: 1.4rem;
+    height: 1.4rem;
+    padding-inline: .075rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#scroller-circle {
   position: absolute;
   border-radius: 50%;
   height: 3rem;
@@ -1259,9 +1274,6 @@ main h3 {
     }
     .menu-sections {
         padding: 0;
-    }
-    .tastey-menu-title-wrapper h1::after, .tastey-menu-title-wrapper h1::before {
-        display: none;
     }
     #main-cart {
         display: flex;
