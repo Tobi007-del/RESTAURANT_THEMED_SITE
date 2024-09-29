@@ -12,7 +12,7 @@
     --current-theme-accent-color: rgba(255, 255, 255, 0.75);
     --current-theme-inverse-color: black;
     --current-theme-inverse-accent-color: rgba(0, 0, 0, 0.75);
-    --global-light-width: 35rem;
+    --global-light-width: 35rem!important;
     --global-mouse-x: 50%;
     --global-mouse-y: 14rem;
 }
@@ -81,7 +81,7 @@ body {
     width: 100%;
     margin: 0;
     background: url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center 6rem, rgb(15, 15, 15);
-    background-size: 300px;
+    background-size: 18.75rem;
     background-attachment: fixed;
     background-repeat: no-repeat;
     overflow-x: hidden;
@@ -617,7 +617,8 @@ main h3 {
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
-    background: url('../assets/tastey-meal-images/tastey_meal_one.jpg') center center;
+    background: url('../assets/tastey-starters-images/tastey-samosa.png') no-repeat center center;
+    background-size: contain;
 }
 
 .tastey-meal-image::after {
@@ -625,10 +626,10 @@ main h3 {
     position: absolute;
     top: 0;
     left: 0;
-    width: 15%;
-    height: 15%;
+    width: 17.5%;
+    height: 17.5%;
     margin: .5rem;
-    background: url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center center;
+    background: radial-gradient(4rem circle at center, rgba(255,255,255,0.45), transparent 40%), url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center center;
     background-size: cover;
     pointer-events: none;
 }

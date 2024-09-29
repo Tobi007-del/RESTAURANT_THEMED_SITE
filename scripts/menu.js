@@ -262,7 +262,7 @@ getHeaderPositions(menuHeadersPosition)
 
 let scrollPosition;
 switchers.forEach((switcher,i) => {
-    switcher.addEventListener('click', () => {
+    switcher.addEventListener('click', () => { 
         scrollPosition = menuHeadersPosition[i]
         scrollContentTo(scrollPosition)
     })
