@@ -594,12 +594,34 @@ main h3 {
     background-color: rgba(255, 255, 255, 0.15);
 }
 
+.menu-sections:hover .tastey-meal::before, main:hover .tastey-meal::after {
+    opacity: 1;
+}
+
+.tastey-meal::before {
+    background: radial-gradient(
+        450px circle at var(--mouse-x) var(--mouse-y),
+        rgba(255,255,255,0.35),
+        transparent 40%
+    );
+    z-index: 3;
+}
+
+.tastey-meal::after {
+    background: radial-gradient(
+        350px circle at var(--mouse-x) var(--mouse-y),
+        rgba(255,255,255,1),
+        transparent 40%
+    );
+    z-index: 1;
+}
+
 .tastey-meal-content {
-    background-color: rgb(30, 30, 30);
+    background-color: rgb(25, 25, 25);
     border-radius: inherit;
     position: absolute;
     padding: .5rem;
-    inset: .05rem;
+    inset: .075rem;
     z-index: 2;
     display: flex;
     flex-direction: column;
@@ -617,8 +639,8 @@ main h3 {
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
-    background: url('../assets/tastey-starters-images/tastey-samosa.png') no-repeat center center;
-    background-size: contain;
+    background: url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center center;
+    background-size: cover;
 }
 
 .tastey-meal-image::after {
@@ -736,28 +758,6 @@ main h3 {
     opacity: 0;
     transition: opacity 250ms ease;
     pointer-events: none;
-}
-
-.menu-sections:hover .tastey-meal::before, main:hover .tastey-meal::after {
-    opacity: 1;
-}
-
-.tastey-meal::before {
-    background: radial-gradient(
-        450px circle at var(--mouse-x) var(--mouse-y),
-        rgba(255,255,255,0.35),
-        transparent 40%
-    );
-    z-index: 3;
-}
-
-.tastey-meal::after {
-    background: radial-gradient(
-        400px circle at var(--mouse-x) var(--mouse-y),
-        rgba(255,255,255,0.95),
-        transparent 40%
-    );
-    z-index: 1;
 }
 
 .main-menu-title-wrapper {
@@ -1255,6 +1255,26 @@ main h3 {
     #main-cart {
         display: flex;
         align-items: center;
+    }
+    .tastey-meal {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+    .tastey-meal::before {
+        background: radial-gradient(
+            400px circle at 8.5rem 5rem,
+            rgba(255,255,255,0.35),
+            transparent 40%
+        )!important;
+    }
+    .menu-sections:hover .tastey-meal::before, main:hover .tastey-meal::after {
+        opacity: 0;
+    }
+    .tastey-meal:hover::before {
+        opacity: 1!important;
+    }
+    .tastey-meal:hover::after {
+       background: rgba(255, 255, 255, 0.85)!important;
+       opacity: 1!important;
     }
     #quick-scroll-show svg, #to-top svg, #to-bottom svg {
         fill: var(--current-theme-inverse-color);
