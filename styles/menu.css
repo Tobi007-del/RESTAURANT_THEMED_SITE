@@ -598,6 +598,19 @@ main h3 {
     opacity: 1;
 }
 
+.tastey-meal::after, .tastey-meal::before {
+    border-radius: inherit;
+    content: '';
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 250ms ease;
+    pointer-events: none;
+}
+
 .tastey-meal::before {
     background: radial-gradient(
         450px circle at var(--mouse-x) var(--mouse-y),
@@ -621,7 +634,7 @@ main h3 {
     border-radius: inherit;
     position: absolute;
     padding: .5rem;
-    inset: .075rem;
+    inset: .05rem;
     z-index: 2;
     display: flex;
     flex-direction: column;
@@ -745,19 +758,6 @@ main h3 {
 
 .tastey-meal[data-like="true"] .unliked-heart-icon {
     display: none;
-}
-
-.tastey-meal::after, .tastey-meal::before {
-    border-radius: inherit;
-    content: '';
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    position: absolute;
-    opacity: 0;
-    transition: opacity 250ms ease;
-    pointer-events: none;
 }
 
 .main-menu-title-wrapper {
