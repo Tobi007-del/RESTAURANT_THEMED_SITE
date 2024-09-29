@@ -1256,9 +1256,6 @@ main h3 {
         display: flex;
         align-items: center;
     }
-    .tastey-meal {
-        background-color: rgba(255, 255, 255, 0.5);
-    }
     .tastey-meal::before {
         background: radial-gradient(
             400px circle at 8.5rem 5rem,
@@ -1273,7 +1270,7 @@ main h3 {
         opacity: 1!important;
     }
     .tastey-meal:hover::after {
-       background: rgba(255, 255, 255, 0.85)!important;
+       background: rgba(255, 255, 255, 0.5)!important;
        opacity: 1!important;
     }
     #quick-scroll-show svg, #to-top svg, #to-bottom svg {
