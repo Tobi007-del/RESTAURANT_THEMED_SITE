@@ -54,7 +54,7 @@
                   "id": 1007,
                 "label": "Gizdodo",
                 "description": "This is a combination of fried plantain and fried gizzard sauteed in a tomato, pepper sauce, a party favorite",
-                "price": {"currentValue": 2500, "discount": null},
+                "price": {"currentValue": 2500, "discount": 8},
                 "like": null,
                 "picSrc": "assets/tastey-starters-images/gizdodo.jpg"
             },
@@ -62,7 +62,7 @@
                   "id": 1008,
                 "label": "Peppered snail",
                 "description": "Cooked and stirfried snail in a pepper sauce with cut onion slices,a nigerian special for any tribe",
-                "price": {"currentValue": 3200, "discount": null},
+                "price": {"currentValue": 3200, "discount": 7},
                 "like": null,
                 "picSrc": "assets/tastey-starters-images/peppered-snail.jpg"
             },
@@ -78,7 +78,7 @@
                   "id": 1010,
                 "label": "Beef kebab",
                 "description": "Another famous appetizer that is boiled and stirfried in pepper sauce with vegetable varietes served on skewers",
-                "price": {"currentValue": 1100, "discount": null},
+                "price": {"currentValue": 1100, "discount": 6},
                 "like": null,
                 "picSrc": "assets/tastey-starters-images/beef-kebab.jpg"
             },
@@ -95,7 +95,7 @@
                 "label": "Isi ewu",
                 "description": "Isi ewu is goat head cut into bite-sized chunks mixed with a spicy creamy palm oil sauce similar to nkwobi",
                 "price": {"currentValue": 8000, "discount": 19},
-                "like": null,
+                "like": 10,
                 "picSrc": "assets/tastey-starters-images/isi-ewu.jpg"
             }
         ]},
@@ -120,7 +120,7 @@
                   "id": 2003,
                 "label": "Pounded yam and egusi",
                 "description": "A nigerian special predominant among the Yorubas, made from melon seed grounded with a mix of leafy vegetables served with pounded yam",
-                "price": {"currentValue": 4500, "discount": 0},
+                "price": {"currentValue": 4500, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/pounded-yam-and-egusi.jpg"
             },
@@ -128,7 +128,7 @@
                   "id": 2004,
                 "label": "Amala and ewedu with stew",
                 "description": "A yoruba special consisting of plantain flour called amala with a soup called ewedu served alongside stew with protein",
-                "price": {"currentValue": 5000, "discount": 0},
+                "price": {"currentValue": 5000, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/amala-and-ewedu-with-stew.jpg"
             },
@@ -136,7 +136,7 @@
                   "id": 2005,
                 "label": "Eba and Oha Soup",
                 "description": "An rich and nutricious delight that is particular to the Igbos, made with enough protein served alongside eba",
-                "price": {"currentValue": 5000, "discount": 0},
+                "price": {"currentValue": 5000, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/eba-and-oha-soup.jpg"
             },
@@ -144,7 +144,7 @@
                   "id": 2006,
                 "label": "Beans and dodo",
                 "description": "This nigerian combo is quite predominant of recent, it consists of spiced slow cooked beans served alongisde fried planatain alias dodo",
-                "price": {"currentValue": 3000, "discount": 0},
+                "price": {"currentValue": 3000, "discount": 15},
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/beans-and-dodo.jpg"
             },
@@ -168,7 +168,7 @@
                   "id": 2009,
                 "label": "Beans, stew and dodo",
                 "description": "Just like it's beans and dodo counterpart, this variant offers a slightly different feeling as it is served along with stew",
-                "price": {"currentValue": 2200, "discount": 0},
+                "price": {"currentValue": 2200, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/beans-stew-and-dodo.jpg"
             },
@@ -176,7 +176,7 @@
                   "id": 2010,
                 "label": "Eba and efo riro",
                 "description": "Efo riro, a spinach stew made with chopped spinach stirred into a pepper stew with protein included, served alongside eba",
-                "price": {"currentValue": 5100, "discount": 0},
+                "price": {"currentValue": 5100, "discount": 7},
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/eba-and-efo-riro.jpg"
             },
@@ -184,7 +184,7 @@
                   "id": 2011,
                 "label": "Pounded yam and ogbono",
                 "description": "Ogbono soup is a local special soup made with ground dry ogbono seeds that is tastey and nutrient-dense served with pouned yam",
-                "price": {"currentValue": 5300, "discount": 0},
+                "price": {"currentValue": 5300, "discount": 7},
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/pounded-yam-and-ogbono.jpg"
             },
@@ -192,7 +192,7 @@
                   "id": 2012,
                 "label": "Banga soup and starch",
                 "description": "A rich and healthy palm nut soup that is popular and known for it's sweet spicy nature served with starch",
-                "price": {"currentValue": 5600, "discount": 0},
+                "price": {"currentValue": 6000, "discount": 6},
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/banga-soup-and-starch.jpg"
             }
@@ -210,7 +210,7 @@
                   "id": 3002,
                 "label": "Kunu",
                 "description": "A nutricious, non-alcholic beverage made from grains such as millet, sorghum or maize usually flavored with spices and sweetened, served chilled",
-                "price": {"currentValue": 900, "discount": 0},
+                "price": {"currentValue": 900, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-drinks-images/kunu.jpg"
             },
@@ -226,7 +226,7 @@
                   "id": 3004,
                 "label": "Coffee",
                 "description": "A beverage drink growing popularity often known for it's energizing purposes and unique taste",
-                "price": {"currentValue": 2500, "discount": 0},
+                "price": {"currentValue": 2500, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-drinks-images/cofee.jpg"
             },
@@ -234,7 +234,7 @@
                   "id": 3005,
                 "label": "Cocunut water",
                 "description": "A refershing and hydrating drink extracted directly from coconuts, it's a popular drink and can be consumed during the hot weather",
-                "price": {"currentValue": 0, "discount": 0},
+                "price": {"currentValue": 1000, "discount": 6},
                 "like": null,
                 "picSrc": "assets/tastey-drinks-images/cocunut-water.jpg"
             },
@@ -258,7 +258,7 @@
                   "id": 3008,
                 "label": "Fanta",
                 "description": "A fizzy delight like it's sibling coke that is loved for it's orange color and great taste served chilled with ice cubes",
-                "price": {"currentValue": 9000, "discount": 10},
+                "price": {"currentValue": 900, "discount": 10},
                 "like": null,
                 "picSrc": "assets/tastey-drinks-images/fanta.jpg"
             },
@@ -290,7 +290,7 @@
                   "id": 3012,
                 "label": "Apple juice",
                 "description": "A beautiful tastey drink made from blended apples that has high nutritional benefits and weight loss potential served chilled",
-                "price": {"currentValue": 0, "discount": 0},
+                "price": {"currentValue": 2100, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-drinks-images/apple-juice.jpg"
             }
@@ -300,7 +300,7 @@
                 "id": 4001,
                 "label": "Cocunut Candy",
                 "description": "Made from coconut fruit thinly grated and fried in balls then caramel coated to make it crunchy, chewable and candy-like",
-                "price": {"currentValue": 500, "discount": 0},
+                "price": {"currentValue": 500, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-meals-desserts-images/cocunut-candy.jpg"
             },
@@ -316,7 +316,7 @@
                   "id": 4003,
                 "label": "Akara",
                 "description": "Beans cake mainly known for it's alias made from bean flour and spiced to taste with onions, pepper, crayfish served hot and crispy",
-                "price": {"currentValue": 1000, "discount": 0},
+                "price": {"currentValue": 1000, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-meals-desserts-images/akara.jpg"
             },
@@ -324,7 +324,7 @@
                   "id": 4004,
                 "label": "Donkwa",
                 "description": "A hausa special prepared from groundnuts and cornmeal, spiced up with chili peppers mixed with water and oil and molded into shape",
-                "price": {"currentValue": 900, "discount": 0},
+                "price": {"currentValue": 900, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-meals-desserts-images/donkwa.jpg"
             },
@@ -332,7 +332,7 @@
                   "id": 4005,
                 "label": "Grilled corn",
                 "description": "Maize prepared by grilling served alongside pears and coconuts, a tasty combo that will make an amazing dessert",
-                "price": {"currentValue": 0, "discount": 0},
+                "price": {"currentValue": 750, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-meals-desserts-images/grilled-corn.jpg"
             },
@@ -340,7 +340,7 @@
                   "id": 4006,
                 "label": "Plantain chips",
                 "description": "They are made with ripe or unripe plantain sliced into thin fine discs before deep-frying to produce a crunch and tastey delight",
-                "price": {"currentValue": 2000, "discount": 0},
+                "price": {"currentValue": 2000, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-meals-desserts-images/plantain-chips.jpg"
             },
@@ -348,7 +348,7 @@
                   "id": 4007,
                 "label": "Egg rolls",
                 "description": "This savory dessert prepared by enveloping eggs in the dough before deep-frying in vegetable oil forming a crisply healthy snack",
-                "price": {"currentValue": 700, "discount": 0},
+                "price": {"currentValue": 700, "discount": 6},
                 "like": null,
                 "picSrc": "assets/tastey-meals-desserts-images/egg-rolls.jpg"
             },
@@ -356,7 +356,7 @@
                   "id": 4008,
                 "label": "Kuli kuli",
                 "description": "A hausa native special made with roasted groundnuts milled and spiced before deep-frying and it leaves quite a spicy aftertaste",
-                "price": {"currentValue": 1200, "discount": 0},
+                "price": {"currentValue": 1200, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-meals-desserts-images/kuli-kuli.jpg"
             },
@@ -372,7 +372,7 @@
                   "id": 4010,
                 "label": "Suya",
                 "description": "Nicely cut beef seasoned with a unique spice called Yaji before grilling in an open flame served with cabbage, tomatoes and onions",
-                "price": {"currentValue": 1000, "discount": 0},
+                "price": {"currentValue": 1000, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-meals-desserts-images/suya.jpg"
             },
@@ -388,7 +388,7 @@
                   "id": 4012,
                 "label": "Dates",
                 "description": "Packed with natural sugars, fiber and minerals, they are generally considered mouthwatering served ripe, soft and tastey",
-                "price": {"currentValue": 1000, "discount": 0},
+                "price": {"currentValue": 1000, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-meals-desserts-images/dates.jpg"
             }

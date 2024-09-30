@@ -1,11 +1,11 @@
 // TODO: build a cart class to handle all cart operations
 
 fetch('./tastey_meals.json')
-.then(res => {
-    if(!res.ok) {
-        throw new Error(`HTTP error!. Status: ${res.status}`)
+.then(response => {
+    if(!response.ok) {
+        throw new Error(`HTTP error!. Status: ${response.status}`)
     }
-    return res.json()
+    return response.json()
 })
 .then(data => {
     tasteyMenu(data)
@@ -92,7 +92,7 @@ function tasteyMenu(data){
     }
 
     const tasteyMeals = data.tasteyMeals
-    tasteyMeals.forEach(meal => {
+    tasteyMeals.forEach((meal,n) => {
         const product = Object.keys(meal)[0]
         const productName = product.charAt(0).toUpperCase() + product.slice(1)
         console.log(`%cBuilding ${productName} now...`,"color: green;")
@@ -134,7 +134,6 @@ function tasteyMenu(data){
         main.append(menuSection)
     })  
     document.body.insertBefore(main,document.getElementById("quick-scroll-wrapper"))
-    console.log(document.body)
 }
 
 
