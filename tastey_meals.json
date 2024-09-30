@@ -3,110 +3,395 @@
     "tasteyMeals": [
         {"starters": [
             {
-                "id": 101,
-                "label": "",
-                "description": "",
-                "price": {"value": 0, "discount": 0},
-                "like": false,
-                "picSrc": "assets/tastey-starters-images/"
+                "id": 1001,
+                "label": "Small Chops Combo",
+                "description": "A tastey party special tripartite to ease your appetite with a combo of spring rolls, samosa and chicken",
+                "price": {"currentValue": 30000, "discount": 23},
+                "like": null,
+                "picSrc": "assets/tastey-starters-images/small-chops.jpg"
             },
             {
-                  "id": 102,
-                "label": "",
-                "description": "",
-                "price": {"value": 0, "discount": 0},
-                "like": false,
-                "picSrc": "assets/tastey-starters-images/"
+                  "id": 1002,
+                "label": "Samosa",
+                "description": "The india originated food with quite a name, well seasoned minced chicken fried to golden brown served with pepper dip",
+                "price": {"currentValue": 1500, "discount": null},
+                "like": null,
+                "picSrc": "assets/tastey-starters-images/samosa.jpg"
             },
             {
-                  "id": 103,
-                "label": "",
-                "description": "",
-                "price": {"value": 0, "discount": 0},
-                "like": false,
-                "picSrc": "assets/tastey-starters-images/"
+                  "id": 1003,
+                "label": "Spring rolls",
+                "description": "A china discovered snack that is basically stirfired vegetables wrapped in a wafer-thin wrapper",
+                "price": {"currentValue": 1900, "discount": null},
+                "like": null,
+                "picSrc": "assets/tastey-starters-images/spring-roll.jpg"
             },
             {
-                  "id": 104,
-                "label": "",
-                "description": "",
-                "price": {"value": 0, "discount": 0},
-                "like": false,
-                "picSrc": "assets/tastey-starters-images/"
+                  "id": 1004,
+                "label": "Puff puffs",
+                "description": "Quite a popular appetizer/party essential, they are yeast-raised, soft, sweet fried dough balls",
+                "price": {"currentValue": 1500, "discount": null},
+                "like": null,
+                "picSrc": "assets/tastey-starters-images/puff-puff.jpg"
             },
             {
-                  "id": 105,
-                "label": "",
-                "description": "",
-                "price": {"value": 0, "discount": 0},
-                "like": false,
-                "picSrc": "assets/tastey-starters-images/"
+                  "id": 1005,
+                "label": "Catfish peppersoup",
+                "description": "A big hit in Nigeria, it is a light soup with special spices and seasonings, with enough protein based extras",
+                "price": {"currentValue": 2500, "discount": 15},
+                "like": null,
+                "picSrc": "assets/tastey-starters-images/pepper-soup.jpg"
             },
             {
-                  "id": 106,
-                "label": "",
-                "description": "",
-                "price": {"value": 0, "discount": 0},
-                "like": false,
-                "picSrc": "assets/tastey-starters-images/"
+                  "id": 1006,
+                "label": "Chin chin",
+                "description": "Fried dough where the dough is cut into small bits and shapes, a sweet and crunchy delight for anytime of the day",
+                "price": {"currentValue": 3000, "discount": null},
+                "like": null,
+                "picSrc": "assets/tastey-starters-images/chin-chin.jpg"
             },
             {
-                  "id": 107,
-                "label": "",
-                "description": "",
-                "price": {"value": 0, "discount": 0},
-                "like": false,
-                "picSrc": "assets/tastey-starters-images/"
+                  "id": 1007,
+                "label": "Gizdodo",
+                "description": "This is a combination of fried plantain and fried gizzard sauteed in a tomato, pepper sauce, a party favorite",
+                "price": {"currentValue": 2500, "discount": null},
+                "like": null,
+                "picSrc": "assets/tastey-starters-images/gizdodo.jpg"
             },
             {
-                  "id": 108,
-                "label": "",
-                "description": "",
-                "price": {"value": 0, "discount": 0},
-                "like": false,
-                "picSrc": "assets/tastey-starters-images/"
+                  "id": 1008,
+                "label": "Peppered snail",
+                "description": "Cooked and stirfried snail in a pepper sauce with cut onion slices,a nigerian special for any tribe",
+                "price": {"currentValue": 3200, "discount": null},
+                "like": null,
+                "picSrc": "assets/tastey-starters-images/peppered-snail.jpg"
             },
             {
-                  "id": 109,
-                "label": "",
-                "description": "",
-                "price": {"value": 0, "discount": 0},
-                "like": false,
-                "picSrc": "assets/tastey-starters-images/"
+                  "id": 1009,
+                "label": "Prawn",
+                "description": "They are breaded and fried or seasoned and grilled, quite a delight gaining popularity of recent",
+                "price": {"currentValue": 3000, "discount": null},
+                "like": null,
+                "picSrc": "assets/tastey-starters-images/prawn.jpg"
             },
             {
-                  "id": 110,
-                "label": "",
-                "description": "",
-                "price": {"value": 0, "discount": 0},
-                "like": false,
-                "picSrc": "assets/tastey-starters-images/"
+                  "id": 1010,
+                "label": "Beef kebab",
+                "description": "Another famous appetizer that is boiled and stirfried in pepper sauce with vegetable varietes served on skewers",
+                "price": {"currentValue": 1100, "discount": null},
+                "like": null,
+                "picSrc": "assets/tastey-starters-images/beef-kebab.jpg"
             },
             {
-                  "id": 111,
-                "label": "",
-                "description": "",
-                "price": {"value": 0, "discount": 0},
-                "like": false,
-                "picSrc": "assets/tastey-starters-images/"
+                  "id": 1011,
+                "label": "Nkwobi",
+                "description": "This is small pieces of cow leg/goat leg mixed in a spicy creamy palm oil and seasoned to make a nice dish",
+                "price": {"currentValue": 3400, "discount": null},
+                "like": null,
+                "picSrc": "assets/tastey-starters-images/nkwobi.jpg"
             },
             {
-                  "id": 112,
-                "label": "",
-                "description": "",
-                "price": {"value": 0, "discount": 0},
-                "like": false,
-                "picSrc": "assets/tastey-starters-images/"
+                  "id": 1012,
+                "label": "Isi ewu",
+                "description": "Isi ewu is goat head cut into bite-sized chunks mixed with a spicy creamy palm oil sauce similar to nkwobi",
+                "price": {"currentValue": 8000, "discount": 19},
+                "like": null,
+                "picSrc": "assets/tastey-starters-images/isi-ewu.jpg"
             }
         ]},
-        {"mainMeals": [
-    
+        {"main-meals": [
+             {
+                "id": 2001,
+                "label": "Jollof rice and turkey",
+                "description": "This is a popular classic dish that is a rich and tastey consisting of rice cooked with broth, spices and seasoned turkey",
+                "price": {"currentValue": 5200, "discount": 5},
+                "like": null,
+                "picSrc": "assets/tastey-main-meals-images/jollof-rice-and-turkey.jpg"
+            },
+            {
+                  "id": 2002,
+                "label": "Fried rice and turkey",
+                "description": "This dish consits of fresh vegetables, carrots inclusive stir fried into the rice to make a seasoned delight",
+                "price": {"currentValue": 6000, "discount": 6},
+                "like": null,
+                "picSrc": "assets/tastey-main-meals-images/fried-rice-and-turkey.jpg"
+            },
+            {
+                  "id": 2003,
+                "label": "Pounded yam and egusi",
+                "description": "A nigerian special predominant among the Yorubas, made from melon seed grounded with a mix of leafy vegetables served with pounded yam",
+                "price": {"currentValue": 4500, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-main-meals-images/pounded-yam-and-egusi.jpg"
+            },
+            {
+                  "id": 2004,
+                "label": "Amala and ewedu with stew",
+                "description": "A yoruba special consisting of plantain flour called amala with a soup called ewedu served alongside stew with protein",
+                "price": {"currentValue": 5000, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-main-meals-images/amala-and-ewedu-with-stew.jpg"
+            },
+            {
+                  "id": 2005,
+                "label": "Eba and Oha Soup",
+                "description": "An rich and nutricious delight that is particular to the Igbos, made with enough protein served alongside eba",
+                "price": {"currentValue": 5000, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-main-meals-images/eba-and-oha-soup.jpg"
+            },
+            {
+                  "id": 2006,
+                "label": "Beans and dodo",
+                "description": "This nigerian combo is quite predominant of recent, it consists of spiced slow cooked beans served alongisde fried planatain alias dodo",
+                "price": {"currentValue": 3000, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-main-meals-images/beans-and-dodo.jpg"
+            },
+            {
+                  "id": 2007,
+                "label": "Jollof rice special",
+                "description": "A tastey special combo consisting of jollof rice served with stew and turkey alongside fried plantain",
+                "price": {"currentValue": 7000, "discount": 10},
+                "like": null,
+                "picSrc": "assets/tastey-main-meals-images/jollof-rice-special.jpg"
+            },
+            {
+                  "id": 2008,
+                "label": "Rice and vegetable",
+                "description": "This delicious combo is a mix of the leafy greens spiced and seasoned with proteins of all kinds served with white rice underneath",
+                "price": {"currentValue": 5500, "discount": 6},
+                "like": null,
+                "picSrc": "assets/tastey-main-meals-images/rice-and-vegetable.jpg"
+            },
+            {
+                  "id": 2009,
+                "label": "Beans, stew and dodo",
+                "description": "Just like it's beans and dodo counterpart, this variant offers a slightly different feeling as it is served along with stew",
+                "price": {"currentValue": 2200, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-main-meals-images/beans-stew-and-dodo.jpg"
+            },
+            {
+                  "id": 2010,
+                "label": "Eba and efo riro",
+                "description": "Efo riro, a spinach stew made with chopped spinach stirred into a pepper stew with protein included, served alongside eba",
+                "price": {"currentValue": 5100, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-main-meals-images/eba-and-efo-riro.jpg"
+            },
+            {
+                  "id": 2011,
+                "label": "Pounded yam and ogbono",
+                "description": "Ogbono soup is a local special soup made with ground dry ogbono seeds that is tastey and nutrient-dense served with pouned yam",
+                "price": {"currentValue": 5300, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-main-meals-images/pounded-yam-and-ogbono.jpg"
+            },
+            {
+                  "id": 2012,
+                "label": "Banga soup and starch",
+                "description": "A rich and healthy palm nut soup that is popular and known for it's sweet spicy nature served with starch",
+                "price": {"currentValue": 5600, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-main-meals-images/banga-soup-and-starch.jpg"
+            }
         ]},
         {"drinks": [
-    
+             {
+                "id": 3001,
+                "label": "Zobo",
+                "description": "A tart and concentrated drink made with dried hibiscus flowers, cloves, and ginger, sweeteened and flavored in different ways",
+                "price": {"currentValue": 1000, "discount": 9},
+                "like": null,
+                "picSrc": "assets/tastey-drinks-images/zobo.jpg"
+            },
+            {
+                  "id": 3002,
+                "label": "Kunu",
+                "description": "A nutricious, non-alcholic beverage made from grains such as millet, sorghum or maize usually flavored with spices and sweetened, served chilled",
+                "price": {"currentValue": 900, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-drinks-images/kunu.jpg"
+            },
+            {
+                  "id": 3003,
+                "label": "Chapman",
+                "description": "A popular cocktail that combines various fruit juices like orange and lemon with itters, soda and sometimes cucumber and other fruits",
+                "price": {"currentValue": 3000, "discount": 10},
+                "like": null,
+                "picSrc": "assets/tastey-drinks-images/chapman.jpg"
+            },
+            {
+                  "id": 3004,
+                "label": "Coffee",
+                "description": "A beverage drink growing popularity often known for it's energizing purposes and unique taste",
+                "price": {"currentValue": 2500, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-drinks-images/cofee.jpg"
+            },
+            {
+                  "id": 3005,
+                "label": "Cocunut water",
+                "description": "A refershing and hydrating drink extracted directly from coconuts, it's a popular drink and can be consumed during the hot weather",
+                "price": {"currentValue": 0, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-drinks-images/cocunut-water.jpg"
+            },
+            {
+                  "id": 3006,
+                "label": "Tigernut milk",
+                "description": "A non-diary milk alternative made from tigernuts, highly nutritious and rich in protein and fiber and also vitamin packed sweetened with honey",
+                "price": {"currentValue": 1500, "discount": 7},
+                "like": null,
+                "picSrc": "assets/tastey-drinks-images/tigernut-milk.jpg"
+            },
+            {
+                  "id": 3007,
+                "label": "Coca-cola",
+                "description": "A fizzy wonder that's know practically everywhere for it's great taste and feeling served chilled with ice cubes",
+                "price": {"currentValue": 900, "discount": 10},
+                "like": null,
+                "picSrc": "assets/tastey-drinks-images/coca-cola.jpg"
+            },
+            {
+                  "id": 3008,
+                "label": "Fanta",
+                "description": "A fizzy delight like it's sibling coke that is loved for it's orange color and great taste served chilled with ice cubes",
+                "price": {"currentValue": 9000, "discount": 10},
+                "like": null,
+                "picSrc": "assets/tastey-drinks-images/fanta.jpg"
+            },
+            {
+                  "id": 3009,
+                "label": "Sprite",
+                "description": "A fizz drink that's well known for it's lime/lemon mix and transparent like color served chilled with ice cubes",
+                "price": {"currentValue": 900, "discount": 10},
+                "like": null,
+                "picSrc": "assets/tastey-drinks-images/sprite.jpg"
+            },
+            {
+                  "id": 3010,
+                "label": "Grape juice",
+                "description": "A healthy but sweet juice made from blended grapes to form a smoothie served chilled with ice cubes",
+                "price": {"currentValue": 2000, "discount": 15},
+                "like": null,
+                "picSrc": "assets/tastey-drinks-images/grape-juice.jpg"
+            },
+            {
+                  "id": 3011,
+                "label": "Watermelon juice",
+                "description": "A natural drink with miraculouse health benefits at the same time being sweet made from watermelon served chilled",
+                "price": {"currentValue": 2000, "discount": 15},
+                "like": null,
+                "picSrc": "assets/tastey-drinks-images/watermelon-juice.jpg"
+            },
+            {
+                  "id": 3012,
+                "label": "Apple juice",
+                "description": "A beautiful tastey drink made from blended apples that has high nutritional benefits and weight loss potential served chilled",
+                "price": {"currentValue": 0, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-drinks-images/apple-juice.jpg"
+            }
         ]},
         {"desserts": [
-    
+             {
+                "id": 4001,
+                "label": "Cocunut Candy",
+                "description": "Made from coconut fruit thinly grated and fried in balls then caramel coated to make it crunchy, chewable and candy-like",
+                "price": {"currentValue": 500, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-meals-desserts-images/cocunut-candy.jpg"
+            },
+            {
+                  "id": 4002,
+                "label": "Chin chin dessert",
+                "description": "This popular crunchy snack can be enjoyed as a desert made from kneaded dough either deep-fried or oven-baked and in nibble bits",
+                "price": {"currentValue": 2500, "discount": 6},
+                "like": null,
+                "picSrc": "assets/tastey-meals-desserts-images/chin-chin.jpg"
+            },
+            {
+                  "id": 4003,
+                "label": "Akara",
+                "description": "Beans cake mainly known for it's alias made from bean flour and spiced to taste with onions, pepper, crayfish served hot and crispy",
+                "price": {"currentValue": 1000, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-meals-desserts-images/akara.jpg"
+            },
+            {
+                  "id": 4004,
+                "label": "Donkwa",
+                "description": "A hausa special prepared from groundnuts and cornmeal, spiced up with chili peppers mixed with water and oil and molded into shape",
+                "price": {"currentValue": 900, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-meals-desserts-images/donkwa.jpg"
+            },
+            {
+                  "id": 4005,
+                "label": "Grilled corn",
+                "description": "Maize prepared by grilling served alongside pears and coconuts, a tasty combo that will make an amazing dessert",
+                "price": {"currentValue": 0, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-meals-desserts-images/grilled-corn.jpg"
+            },
+            {
+                  "id": 4006,
+                "label": "Plantain chips",
+                "description": "They are made with ripe or unripe plantain sliced into thin fine discs before deep-frying to produce a crunch and tastey delight",
+                "price": {"currentValue": 2000, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-meals-desserts-images/plantain-chips.jpg"
+            },
+            {
+                  "id": 4007,
+                "label": "Egg rolls",
+                "description": "This savory dessert prepared by enveloping eggs in the dough before deep-frying in vegetable oil forming a crisply healthy snack",
+                "price": {"currentValue": 700, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-meals-desserts-images/egg-rolls.jpg"
+            },
+            {
+                  "id": 4008,
+                "label": "Kuli kuli",
+                "description": "A hausa native special made with roasted groundnuts milled and spiced before deep-frying and it leaves quite a spicy aftertaste",
+                "price": {"currentValue": 1200, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-meals-desserts-images/kuli-kuli.jpg"
+            },
+            {
+                  "id": 4009,
+                "label": "Kilishi",
+                "description": "A classic meat delicacy made from beef, mutton or chevon sliced into thin sheets and sun-dried before proper seasoning",
+                "price": {"currentValue": 1500, "discount": 6},
+                "like": null,
+                "picSrc": "assets/tastey-meals-desserts-images/kilishi.jpg"
+            },
+            {
+                  "id": 4010,
+                "label": "Suya",
+                "description": "Nicely cut beef seasoned with a unique spice called Yaji before grilling in an open flame served with cabbage, tomatoes and onions",
+                "price": {"currentValue": 1000, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-meals-desserts-images/suya.jpg"
+            },
+            {
+                  "id": 4011,
+                "label": "Bole",
+                "description": "Made from roasted plantain that has been grilled on an open fire till charring served with roasted groundnuts and little spice",
+                "price": {"currentValue": 1500, "discount": 6},
+                "like": null,
+                "picSrc": "assets/tastey-meals-desserts-images/bole.jpg"
+            },
+            {
+                  "id": 4012,
+                "label": "Dates",
+                "description": "Packed with natural sugars, fiber and minerals, they are generally considered mouthwatering served ripe, soft and tastey",
+                "price": {"currentValue": 1000, "discount": 0},
+                "like": null,
+                "picSrc": "assets/tastey-meals-desserts-images/dates.jpg"
+            }
         ]}
     ]
 }

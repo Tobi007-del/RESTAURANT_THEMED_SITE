@@ -652,8 +652,10 @@ main h3 {
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
-    background: url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center center;
-    background-size: cover;
+    background: url('../assets/tastey-meal-images/tastey_meal_one.jpg');
+    background-size: cover!important;
+    background-repeat: no-repeat!important;
+    background-position: center center!important;
 }
 
 .tastey-meal-image::after {
@@ -790,7 +792,7 @@ main h3 {
 }
 
 .attention-grabber-two {
-    top: 3rem;
+    top: 7rem;
     height: 19rem;
     left: 4.5rem;
     rotate: -2.5deg;
@@ -804,15 +806,15 @@ main h3 {
     position: relative;
     top: -2rem;
     height: 20rem;
-    background: url(../assets/tastey-meal-images/attention-grabber.png) no-repeat center center;
+    background: url('../assets/tastey-meal-images/attention-grabber.png') no-repeat center center;
     background-size: cover;
     rotate: 25deg;
 }
 
 .attention-grabber-two span {
     position: relative;
-    height: 17rem;
-    background: url(../assets/tastey-meal-images/attention-grabber-two.png) no-repeat center center;
+    height: 15rem;
+    background: url('../assets/tastey-meal-images/attention-grabber-three.png') no-repeat center center;
     background-size: cover;
 }
 
@@ -875,9 +877,9 @@ main h3 {
 
 .product-price {
     width: 50%;
-    padding-inline-start: 1rem;
+    padding-inline-start: .5rem;
     color: greenyellow;
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     display: flex;
     align-items: center;
     justify-content: start;
@@ -890,7 +892,7 @@ main h3 {
     left: .25rem;
     font-size: .625rem;
     color: var(--current-theme-color);
-    background-color: rgba(255, 0, 0, 0.75);
+    background-color: rgba(255, 0, 0, 0.8);
     min-width: 1.4rem;
     height: 1.4rem;
     padding-inline: .075rem;
@@ -1031,6 +1033,12 @@ main h3 {
   background-color: red;
 }
 
+@media only screen and (max-width: 65rem) {
+    .attention-grabber, .attention-grabber-two {
+        display: none;
+    }
+}
+
 @media only screen and (max-width: 50rem) {
     nav {
         width: 100%;
@@ -1046,9 +1054,6 @@ main h3 {
         width: 100%;
         margin-left: 0;
         padding-inline: 11.5vw;
-    }
-    .attention-grabber, .attention-grabber-two {
-        display: none;
     }
 }
 
