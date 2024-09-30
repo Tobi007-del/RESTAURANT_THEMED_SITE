@@ -109,7 +109,7 @@ function tasteyMenu(data){
             menuContainer.innerHTML += 
                 `<div class="tastey-meal" data-like="${like ?? false}">
                     <div class="tastey-meal-content">
-                        <div class="tastey-meal-image" style="background: url('${picSrc}');">
+                        <div class="tastey-meal-image" style="background-image: url('${picSrc}');">
                             <span class="tooltip-text like-tooltip">Double tap to like!</span>
                             <span class="tooltip-text unlike-tooltip">Double tap to unlike</span>
                             <span title="Tap to like!" class="heart-icon-wrapper">

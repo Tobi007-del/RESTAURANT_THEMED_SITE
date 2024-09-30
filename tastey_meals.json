@@ -21,7 +21,7 @@
             {
                   "id": 1003,
                 "label": "Spring rolls",
-                "description": "A china discovered snack that is basically stirfired vegetables wrapped in a wafer-thin wrapper",
+                "description": "A china discovered snack that is basically stirfired vegetables wrapped in a wafer-thin wrapper served with pepper dip",
                 "price": {"currentValue": 1900, "discount": null},
                 "like": null,
                 "picSrc": "assets/tastey-starters-images/spring-roll.jpg"
@@ -126,7 +126,7 @@
             },
             {
                   "id": 2004,
-                "label": "Amala and ewedu with stew",
+                "label": "Amala and ewedu",
                 "description": "A yoruba special consisting of plantain flour called amala with a soup called ewedu served alongside stew with protein",
                 "price": {"currentValue": 5000, "discount": null},
                 "like": null,
@@ -242,7 +242,7 @@
                   "id": 3006,
                 "label": "Tigernut milk",
                 "description": "A non-diary milk alternative made from tigernuts, highly nutritious and rich in protein and fiber and also vitamin packed sweetened with honey",
-                "price": {"currentValue": 1500, "discount": 7},
+                "price": {"currentValue": 2100, "discount": 17},
                 "like": null,
                 "picSrc": "assets/tastey-drinks-images/tigernut-milk.jpg"
             },
@@ -380,7 +380,7 @@
                   "id": 4011,
                 "label": "Bole",
                 "description": "Made from roasted plantain that has been grilled on an open fire till charring served with roasted groundnuts and little spice",
-                "price": {"currentValue": 1500, "discount": 6},
+                "price": {"currentValue": 1450, "discount": 8},
                 "like": null,
                 "picSrc": "assets/tastey-meals-desserts-images/bole.jpg"
             },

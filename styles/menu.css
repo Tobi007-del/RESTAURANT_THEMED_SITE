@@ -22,9 +22,9 @@ html {
     scroll-behavior: smooth;
 }
 
-*:focus {
-    outline: .1rem solid var(--tastey-brand-color);
-    outline-offset: .15rem;
+*:focus-visible {
+    outline: .1rem solid var(--tastey-brand-accent-color);
+    outline-offset: .1rem;
 }
 
 a {
@@ -652,7 +652,7 @@ main h3 {
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
-    background: url('../assets/tastey-meal-images/tastey_meal_one.jpg');
+    background: var(--tastey-brand-accent-color);
     background-size: cover!important;
     background-repeat: no-repeat!important;
     background-position: center center!important;
@@ -857,7 +857,7 @@ main h3 {
 }
 
 .add-to-cart-button {
-    width: 55%;
+    width: 50%;
     height: 2.05rem;
     font-size: .95rem;
     border: none;
