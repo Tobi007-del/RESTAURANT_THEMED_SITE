@@ -130,10 +130,10 @@ body.cart main.meal-cart, body:not(.cart) main.menu{
 nav {
     background-color: var(--current-theme-color);
     width: 97.5%;
+    left: 1.25%;
     height: 3rem;
     position: fixed;
     top: .5rem;
-    left: 1.25vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -931,6 +931,16 @@ main.meal-cart {
     padding-top: 5rem;
 }
 
+.cart-section {
+    display: flex;
+    flex-flow: row-reverse nowrap;
+    gap: 1rem;
+}
+
+.checkout-section {
+    background-color: var(--lighter-black);
+}
+
 main.meal-cart[data-cart="0"] .empty-cart-section, main.meal-cart:not([data-cart = '0']) .cart-section {
     display: flex;
 }
@@ -1271,7 +1281,7 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
     aside.menu-cart-toggler-container {
         top: 3.5rem;
         width: 95%!important;
-        height: 2.5rem;
+        height: 2.5rem!important;
         left: 2.5%;
         flex-flow: row nowrap;
     }
@@ -1358,3 +1368,46 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
     }
 }
 
+@media only screen and (max-height: 30rem) {
+    nav {
+        width: 100%;
+        left: 0;
+        top: 0;
+        border-radius: 0;
+    }
+    nav::after {
+        border-radius: 0;
+        left: 0;
+        width: 100%;
+    }
+    aside.menu-cart-toggler-container {
+        height: 60vh;
+    }
+    aside.category-switcher-container {
+        bottom: 20vh;
+        scale: .85;
+    }
+    .toggler div p {
+        margin: 0;
+    }
+    .switcher div p {
+        display: none;
+    }
+    .switcher-icon {
+        width: 1.5rem;
+        height: 1.5rem
+    }
+    #quick-scroll-wrapper {
+        bottom: 5vh;
+        scale: .8;
+    } 
+    #quick-scrolls {
+        justify-content: center;
+    }
+}
+
+@media(max-height: 15rem) {
+    aside.category-switcher-container {
+        display: none;
+    }
+}

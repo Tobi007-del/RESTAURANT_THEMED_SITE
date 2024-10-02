@@ -366,8 +366,9 @@ removeScrolls.addEventListener('click', ()=>{
  })
  
  quickScrollShow.addEventListener('click', ()=>{
-     quickScrolls.classList.toggle('show');
-     categorySwitcherContainer.classList.toggle('show');
+    quickScrolls.classList.toggle('show');
+    categorySwitcherContainer.classList.toggle('show');
+    autoRemoveScroller()
  })
 
 var circle = document.getElementById("circle");
@@ -403,13 +404,15 @@ function onscroll() {
 };
 
 function autoRemoveScroller() {
-    if (document.documentElement.scrollHeight == window.innerHeight) {
+    if (Math.floor(document.documentElement.scrollHeight) == Math.floor(window.innerHeight)) {
         quickScroll.style.display = "none"
     } else {
         quickScroll.style.display = "flex"
     }
 }
 autoRemoveScroller()
+
+window.addEventListener("resize", autoRemoveScroller)
 
 const tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y + 213;
 
