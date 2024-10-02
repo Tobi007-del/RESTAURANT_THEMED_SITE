@@ -937,8 +937,16 @@ main.meal-cart {
     gap: 1rem;
 }
 
-.checkout-section {
+.checkout-section, .order-review-section {
     background-color: var(--lighter-black);
+}
+
+.checkout-section {
+    flex: 1;
+}
+
+.order-review-section {
+    flex: 2;
 }
 
 main.meal-cart[data-cart="0"] .empty-cart-section, main.meal-cart:not([data-cart = '0']) .cart-section {
