@@ -927,7 +927,8 @@ main.menu h3 {
 }
 
 main.meal-cart {
-    padding-inline: 4.5rem;
+    padding-inline-start: 5rem;
+    padding-inline-end: 1rem;
     padding-top: 5rem;
 }
 
@@ -1390,6 +1391,7 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
     }
     aside.menu-cart-toggler-container {
         height: 60vh;
+        scale: .95;
     }
     aside.category-switcher-container {
         bottom: 20vh;

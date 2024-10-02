@@ -538,6 +538,14 @@ main {
     }
     .tastey-meals-carousel-controls {
         bottom: 5vh;
+        gap: 4rem;
+    }
+    .tastey-meals-switcher {
+        gap: .5rem;
+    }
+    .switcher-arrows svg {
+        height: 1rem;
+        width: 1rem;
     }
 }
 
