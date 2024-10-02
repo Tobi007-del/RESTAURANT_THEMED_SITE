@@ -9,9 +9,14 @@ fetch('./tastey_meals.json')
 })
 .then(data => {
     tasteyMenu(data)
+    return data
 })
-.then(() => {
-    then()
+.then(data => {
+    tasteyCart(data)
+    return data
+})
+.then((data) => {
+    then(data)
 }).catch((error) => {
     console.log(`%cIssue parsing data... ${error}`,"color:red")
     console.warn("Please reload page")
@@ -20,7 +25,7 @@ fetch('./tastey_meals.json')
 
 function tasteyMenu(data){
     const main = document.createElement("main");
-    main.classList.add("smooth-scroll")
+    main.classList.add("menu")
     main.innerHTML += 
         `<div class="attention-grabber">
             <p>You really haven't tasted food this goated!</p>
@@ -123,7 +128,7 @@ function tasteyMenu(data){
                                 <p class="food-description">${description}</p>
                             </div>
                             <div class="price-container">
-                                <button class="add-to-cart-button" title="Add to Cart" data-id="${id}">Add To Cart</button>
+                                <button class="add-to-cart-button" title="Add to Shopping Bag" data-id="${id}">Add To Bag</button>
                                 <span class="product-price" data-discount="${price.discount ?? 0}">${formatter.format(check(price.currentValue,price.discount)).replace('NGN',"\u20A6")}</span>
                             </div>
                         </div>
@@ -137,7 +142,13 @@ function tasteyMenu(data){
 }
 
 
-function then(){
+function tasteyCart(data) {
+    const main = document.createElement("main")
+    main.classList.add("menu")
+
+}
+
+function then(data){
 //DOM Elements
 const likeIconWrappers = document.querySelectorAll(".heart-icon-wrapper")
 const tasteyMeals = document.querySelectorAll(".tastey-meal")
@@ -152,6 +163,35 @@ const categorySwitcherContainer = document.querySelector("aside.category-switche
 const switchers = document.querySelectorAll(".switcher")
 const menuHeaders = document.querySelectorAll(".tastey-menu-title-wrapper h1")
 const tastey = document.querySelector(".tastey")
+const menuToggler = document.querySelector(".menu-toggler")
+const cartToggler = document.querySelector(".cart-toggler")
+
+
+menuToggler.addEventListener('click', () => {
+    document.body.classList.remove("cart")
+    controlActiveSwitcher(window.scrollY,[...menuHeaders])
+})
+
+cartToggler.addEventListener('click', () => {
+    document.body.classList.add("cart")
+})
+
+class ShoppingBag {
+    constructor() {
+        this.items = []
+        this.total = 0
+    }
+
+    addMeal(id,meal) {
+
+    }
+}
+
+
+
+
+
+
 
 
 //Some utility functions for general use
@@ -254,7 +294,7 @@ function starSetting(starIntersecting) {
 //calling star setting at page startup
 starSetting(starIntersecting)
 
-document.getElementsByTagName("main")[0].onpointermove = e => {
+document.querySelector("main.menu").onpointermove = e => {
     for(const card of document.getElementsByClassName("tastey-meal")){
         const rect = card.getBoundingClientRect(),
              x = e.clientX - rect.left,
@@ -274,7 +314,6 @@ tastey.addEventListener("click", () => {
         clickToggler = 0
     }
 })
-
 
 const handleLikes = (i) => {
     tasteyMeals[i].dataset.like = tasteyMeals[i].dataset.like === "false" ? "true" : "false"
@@ -341,7 +380,6 @@ function scrollfunction() {
   let draw = length * scrollpercent;
   let angle = 180 * scrollpercent;
 
-  // Reverse the drawing (when scrolling upwards)
   quickScrollShow.style.transform = `rotate(${angle}deg)`;
   circle.style.strokeDashoffset = length - draw;
 }
@@ -360,20 +398,18 @@ const onscroll = () => {
     scrollfunction()
 };
 
-const tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y;
+const tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y + 213;
 
 window.addEventListener("scroll", tasteyThrottler(function(e){
     onscroll()
-    controlActiveSwitcher(window.scrollY,menuHeadersPosition)
+    controlActiveSwitcher(window.scrollY, [...menuHeaders])
 }))   
 
-let menuHeadersPosition = []
-let index;
 
 const controlActiveSwitcher = (ordinate,arr) => {
-    index = -1;
-    for (const item of arr) {
-        if(Math.floor(ordinate) >= Math.floor(item - (window.innerHeight/4))) {
+    let index = -1;
+    for (const i in arr) {
+        if(Math.floor(ordinate) >= Math.floor(Math.round((menuHeaders[i].getBoundingClientRect().top + window.scrollY) - tasteyOffSetTop) - (window.innerHeight/4))) {
             index ++
         }
     }
@@ -382,27 +418,14 @@ const controlActiveSwitcher = (ordinate,arr) => {
     markSwitcher(index)
 }
 
-window.addEventListener('resize', () => {
-    menuHeadersPosition.splice(0,menuHeadersPosition.length)
-    menuHeadersPosition.length = 0
-    getHeaderPositions(menuHeadersPosition)
-})
-
 const scrollContentTo = (ordinate) => {
     window.scrollTo(0,ordinate)
 }
 
-const getHeaderPositions = (arr) => {
-menuHeaders.forEach(menuHeader => {
-    arr.push(Math.round((menuHeader.getBoundingClientRect().top + window.scrollY) - tasteyOffSetTop))
-})
-}
-getHeaderPositions(menuHeadersPosition)
-
 let scrollPosition;
 switchers.forEach((switcher,i) => {
     switcher.addEventListener('click', () => { 
-        scrollPosition = menuHeadersPosition[i]
+        scrollPosition = Math.round((menuHeaders[i].getBoundingClientRect().top + window.scrollY) - tasteyOffSetTop)
         scrollContentTo(scrollPosition)
     })
 })

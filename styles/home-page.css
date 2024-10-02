@@ -17,7 +17,7 @@ html {
     scroll-behavior: smooth;
 }
 
-*:focus {
+*:focus-visible {
     outline: .1rem solid var(--tastey-brand-color);
     outline-offset: .15rem;
 }
@@ -217,17 +217,17 @@ nav::after {
     display: inline-block;
 }
 
-.cart {
+.navbar-cart {
     opacity: 0.85;
 }
 
-.cart svg {
+.navbar-cart svg {
     width: 1.65rem;
     height: 1.65rem;
     fill: var(--current-theme-inverse-color);
 }
 
-.cart:hover {
+.navbar-cart:hover {
     cursor: pointer;
     opacity: 1;
 }
@@ -277,12 +277,13 @@ main {
 
 .hero-content-wrapper {
     position: absolute;
-    margin-top: 22.5vh;
     margin-left: 15%;
     width: 35rem;
     color: white;
     display: flex;
+    height: 100%;
     flex-direction: column;
+    justify-content: center;
     gap: 1rem;
     z-index: 1;
     color: var(--current-theme-color);
@@ -325,12 +326,12 @@ main {
 }
 
 .welcome-text-wrapper h1 {
-    font-size: 5.15rem;
+    font-size: clamp(2rem, 13vh, 5.15rem);
     font-family: 'Times New Roman', Times, serif;   
 }
 
 .welcome-message-wrapper {
-    font-size: .85rem;
+    font-size: clamp(.5rem, 3.5vh,.8rem);
     width: 40%;
     word-spacing: .05rem;
     letter-spacing: .05rem;
@@ -513,6 +514,24 @@ main {
     display: none;
 }
 
+@media only screen and (max-height: 12rem) {
+    .tastey-meals-carousel-controls {
+        display: none;
+    }
+}
+
+@media only screen and (orientation:landscape) and (max-height: 30rem) {
+    .hero-content-wrapper {
+        width: 60rem;
+        gap: 2vh;
+    }
+    .welcome-text-wrapper h1, .welcome-message-wrapper {
+        width: 100%;
+    }
+    .tastey-meals-carousel-controls {
+        bottom: 5vh;
+    }
+}
 
 @media only screen and (max-width: 50rem) {
     nav {
@@ -531,7 +550,6 @@ main {
         padding-inline: 11.5vw;
     }
 }
-
 
 @media only screen and (max-width:36rem) {
     :root {
@@ -668,16 +686,15 @@ main {
         translate: 0vw;
     }
     .hero-content-wrapper {
-        margin-top: 20vh; 
         padding-inline-start: 5vw;
         width: 100%;
     } 
     .welcome-message-wrapper {
-        width: 80%;
+        width: 77.5%;
         padding-inline-start: 2.5vw;
     }
     .welcome-text-wrapper h1 {
-        font-size: 4rem;
+        font-size: clamp(2rem, 13vh, 4.385rem);
     }
 }
 

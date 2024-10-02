@@ -99,12 +99,28 @@ body::after {
     pointer-events: none;
 }
 
-.smooth-scroll {
-    scroll-behavior: smooth!important;
+body.cart {
+    background:rgb(15, 15, 15);
+}
+
+body.cart::after {
+    display: none;
 }
 
 body.cart aside.category-switcher-container {
     display: none!important;
+}
+
+body:not(.cart) main.meal-cart, body.cart main.menu {
+    display: none!important;
+}
+
+body.cart main.meal-cart, body:not(.cart) main.menu{
+    display: block!important;
+}
+
+.smooth-scroll {
+    scroll-behavior: smooth!important;
 }
 
 nav {
@@ -248,27 +264,27 @@ nav::after {
     display: inline-block;
 }
 
-.cart {
+.navbar-cart {
     opacity: 0.85;
 }
 
-.cart svg {
+.navbar-cart svg {
     width: 1.65rem;
     height: 1.65rem;
     fill: var(--current-theme-inverse-color);
 }
 
-.cart:hover {
+.navbar-cart:hover {
     cursor: pointer;
     opacity: 1;
 }
 
 .Cart[data-cart = '0'] .cart-icon.empty {
-    display: block!important;
+    display: block;
 }
 
 .Cart:not([data-cart='0']) .cart-icon.empty {
-    display: none!important;
+    display: none;
 }
 
 .Cart[data-cart = '0'] .cart-icon {
@@ -280,28 +296,33 @@ nav::after {
 }
 
 .Cart[data-cart = '0']::after {
-    display: none!important;
+    display: none;
 }
 
 .Cart::after {
     content: attr(data-cart);
     background-color: var(--tastey-brand-color);
     color: var(--current-theme-color);
-    width: .75rem;
+    min-width: .75rem;
+    padding: .01rem;
     aspect-ratio: 1/1;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: .65rem;
+    font-size: .5rem;
     border-radius: 50%;
     position: absolute;
-    top: .1rem;
-    right: -.1rem;
+    bottom: 30%;
+    left: 50%;
 }
 
 .Cart.main-cart::after {
     top: 40%;
-    left: 30%;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    color: var(--current-theme-color);
+    background-color: var(--current-theme-inverse-color);
 }
 
 .hamburger-icon {
@@ -400,11 +421,11 @@ aside:hover .toggler div p, aside:hover .switcher div p, aside:focus-within .tog
     cursor: pointer;
 }
 
-.toggler.active, .toggler:hover, .switcher.active, .switcher:hover, aside:focus-within .toggler, aside:focus-within .switcher {
+body.cart .cart-toggler, body:not(.cart) .menu-toggler, .toggler:hover, .switcher.active, .switcher:hover, aside:focus-within .toggler, aside:focus-within .switcher {
     background-color: var(--tastey-brand-color);  
 }
 
-.toggler.active, .switcher.active, aside:focus-within .toggler, aside:focus-within .switcher {
+body.cart .cart-toggler, body:not(.cart) .menu-toggler, .switcher.active, aside:focus-within .toggler, aside:focus-within .switcher {
     border: .13rem solid var(--current-theme-inverse-color);
 }
 
@@ -449,12 +470,12 @@ main {
     width: 100%;
 }
 
-main p, main h1, main h3 {
+main.menu p, main.menu h1, main.menu h3 {
     text-align: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-main h1 {
+main.menu h1 {
     font-size: 1.85rem;
     font-family: 'Courier New', Courier, monospace;
 }
@@ -510,7 +531,6 @@ main h1 {
     background: url('../assets/tastey-meal-icons/glass-drinks-2-svgrepo-com.svg') no-repeat center;
 }
 
-
 .tastey-menu-title-wrapper.desserts::after {
     background: url('../assets/tastey-meal-icons/ice-cream-svgrepo-com.svg') no-repeat center;
 }
@@ -525,7 +545,7 @@ main h1 {
     width: fit-content;
 }
 
-main h3 {
+main.menu h3 {
     font-size: 1.25rem;
     color: greenyellow;
 }
@@ -573,8 +593,8 @@ main h3 {
 
 .menu-sections {
     width: 100%;
-    padding-inline: 4.5rem;
-    margin: 7.5rem 0 7.5rem 0;
+    margin-top: 4.5rem;
+    padding: 3rem 4.5em 2rem 4.5rem;
 }
 
 .tastey-menu {
@@ -614,7 +634,7 @@ main h3 {
 .tastey-meal::before {
     background: radial-gradient(
         450px circle at var(--mouse-x) var(--mouse-y),
-        rgba(255,255,255,0.35),
+        rgba(255,255,255,0.45),
         transparent 40%
     );
     z-index: 3;
@@ -834,19 +854,17 @@ main h3 {
 }
 
 .food-info h2, .food-info p {
-    text-align: start;
+    text-align: start!important;
 }
 
 .food-info h2 {
-    color: greenyellow;
     font-weight: 600;
-    color: var(--tastey-brand-color);
+    color: lightgray;
     font-size: 1.35rem;
 }
 
 .food-info p {
-    color: yellowgreen;
-    color: var(--tastey-brand-light-accent-color);
+    color: gray;
     font-size: .8rem;
 }
 
@@ -863,7 +881,7 @@ main h3 {
     border: none;
     border-radius: .25rem;
     background-color: var(--tastey-brand-accent-color);
-    color: var(--current-theme-accent-color);
+    color: var(--current-theme-color);
     font-weight: bold;
     transition: 200ms ease;
 }
@@ -871,7 +889,6 @@ main h3 {
 .add-to-cart-button:hover {
     cursor: pointer;
     transform: scale(1.02);
-    color: var(--current-theme-color);
     background-color: var(--tastey-brand-color);
 }
 
@@ -901,6 +918,28 @@ main h3 {
     justify-content: center;
     align-items: center;
 }
+
+main.meal-cart {
+    padding-inline: 4.5rem;
+}
+
+main.meal-cart[data-cart="0"] .empty-cart-section, main.meal-cart:not([data-cart = '0']) .cart-section {
+    display: flex;
+}
+
+main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"]) .empty-cart-section {
+    display: none;
+}
+
+.empty-cart-section, .cart-section {
+    width: 100%;
+}
+
+.empty-cart-section {
+    background-color: white;
+}
+
+
 
 #scroller-circle {
   position: absolute;
@@ -1056,7 +1095,6 @@ main h3 {
         padding-inline: 11.5vw;
     }
 }
-
 
 @media only screen and (max-width:36rem) {
     :root {
@@ -1289,3 +1327,8 @@ main h3 {
     }
 }
 
+
+svg {
+    stroke-dashoffset: 1000!important;
+    stroke-dasharray: 1000!important;
+}
