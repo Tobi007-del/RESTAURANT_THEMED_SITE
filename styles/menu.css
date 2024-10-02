@@ -12,6 +12,10 @@
     --current-theme-accent-color: rgba(255, 255, 255, 0.75);
     --current-theme-inverse-color: black;
     --current-theme-inverse-accent-color: rgba(0, 0, 0, 0.75);
+    --lighter-black: rgb(25,25,25);
+    --darker-black: rgb(15,15,15);
+    --main-text-color: lightgray;
+    --sub-text-color: gray;
     --global-light-width: 35rem!important;
     --global-mouse-x: 50%;
     --global-mouse-y: 14rem;
@@ -80,7 +84,7 @@ html {
 body {
     width: 100%;
     margin: 0;
-    background: url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center 6rem, rgb(15, 15, 15);
+    background: url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center 6rem, var(--darker-black);
     background-size: 18.75rem;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -100,7 +104,7 @@ body::after {
 }
 
 body.cart {
-    background:rgb(15, 15, 15);
+    background:var(--darker-black);
 }
 
 body.cart::after {
@@ -136,6 +140,7 @@ nav {
     padding-inline: 1rem;
     border-radius: .5rem;
     z-index: 5;
+    color: var(--current-theme-inverse-color);
 }
 
 nav::before {
@@ -145,7 +150,7 @@ nav::before {
     height: .5rem;
     bottom: 100%;
     left: -1.25vw;
-    background-color: rgb(15, 15, 15);
+    background-color: var(--darker-black);
 }
 
 nav::after {
@@ -182,7 +187,6 @@ nav::after {
 }
 
 .company-name-section span h3 {
-    color: var(--current-theme-inverse-color);
     font-size: 1.25rem;
     font-family: 'Times New Roman', Times, serif;
 }
@@ -209,7 +213,6 @@ nav::after {
     width: 3.75rem;
     text-align: center;
     position: relative;
-    color: var(--current-theme-inverse-color);
 }
 
 .navigation-section ul li::after {
@@ -248,7 +251,6 @@ nav::after {
     border-radius: .25rem;
     position: relative;
     font-weight: 600;
-    color: var(--current-theme-inverse-color);
 }
 
 .reservation-btn:hover {
@@ -404,7 +406,7 @@ aside:hover .toggler div p, aside:hover .switcher div p, aside:focus-within .tog
     flex-direction: column;
 }
 
-.toggler, .switcher{
+.toggler, .switcher {
     width: 100%;
     border-radius: inherit;
     background-color: var(--tastey-brand-light-accent-color);
@@ -638,8 +640,8 @@ main.menu h3 {
 
 .tastey-meal::before {
     background: radial-gradient(
-        450px circle at var(--mouse-x) var(--mouse-y),
-        rgba(255,255,255,0.45),
+        28rem circle at var(--mouse-x) var(--mouse-y),
+        rgba(255,255,255,0.25),
         transparent 40%
     );
     z-index: 3;
@@ -647,7 +649,7 @@ main.menu h3 {
 
 .tastey-meal::after {
     background: radial-gradient(
-        350px circle at var(--mouse-x) var(--mouse-y),
+        22rem circle at var(--mouse-x) var(--mouse-y),
         rgba(255,255,255,1),
         transparent 40%
     );
@@ -655,7 +657,7 @@ main.menu h3 {
 }
 
 .tastey-meal-content {
-    background-color: rgb(25, 25, 25);
+    background-color: var(--lighter-black);
     border-radius: inherit;
     position: absolute;
     padding: .5rem;
@@ -864,12 +866,12 @@ main.menu h3 {
 
 .food-info h2 {
     font-weight: 600;
-    color: lightgray;
+    color: var(--main-text-color);
     font-size: 1.35rem;
 }
 
 .food-info p {
-    color: gray;
+    color: var(--sub-text-color);
     font-size: .8rem;
 }
 
@@ -926,6 +928,8 @@ main.menu h3 {
 
 main.meal-cart {
     padding-inline: 4.5rem;
+    height: 100dvh;
+    padding-top: 5rem;
 }
 
 main.meal-cart[data-cart="0"] .empty-cart-section, main.meal-cart:not([data-cart = '0']) .cart-section {
@@ -940,11 +944,41 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
     width: 100%;
 }
 
-.empty-cart-section {
-    background-color: white;
+.cart-title-wrapper {
+    color: var(--main-text-color);
+    text-align: center;
 }
 
+.cart-title-wrapper {
+    font-size: 1.5rem;
+}
 
+.empty-cart-section {
+    background-color: var(--lighter-black);
+    height: 65dvh;
+    width: 80%;
+    border-radius: .5rem;
+    color: var(--sub-text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: .5rem;
+    margin: 1rem auto 1rem auto;
+}
+
+.empty-cart-image {
+    width: 100%;   
+    background-image: url();
+}
+
+.empty-cart-text span {
+    display: block;
+}
+
+.empty-cart-text h2 {
+    font-size: clamp(1rem, calc(.95vw + 1.5vh), 1.5rem);
+    text-align: center;
+}
 
 #scroller-circle {
   position: absolute;
@@ -1314,8 +1348,15 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
         opacity: 1!important;
     }
     .tastey-meal:hover::after {
-       background: rgba(255, 255, 255, 0.5)!important;
+       background: rgba(255, 255, 255, 0.25)!important;
        opacity: 1!important;
+    }
+    main.meal-cart {
+        padding-top: 7.5em;
+    }
+    .empty-cart-section {
+        width: 100%;
+        height: 50dvh;
     }
     #quick-scroll-show svg, #to-top svg, #to-bottom svg {
         fill: var(--current-theme-inverse-color);
@@ -1328,8 +1369,3 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
     }
 }
 
-
-svg {
-    stroke-dashoffset: 1000!important;
-    stroke-dasharray: 1000!important;
-}

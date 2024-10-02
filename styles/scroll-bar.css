@@ -1,14 +1,6 @@
 :root {
-    --tastey-brand-color: #ed8f23;
-    --tastey-brand-accent-color: #eb9634;
-    --tastey-brand-light-accent-color: #f0ad5f;
-    --current-theme-color: white;
-    --current-theme-accent-color: rgba(255, 255, 255, 0.75);
-    --current-theme-inverse-color: black;
-    --current-theme-inverse-accent-color: rgba(0, 0, 0, 0.75);
-    --global-light-width: 35rem!important;
-    --global-mouse-x: 50%;
-    --global-mouse-y: 14rem;
+    --lighter-black: rgb(25,25,25);
+    --darker-black: rgb(15,15,15);
 }
 
 ::-webkit-scrollbar {
@@ -18,7 +10,7 @@
 
 ::-webkit-scrollbar-corner,
 ::-webkit-scrollbar-track {
-    background-color: rgb(15, 15, 15);
+    background-color: var(--lighter-black);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -38,7 +30,7 @@
 
 /* Buttons */
 ::-webkit-scrollbar-button:single-button {
-    background-color: rgb(15, 15, 15);
+    background-color: var(--lighter-black);
     display: block;
     background-size: .5rem;
     background-repeat: no-repeat;

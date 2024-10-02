@@ -128,7 +128,7 @@ function tasteyMenu(data){
                                 <p class="food-description">${description}</p>
                             </div>
                             <div class="price-container">
-                                <button class="add-to-cart-button" title="Add to Shopping Bag" data-id="${id}">Add To Bag</button>
+                                <button class="add-to-cart-button" title="Add to Shopping Bag" data-id="${id}">Add to Bag</button>
                                 <span class="product-price" data-discount="${price.discount ?? 0}">${formatter.format(check(price.currentValue,price.discount)).replace('NGN',"\u20A6")}</span>
                             </div>
                         </div>
@@ -170,10 +170,12 @@ const cartToggler = document.querySelector(".cart-toggler")
 menuToggler.addEventListener('click', () => {
     document.body.classList.remove("cart")
     controlActiveSwitcher(window.scrollY,[...menuHeaders])
+    onscroll()
 })
 
 cartToggler.addEventListener('click', () => {
     document.body.classList.add("cart")
+    onscroll()
 })
 
 class ShoppingBag {
