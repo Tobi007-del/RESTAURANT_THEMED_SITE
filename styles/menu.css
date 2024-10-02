@@ -421,6 +421,11 @@ aside:hover .toggler div p, aside:hover .switcher div p, aside:focus-within .tog
     cursor: pointer;
 }
 
+.main-cart {
+    display: flex;
+    align-items: center;
+}
+
 body.cart .cart-toggler, body:not(.cart) .menu-toggler, .toggler:hover, .switcher.active, .switcher:hover, aside:focus-within .toggler, aside:focus-within .switcher {
     background-color: var(--tastey-brand-color);  
 }
@@ -1294,10 +1299,6 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
     }
     .menu-sections {
         padding: 0;
-    }
-    #main-cart {
-        display: flex;
-        align-items: center;
     }
     .tastey-meal::before {
         background: radial-gradient(
