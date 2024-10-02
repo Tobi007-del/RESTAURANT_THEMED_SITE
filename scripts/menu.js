@@ -171,11 +171,13 @@ menuToggler.addEventListener('click', () => {
     document.body.classList.remove("cart")
     controlActiveSwitcher(window.scrollY,[...menuHeaders])
     onscroll()
+    autoRemoveScroller()
 })
 
 cartToggler.addEventListener('click', () => {
     document.body.classList.add("cart")
     onscroll()
+    autoRemoveScroller()
 })
 
 class ShoppingBag {
@@ -387,7 +389,7 @@ function scrollfunction() {
 }
 
 
-const onscroll = () => {
+function onscroll() {
     quickScrolls.classList.remove('show');
     categorySwitcherContainer.classList.remove('show')
     const scrolledTo = window.scrollY + window.innerHeight;
@@ -399,6 +401,15 @@ const onscroll = () => {
     }
     scrollfunction()
 };
+
+function autoRemoveScroller() {
+    if (document.documentElement.scrollHeight == window.innerHeight) {
+        quickScroll.style.display = "none"
+    } else {
+        quickScroll.style.display = "flex"
+    }
+}
+autoRemoveScroller()
 
 const tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y + 213;
 
@@ -436,6 +447,5 @@ const markSwitcher = (id) => {
     switchers.forEach(switcher => switcher.classList.remove("active"))
     switchers[id].classList.add("active")
 }
-
 }
 

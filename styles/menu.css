@@ -176,7 +176,7 @@ nav::after {
 }
 
 .tastey-logo {
-    width: 2rem;
+    min-width: 2rem;
     background: url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center center;
     background-size: contain;
 }
@@ -928,7 +928,6 @@ main.menu h3 {
 
 main.meal-cart {
     padding-inline: 4.5rem;
-    height: 100dvh;
     padding-top: 5rem;
 }
 
@@ -950,34 +949,24 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
 }
 
 .cart-title-wrapper {
-    font-size: 1.5rem;
+    font-size: 1.45rem;
 }
 
 .empty-cart-section {
-    background-color: var(--lighter-black);
-    height: 65dvh;
-    width: 80%;
+    width: 30rem;
+    aspect-ratio: 1 / .75;
     border-radius: .5rem;
-    color: var(--sub-text-color);
+    color: var(--tastey-brand-color);
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: .5rem;
-    margin: 1rem auto 1rem auto;
-}
-
-.empty-cart-image {
-    width: 100%;   
-    background-image: url();
-}
-
-.empty-cart-text span {
-    display: block;
+    align-items: end;
+    justify-content: center;
+    margin: 1rem auto 5rem auto;
+    background: url('../assets/tastey-meal-images/empty-cart.png') center center, var(--lighter-black);
+    background-size: cover;
 }
 
 .empty-cart-text h2 {
-    font-size: clamp(1rem, calc(.95vw + 1.5vh), 1.5rem);
-    text-align: center;
+    font-size: clamp(1rem, calc(.75vw + 1.25vh), 1.25rem);
 }
 
 #scroller-circle {
@@ -1034,7 +1023,7 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
 
 #quick-scrolls{
   position: absolute;
-  right: 1rem;
+  right: 1.25rem;
   height: 8rem;
   width: 2.5rem;
   opacity: 0;
@@ -1357,7 +1346,6 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
     }
     .empty-cart-section {
         width: 100%;
-        height: 50dvh;
     }
     #quick-scroll-show svg, #to-top svg, #to-bottom svg {
         fill: var(--current-theme-inverse-color);

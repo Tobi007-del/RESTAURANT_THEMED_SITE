@@ -15,6 +15,7 @@
 html {
     font-family: Arial, Helvetica, sans-serif;
     scroll-behavior: smooth;
+    overflow: hidden;
 }
 
 *:focus-visible {
@@ -75,8 +76,8 @@ a:hover {
 }
 
 body {
-    width: 100vw;
-    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -124,7 +125,7 @@ nav::after {
 }
 
 .tastey-logo {
-    width: 2rem;
+    min-width: 2rem;
     background: url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center center;
     background-size: contain;
 }
@@ -331,15 +332,18 @@ main {
 }
 
 .welcome-message-wrapper {
-    font-size: clamp(.5rem, 3.5vh,.8rem);
-    width: 40%;
+    font-size: clamp(.65rem, 3.5vh,.8rem);
     word-spacing: .05rem;
     letter-spacing: .05rem;
     line-height: 1.25rem;
     color: var(--current-theme-accent-color);
 }
 
-.welcome-message-wrapper p span {
+.welcome-message-wrapper p > span {
+    display: block;
+}
+
+.welcome-message-wrapper p span span {
     color: var(--tastey-brand-color);
 }
 
@@ -525,8 +529,12 @@ main {
         width: 60rem;
         gap: 2vh;
     }
-    .welcome-text-wrapper h1, .welcome-message-wrapper {
+    .welcome-text-wrapper h1 {
         width: 100%;
+    }
+    .welcome-message-wrapper p span {
+        display: inline;
+        margin-left: .25rem;
     }
     .tastey-meals-carousel-controls {
         bottom: 5vh;
@@ -690,12 +698,32 @@ main {
         width: 100%;
     } 
     .welcome-message-wrapper {
-        width: 77.5%;
         padding-inline-start: 2.5vw;
     }
     .welcome-text-wrapper h1 {
-        font-size: clamp(2rem, 13vh, 4.385rem);
+        font-size: clamp(2rem, 13vh, 4.15rem);
     }
+    .tastey-meal_one {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center center, black;
+    }
+    .tastey-meal_two {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_two.jpg') no-repeat center center, black;
+    }
+    .tastey-meal_three {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_three.jpg') no-repeat center center, black;
+    }
+    .tastey-meal_four {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_four.jpg') no-repeat center center, black;
+    }
+    .tastey-meal_five {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_five.jpg') no-repeat center center, black;
+    }
+    .tastey-meal_six {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_six.jpg') no-repeat center center, black;
+    }
+    .tastey-meal_seven {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_seven.jpg') no-repeat center center, black;
+    }    
 }
 
 @media only screen and (max-width: 450px) {

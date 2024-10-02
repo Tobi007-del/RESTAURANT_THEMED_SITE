@@ -5,7 +5,7 @@
             {
               "id": 1001,
                 "label": "Small Chops Combo",
-                "description": "A tastey party special tripartite to ease your appetite with a combo of spring rolls, samosa and chicken",
+                "description": "A tastey party special tripartite to tease your appetite with a combo of spring rolls, samosa and chicken but ours has a lot more",
                 "price": {"currentValue": 30000, "discount": 23},
                 "like": null,
                 "picSrc": "assets/tastey-starters-images/small-chops.jpg"
