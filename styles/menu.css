@@ -1353,6 +1353,7 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
     }
     main.meal-cart {
         padding-top: 7.5em;
+        padding-inline: 2rem;
     }
     .empty-cart-section {
         width: 100%;
