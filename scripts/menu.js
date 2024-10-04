@@ -298,6 +298,30 @@ function starSetting(starIntersecting) {
 //calling star setting at page startup
 starSetting(starIntersecting)
 
+for(const pan of document.querySelectorAll(".tastey-meal-image,.tastey-order-image")){
+    pan.onmouseenter = e => {
+        pan.dataset.mouseDownAt = e.clientX
+    } 
+    pan.onmouseleave = e => {
+        pan.dataset.mouseDownAt = 0
+        pan.dataset.prevPercentage = pan.dataset.percentage
+    }
+    pan.onmousemove = e => {
+        let mouseDelta  = e.clientX - parseFloat(pan.dataset.mouseDownAt),
+        maxDelta = pan.offsetWidth,
+        xp = (mouseDelta/maxDelta) * 100;
+        let nextPercentage = parseFloat(pan.dataset.prevPercentage) + xp
+        nextPercentage = Math.max(Math.min(nextPercentage,0),-50)
+        pan.dataset.percentage = nextPercentage
+        console.log(nextPercentage)
+        console.log(nextPercentage*-2)
+        pan.animate({
+            backgroundPosition: `${nextPercentage}% center`            
+        },{duration: 500,fill:"forwards"})
+    }
+}
+
+
 document.querySelectorAll("main").forEach(main => {
     main.onpointermove = e => {
         if(!document.body.classList.contains("cart")) {
@@ -310,7 +334,7 @@ document.querySelectorAll("main").forEach(main => {
                 card.style.setProperty("--mouse-y", `${y}px`);
             }
         } else {
-            for(const card of document.querySelectorAll(".cart-section>div")){
+            for(const card of document.querySelectorAll(".cart-section > div")){
                 const rect = card.getBoundingClientRect(),
                     x = e.clientX - rect.left, 
                     y = e.clientY - rect.top;
@@ -359,7 +383,7 @@ function scrollToTop() {
 function scrollToBottom() {
     setTimeout(function () {
         window.scrollTo({
-            top: document.body.scrollHeight
+            top: document.documentElement.scrollHeight
         })
     }, 100);
 }

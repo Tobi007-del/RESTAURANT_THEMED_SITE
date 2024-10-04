@@ -504,7 +504,7 @@ main.menu h1 {
     height: 100%;
     width: 40%;
     top: 0;
-    background-size: 25%!important;
+    background-size: clamp(1rem,25%,10rem)!important;
 }
 
 .tastey-menu-title-wrapper::after {
@@ -684,9 +684,10 @@ main.menu h3 {
     background-size: cover!important;
     background-repeat: no-repeat!important;
     background-position: center center!important;
+    cursor: pointer;
 }
 
-.tastey-meal-image::after {
+.tastey-meal-image::after, .tastey-order-image::after re{
     content: '';
     position: absolute;
     top: 0;
@@ -1081,9 +1082,19 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
 
 .tastey-order-image {
     min-width: 25%;
-    background: url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center center;
-    background-size: cover;
+    background-image: url('../assets/tastey-meal-images/tastey_meal_one.jpg')!important;
+    background: var(--tastey-brand-accent-color);
+    background-size: cover!important;
+    background-repeat: no-repeat!important;
+    background-position: center center;
     border-radius: .5rem;
+    position: relative;
+}
+
+.tastey-order-image::after {
+    width: 20%;
+    height: 20%;
+    margin: .15rem;
 }
 
 .tastey-order-info {
@@ -1497,7 +1508,7 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
   background-color: red;
 }
 
-@media only screen and (min-width:50rem) {
+@media only screen and (min-width:45rem) {
     main.meal-cart:not([data-cart="0"]) {
         position: absolute;
     }
