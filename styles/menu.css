@@ -1805,19 +1805,30 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
             transparent 40%
         )!important;
     }
-    .cart-section > div::before {
+    .checkout-section::before {
+        background: radial-gradient(
+            400px circle at center 65%,
+            rgba(255,255,255,0.35),
+            transparent 40%
+        )!important;
+        opacity: 1!important;
+    }
+    .order-review-section::before {
         display: none;
     }
     .menu-sections:hover .tastey-meal::before, main:hover .tastey-meal::after {
         opacity: 0;
     }
-    body.cart:hover .cart-section div::before, body.cart:hover .cart-section div::after {
+    body.cart:hover .order-review-section::before, body.cart:hover .cart-section > div::after {
         opacity: 0;
     }
-    .tastey-meal:hover::before, .cart-section > div:hover::before {
+    .tastey-menu-title-wrapper {
+        margin-top: 7.5rem;
+    }
+    .tastey-meal:hover::before {
         opacity: 1!important;
     }
-    .tastey-meal:hover::after, .cart-section:hover > div::after {
+    .tastey-meal:hover::after, .cart-section > div:hover::after {
        background: rgba(255, 255, 255, 0.25)!important;
        opacity: 1!important;
     }
