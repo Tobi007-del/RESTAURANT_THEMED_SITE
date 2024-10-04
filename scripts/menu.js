@@ -298,16 +298,28 @@ function starSetting(starIntersecting) {
 //calling star setting at page startup
 starSetting(starIntersecting)
 
-document.querySelector("main.menu").onpointermove = e => {
-    for(const card of document.getElementsByClassName("tastey-meal")){
-        const rect = card.getBoundingClientRect(),
-             x = e.clientX - rect.left,
-             y = e.clientY - rect.top;
-    
-        card.style.setProperty("--mouse-x", `${x}px`); 
-        card.style.setProperty("--mouse-y", `${y}px`);
+document.querySelectorAll("main").forEach(main => {
+    main.onpointermove = e => {
+        if(!document.body.classList.contains("cart")) {
+            for(const card of document.getElementsByClassName("tastey-meal")){
+                const rect = card.getBoundingClientRect(),
+                     x = e.clientX - rect.left,
+                     y = e.clientY - rect.top;
+            
+                card.style.setProperty("--mouse-x", `${x}px`); 
+                card.style.setProperty("--mouse-y", `${y}px`);
+            }
+        } else {
+            for(const card of document.querySelectorAll(".cart-section>div")){
+                const rect = card.getBoundingClientRect(),
+                    x = e.clientX - rect.left, 
+                    y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            }
+        }
     }
-}
+})
 
 tastey.addEventListener("click", () => {
     let active = getComputedStyle(tastey).getPropertyValue("--global-light-width") == "140rem" ? true : false

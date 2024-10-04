@@ -10,12 +10,13 @@
     --tastey-brand-light-accent-color: #f0ad5f;
     --current-theme-color: white;
     --current-theme-accent-color: rgba(255, 255, 255, 0.75);
+    --current-theme-fade-color: whitesmoke;
     --current-theme-inverse-color: black;
     --current-theme-inverse-accent-color: rgba(0, 0, 0, 0.75);
-    --lighter-black: rgb(25,25,25);
-    --darker-black: rgb(15,15,15);
-    --main-text-color: lightgray;
-    --sub-text-color: gray;
+    --lighter-black: rgb(15,15,15);
+    --darker-black: rgb(10,10,10);
+    --main-text-color: lightgrey;
+    --sub-text-color: grey;
     --global-light-width: 35rem!important;
     --global-mouse-x: 50%;
     --global-mouse-y: 14rem;
@@ -600,8 +601,7 @@ main.menu h3 {
 
 .menu-sections {
     width: 100%;
-    margin-top: 4.5rem;
-    padding: 3rem 4.5em 2rem 4.5rem;
+    padding: 7.5rem 4.5em 4rem 4.5rem;
 }
 
 .tastey-menu {
@@ -625,7 +625,8 @@ main.menu h3 {
     opacity: 1;
 }
 
-.tastey-meal::after, .tastey-meal::before {
+.tastey-meal::after, .tastey-meal::before, 
+.cart-section > div::after, .cart-section > div::before {
     border-radius: inherit;
     content: '';
     height: 100%;
@@ -638,16 +639,16 @@ main.menu h3 {
     pointer-events: none;
 }
 
-.tastey-meal::before {
+.tastey-meal::before, .cart-section > div::before {
     background: radial-gradient(
         28rem circle at var(--mouse-x) var(--mouse-y),
-        rgba(255,255,255,0.25),
+        rgba(255,255,255,0.125),
         transparent 40%
     );
     z-index: 3;
 }
 
-.tastey-meal::after {
+.tastey-meal::after, .cart-section > div::after {
     background: radial-gradient(
         22rem circle at var(--mouse-x) var(--mouse-y),
         rgba(255,255,255,1),
@@ -773,19 +774,19 @@ main.menu h3 {
     cursor: pointer;
 }
 
-.tastey-meal[data-like="false"] .liked-heart-icon {
+.tastey-meal[data-like="false"] .liked-heart-icon, .wishlist[data-like="false"] .liked-heart-icon, .wishlist[data-like="false"] .remove-from-wishlist {
     display: none;
 }
 
-.tastey-meal[data-like="false"] .unliked-heart-icon {
+.tastey-meal[data-like="false"] .unliked-heart-icon, .wishlist[data-like="false"] .unliked-heart-icon, .wishlist[data-like="false"] .move-to-wishlist {
     display: block;
 }
 
-.tastey-meal[data-like="true"] .liked-heart-icon {
+.tastey-meal[data-like="true"] .liked-heart-icon, .wishlist[data-like="true"] .liked-heart-icon, .wishlist[data-like="true"] .remove-from-wishlist {
     display: block;
 }
 
-.tastey-meal[data-like="true"] .unliked-heart-icon {
+.tastey-meal[data-like="true"] .unliked-heart-icon, .wishlist[data-like="true"] .unliked-heart-icon, .wishlist[data-like="true"] .move-to-wishlist {
     display: none;
 }
 
@@ -866,7 +867,7 @@ main.menu h3 {
 
 .food-info h2 {
     font-weight: 600;
-    color: var(--main-text-color);
+    color: var(--current-theme-fade-color);
     font-size: 1.35rem;
 }
 
@@ -884,7 +885,7 @@ main.menu h3 {
 .add-to-cart-button {
     width: 50%;
     height: 2.05rem;
-    font-size: .95rem;
+    font-size: 1.05rem;
     border: none;
     border-radius: .25rem;
     background-color: var(--tastey-brand-accent-color);
@@ -929,25 +930,14 @@ main.menu h3 {
 main.meal-cart {
     padding-inline-start: 5rem;
     padding-inline-end: 1rem;
-    padding-top: 5rem;
+    padding-block: 5rem;
+    position: absolute;
 }
 
 .cart-section {
     display: flex;
     flex-flow: row-reverse nowrap;
     gap: 1rem;
-}
-
-.checkout-section, .order-review-section {
-    background-color: var(--lighter-black);
-}
-
-.checkout-section {
-    flex: 1;
-}
-
-.order-review-section {
-    flex: 2;
 }
 
 main.meal-cart[data-cart="0"] .empty-cart-section, main.meal-cart:not([data-cart = '0']) .cart-section {
@@ -958,17 +948,46 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
     display: none;
 }
 
+main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
+    background: url('../assets/tastey-meal-icons/shopping-bag-icon.svg') no-repeat center;
+    scale: 1.15;
+    background-size: contain;
+    bottom: 0;
+}
+
 .empty-cart-section, .cart-section {
     width: 100%;
 }
 
 .cart-title-wrapper {
-    color: var(--main-text-color);
-    text-align: center;
+    font-size: 1.35rem;
+    display: flex;
+    justify-content: center;
+    margin-block-start: 2rem;
+    margin-block-end: 2rem;
+    color: var(--current-theme-color);
 }
 
-.cart-title-wrapper {
-    font-size: 1.45rem;
+.cart-title-wrapper h3 {
+    max-width: fit-content;
+    position: relative;
+    translate: 1.25rem;
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(to right,var(--tastey-brand-light-accent-color) 30%,var(--tastey-brand-accent-color),var(--tastey-brand-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.cart-title-wrapper h3::after {
+    content: '';
+    position: absolute;
+    right: 105%;
+    height: 100%;
+    bottom: 15%;
+    scale: 1.4;
+    aspect-ratio: 1 / 1;
+    background: url('../assets/tastey-meal-icons/shopping-bag-full-icon.svg') no-repeat center;
+    background-size: contain;
 }
 
 .empty-cart-section {
@@ -979,13 +998,374 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
     display: flex;
     align-items: end;
     justify-content: center;
-    margin: 1rem auto 5rem auto;
-    background: url('../assets/tastey-meal-images/empty-cart.png') center center, var(--lighter-black);
+    margin: 1rem auto;
+    background: url('../assets/tastey-meal-images/empty-cart.png') center center, var(--lighter-black) center center;
     background-size: cover;
 }
 
 .empty-cart-text h2 {
     font-size: clamp(1rem, calc(.75vw + 1.25vh), 1.25rem);
+}
+
+.empty-cart-text h2 span {
+    font-family: 'Times New Roman', Times, serif;
+    color: var(--current-theme-inverse-color);
+    font-size: 1.2rem;
+}
+
+.checkout-section, .order-review-section {
+    max-height: min-content;
+    height: fit-content;
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius: .5rem;
+    position: relative;
+    padding: .05rem;
+}
+
+.order-review-section {
+    flex: 2 1 53rem;
+}
+
+.checkout-section {
+    flex: 1 0 19rem;
+    position: sticky;
+    top: 5rem;
+    right: 1rem;
+}
+
+.checkout-section-content, .order-review-section-content {
+    background-color: var(--lighter-black);
+    border-radius: inherit;
+    position: relative;
+    z-index: 2;
+}
+
+.order-review-section-content {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+}
+
+.checkout-section-content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div::after {
+    opacity: 1;
+}
+
+.order-number {
+    color: var(--main-text-color);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.order-number::after {
+    content: ' (' attr(data-cart) ' Tastey Meals)';
+}
+
+.tastey-meal-order {
+    height: 15.5rem;
+    padding-block: 1.25rem;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.tastey-meal-order:not(:last-child) {
+    border-bottom: 1px solid var(--sub-text-color);
+}
+
+.tastey-meal-order:last-child {
+    padding-block-end: .25rem;
+}
+
+.tastey-order-image {
+    min-width: 25%;
+    background: url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center center;
+    background-size: cover;
+    border-radius: .5rem;
+}
+
+.tastey-order-info {
+    min-width: 75%;
+    display: flex;
+    justify-content: space-between;
+    padding-inline-start: 1.5rem;
+    padding-inline-end: .25rem;
+    padding-block-start: .1rem;
+    padding-block-end: 1.5rem;
+}
+
+.tastey-order-text {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tastey-order-text h2, .tastey-order-text p {
+    margin: 0;
+}
+
+.tastey-order-text h2 {
+    color: var(--current-theme-fade-color);
+    font-size: 1.45rem;
+}
+
+.tastey-order-text p {
+    color: var(--sub-text-color);
+}
+
+.tastey-order-text div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+}
+
+.tastey-order-text div:nth-child(2) {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    white-space: nowrap;
+    gap: .75rem;
+}
+
+.tastey-order-text div:nth-child(2) button {
+    font-size: .9rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+}
+
+.tastey-order-text div:nth-child(2) button p {
+    margin: 0;
+    height: min-content;
+    color: var(--main-text-color);
+}
+
+.tastey-order-text div:nth-child(2) button {
+    opacity: .85;
+}
+
+.tastey-order-text div:nth-child(2) button:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.delete-order svg {
+    fill: var(--main-text-color);
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.wishlist span svg.unliked-heart-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+}
+
+.wishlist span svg.liked-heart-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+}
+
+.tastey-order-price-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.order-price {
+    display: inline-flex;
+    justify-content: end;
+    gap: .25rem;
+}
+
+.order-price[data-discount = "0"] .actual-meal-price {
+    display: none;
+}
+
+.order-price h3 {
+    font-size: 1.15rem;
+    margin: 0;
+}
+
+.meal-price {
+    color: greenyellow;
+}
+
+.actual-meal-price {
+    color: var(--main-text-color);
+    scale: .85;
+    opacity: .85;
+    text-decoration: line-through;
+}
+
+.tastey-order-price-wrapper > span:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cart-toggle {
+    display: inline-flex;
+    border: 1px solid var(--sub-text-color);
+    align-items: center;
+    gap: 1rem;
+    border-radius: .25rem;
+    width: fit-content;
+}
+
+.sign {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.25rem;
+    opacity: .85;
+    cursor: not-allowed;
+    background-color: transparent;
+    border: none;
+}
+
+.sign.hover svg {
+    fill: var(--current-theme-fade-color);
+}
+
+.minus.hover:hover {
+    border-right: 1px solid var(--sub-text-color);
+}
+
+.add.hover:hover {
+    border-left: 1px solid var(--sub-text-color);
+}
+
+.sign svg {
+    fill: var(--main-text-color);
+}
+
+.sign.hover:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.cart-number {
+    margin: 0;
+    color: var(--current-theme-fade-color);
+}
+
+.serving-size {
+    font-size: .75rem;
+    color: var(--sub-text-color);
+    margin: .25rem 0 0 0;
+    max-width: 9rem;
+}
+
+.serving-size[data-serving="NG"] {
+    display: none;
+}
+
+.serving-size:not([data-serving="NG"])::after {
+    content: attr(data-serving) ")";
+}
+
+.serving-size:not([data-serving="NG"])::before {
+    content: '(';
+}
+
+.order-preview {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    border-bottom: 1px solid var(--sub-text-color);
+    padding-block-end: .75rem;
+}
+
+.order-preview span {
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.order-preview span p:nth-child(2) {
+    font-weight: bolder;
+    color: var(--main-text-color);
+}
+
+.order-preview:nth-child(2) {
+    margin-block-end: .75rem
+}
+
+.order-preview:nth-child(2) h2 {
+    font-size: .85rem;
+}
+
+.order-preview p {
+    margin: 0;
+    font-size: .85rem;
+    color: var(--sub-text-color);
+}
+
+.order-preview h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--main-text-color);
+    padding-block-start: .75rem;
+}
+
+.actual-price {
+    text-decoration: line-through;
+}
+
+.checkout {
+    border-bottom: 1px solid var(--sub-text-color);
+    padding-block-end: .75rem;
+}
+
+.checkout-preview {
+    display: flex;
+    padding-block: .5rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.checkout-preview .total-amount-description p {
+    margin: 0;
+}
+
+.checkout-preview p {
+    margin: 0;
+    font-weight: bolder;
+    color: var(--main-text-color);
+    font-size: .95rem;
+}
+
+#total-price {
+    color: greenyellow;
+    font-size: 1.05rem;
+}
+
+.checkout-btn {
+    background-color: var(--tastey-brand-accent-color);
+    border: none;
+    width: 100%;
+    aspect-ratio: 7 / 1;
+    max-height: 2.5rem;
+    border-radius: .25rem;
+    color: var(--current-theme-color);
+    font-size: .9rem;
+    font-weight: bold;
+    transition: transform 150ms ease;
+}
+
+.checkout-btn:hover {
+    cursor: pointer;
+    background-color: var(--tastey-brand-color);
+    transform: scale(1.015);
 }
 
 #scroller-circle {
@@ -1123,12 +1503,57 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
     .attention-grabber, .attention-grabber-two {
         display: none;
     }
+    .tastey-meal-order {
+        height: fit-content;
+    }
+    .tastey-order-info {
+        flex: 1;
+        flex-flow: column nowrap;
+        align-items: start;
+        padding-block-end: 0;
+        padding-inline: 1rem;
+    }
+    .tastey-order-image {
+        min-width: 30%;
+        height: 12.5rem;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    .tastey-order-text div:nth-child(2) {
+        justify-content: center;
+        gap: 1rem;
+        padding-block: 1.5rem;
+    }
+    .tastey-order-price-wrapper {
+        width: 100%;
+        flex-flow: row wrap;
+        align-items: center;
+    }
+    .sign {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
+@media only screen and (max-width: 55rem) {
+    .tastey-meal-order {
+        flex-flow: row wrap;
+        justify-content: center;
+    }
+    .tastey-order-info {
+        padding-inline: 0rem;
+        padding-block-start: 1rem;
+    }
+    .tastey-order-image {
+        min-width: 100%;
+    }
 }
 
 @media only screen and (max-width: 50rem) {
     nav {
         width: 100%;
         padding: 1vw;
+        left: 0;
     }
     .navigation-section ul {
         gap: .5vw;
@@ -1136,10 +1561,37 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
     .user-service-wrapper {
         gap: 1vw;
     }
-    .hero-content-wrapper {
-        width: 100%;
-        margin-left: 0;
-        padding-inline: 11.5vw;
+    .tastey-order-price-wrapper {
+        gap: 1.25rem;
+        justify-content: center;
+    }
+    .cart-toggle {
+        width: 12rem;
+    }
+    .sign {
+        flex: 1 1 5rem;
+    }
+}
+
+@media only screen and (max-width: 45rem) {
+    main.meal-cart {
+        justify-content: center;
+    }
+    .cart-section {
+        flex-flow: column nowrap;
+        align-items: center;
+        gap: 5rem;
+    }
+    .cart-toggle {
+        height: 2.15rem;
+    }
+    .checkout-section {
+        position: relative;
+    }
+    .order-review-section, .checkout-section {
+        top: 0;
+        left: 0;
+        width: clamp(5rem,100%,20rem);
     }
 }
 
@@ -1291,6 +1743,7 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
         top: 3.5rem;
         width: 95%!important;
         height: 2.5rem!important;
+        scale: 1!important;
         left: 2.5%;
         flex-flow: row nowrap;
     }
@@ -1349,13 +1802,19 @@ main.meal-cart[data-cart="0"] .cart-section, main.meal-cart:not([data-cart="0"])
             transparent 40%
         )!important;
     }
+    .cart-section > div::before {
+        display: none;
+    }
     .menu-sections:hover .tastey-meal::before, main:hover .tastey-meal::after {
         opacity: 0;
     }
-    .tastey-meal:hover::before {
+    body.cart:hover .cart-section div::before, body.cart:hover .cart-section div::after {
+        opacity: 0;
+    }
+    .tastey-meal:hover::before, .cart-section > div:hover::before {
         opacity: 1!important;
     }
-    .tastey-meal:hover::after {
+    .tastey-meal:hover::after, .cart-section:hover > div::after {
        background: rgba(255, 255, 255, 0.25)!important;
        opacity: 1!important;
     }
