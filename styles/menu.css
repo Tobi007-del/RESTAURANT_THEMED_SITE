@@ -931,7 +931,6 @@ main.meal-cart {
     padding-inline-start: 5rem;
     padding-inline-end: 1rem;
     padding-block: 5rem;
-    position: absolute;
 }
 
 .cart-section {
@@ -1030,7 +1029,6 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
     flex: 1 0 19rem;
     position: sticky;
     top: 5rem;
-    right: 1rem;
 }
 
 .checkout-section-content, .order-review-section-content {
@@ -1499,6 +1497,12 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
   background-color: red;
 }
 
+@media only screen and (min-width:50rem) {
+    main.meal-cart:not([data-cart="0"]) {
+        position: absolute;
+    }
+}
+
 @media only screen and (max-width: 65rem) {
     .attention-grabber, .attention-grabber-two {
         display: none;
@@ -1590,7 +1594,6 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
     }
     .order-review-section, .checkout-section {
         top: 0;
-        left: 0;
         width: clamp(5rem,100%,20rem);
     }
 }
