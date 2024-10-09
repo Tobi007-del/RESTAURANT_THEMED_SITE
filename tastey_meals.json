@@ -4,7 +4,8 @@
     "tasteyMeals": [
         {"starters": [
             {
-              "id": 1001,
+                "id": 1001,
+                "category": "Starters",
                 "label": "Small Chops Combo",
                 "description": "A tastey party special tripartite to tease your appetite with a combo of spring rolls, samosa and chicken but this one has a lot more to offer",
                 "price": {"currentValue": 30000, "discount": 23},
@@ -14,6 +15,7 @@
             },
             {
                 "id": 1002,
+                "category": "Starters",
                 "label": "Samosa",
                 "description": "The india originated food with quite a name, well seasoned minced chicken fried to golden brown served with pepper dip",
                 "price": {"currentValue": 1500, "discount": null},
@@ -23,6 +25,7 @@
             },
             {
                 "id": 1003,
+                "category": "Starters",
                 "label": "Spring rolls",
                 "description": "A china discovered snack that is basically stirfired vegetables wrapped in a wafer-thin wrapper served with pepper dip",
                 "price": {"currentValue": 1700, "discount": 6},
@@ -32,6 +35,7 @@
             },
             {
                 "id": 1004,
+                "category": "Starters",
                 "label": "Puff puffs",
                 "description": "Quite a popular appetizer/party essential, they are yeast-raised, soft, sweet fried dough balls",
                 "price": {"currentValue": 1500, "discount": 5},
@@ -41,6 +45,7 @@
             },
             {
                 "id": 1005,
+                "category": "Starters",
                 "label": "Catfish peppersoup",
                 "description": "A big hit in Nigeria, it is a light soup with special spices and seasonings, with enough protein based extras",
                 "price": {"currentValue": 2500, "discount": 15},
@@ -50,6 +55,7 @@
             },
             {
                 "id": 1006,
+                "category": "Starters",
                 "label": "Chin chin",
                 "description": "Fried dough where the dough is cut into small bits and shapes, a sweet and crunchy delight for anytime of the day",
                 "price": {"currentValue": 3000, "discount": null},
@@ -59,6 +65,7 @@
             },
             {
                 "id": 1007,
+                "category": "Starters",
                 "label": "Gizdodo",
                 "description": "This is a combination of fried plantain and fried gizzard sauteed in a tomato, pepper sauce, a party favorite",
                 "price": {"currentValue": 2500, "discount": 8},
@@ -68,6 +75,7 @@
             },
             {
                 "id": 1008,
+                "category": "Starters",
                 "label": "Peppered snail",
                 "description": "Cooked and stirfried snail in a pepper sauce with cut onion slices,a nigerian special for any tribe",
                 "price": {"currentValue": 3200, "discount": 7},
@@ -77,6 +85,7 @@
             },
             {
                 "id": 1009,
+                "category": "Starters",
                 "label": "Prawn",
                 "description": "They are breaded and fried or seasoned and grilled, quite a delight gaining popularity of recent served with a spicy dip",
                 "price": {"currentValue": 3000, "discount": null},
@@ -86,6 +95,7 @@
             },
             {
                 "id": 1010,
+                "category": "Starters",
                 "label": "Beef kebab",
                 "description": "Another famous appetizer that is boiled and stirfried in pepper sauce with vegetable varietes served on skewers",
                 "price": {"currentValue": 3100, "discount": 6},
@@ -95,6 +105,7 @@
             },
             {
                 "id": 1011,
+                "category": "Starters",
                 "label": "Nkwobi",
                 "description": "This is small pieces of cow leg/goat leg mixed in a spicy creamy palm oil and seasoned to make a nice dish",
                 "price": {"currentValue": 3400, "discount": null},
@@ -104,6 +115,7 @@
             },
             {
                 "id": 1012,
+                "category": "Starters",
                 "label": "Isi ewu",
                 "description": "Isi ewu is goat head cut into bite-sized chunks mixed with a spicy creamy palm oil sauce similar to nkwobi",
                 "price": {"currentValue": 8000, "discount": 19},
@@ -114,7 +126,8 @@
         ]},
         {"main-meals": [
              {
-              "id": 2001,
+                "id": 2001,
+                "category": "Main meals",
                 "label": "Jollof rice and turkey",
                 "description": "This is a popular classic dish that is rich and tasty consisting of rice cooked with broth, spices and seasoned turkey",
                 "price": {"currentValue": 5500, "discount": 8},
@@ -124,6 +137,7 @@
             },
             {
                 "id": 2002,
+                "category": "Main meals",
                 "label": "Fried rice and turkey",
                 "description": "This dish consits of fresh vegetables, carrots inclusive stir fried into the rice to make a seasoned delight",
                 "price": {"currentValue": 6000, "discount": 6},
@@ -133,6 +147,7 @@
             },
             {
                 "id": 2003,
+                "category": "Main meals",
                 "label": "Pounded yam and egusi",
                 "description": "A nigerian special predominant among the Yorubas, made from melon seed grounded with a mix of leafy vegetables served with pounded yam",
                 "price": {"currentValue": 4500, "discount": null},
@@ -142,6 +157,7 @@
             },
             {
                 "id": 2004,
+                "category": "Main meals",
                 "label": "Amala and ewedu",
                 "description": "A yoruba special consisting of plantain flour called amala with a soup called ewedu served alongside stew with protein",
                 "price": {"currentValue": 5000, "discount": null},
@@ -151,6 +167,7 @@
             },
             {
                 "id": 2005,
+                "category": "Main meals",
                 "label": "Eba and Oha Soup",
                 "description": "An rich and nutricious delight that is particular to the Igbos, made with enough protein served alongside eba",
                 "price": {"currentValue": 5000, "discount": null},
@@ -160,6 +177,7 @@
             },
             {
                 "id": 2006,
+                "category": "Main meals",
                 "label": "Beans and dodo",
                 "description": "This nigerian combo is quite predominant of recent, it consists of spiced slow cooked beans served alongisde fried planatain alias dodo",
                 "price": {"currentValue": 3000, "discount": 15},
@@ -169,6 +187,7 @@
             },
             {
                 "id": 2007,
+                "category": "Main meals",
                 "label": "Jollof rice special",
                 "description": "A tastey special combo consisting of jollof rice served with stew and turkey alongside fried plantain",
                 "price": {"currentValue": 8500, "discount": 10},
@@ -178,6 +197,7 @@
             },
             {
                 "id": 2008,
+                "category": "Main meals",
                 "label": "Rice and vegetable",
                 "description": "This delicious combo is a mix of the leafy greens spiced and seasoned with proteins of all kinds served with white rice underneath",
                 "price": {"currentValue": 5500, "discount": 6},
@@ -187,6 +207,7 @@
             },
             {
                 "id": 2009,
+                "category": "Main meals",
                 "label": "Beans, stew and dodo",
                 "description": "Just like it's beans and dodo counterpart, this variant offers a slightly different feeling as it is served along with stew",
                 "price": {"currentValue": 2200, "discount": null},
@@ -196,6 +217,7 @@
             },
             {
                 "id": 2010,
+                "category": "Main meals",
                 "label": "Eba and efo riro",
                 "description": "Efo riro, a spinach stew made with chopped spinach stirred into a pepper stew with protein included, served alongside eba",
                 "price": {"currentValue": 5100, "discount": 7},
@@ -205,6 +227,7 @@
             },
             {
                 "id": 2011,
+                "category": "Main meals",
                 "label": "Pound yam and ogbono",
                 "description": "Ogbono soup, a local special made with ground dry ogbono seeds that is tastey and nutrient-dense served with pounded yam",
                 "price": {"currentValue": 5300, "discount": 7},
@@ -214,6 +237,7 @@
             },
             {
                 "id": 2012,
+                "category": "Main meals",
                 "label": "Banga soup and starch",
                 "description": "A rich and healthy palm nut soup that is popular and known for it's sweet spicy nature served with starch",
                 "price": {"currentValue": 6000, "discount": 6},
@@ -224,7 +248,8 @@
         ]},
         {"drinks": [
              {
-              "id": 3001,
+                "id": 3001,
+                "category": "Drinks",
                 "label": "Zobo",
                 "description": "A tart and concentrated drink made with dried hibiscus flowers, cloves, and ginger, sweeteened and flavored in different ways",
                 "price": {"currentValue": 1000, "discount": 9},
@@ -234,6 +259,7 @@
             },
             {
                 "id": 3002,
+                "category": "Drinks",
                 "label": "Kunu",
                 "description": "A nutricious, non-alcholic beverage made from grains such as millet, sorghum or maize usually flavored with spices and sweetened, served chilled",
                 "price": {"currentValue": 900, "discount": null},
@@ -243,6 +269,7 @@
             },
             {
                 "id": 3003,
+                "category": "Drinks",
                 "label": "Chapman",
                 "description": "A popular cocktail that combines various fruit juices like orange and lemon with itters, soda and sometimes cucumber and other fruits",
                 "price": {"currentValue": 3000, "discount": 10},
@@ -252,6 +279,7 @@
             },
             {
                 "id": 3004,
+                "category": "Drinks",
                 "label": "Coffee",
                 "description": "A beverage drink growing popularity often known for it's energizing purposes and unique taste",
                 "price": {"currentValue": 2500, "discount": null},
@@ -261,6 +289,7 @@
             },
             {
                 "id": 3005,
+                "category": "Drinks",
                 "label": "Cocunut water",
                 "description": "A refershing and hydrating drink extracted directly from coconuts, it's a popular drink and can be consumed during the hot weather",
                 "price": {"currentValue": 1000, "discount": 6},
@@ -270,6 +299,7 @@
             },
             {
                 "id": 3006,
+                "category": "Drinks",
                 "label": "Tigernut milk",
                 "description": "A non-diary milk alternative made from tigernuts, highly nutritious and rich in protein and fiber and also vitamin packed sweetened with honey",
                 "price": {"currentValue": 2100, "discount": 17},
@@ -279,6 +309,7 @@
             },
             {
                 "id": 3007,
+                "category": "Drinks",
                 "label": "Coca-cola",
                 "description": "A fizzy wonder that's know practically everywhere for it's great taste and feeling served chilled with ice cubes",
                 "price": {"currentValue": 900, "discount": 10},
@@ -288,6 +319,7 @@
             },
             {
                 "id": 3008,
+                "category": "Drinks",
                 "label": "Fanta",
                 "description": "A fizzy delight like it's sibling coke that is loved for it's orange color and great taste served chilled with ice cubes",
                 "price": {"currentValue": 900, "discount": 10},
@@ -297,6 +329,7 @@
             },
             {
                 "id": 3009,
+                "category": "Drinks",
                 "label": "Sprite",
                 "description": "A fizz drink that's well known for it's lime/lemon mix and transparent like color served chilled with ice cubes",
                 "price": {"currentValue": 900, "discount": 10},
@@ -306,6 +339,7 @@
             },
             {
                 "id": 3010,
+                "category": "Drinks",
                 "label": "Grape juice",
                 "description": "A healthy but sweet juice made from blended grapes to form a smoothie served chilled with ice cubes",
                 "price": {"currentValue": 2000, "discount": 15},
@@ -315,6 +349,7 @@
             },
             {
                 "id": 3011,
+                "category": "Drinks",
                 "label": "Watermelon juice",
                 "description": "A natural drink with miraculouse health benefits at the same time being sweet made from watermelon served chilled",
                 "price": {"currentValue": 2000, "discount": 15},
@@ -324,6 +359,7 @@
             },
             {
                 "id": 3012,
+                "category": "Drinks",
                 "label": "Apple juice",
                 "description": "A beautiful tastey drink made from blended apples that has high nutritional benefits and weight loss potential served chilled",
                 "price": {"currentValue": 2100, "discount": null},
@@ -334,9 +370,10 @@
         ]},
         {"desserts": [
              {
-              "id": 4001,
+                "id": 4001,
+                "category": "Desserts",
                 "label": "Cocunut Candy",
-                "description": "Made from coconut fruit thinly grated and fried in balls then caramel coated to make it crunchy, chewable and candy-like",
+                "description": "Made from coconut thinly grated and fried in balls then caramel coated to make it crunchy, chewable and candy-like",
                 "price": {"currentValue": 500, "discount": null},
                 "serving": null,
                 "like": null,
@@ -344,6 +381,7 @@
             },
             {
                 "id": 4002,
+                "category": "Desserts",
                 "label": "Chin chin dessert",
                 "description": "This popular crunchy snack can be enjoyed as a desert made from kneaded dough either deep-fried or oven-baked and in nibble bits",
                 "price": {"currentValue": 2500, "discount": 6},
@@ -353,6 +391,7 @@
             },
             {
                 "id": 4003,
+                "category": "Desserts",
                 "label": "Akara",
                 "description": "Beans cake mainly known for it's alias made from bean flour and spiced to taste with onions, pepper, crayfish served hot and crispy",
                 "price": {"currentValue": 1000, "discount": null},
@@ -362,6 +401,7 @@
             },
             {
                 "id": 4004,
+                "category": "Desserts",
                 "label": "Donkwa",
                 "description": "A hausa special prepared from groundnuts and cornmeal, spiced up with chili peppers mixed with water and oil and molded into shape",
                 "price": {"currentValue": 900, "discount": null},
@@ -371,6 +411,7 @@
             },
             {
                 "id": 4005,
+                "category": "Desserts",
                 "label": "Grilled corn",
                 "description": "Maize prepared by grilling served alongside pears and coconuts, a tasty combo that will make an amazing dessert",
                 "price": {"currentValue": 750, "discount": null},
@@ -380,6 +421,7 @@
             },
             {
                 "id": 4006,
+                "category": "Desserts",
                 "label": "Plantain chips",
                 "description": "They are made with ripe or unripe plantain sliced into thin fine discs before deep-frying to produce a crunch and tastey delight",
                 "price": {"currentValue": 2000, "discount": null},
@@ -389,6 +431,7 @@
             },
             {
                 "id": 4007,
+                "category": "Desserts",
                 "label": "Egg rolls",
                 "description": "This savory dessert prepared by enveloping eggs in the dough before deep-frying in vegetable oil forming a crisply healthy snack",
                 "price": {"currentValue": 700, "discount": 6},
@@ -398,6 +441,7 @@
             },
             {
                 "id": 4008,
+                "category": "Desserts",
                 "label": "Kuli kuli",
                 "description": "A hausa native special made with roasted groundnuts milled and spiced before deep-frying and it leaves quite a spicy aftertaste",
                 "price": {"currentValue": 1700, "discount": "10"},
@@ -407,6 +451,7 @@
             },
             {
                 "id": 4009,
+                "category": "Desserts",
                 "label": "Kilishi",
                 "description": "A classic meat delicacy made from beef, mutton or chevon sliced into thin sheets and sun-dried before proper seasoning",
                 "price": {"currentValue": 1500, "discount": 6},
@@ -416,6 +461,7 @@
             },
             {
                 "id": 4010,
+                "category": "Desserts",
                 "label": "Suya",
                 "description": "Nicely cut beef seasoned with a unique spice called Yaji before grilling in an open flame served with cabbage, tomatoes and onions",
                 "price": {"currentValue": 3500, "discount": "10"},
@@ -425,6 +471,7 @@
             },
             {
                 "id": 4011,
+                "category": "Desserts",
                 "label": "Bole",
                 "description": "Made from roasted plantain that has been grilled on an open fire till charring served with roasted groundnuts and little spice",
                 "price": {"currentValue": 1450, "discount": 8},
@@ -434,6 +481,7 @@
             },
             {
                 "id": 4012,
+                "category": "Desserts",
                 "label": "Dates",
                 "description": "Packed with natural sugars, fiber and minerals, they are generally considered mouthwatering served ripe, soft and tastey",
                 "price": {"currentValue": 1000, "discount": null},

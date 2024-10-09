@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="styles/menu.css">
     <link rel="stylesheet" href="styles/scroll-bar.css">
 </head>
-<body class="smooth-scroll cart">
+<body class="smooth-scroll">
     <nav class="row">
         <div class="company-name-section">
             <div class="tastey-logo"></div>
@@ -66,7 +66,7 @@
                     <a href="">RESERVATION</a>
                 </div>
                 <div class="cart-container">
-                    <span tabindex="0" title="Shopping Bag" class="navbar-cart Cart" data-cart="2">
+                    <span tabindex="0" title="Shopping Bag" class="navbar-cart Cart" data-cart="0">
                         <svg class="cart-icon" viewBox="0 -960 960 960">
                             <path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"/>
                         </svg>
@@ -92,7 +92,7 @@
             </div>
             <div class="cart-toggler toggler">
                 <div>
-                    <span class="Cart main-cart" data-cart="2">
+                    <span class="Cart main-cart" data-cart="0">
                         <svg class="cart-icon icon" viewBox="0 -960 960 960">
                             <path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"/>
                         </svg>
@@ -206,7 +206,7 @@
     </aside>
     
 
-    <main class="meal-cart" data-cart="10">
+    <!-- <main class="meal-cart" data-cart="10">
         <div class="cart-title-wrapper">
             <h3>Your Shopping Bag</h3>
         </div>
@@ -223,34 +223,34 @@
                             <h2>Order Summary</h2>
                             <span>
                                 <p class="cart-number"> Orders in total :</p>
-                                <p>2</p>
+                                <p>0</p>
                             </span>
                             <span>
                                 <p>Tastey meals :</p>
-                                <p class="meals-number">9</p>
+                                <p class="meals-number">0</p>
                             </span>
                             <span>
                                 <p>Actual Amount :</p>
-                                <p class="actual-price">$120.00</p>
+                                <p class="actual-price">0</p>
                             </span>
                             <span>
                                 <p>Total Discount :</p>
-                                <p class="total-discount">11%</p>
+                                <p class="total-discount">0%</p>
                             </span>
                             <span>
                                 <p>Saved :</p>
-                                <p>$20.00</p>
+                                <p>0</p>
                             </span>
                         </div>
                         <div class="order-preview">
                             <h2>The total amount of</h2>
                             <span>
                                 <p>Total Amount</p>
-                                <p class="total-price">$100.00</p>
+                                <p class="total-price">0</p>
                             </span>
                             <span>
                                 <p>VAT</p>
-                                <p>+$5.00</p>
+                                <p>0</p>
                             </span>
                         </div>
                     </div>
@@ -261,18 +261,18 @@
                                 <p>(including VAT)</p>
                             </span>
                             <span class="total-amount-values">
-                                <p id="total-price">$105.00</p>
+                                <p id="total-price">0</p>
                             </span>
                         </div>
                         <div class="checkout-btn-wrapper">
-                            <button title="Checkout" class="checkout-btn">GO TO CHECKOUT</button>
+                            <button title="Checkout" class="checkout-btn" data-cart="0">GO TO CHECKOUT</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="order-review-section">
                 <div class="order-review-section-content">
-                    <span class="order-number" data-cart="2">Bag</span>
+                    <span class="order-number" data-cart="0">Bag</span>
                 <div class="tastey-meal-order">
                     <div class="tastey-order-image"></div>
                     <div class="tastey-order-info">
@@ -302,6 +302,7 @@
                             <span>
                                 <span class="cart-toggle">
                                 <button title="Remove" class="sign minus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     <svg width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill-rule="nonzero" xlink:href="#a"/></svg>
                                 </button>
                                     <p class="cart-number">2</p>
@@ -348,6 +349,7 @@
                             <span>
                                 <span class="cart-toggle">
                                 <button title="Remove" class="sign minus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     <svg width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill-rule="nonzero" xlink:href="#a"/></svg>
                                 </button>
                                     <p class="cart-number">2</p>
@@ -393,6 +395,7 @@
                             <span>
                                 <span class="cart-toggle">
                                 <button title="Remove" class="sign minus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     <svg width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill-rule="nonzero" xlink:href="#a"/></svg>
                                 </button>
                                     <p class="cart-number">2</p>
@@ -438,6 +441,7 @@
                             <span>
                                 <span class="cart-toggle">
                                 <button title="Remove" class="sign minus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     <svg width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill-rule="nonzero" xlink:href="#a"/></svg>
                                 </button>
                                     <p class="cart-number">2</p>
@@ -483,6 +487,7 @@
                             <span>
                                 <span class="cart-toggle">
                                 <button title="Remove" class="sign minus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     <svg width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill-rule="nonzero" xlink:href="#a"/></svg>
                                 </button>
                                     <p class="cart-number">2</p>
@@ -502,7 +507,7 @@
                 </div>
             </div>
         </div>
-    </main>
+    </main> -->
 
 
 <div id = "quick-scroll-wrapper" title = "scroller">

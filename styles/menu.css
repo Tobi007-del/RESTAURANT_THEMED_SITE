@@ -1,7 +1,5 @@
 *,*::after,*::before {
     box-sizing: border-box;
-    -webkit-user-select: none;
-    user-select: none;
 }
 
 :root {
@@ -504,7 +502,7 @@ main.menu h1 {
     height: 100%;
     width: 40%;
     top: 0;
-    background-size: clamp(1rem,25%,10rem)!important;
+    background-size: clamp(1rem,25%,7.5rem)!important;
 }
 
 .tastey-menu-title-wrapper::after {
@@ -642,7 +640,7 @@ main.menu h3 {
 .tastey-meal::before, .cart-section > div::before {
     background: radial-gradient(
         28rem circle at var(--mouse-x) var(--mouse-y),
-        rgba(255,255,255,0.125),
+        rgba(255,255,255,0.2),
         transparent 40%
     );
     z-index: 3;
@@ -687,13 +685,13 @@ main.menu h3 {
     cursor: pointer;
 }
 
-.tastey-meal-image::after, .tastey-order-image::after re{
+.tastey-meal-image::after, .tastey-order-image::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 17.5%;
-    height: 17.5%;
+    height: 15%;
     margin: .5rem;
     background: radial-gradient(4rem circle at center, rgba(255,255,255,0.45), transparent 40%), url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center center;
     background-size: cover;
@@ -775,19 +773,19 @@ main.menu h3 {
     cursor: pointer;
 }
 
-.tastey-meal[data-like="false"] .liked-heart-icon, .wishlist[data-like="false"] .liked-heart-icon, .wishlist[data-like="false"] .remove-from-wishlist {
+.tastey-meal[data-like="false"] .liked-heart-icon, .tastey-meal-order[data-like="false"] .liked-heart-icon, .tastey-meal-order[data-like="false"] .remove-from-wishlist {
     display: none;
 }
 
-.tastey-meal[data-like="false"] .unliked-heart-icon, .wishlist[data-like="false"] .unliked-heart-icon, .wishlist[data-like="false"] .move-to-wishlist {
+.tastey-meal[data-like="false"] .unliked-heart-icon, .tastey-meal-order[data-like="false"] .unliked-heart-icon, .tastey-meal-order[data-like="false"] .move-to-wishlist {
     display: block;
 }
 
-.tastey-meal[data-like="true"] .liked-heart-icon, .wishlist[data-like="true"] .liked-heart-icon, .wishlist[data-like="true"] .remove-from-wishlist {
+.tastey-meal[data-like="true"] .liked-heart-icon, .tastey-meal-order[data-like="true"] .liked-heart-icon,.tastey-meal-order[data-like="true"] .remove-from-wishlist {
     display: block;
 }
 
-.tastey-meal[data-like="true"] .unliked-heart-icon, .wishlist[data-like="true"] .unliked-heart-icon, .wishlist[data-like="true"] .move-to-wishlist {
+.tastey-meal[data-like="true"] .unliked-heart-icon, .tastey-meal-order[data-like="true"] .unliked-heart-icon, .tastey-meal-order[data-like="true"] .move-to-wishlist {
     display: none;
 }
 
@@ -888,6 +886,7 @@ main.menu h3 {
     height: 2.05rem;
     font-size: 1.05rem;
     border: none;
+    position: relative;
     border-radius: .25rem;
     background-color: var(--tastey-brand-accent-color);
     color: var(--current-theme-color);
@@ -899,6 +898,21 @@ main.menu h3 {
     cursor: pointer;
     transform: scale(1.02);
     background-color: var(--tastey-brand-color);
+}
+
+.add-to-cart-button:not([data-orders="0"])::after {
+    position: absolute;
+    content: attr(data-orders) ' in Shopping Bag';
+    width: 100%;
+    text-align: center;
+    left: 0;
+    top: 100%;
+    font-size: .7rem;
+    color: var(--sub-text-color);
+}
+
+.add-to-cart-button[data-orders="0"]::after {
+    display: none;
 }
 
 .product-price {
@@ -963,8 +977,8 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
     font-size: 1.35rem;
     display: flex;
     justify-content: center;
-    margin-block-start: 2rem;
-    margin-block-end: 2rem;
+    margin-block-start: 1rem;
+    margin-block-end: 1rem;
     color: var(--current-theme-color);
 }
 
@@ -998,7 +1012,7 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
     display: flex;
     align-items: end;
     justify-content: center;
-    margin: 1rem auto;
+    margin: auto;
     background: url('../assets/tastey-meal-images/empty-cart.png') center center, var(--lighter-black) center center;
     background-size: cover;
 }
@@ -1015,7 +1029,7 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
 
 .checkout-section, .order-review-section {
     max-height: min-content;
-    height: fit-content;
+    height: fit-content;  
     background-color: rgba(255, 255, 255, 0.25);
     border-radius: .5rem;
     position: relative;
@@ -1033,7 +1047,7 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
 }
 
 .checkout-section-content, .order-review-section-content {
-    background-color: var(--lighter-black);
+    background-color: var(--lighter-black);  
     border-radius: inherit;
     position: relative;
     z-index: 2;
@@ -1082,7 +1096,6 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
 
 .tastey-order-image {
     min-width: 25%;
-    background-image: url('../assets/tastey-meal-images/tastey_meal_one.jpg')!important;
     background: var(--tastey-brand-accent-color);
     background-size: cover!important;
     background-repeat: no-repeat!important;
@@ -1092,7 +1105,7 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
 }
 
 .tastey-order-image::after {
-    width: 20%;
+    width: 22.5%;
     height: 20%;
     margin: .15rem;
 }
@@ -1263,6 +1276,14 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
     opacity: 1;
 }
 
+.tastey-meal-order[data-orders="1"] .minus svg:first-child, .tastey-meal-order:not([data-orders="1"]) .minus svg:nth-child(2) {
+    display: inline;
+} 
+
+.tastey-meal-order:not([data-orders="1"]) .minus svg:first-child, .tastey-meal-order[data-orders="1"] .minus svg:nth-child(2) {
+    display: none;
+}
+
 .cart-number {
     margin: 0;
     color: var(--current-theme-fade-color);
@@ -1375,6 +1396,11 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
     cursor: pointer;
     background-color: var(--tastey-brand-color);
     transform: scale(1.015);
+}
+
+.checkout-btn::after {
+    content: ' ('attr(data-cart) ' meals)';
+    color: var(--current-theme-inverse-accent-color);
 }
 
 #scroller-circle {

@@ -1,7 +1,5 @@
 *,*::after,*::before {
     box-sizing: border-box;
-    -webkit-user-select: none;
-    user-select: none;
 }
 :root {
     --tastey-brand-color: #ed8f23;
