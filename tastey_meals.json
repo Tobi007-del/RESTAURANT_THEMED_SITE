@@ -49,7 +49,7 @@
                 "label": "Catfish peppersoup",
                 "description": "A big hit in Nigeria, it is a light soup with special spices and seasonings, with enough protein based extras",
                 "price": {"currentValue": 2500, "discount": 15},
-                "serving": null,
+                "serving": "2 fish per soup",
                 "like": null,
                 "picSrc": "assets/tastey-starters-images/pepper-soup.jpg"
             },
@@ -79,7 +79,7 @@
                 "label": "Peppered snail",
                 "description": "Cooked and stirfried snail in a pepper sauce with cut onion slices,a nigerian special for any tribe",
                 "price": {"currentValue": 3200, "discount": 7},
-                "serving": null,
+                "serving": "6 per order",
                 "like": null,
                 "picSrc": "assets/tastey-starters-images/peppered-snail.jpg"
             },
@@ -141,7 +141,7 @@
                 "label": "Fried rice and turkey",
                 "description": "This dish consits of fresh vegetables, carrots inclusive stir fried into the rice to make a seasoned delight",
                 "price": {"currentValue": 6000, "discount": 6},
-                "serving": "1 plate per order",
+                "serving": "2 turkeys per order",
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/fried-rice-and-turkey.jpg"
             },
@@ -160,7 +160,7 @@
                 "category": "Main meals",
                 "label": "Amala and ewedu",
                 "description": "A yoruba special consisting of plantain flour called amala with a soup called ewedu served alongside stew with protein",
-                "price": {"currentValue": 5000, "discount": null},
+                "price": {"currentValue": 4000, "discount": null},
                 "serving": "1 plate per order",
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/amala-and-ewedu-with-stew.jpg"
@@ -170,7 +170,7 @@
                 "category": "Main meals",
                 "label": "Eba and Oha Soup",
                 "description": "An rich and nutricious delight that is particular to the Igbos, made with enough protein served alongside eba",
-                "price": {"currentValue": 5000, "discount": null},
+                "price": {"currentValue": 4000, "discount": null},
                 "serving": "1 plate per order",
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/eba-and-oha-soup.jpg"
@@ -200,7 +200,7 @@
                 "category": "Main meals",
                 "label": "Rice and vegetable",
                 "description": "This delicious combo is a mix of the leafy greens spiced and seasoned with proteins of all kinds served with white rice underneath",
-                "price": {"currentValue": 5500, "discount": 6},
+                "price": {"currentValue": 5100, "discount": 6},
                 "serving": "1 plate per order",
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/rice-and-vegetable.jpg"
@@ -210,7 +210,7 @@
                 "category": "Main meals",
                 "label": "Beans, stew and dodo",
                 "description": "Just like it's beans and dodo counterpart, this variant offers a slightly different feeling as it is served along with stew",
-                "price": {"currentValue": 2200, "discount": null},
+                "price": {"currentValue": 2700, "discount": null},
                 "serving": "1 plate per order",
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/beans-stew-and-dodo.jpg"
@@ -220,7 +220,7 @@
                 "category": "Main meals",
                 "label": "Eba and efo riro",
                 "description": "Efo riro, a spinach stew made with chopped spinach stirred into a pepper stew with protein included, served alongside eba",
-                "price": {"currentValue": 5100, "discount": 7},
+                "price": {"currentValue": 3900, "discount": 7},
                 "serving": "1 plate per order",
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/eba-and-efo-riro.jpg"
@@ -229,8 +229,8 @@
                 "id": 2011,
                 "category": "Main meals",
                 "label": "Pound yam and ogbono",
-                "description": "Ogbono soup, a local special made with ground dry ogbono seeds that is tastey and nutrient-dense served with pounded yam",
-                "price": {"currentValue": 5300, "discount": 7},
+                "description": "Ogbono soup, a local special made with ground dry ogbono seeds that is tastey tand nutrient-dense served with pounded yam",
+                "price": {"currentValue": 4300, "discount": 7},
                 "serving": "1 plate per order",
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/pounded-yam-and-ogbono.jpg"
@@ -240,7 +240,7 @@
                 "category": "Main meals",
                 "label": "Banga soup and starch",
                 "description": "A rich and healthy palm nut soup that is popular and known for it's sweet spicy nature served with starch",
-                "price": {"currentValue": 6000, "discount": 6},
+                "price": {"currentValue": 5000, "discount": 6},
                 "serving": "1 plate per order",
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/banga-soup-and-starch.jpg"
@@ -282,7 +282,7 @@
                 "category": "Drinks",
                 "label": "Coffee",
                 "description": "A beverage drink growing popularity often known for it's energizing purposes and unique taste",
-                "price": {"currentValue": 2500, "discount": null},
+                "price": {"currentValue": 1500, "discount": null},
                 "serving": "1 per order",
                 "like": null,
                 "picSrc": "assets/tastey-drinks-images/cofee.jpg"
@@ -473,7 +473,7 @@
                 "id": 4011,
                 "category": "Desserts",
                 "label": "Bole",
-                "description": "Made from roasted plantain that has been grilled on an open fire till charring served with roasted groundnuts and little spice",
+                "description": "Like it's sibling Boli, this is made from roasted plantain that has been grilled on an open fire with roasted groundnuts and little spice",
                 "price": {"currentValue": 1450, "discount": 8},
                 "serving": "3 per order",
                 "like": null,

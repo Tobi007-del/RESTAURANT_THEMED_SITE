@@ -79,16 +79,28 @@ class TasteyManager {
         this.totalCost = 0 
     }
 
-    addMeal(id,meals,curr) {
-        try {
-        const meal = meals.find(meal => meal.id === id)
-        const { label, category, price, serving, picSrc } = meal;
+    removeMeal(id) {
+    try {
         const index = this.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
-        let currentProductCount;
+        this.tasteyRecord.tasteyOrders[index].orders = this.tasteyRecord.tasteyOrders[index].orders - 1
+        const currentProductCount = this.tasteyRecord.tasteyOrders[index].orders
+        const currentProductCountElement = document.querySelector(`.tastey-meal-order[data-id="${id}"] .cart-number`)
+        currentProductCountElement.textContent = currentProductCount
+    } catch (error) {
+        console.log(error)
+    }
+    }
+
+    addMeal(id,meals,curr) {
+    try {
+        const meal = meals.find(meal => meal.id === id)
+        const { label, category, price, serving, picSrc } = meal
+        const index = this.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
+        let currentProductCount
         if (index === -1) {
             const meal = {}
             meal.id = Number(id)
-            meal.orders = 1;
+            meal.orders = 1
             this.tasteyRecord.tasteyOrders.push(meal)
             currentProductCount = 1
         } else {
@@ -100,7 +112,10 @@ class TasteyManager {
         const orderReviewSectionContent = document.querySelector(".order-review-section-content")
         const like = this.tasteyRecord.likes.find(meal => meal.id === id)
         
-        currentProductCount > 1 ? currentProductCountElement.textContent = currentProductCount : orderReviewSectionContent.innerHTML += `
+        if (currentProductCount > 1) { 
+            currentProductCountElement.textContent = currentProductCount
+        } else {
+             orderReviewSectionContent.innerHTML += `
                 <div class="tastey-meal-order" data-id="${id}" data-like="${like?.like ?? false}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}">
                     <div class="tastey-order-image" style="background-image: url('${picSrc}')"></div>
                     <div class="tastey-order-info">
@@ -110,7 +125,7 @@ class TasteyManager {
                                 <p>Category: ${category}</p>
                             </div>
                             <div>
-                                <button title="Remove from bag" class="delete-order" data-id="${id}">
+                                <button title="Remove from bag" class="delete-order">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     </span>
@@ -147,10 +162,11 @@ class TasteyManager {
                         </div>
                     </div>
                 </div>
-        `   
-        } catch (error) {
-            console.log(error)
+            `   
         }
+    } catch (error) {
+        console.log(error)
+    }
     }
 
     getCounts() {
@@ -179,7 +195,7 @@ class TasteyManager {
         return like?.like
     }
 
-    removeMeal(id) {
+    deleteMeal(id) {
         const mealIndex = this.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
         this.tasteyRecord.tasteyOrders.splice(mealIndex,1)
     }
@@ -291,7 +307,6 @@ function tasteyMenu(data){
             <h3 class="main-menu-title">Our <span class="tastey">Tastey</span> Menu</h3>
             </span>
         </div>`
-    const currency = data.currency
     
     const tasteyMeals = data.tasteyMeals
     tasteyMeals.forEach(meal => {
@@ -413,8 +428,8 @@ function tasteyMenu(data){
             </div>
         </div>
     `
-    console.log(Tastey.tasteyRecord.tasteyOrders)
-    console.log(Tastey.tasteyRecord.likes)
+    // console.log(Tastey.tasteyRecord.tasteyOrders)
+    // console.log(Tastey.tasteyRecord.likes)
     document.body.insertBefore(main,document.getElementById("quick-scroll-wrapper"))
 }
 
@@ -427,6 +442,7 @@ quickScrollShow = document.getElementById("quick-scroll-show"),
 quickScroll = document.getElementById("quick-scroll-wrapper"),
 quickScrolls = document.getElementById("quick-scrolls"),
 likeIconWrappers = document.querySelectorAll(".heart-icon-wrapper"),
+orderReviewSectionContent = document.querySelector(".order-review-section-content"),
 wishlistTogglers = document.getElementsByClassName("wishlist"),
 tasteyMeals = document.querySelectorAll(".tastey-meal"),
 tasteyMealsImages = document.querySelectorAll(".tastey-meal-image"),
@@ -439,7 +455,9 @@ tastey = document.querySelector(".tastey"),
 menuToggler = document.querySelector(".menu-toggler"),
 cartToggler = document.querySelector(".cart-toggler"),
 addToCartBtns = document.querySelectorAll(".add-to-cart-button"),
-deleteOrderBtns = document.getElementsByClassName("delete-order")
+deleteOrderBtns = document.getElementsByClassName("delete-order"),
+plusCartBtns = document.getElementsByClassName("add"),
+minusCartBtns = document.getElementsByClassName("minus")
 
 const meals = data.tasteyMeals
 
@@ -451,6 +469,7 @@ const setCartStates = () => {
         dataCartState.dataset.cart = weakTastey.getCounts()
     })
 }
+
 const setOrderStates = (id) => {
     const dataOrderStates = document.querySelectorAll("[data-orders]")
     dataOrderStates.forEach(dataOrderState => {
@@ -467,48 +486,96 @@ const setlikeState = (id) => {
             dataLikeState.dataset.like = weakTastey.getLikeValue(id) ?? !dataLikeState.dataset.like
         }
     })
+}            
+
+function getOrderIndex(id){
+    let i;
+    const mealOrders = document.querySelectorAll(".tastey-meal-order")
+    const childrenArray = Array.from(orderReviewSectionContent.children)
+    childrenArray.shift()
+    mealOrders?.forEach(order => {
+    if (Number(order.dataset.id) === id) 
+        i = childrenArray.indexOf(order) ?? 0
+    })
+    return i;
 }
 
 addToCartBtns.forEach(btn =>{
     btn.addEventListener('click', e => {
-        Tastey.addMeal(Number(e.target.dataset.id),allMeals,data.currency)
-        setCartStates()
-        setOrderStates(Number(e.target.dataset.id))
-        for(let i = 0; i < wishlistTogglers.length; i++) {
-            wishlistTogglers[i].removeEventListener('click', handleWishlist)
-            tasteyOrderImages[i].removeEventListener('click', handleWishlist)
-            deleteOrderBtns[i].removeEventListener('click', handleDelete)
-            wishlistTogglers[i].addEventListener('click', () => {
-                handleWishlist(i)      
-            })
-            tasteyOrderImages[i].addEventListener('dblclick', () => {
-                handleWishlist(i)  
-            })
-            deleteOrderBtns[i].addEventListener('click', e => {
-                handleDelete(i,e.target.dataset.id)
-            })
-        }
-    })  
+            try {
+                handleAddMeal(Number(e.target.dataset.id),getOrderIndex(Number(e.target.dataset.id)))
+                    for(let i = 0; i < tasteyMealOrders.length; i++) {
+                        wishlistTogglers[i].removeEventListener('click', wishlistTogglers[i].fn)
+                        tasteyOrderImages[i].removeEventListener('click', tasteyOrderImages[i].fn)
+                        deleteOrderBtns[i].removeEventListener('click', deleteOrderBtns[i].fn)
+                        plusCartBtns[i].removeEventListener('click', plusCartBtns[i].fn)
+                        minusCartBtns[i].removeEventListener('click', minusCartBtns[i].fn) 
+                        wishlistTogglers[i].addEventListener('click', wishlistTogglers[i].fn = () => {
+                            handleWishlist(i)      
+                        })
+                        tasteyOrderImages[i].addEventListener('click', tasteyOrderImages[i].fn = () => {
+                            handleWishlist(i)  
+                        })
+                        deleteOrderBtns[i].addEventListener('click', deleteOrderBtns[i].fn = () => {
+                            handleDelete(Number(tasteyMealOrders[i]?.dataset.id),i)
+                        })
+                        plusCartBtns[i].addEventListener('click', plusCartBtns[i].fn = () => {
+                            handleAddMeal(Number(tasteyMealOrders[i].dataset.id),i)
+                        })
+                        plusCartBtns[i].classList.add('hover')
+                        minusCartBtns[i].addEventListener('click', minusCartBtns[i].fn = () => {                        
+                            handleRemoveMeal(Number(tasteyMealOrders[i]?.dataset.id),i)
+                        }) 
+                    }
+            } catch (error) {
+                console.log(error)
+            }
+    })
 })
 
 
-//a function to handle deleting orders 
-const handleDelete = (n,id) => {
-    Tastey.removeMeal(n,id)
+function setMinusHoverState(i) {
+    const number = (weakTastey.getOrdersValue(Number(tasteyMealOrders[i]?.dataset.id)) ?? 0)
+    minusCartBtns[i]?.classList.toggle('hover',number > 1)
+}
+
+function handleAddMeal(id,i) {
+    Tastey.addMeal(id,allMeals,data.currency)
     setCartStates()
     setOrderStates(id)
+    setMinusHoverState(i)
+}
+
+function handleRemoveMeal(id,i) {
     console.log(id)
+    const number = (weakTastey.getOrdersValue(Number(tasteyMealOrders[i]?.dataset.id)) ?? 0)
+    if(Number(number) > 1) { 
+        Tastey.removeMeal(id)
+        setCartStates()
+        setOrderStates(id)
+        setMinusHoverState(i)
+    } else if(Number(number) == 1) { 
+        handleDelete(id,i)
+    }
+    setMinusHoverState(i)
+}
+
+//a function to handle deleting orders 
+function handleDelete(id,n) {
+    Tastey.deleteMeal(id)
+    setCartStates()
+    setOrderStates(id)
     tasteyMealOrders[n].remove()
 }
 
 //a function to handle likes
-const handleLikes = (i) => {
+function handleLikes(i) {
     tasteyMeals[i].dataset.like = tasteyMeals[i].dataset.like === "false" ? "true" : "false"
     likeIconWrappers[i].title = tasteyMeals[i].dataset.like === "false" ? "" : "Tap to like!"
     Tastey.handleLikes(Number(tasteyMeals[i].dataset.id),tasteyMeals[i].dataset.like === "true")
     setlikeState(Number(tasteyMeals[i].dataset.id))
 }
-const handleWishlist = (i) => {
+function handleWishlist(i) {
     tasteyMealOrders[i].dataset.like = tasteyMealOrders[i].dataset.like === "false" ? "true" : "false"
     wishlistTogglers[i].title = tasteyMealOrders[i].dataset.like === "false" ? "Add Meal to Wishlist" : "Remove Meal from Wishlist"
     Tastey.handleLikes(Number(tasteyMealOrders[i].dataset.id),tasteyMealOrders[i].dataset.like === "true")

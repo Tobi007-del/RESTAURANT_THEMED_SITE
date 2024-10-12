@@ -690,10 +690,10 @@ main.menu h3 {
     position: absolute;
     top: 0;
     left: 0;
-    width: 17.5%;
-    height: 15%;
+    width: 2rem;
+    height: 2rem;
     margin: .5rem;
-    background: radial-gradient(4rem circle at center, rgba(255,255,255,0.45), transparent 40%), url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center center;
+    background: radial-gradient(1rem circle at center, rgba(255,255,255,0.45), transparent 40%), url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center center;
     background-size: cover;
     pointer-events: none;
 }
@@ -1104,10 +1104,8 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
     position: relative;
 }
 
-.tastey-order-image::after {
-    width: 22.5%;
-    height: 20%;
-    margin: .15rem;
+.tastey-order-image::after { 
+    margin: .1rem;
 }
 
 .tastey-order-info {
@@ -1200,6 +1198,8 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: end;
+    gap: 1rem;
 }
 
 .order-price {
@@ -1232,6 +1232,7 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: min-content;
 }
 
 .cart-toggle {
@@ -1259,11 +1260,11 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
     fill: var(--current-theme-fade-color);
 }
 
-.minus.hover:hover {
+.minus.hover {
     border-right: 1px solid var(--sub-text-color);
 }
 
-.add.hover:hover {
+.add.hover {
     border-left: 1px solid var(--sub-text-color);
 }
 
