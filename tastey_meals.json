@@ -49,7 +49,7 @@
                 "label": "Catfish peppersoup",
                 "description": "A big hit in Nigeria, it is a light soup with special spices and seasonings, with enough protein based extras",
                 "price": {"currentValue": 2500, "discount": 15},
-                "serving": "2 fish per soup",
+                "serving": null,
                 "like": null,
                 "picSrc": "assets/tastey-starters-images/pepper-soup.jpg"
             },
