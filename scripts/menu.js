@@ -238,7 +238,7 @@ const storingHandler = {
             Reflect.apply(...arguments)   
         }).then(res => {
             store()
-            // console.log(localStorage.tasteyRecord)
+            console.log(localStorage.tasteyRecord)
             console.log("Data stored " + res + ", all operations functional")
         }).catch(rej => {
             console.log("%cAttempt to store data returned " + rej,"color: red;")
