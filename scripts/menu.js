@@ -209,7 +209,7 @@ class TasteyManager {
             this.savedAmount = this.actualAmount - this.totalAmount
             this.totalDiscountPercentage = (((this.savedAmount / this.actualAmount) * 100) || 0).toFixed(2)
             this.totalCost = ((this.VAT / 100) * this.totalAmount) + this.totalAmount
-            console.log(`
+            console.log(`%c
             Orders in total: ${this.ordersInTotal}\n 
             Tastey meals: ${this.tasteyMeals}\n
             ActualAmount: ${this.actualAmount}
@@ -217,15 +217,27 @@ class TasteyManager {
             Saved: ${this.savedAmount}\n
             Total Discount: ${this.totalDiscountPercentage}%\n
             Total Cost: ${this.totalCost}
-            `)            
+            `,"color: blue; font-weight: bold; font-size: large;")            
         } catch (error) {
             console.error(`Error calculating checkout details: ${error}`)
         }
     }
 
-    // clearCart() {
-
-    // }
+    clearCart() {
+        try {
+            this.tasteyRecord.tasteyOrders = [];
+            this.ordersInTotal = 0
+            this.tasteyMeals = 0
+            this.actualAmount = 0
+            this.totalDiscountPercentage = 0
+            this.savedAmount = 0
+            this.totalAmount = 0
+            this.VAT = 0
+            this.totalCost = 0           
+        } catch (error) {
+            console.error(`Error clearing cart: ${error}`)
+        }
+    }
 }
 
 function store() {
@@ -243,9 +255,9 @@ const storingHandler = {
         }).then(res => {
             store()
             console.log(localStorage.tasteyRecord)
-            console.log("Data stored " + res + ", all operations functional")
+            console.log("%c Data stored " + res + ", all operations functional", "color: green; font-weight: bold;")
         }).catch(rej => {
-            console.log("%cAttempt to store data returned " + rej,"color: red;")
+            console.error("%cAttempt to store data returned " + rej,"color: red;")
         })
     }
 }
@@ -401,6 +413,11 @@ function tasteyMenu(data){
             <div class="cart-section">
                 <div class="checkout-section">
                     <div class="checkout-section-content">
+                        <div class="clear-cart-section">
+                            <div class="clear-cart-btn-wrapper">
+                                <button title="Empty Bag" class="clear-cart-btn">EMPTY BAG</button>
+                            </div>
+                        </div>                        
                         <div class="order-summary">
                             <div class="order-preview">
                                 <h2>Order Summary</h2>
@@ -448,7 +465,7 @@ function tasteyMenu(data){
                                 </span>
                             </div>
                             <div class="checkout-btn-wrapper">
-                                <button title="Checkout" class="checkout-btn" data-cart="0">GO TO CHECKOUT</button>
+                                <button title="Go to Checkout" class="checkout-btn" data-cart="0">GO TO CHECKOUT</button>
                             </div>
                         </div>
                     </div>
@@ -466,7 +483,6 @@ function tasteyMenu(data){
         const orderReviewSectionContent = document.querySelector(".order-review-section-content")
     
         Tastey.tasteyRecord.tasteyOrders?.forEach(({ id,orders }) => {
-            console.log(id,orders)
             const meal = allMeals.find(meal => meal.id === id)
             const { label, category, price, serving, picSrc } = meal
             orderReviewSectionContent.innerHTML += 
@@ -550,6 +566,7 @@ addToCartBtns = document.querySelectorAll(".add-to-cart-button"),
 deleteOrderBtns = document.getElementsByClassName("delete-order"),
 plusCartBtns = document.getElementsByClassName("add"),
 minusCartBtns = document.getElementsByClassName("minus"),
+clearCartBtn = document.querySelector(".clear-cart-btn"),
 cartNumberElement = document.querySelector(".cart-number"),
 mealsNumberElement = document.querySelector(".meals-number"),
 actualPriceElement = document.querySelector(".actual-price"),
@@ -654,6 +671,8 @@ addToCartBtns.forEach(btn =>{
     })
 })
 
+clearCartBtn.addEventListener('click', handleClearCart)
+
 function setMinusHoverState(i) {
     const number = (weakTastey.getOrdersValue(Number(tasteyMealOrders[i]?.dataset.id)) ?? 0)
     minusCartBtns[i]?.classList.toggle('hover',number > 1)
@@ -694,6 +713,24 @@ function handleDelete(id,n) {
     tasteyMealOrders[n].remove()
     resetBagEventListeners()
     autoRemoveScroller()
+}
+    
+function handleClearCart() {    
+    if (!Tastey.tasteyRecord.tasteyOrders.length) {
+        alert("Your shopping cart is already empty")
+        return
+    }
+    const isCartCleared = confirm("Are you sure you want to clear all items from your Shopping Bag?")
+    if (isCartCleared) {
+        const allTasteyMealOrders = document.querySelectorAll(".tastey-meal-order")   
+        Tastey.clearCart()
+        Tastey.calculateCheckoutDetails(allMeals)
+        setCartStates()
+        allMeals.forEach(({ id }) => setOrderStates(id))
+        setCheckoutState()
+        allTasteyMealOrders.forEach(order => order.remove())
+        autoRemoveScroller()
+    }
 }
 
 //a function to handle likes

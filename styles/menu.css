@@ -1062,7 +1062,7 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
 }
 
 .checkout-section-content {
-    padding: 1rem;
+    padding: .9rem;
     display: flex;
     flex-direction: column-reverse;
 }
@@ -1288,7 +1288,7 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
 }
 
 .minus {
-    background-color: red;
+    background-color: rgb(255, 35, 35);
     border-radius: .25rem 0 0 .25rem;
 }
 
@@ -1400,22 +1400,42 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
     font-size: 1.05rem;
 }
 
+.clear-cart-btn-wrapper { 
+    display: flex;
+    justify-content: center;
+}
+
 .checkout-btn {
-    background-color: var(--tastey-brand-accent-color);
-    border: none;
     width: 100%;
     aspect-ratio: 7 / 1;
     max-height: 2.5rem;
-    border-radius: .25rem;
-    color: var(--current-theme-color);
     font-size: .9rem;
+    background-color: var(--tastey-brand-color);
+    color: var(--current-theme-color);
+    border: none;
+}
+
+.clear-cart-btn {
+    width: 75%;
+    aspect-ratio: 6 / 1;
+    color: var(--main-text-color);
+    background-color: var(--darker-black);
+    border: 0;
+}
+
+.checkout-btn, .clear-cart-btn {
     font-weight: bold;
+    border-radius: .25rem;
     transition: transform 150ms ease;
 }
 
-.checkout-btn:hover {
+.clear-cart-btn:hover {
+    border-bottom: 1px solid var(--sub-text-color);
+    border-right: 1px solid var(--sub-text-color);
+}
+
+.checkout-btn:hover, .clear-cart-btn:hover {
     cursor: pointer;
-    background-color: var(--tastey-brand-color);
     transform: scale(1.015);
 }
 
@@ -1675,7 +1695,7 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
         border: none;
         padding: 0;
     }
-    .checkout-section.compact .order-summary, .checkout-section.compact .checkout-preview {
+    .checkout-section.compact .order-summary, .checkout-section.compact .checkout-preview, .checkout-section.compact .clear-cart-btn-wrapper {
         display: none;
     }
     .checkout-section.compact .checkout-btn {
