@@ -231,6 +231,10 @@ nav::after {
     opacity: 1;
 }
 
+.cart-icon.empty {
+    transform: scaleX(.9);
+}
+
 .Cart[data-cart = '0'] .cart-icon.empty {
     display: block!important;
 }
@@ -277,7 +281,7 @@ main {
 .hero-content-wrapper {
     position: absolute;
     margin-left: 15%;
-    width: 35rem;
+    width: 30rem;
     color: white;
     display: flex;
     height: 100%;
@@ -327,6 +331,10 @@ main {
 .welcome-text-wrapper h1 {
     font-size: clamp(2rem, 13vh, 5.15rem);
     font-family: 'Times New Roman', Times, serif;   
+}
+
+.welcome-text-wrapper.old-timer h1 {
+    font-size: clamp(2rem, 11vh, 4.75rem);
 }
 
 .welcome-message-wrapper {
@@ -379,7 +387,7 @@ main {
     border: none;
     background-color: transparent;
     color: var(--current-theme-color);
-    font-size: .75rem;
+    font-size: .8rem;
     font-weight: 600;
 }
 
@@ -708,6 +716,9 @@ main {
     }
     .welcome-text-wrapper h1 {
         font-size: clamp(2rem, 13vh, 4.15rem);
+    }
+    .welcome-text-wrapper.old-timer h1 {
+        font-size: clamp(2rem, 10vh, 4rem);
     }
     .tastey-meal_one {
         background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.5)), url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center center, black;

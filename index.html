@@ -75,7 +75,7 @@
     <main class="row">
         <div class="hero-content-wrapper">
             <div class="greeting-wrapper">
-                <p>HELLO, NEW FRIEND!</p>
+                <p>HELLO, <span class="friendship"></span> FRIEND!</p>
             </div>
             <div class="welcome-text-wrapper">
                 <h1>Welcome to Tastey</h1>
@@ -92,6 +92,23 @@
                 </div>
             </div>
         </div>
+        <script defer="defer">
+            const setFriendship = () => {
+                if (!localStorage.friendshipLog) {
+                    sessionStorage.friendshipLog = "FT"
+                } 
+                localStorage.friendshipLog = "OT"
+                if (!sessionStorage.friendshipLog && localStorage.friendshipLog) {
+                    document.querySelector(".friendship").textContent = "OLD"
+                    document.querySelector(".welcome-text-wrapper h1").textContent = "Welcome back to Tastey"
+                    document.querySelector(".welcome-text-wrapper").classList.add("old-timer")
+                } else {
+                    document.querySelector(".friendship").textContent = "NEW"   
+                }
+            }
+
+            window.addEventListener('DOMContentLoaded', setFriendship)
+        </script>
         <div class="tastey-meals-carousel" role="group" aria-label="Tastey meals Carousel" aria-roledescription="carousel" aria-atomic="false" aria-live="off">
             <div class="tastey-meal_one tastey-meal"></div>
             <div class="tastey-meal_two tastey-meal"></div>

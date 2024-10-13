@@ -280,6 +280,10 @@ nav::after {
     opacity: 1;
 }
 
+.cart-icon.empty {
+    transform: scaleX(.9);
+}
+
 .Cart[data-cart = '0'] .cart-icon.empty {
     display: block;
 }
