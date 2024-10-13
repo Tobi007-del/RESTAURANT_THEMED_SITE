@@ -491,6 +491,7 @@ VATElement = document.querySelector(".VAT"),
 totalPriceElement = document.querySelector(".total-price"),
 TOTALCOSTElement = document.querySelector(".TOTAL-COST")
 
+//DOM operations
 
 const meals = data.tasteyMeals
 
@@ -581,7 +582,6 @@ addToCartBtns.forEach(btn =>{
         }            
     })
 })
-
 
 function setMinusHoverState(i) {
     const number = (weakTastey.getOrdersValue(Number(tasteyMealOrders[i]?.dataset.id)) ?? 0)
