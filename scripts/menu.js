@@ -82,7 +82,7 @@ class TasteyManager {
     removeMeal(id) {
     try {
         const index = this.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
-        this.tasteyRecord.tasteyOrders[index].orders = this.tasteyRecord.tasteyOrders[index].orders - 1
+        this.tasteyRecord.tasteyOrders[index].orders -= 1
         const currentProductCount = this.tasteyRecord.tasteyOrders[index].orders
         const currentProductCountElement = document.querySelector(`.tastey-meal-order[data-id="${id}"] .cart-number`)
         currentProductCountElement.textContent = currentProductCount
@@ -192,7 +192,7 @@ class TasteyManager {
 
     deleteMeal(id) {
         const mealIndex = this.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
-        this.tasteyRecord.tasteyOrders.splice(mealIndex,1)            
+        this.tasteyRecord.tasteyOrders.splice(mealIndex,1)
     }
  
     calculateCheckoutDetails(arr) {
@@ -238,7 +238,7 @@ const storingHandler = {
             Reflect.apply(...arguments)   
         }).then(res => {
             store()
-            console.log(localStorage.tasteyRecord)
+            // console.log(localStorage.tasteyRecord)
             console.log("Data stored " + res + ", all operations functional")
         }).catch(rej => {
             console.log("%cAttempt to store data returned " + rej,"color: red;")
@@ -508,6 +508,7 @@ const setCheckoutState = () => {
     TOTALCOSTElement.textContent = formatValue(data.currency, Tastey.totalCost)
 }
 
+
 const setCartStates = () => {
     const dataCartStates = document.querySelectorAll("[data-cart]")
     const dataMealsState = document.querySelector("[data-meals]")
@@ -615,19 +616,14 @@ function handleRemoveMeal(id,i) {
 
 //a function to handle deleting orders 
 function handleDelete(id,n) {
-    const meal = allMeals.find(meal => meal.id === id)
-    const order = Tastey.tasteyRecord.tasteyOrders.find(meal => meal.id === id)
-    const { label } = meal
-    if(window.confirm(`You are about to remove ${order.orders} ${order.orders > 1 ? label : (label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label)} from your bag?`)) {
-        Tastey.deleteMeal(allMeals,id)
-        Tastey.calculateCheckoutDetails(allMeals)
-        setCartStates()
-        setOrderStates(id)
-        setCheckoutState()
-        tasteyMealOrders[n].remove()
-        resetBagEventListeners()
-        autoRemoveScroller()
-    }
+    Tastey.deleteMeal(id)
+    Tastey.calculateCheckoutDetails(allMeals)
+    setCartStates()
+    setOrderStates(id)
+    setCheckoutState()
+    tasteyMealOrders[n].remove()
+    resetBagEventListeners()
+    autoRemoveScroller()
 }
 
 //a function to handle likes
