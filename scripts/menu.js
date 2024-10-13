@@ -720,7 +720,7 @@ function handleClearCart() {
         alert("Your shopping cart is already empty")
         return
     }
-    const isCartCleared = confirm("Are you sure you want to clear all items from your Shopping Bag?")
+    const isCartCleared = confirm("Are you sure you want to remove all meals from your Shopping Bag?")
     if (isCartCleared) {
         const allTasteyMealOrders = document.querySelectorAll(".tastey-meal-order")   
         Tastey.clearCart()
