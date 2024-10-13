@@ -72,8 +72,8 @@ class TasteyManager {
         this.ordersInTotal = 0
         this.tasteyMeals = 0
         this.actualAmount = 0
-        this.totalDiscount = 0
-        this.saved = 0
+        this.totalDiscountPercentage = 0
+        this.savedAmount = 0
         this.totalAmount = 0
         this.VAT = 1.99
         this.totalCost = 0 
@@ -111,7 +111,6 @@ class TasteyManager {
         const currentProductCountElement = document.querySelector(`.tastey-meal-order[data-id="${id}"] .cart-number`)
         const orderReviewSectionContent = document.querySelector(".order-review-section-content")
         const like = this.tasteyRecord.likes.find(meal => meal.id === id)
-        
         if (currentProductCount > 1) { 
             currentProductCountElement.textContent = currentProductCount
         } else {
@@ -144,12 +143,12 @@ class TasteyManager {
                         <div class="tastey-order-price-wrapper">
                             <span>
                                 <span class="cart-toggle">
-                                <button title="Remove 1 ${label}" class="sign minus">
+                                <button title="Remove 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="sign minus">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     <svg width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill-rule="nonzero" xlink:href="#a"/></svg>
                                 </button>
                                     <p class="cart-number">${currentProductCount}</p>
-                                <button title="Add 1 ${label}" class="sign add">
+                                <button title="Add 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="sign add">
                                     <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z" id="b"/></defs><use fill-rule="nonzero" xlink:href="#b"/></svg>
                                 </button>
                             </span>                   
@@ -207,16 +206,16 @@ class TasteyManager {
                 this.actualAmount += (meal.price.currentValue * orders)
                 this.totalAmount += (check(meal.price.currentValue,meal.price.discount) * orders)
             })
-            this.saved = this.actualAmount - this.totalAmount
-            this.totalDiscount = ((this.saved / this.actualAmount) * 100).toFixed(2)
+            this.savedAmount = this.actualAmount - this.totalAmount
+            this.totalDiscountPercentage = ((this.savedAmount / this.actualAmount) * 100).toFixed(2)
             this.totalCost = ((this.VAT / 100) * this.totalAmount) + this.totalAmount
             console.log(`
             Orders in total: ${this.ordersInTotal}\n 
             Tastey meals: ${this.tasteyMeals}\n
             ActualAmount: ${this.actualAmount}
             Total Amount: ${this.totalAmount}\n
-            Saved: ${this.saved}\n
-            Total Discount: ${this.totalDiscount}%\n
+            Saved: ${this.savedAmount}\n
+            Total Discount: ${this.totalDiscountPercentage}%\n
             Total Cost: ${this.totalCost}
             `)            
         } catch (error) {
@@ -397,8 +396,8 @@ function tasteyMenu(data){
                         <div class="order-preview">
                             <h2>Order Summary</h2>
                             <span>
-                                <p class="cart-number"> Orders in total :</p>
-                                <p>0</p>
+                                <p> Orders in total :</p>
+                                <p class="cart-number">0</p>
                             </span>
                             <span>
                                 <p>Tastey meals :</p>
@@ -414,7 +413,7 @@ function tasteyMenu(data){
                             </span>
                             <span>
                                 <p>Saved :</p>
-                                <p>0</p>
+                                <p class="saved">0</p>
                             </span>
                         </div>
                         <div class="order-preview">
@@ -425,7 +424,7 @@ function tasteyMenu(data){
                             </span>
                             <span>
                                 <p>VAT</p>
-                                <p>0</p>
+                                <p class="VAT">0</p>
                             </span>
                         </div>
                     </div>
@@ -436,7 +435,7 @@ function tasteyMenu(data){
                                 <p>(including VAT)</p>
                             </span>
                             <span class="total-amount-values">
-                                <p id="total-price">0</p>
+                                <p class="TOTAL-COST">0</p>
                             </span>
                         </div>
                         <div class="checkout-btn-wrapper">
@@ -447,7 +446,7 @@ function tasteyMenu(data){
             </div>
             <div class="order-review-section">
                 <div class="order-review-section-content">
-                    <span class="order-number" data-cart="0">Bag</span>
+                    <span class="order-number" data-cart="0" data-meals="">Bag</span>
                 </div>
             </div>
         </div>
@@ -476,22 +475,45 @@ categorySwitcherContainer = document.querySelector("aside.category-switcher-cont
 switchers = document.querySelectorAll(".switcher"),
 menuHeaders = document.querySelectorAll(".tastey-menu-title-wrapper h1"),
 tastey = document.querySelector(".tastey"),
+checkoutSection = document.querySelector(".checkout-section"),
 menuToggler = document.querySelector(".menu-toggler"),
 cartToggler = document.querySelector(".cart-toggler"),
 addToCartBtns = document.querySelectorAll(".add-to-cart-button"),
 deleteOrderBtns = document.getElementsByClassName("delete-order"),
 plusCartBtns = document.getElementsByClassName("add"),
-minusCartBtns = document.getElementsByClassName("minus")
+minusCartBtns = document.getElementsByClassName("minus"),
+cartNumberElement = document.querySelector(".cart-number"),
+mealsNumberElement = document.querySelector(".meals-number"),
+actualPriceElement = document.querySelector(".actual-price"),
+totalDiscountElement = document.querySelector(".total-discount"),
+savedElement = document.querySelector(".saved"),
+VATElement = document.querySelector(".VAT"),
+totalPriceElement = document.querySelector(".total-price"),
+TOTALCOSTElement = document.querySelector(".TOTAL-COST")
+
 
 const meals = data.tasteyMeals
 
 const allMeals = [...meals[0].starters,...meals[1]["main-meals"],...meals[2].drinks,...meals[3].desserts]
 
+const setCheckoutState = () => {
+    cartNumberElement.textContent = Tastey.ordersInTotal
+    mealsNumberElement.textContent = Tastey.tasteyMeals
+    actualPriceElement.textContent = formatValue(data.currency, Tastey.actualAmount)
+    totalDiscountElement.textContent = Tastey.totalDiscountPercentage + "%"
+    savedElement.textContent = formatValue(data.currency, Tastey.savedAmount)
+    VATElement.textContent = "+" + Tastey.VAT + "%"
+    totalPriceElement.textContent = formatValue(data.currency, Tastey.totalAmount)
+    TOTALCOSTElement.textContent = formatValue(data.currency, Tastey.totalCost)
+}
+
 const setCartStates = () => {
     const dataCartStates = document.querySelectorAll("[data-cart]")
+    const dataMealsState = document.querySelector("[data-meals]")
     dataCartStates.forEach(dataCartState => {
         dataCartState.dataset.cart = Tastey.ordersInTotal
     })
+    dataMealsState.dataset.meals = Tastey.tasteyMeals
 }
 
 const setOrderStates = (id) => {
@@ -571,6 +593,7 @@ function handleAddMeal(id,i) {
     Tastey.calculateCheckoutDetails(allMeals)
     setCartStates()
     setOrderStates(id)
+    setCheckoutState()
     setMinusHoverState(i)
     resetBagEventListeners()                    
 }
@@ -582,6 +605,7 @@ function handleRemoveMeal(id,i) {
         Tastey.calculateCheckoutDetails(allMeals)
         setCartStates()
         setOrderStates(id)
+        setCheckoutState()
         setMinusHoverState(i)
     } else if(Number(number) == 1) { 
         handleDelete(id,i)
@@ -595,6 +619,7 @@ function handleDelete(id,n) {
     Tastey.calculateCheckoutDetails(allMeals)
     setCartStates()
     setOrderStates(id)
+    setCheckoutState()
     tasteyMealOrders[n].remove()
     resetBagEventListeners()
     autoRemoveScroller()
@@ -627,24 +652,45 @@ tasteyMealsImages.forEach((tasteyMealsImage,i) => {
     })
 })
 
+//window event listeners
+window.addEventListener("resize", () => {
+    adaptCheckoutContent()
+    autoRemoveScroller()
+})
+
+window.addEventListener("scroll", tasteyThrottler(() => {
+    onscroll()
+    controlActiveSwitcher(window.scrollY, [...menuHeaders])
+}))   
+window.addEventListener("scroll", tasteyDebouncer(() => {
+    adaptCheckoutContent()
+},150))
+
+const remValue = parseFloat(getComputedStyle(document.documentElement).fontSize)
+const xThreshold = remValue * 45
+//a function to adapt the checkout content to the current screen size
+function adaptCheckoutContent () {
+    if (document.body.classList.contains("cart") && window.innerWidth <= xThreshold) {
+        checkoutSection.style.setProperty("--nav-width",`${document.querySelector('aside.menu-cart-toggler-container').offsetWidth}px`)
+        if ((document.documentElement.scrollTop / remValue) > 35) 
+            checkoutSection.classList.add("compact")
+        if ((document.documentElement.scrollTop / remValue) < 25) 
+            checkoutSection.classList.remove("compact")
+    }
+}
+
 //a function to remove the scroller when necessary
 function autoRemoveScroller() {
     const difference = document.documentElement.scrollHeight - window.innerHeight
-    console.log(`
-        Document scroll height: ${document.documentElement.scrollHeight}\n
-        Window inner height: ${window.innerHeight} \n
-        Difference: ${Number(difference)} \n  
-    `)
     setTimeout(() => {
         if (Number(difference) == 0) {
             quickScroll.style.display = "none"
         } else {
             quickScroll.style.display = "flex"
         }
-    }, 10);
+    }, 5);
 }
 autoRemoveScroller()
-
 
 //toggling the cart on and off
 menuToggler.addEventListener('click', () => {
@@ -832,17 +878,9 @@ function onscroll() {
     scrollfunction()
 };
 
-window.addEventListener("resize", autoRemoveScroller)
-
 const tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y;
 
-window.addEventListener("scroll", tasteyThrottler(function(e){
-    onscroll()
-    controlActiveSwitcher(window.scrollY, [...menuHeaders])
-}))   
-
-
-const controlActiveSwitcher = (ordinate,arr) => {
+function controlActiveSwitcher(ordinate,arr) {
     let index = -1;
     for (const i in arr) {
         if(Math.floor(ordinate) >= Math.floor(Math.round((menuHeaders[i].getBoundingClientRect().top + window.scrollY) - tasteyOffSetTop) - (window.innerHeight/4))) {
