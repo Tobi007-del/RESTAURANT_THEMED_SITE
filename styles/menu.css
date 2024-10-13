@@ -1024,7 +1024,6 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
 .empty-cart-text h2 span {
     font-family: 'Times New Roman', Times, serif;
     color: var(--current-theme-inverse-color);
-    font-size: clamp(1.1rem, calc(.85vw + 1.45vh), 1.35rem);
 }
 
 .checkout-section, .order-review-section {

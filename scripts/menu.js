@@ -500,33 +500,36 @@ function getOrderIndex(id){
     return i;
 }
 
+function resetBagEventListeners() {
+    for(let i = 0; i < tasteyMealOrders.length; i++) {
+        wishlistTogglers[i].removeEventListener('click', wishlistTogglers[i].fn)
+        tasteyOrderImages[i].removeEventListener('click', tasteyOrderImages[i].fn)
+        deleteOrderBtns[i].removeEventListener('click', deleteOrderBtns[i].fn)
+        plusCartBtns[i].removeEventListener('click', plusCartBtns[i].fn)
+        minusCartBtns[i].removeEventListener('click', minusCartBtns[i].fn) 
+        wishlistTogglers[i].addEventListener('click', wishlistTogglers[i].fn = () => {
+            handleWishlist(Number(tasteyMealOrders[i]?.dataset.id),i)      
+        })
+        tasteyOrderImages[i].addEventListener('click', tasteyOrderImages[i].fn = () => {
+            handleWishlist(Number(tasteyMealOrders[i]?.dataset.id),i)  
+        })
+        deleteOrderBtns[i].addEventListener('click', deleteOrderBtns[i].fn = () => {
+            handleDelete(Number(tasteyMealOrders[i]?.dataset.id),i)
+        })
+        plusCartBtns[i].addEventListener('click', plusCartBtns[i].fn = () => {
+            handleAddMeal(Number(tasteyMealOrders[i].dataset.id),i)
+        })
+        plusCartBtns[i].classList.add('hover')
+        minusCartBtns[i].addEventListener('click', minusCartBtns[i].fn = () => {                        
+            handleRemoveMeal(Number(tasteyMealOrders[i]?.dataset.id),i)
+        }) 
+    }
+}
+
 addToCartBtns.forEach(btn =>{
     btn.addEventListener('click', e => {
             try {
                 handleAddMeal(Number(e.target.dataset.id),getOrderIndex(Number(e.target.dataset.id)))
-                    for(let i = 0; i < tasteyMealOrders.length; i++) {
-                        wishlistTogglers[i].removeEventListener('click', wishlistTogglers[i].fn)
-                        tasteyOrderImages[i].removeEventListener('click', tasteyOrderImages[i].fn)
-                        deleteOrderBtns[i].removeEventListener('click', deleteOrderBtns[i].fn)
-                        plusCartBtns[i].removeEventListener('click', plusCartBtns[i].fn)
-                        minusCartBtns[i].removeEventListener('click', minusCartBtns[i].fn) 
-                        wishlistTogglers[i].addEventListener('click', wishlistTogglers[i].fn = () => {
-                            handleWishlist(Number(tasteyMealOrders[i]?.dataset.id),i)      
-                        })
-                        tasteyOrderImages[i].addEventListener('click', tasteyOrderImages[i].fn = () => {
-                            handleWishlist(Number(tasteyMealOrders[i]?.dataset.id),i)  
-                        })
-                        deleteOrderBtns[i].addEventListener('click', deleteOrderBtns[i].fn = () => {
-                            handleDelete(Number(tasteyMealOrders[i]?.dataset.id),i)
-                        })
-                        plusCartBtns[i].addEventListener('click', plusCartBtns[i].fn = () => {
-                            handleAddMeal(Number(tasteyMealOrders[i].dataset.id),i)
-                        })
-                        plusCartBtns[i].classList.add('hover')
-                        minusCartBtns[i].addEventListener('click', minusCartBtns[i].fn = () => {                        
-                            handleRemoveMeal(Number(tasteyMealOrders[i]?.dataset.id),i)
-                        }) 
-                    }
             } catch (error) {
                 console.log(error)
             }
@@ -544,10 +547,10 @@ function handleAddMeal(id,i) {
     setCartStates()
     setOrderStates(id)
     setMinusHoverState(i)
+    resetBagEventListeners()                    
 }
 
 function handleRemoveMeal(id,i) {
-    console.log(id)
     const number = (weakTastey.getOrdersValue(Number(tasteyMealOrders[i]?.dataset.id)) ?? 0)
     if(Number(number) > 1) { 
         Tastey.removeMeal(id)
@@ -566,6 +569,7 @@ function handleDelete(id,n) {
     setCartStates()
     setOrderStates(id)
     tasteyMealOrders[n].remove()
+    resetBagEventListeners()                    
 }
 
 //a function to handle likes
