@@ -294,7 +294,7 @@ fetch('./tastey_meals.json')
 .then((data) => {
     then(data)
 }).catch((error) => {
-    console.log(`%cIssue parsing data... ${error}`,"color:red")
+    console.error(`%cIssue parsing data... ${error}`,"color:red")
     console.warn("Please reload page")
 })
 
@@ -808,11 +808,18 @@ menuToggler.addEventListener('click', () => {
     autoRemoveScroller()
 })
 
-cartToggler.addEventListener('click', () => {
+if(localStorage.openCart) {
+    toggleCart()
+}
+
+function toggleCart() {
     document.body.classList.add("cart")
     scrollToTop("instant")
     autoRemoveScroller()
-})
+}
+
+cartToggler.addEventListener('click', toggleCart)
+document.querySelector(".navbar-cart").addEventListener('click', toggleCart)
 
 //the options object for the intersection observer api
 const options = {
@@ -1017,4 +1024,3 @@ const markSwitcher = (id) => {
     switchers[id].classList.add("active")
 }
 }
-

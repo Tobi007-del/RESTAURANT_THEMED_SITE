@@ -1,3 +1,16 @@
+const Tastey = JSON.parse(localStorage.tasteyRecord)
+const setCartStates = () => {
+    const dataCartStates = document.querySelectorAll("[data-cart]")
+    dataCartStates.forEach(dataCartState => {
+        dataCartState.dataset.cart = Tastey.tasteyOrders.reduce((count, meal) => count + meal.orders,0)
+    })
+}
+setCartStates()
+
+document.querySelector(".navbar-cart").addEventListener('click', () => {
+    localStorage.openCart = true
+})
+
 const tasteyMealsCarousel = document.querySelector(".tastey-meals-carousel")
 const carouselContainer = tasteyMealsCarousel.parentElement
 const tasteyMeals = document.querySelectorAll(".tastey-meal")
