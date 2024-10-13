@@ -75,7 +75,7 @@ class TasteyManager {
         this.totalDiscount = 0
         this.saved = 0
         this.totalAmount = 0
-        this.vat = 0
+        this.VAT = 1.99
         this.totalCost = 0 
     }
 
@@ -168,10 +168,6 @@ class TasteyManager {
         console.log(error)
     }
     }
-
-    getCounts() {
-        return this.tasteyRecord.tasteyOrders.reduce((count,meal) => count + meal.orders,0)
-    }
     
     getOrdersValue(id) {
         const meal = this.tasteyRecord.tasteyOrders.find(meal => meal.id === id)
@@ -198,6 +194,34 @@ class TasteyManager {
     deleteMeal(id) {
         const mealIndex = this.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
         this.tasteyRecord.tasteyOrders.splice(mealIndex,1)
+    }
+ 
+    calculateCheckoutDetails(arr) {
+        try {
+            this.tasteyMeals = this.tasteyRecord.tasteyOrders.length
+            this.ordersInTotal = this.tasteyRecord.tasteyOrders.reduce((count,meal) => count + meal.orders,0)
+            this.actualAmount = 0
+            this.totalAmount = 0
+            this.tasteyRecord.tasteyOrders.forEach(({ id,orders }) => {
+                const meal = arr.find(meal => meal.id === id)
+                this.actualAmount += (meal.price.currentValue * orders)
+                this.totalAmount += (check(meal.price.currentValue,meal.price.discount) * orders)
+            })
+            this.saved = this.actualAmount - this.totalAmount
+            this.totalDiscount = ((this.saved / this.actualAmount) * 100).toFixed(2)
+            this.totalCost = ((this.VAT / 100) * this.totalAmount) + this.totalAmount
+            console.log(`
+            Orders in total: ${this.ordersInTotal}\n 
+            Tastey meals: ${this.tasteyMeals}\n
+            ActualAmount: ${this.actualAmount}
+            Total Amount: ${this.totalAmount}\n
+            Saved: ${this.saved}\n
+            Total Discount: ${this.totalDiscount}%\n
+            Total Cost: ${this.totalCost}
+            `)            
+        } catch (error) {
+            console.log("Error calculating checkout details: " + error)
+        }
     }
 }
 
@@ -323,7 +347,7 @@ function tasteyMenu(data){
 
         meal[product].forEach(({ id, label, description, price, like, picSrc}) => {
             menuContainer.innerHTML += 
-                `<div class="tastey-meal" data-id='${id}' data-like="${like ?? false}">
+                `<div class="tastey-meal" data-id='${id}' data-like="${weakTastey.getLikeValue(Number(id)) ?? false}">
                     <div class="tastey-meal-content">
                         <div class="tastey-meal-image" style="background-image: url('${picSrc}');">
                             <span class="tooltip-text like-tooltip">Double tap to like!</span>
@@ -466,7 +490,7 @@ const allMeals = [...meals[0].starters,...meals[1]["main-meals"],...meals[2].dri
 const setCartStates = () => {
     const dataCartStates = document.querySelectorAll("[data-cart]")
     dataCartStates.forEach(dataCartState => {
-        dataCartState.dataset.cart = weakTastey.getCounts()
+        dataCartState.dataset.cart = Tastey.ordersInTotal
     })
 }
 
@@ -528,11 +552,11 @@ function resetBagEventListeners() {
 
 addToCartBtns.forEach(btn =>{
     btn.addEventListener('click', e => {
-            try {
-                handleAddMeal(Number(e.target.dataset.id),getOrderIndex(Number(e.target.dataset.id)))
-            } catch (error) {
-                console.log(error)
-            }
+        try {
+            handleAddMeal(Number(e.target.dataset.id),getOrderIndex(Number(e.target.dataset.id)))
+        } catch (error) {
+            console.log(error)
+        }            
     })
 })
 
@@ -544,6 +568,7 @@ function setMinusHoverState(i) {
 
 function handleAddMeal(id,i) {
     Tastey.addMeal(id,allMeals,data.currency)
+    Tastey.calculateCheckoutDetails(allMeals)
     setCartStates()
     setOrderStates(id)
     setMinusHoverState(i)
@@ -554,6 +579,7 @@ function handleRemoveMeal(id,i) {
     const number = (weakTastey.getOrdersValue(Number(tasteyMealOrders[i]?.dataset.id)) ?? 0)
     if(Number(number) > 1) { 
         Tastey.removeMeal(id)
+        Tastey.calculateCheckoutDetails(allMeals)
         setCartStates()
         setOrderStates(id)
         setMinusHoverState(i)
@@ -566,10 +592,12 @@ function handleRemoveMeal(id,i) {
 //a function to handle deleting orders 
 function handleDelete(id,n) {
     Tastey.deleteMeal(id)
+    Tastey.calculateCheckoutDetails(allMeals)
     setCartStates()
     setOrderStates(id)
     tasteyMealOrders[n].remove()
-    resetBagEventListeners()                    
+    resetBagEventListeners()
+    autoRemoveScroller()
 }
 
 //a function to handle likes
@@ -599,18 +627,36 @@ tasteyMealsImages.forEach((tasteyMealsImage,i) => {
     })
 })
 
+//a function to remove the scroller when necessary
+function autoRemoveScroller() {
+    const difference = document.documentElement.scrollHeight - window.innerHeight
+    console.log(`
+        Document scroll height: ${document.documentElement.scrollHeight}\n
+        Window inner height: ${window.innerHeight} \n
+        Difference: ${Number(difference)} \n  
+    `)
+    setTimeout(() => {
+        if (Number(difference) == 0) {
+            quickScroll.style.display = "none"
+        } else {
+            quickScroll.style.display = "flex"
+        }
+    }, 10);
+}
+autoRemoveScroller()
+
 
 //toggling the cart on and off
 menuToggler.addEventListener('click', () => {
     document.body.classList.remove("cart")
+    scrollToTop("instant")
     controlActiveSwitcher(window.scrollY,[...menuHeaders])
-    onscroll()
     autoRemoveScroller()
 })
 
 cartToggler.addEventListener('click', () => {
     document.body.classList.add("cart")
-    onscroll()
+    scrollToTop("instant")
     autoRemoveScroller()
 })
 
@@ -717,18 +763,20 @@ tastey.addEventListener("click", () => {
 })
 
 //Quick scrolls implementation
-function scrollToTop() {        
+function scrollToTop(behavior = "smooth") {        
     setTimeout(function () {
         window.scrollTo({
             top: 0,
+            behavior: behavior
         })
     }, 100);
 };
 
-function scrollToBottom() {
+function scrollToBottom(behavior = "smooth") {
     setTimeout(function () {
         window.scrollTo({
-            top: document.documentElement.scrollHeight
+            top: document.documentElement.scrollHeight,
+            behavior: behavior
         })
     }, 100);
 }
@@ -783,15 +831,6 @@ function onscroll() {
     }
     scrollfunction()
 };
-
-function autoRemoveScroller() {
-    if (Math.floor(document.documentElement.scrollHeight) == Math.floor(window.innerHeight)) {
-        quickScroll.style.display = "none"
-    } else {
-        quickScroll.style.display = "flex"
-    }
-}
-autoRemoveScroller()
 
 window.addEventListener("resize", autoRemoveScroller)
 
