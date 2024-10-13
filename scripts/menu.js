@@ -192,7 +192,7 @@ class TasteyManager {
 
     deleteMeal(id) {
         const mealIndex = this.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
-        this.tasteyRecord.tasteyOrders.splice(mealIndex,1)
+        this.tasteyRecord.tasteyOrders.splice(mealIndex,1)            
     }
  
     calculateCheckoutDetails(arr) {
@@ -615,14 +615,19 @@ function handleRemoveMeal(id,i) {
 
 //a function to handle deleting orders 
 function handleDelete(id,n) {
-    Tastey.deleteMeal(id)
-    Tastey.calculateCheckoutDetails(allMeals)
-    setCartStates()
-    setOrderStates(id)
-    setCheckoutState()
-    tasteyMealOrders[n].remove()
-    resetBagEventListeners()
-    autoRemoveScroller()
+    const meal = allMeals.find(meal => meal.id === id)
+    const order = Tastey.tasteyRecord.tasteyOrders.find(meal => meal.id === id)
+    const { label } = meal
+    if(window.confirm(`You are about to remove ${order.orders} ${order.orders > 1 ? label : (label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label)} from your bag?`)) {
+        Tastey.deleteMeal(allMeals,id)
+        Tastey.calculateCheckoutDetails(allMeals)
+        setCartStates()
+        setOrderStates(id)
+        setCheckoutState()
+        tasteyMealOrders[n].remove()
+        resetBagEventListeners()
+        autoRemoveScroller()
+    }
 }
 
 //a function to handle likes

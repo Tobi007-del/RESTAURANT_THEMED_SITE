@@ -1926,7 +1926,7 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
         width: 100%;
     }
     .checkout-section { 
-        min-width: 90vw;
+        min-width: 75%;
     }
     .checkout-section.compact {
         top: 6.35rem;
