@@ -636,14 +636,14 @@ function getOrderIndex(id){
 function resetBagEventListeners() {
     for(let i = 0; i < tasteyMealOrders.length; i++) {
         wishlistTogglers[i]?.removeEventListener('click', wishlistTogglers[i].fn)
-        tasteyOrderImages[i]?.removeEventListener('click', tasteyOrderImages[i].fn)
+        tasteyOrderImages[i]?.removeEventListener('dblclick', tasteyOrderImages[i].fn)
         deleteOrderBtns[i]?.removeEventListener('click', deleteOrderBtns[i].fn)
         plusCartBtns[i]?.removeEventListener('click', plusCartBtns[i].fn)
         minusCartBtns[i]?.removeEventListener('click', minusCartBtns[i].fn) 
         wishlistTogglers[i]?.addEventListener('click', wishlistTogglers[i].fn = () => {
             handleWishlist(Number(tasteyMealOrders[i]?.dataset.id),i)      
         })
-        tasteyOrderImages[i]?.addEventListener('click', tasteyOrderImages[i].fn = () => {
+        tasteyOrderImages[i]?.addEventListener('dblclick', tasteyOrderImages[i].fn = () => {
             handleWishlist(Number(tasteyMealOrders[i]?.dataset.id),i)  
         })
         deleteOrderBtns[i]?.addEventListener('click', deleteOrderBtns[i].fn = () => {
