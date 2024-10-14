@@ -810,6 +810,7 @@ menuToggler.addEventListener('click', () => {
 
 if(localStorage.openCart) {
     toggleCart()
+    delete localStorage.openCart
 }
 
 function toggleCart() {
