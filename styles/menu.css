@@ -94,16 +94,16 @@ aside.category-switcher-container::after {
     border-radius: .5rem 0 0 .5rem;
 }
 
-aside:hover, aside:focus-within {
+aside:hover, aside:has(:focus-visible) {
     width: 3.5rem;
 }
 
-aside:hover .icon, aside:hover .switcher-icon, aside:focus-within .icon, aside:focus-within .switcher-icon {
+aside:hover .icon, aside:hover .switcher-icon, aside:has(:focus-visible) .icon, aside:has(:focus-visible) .switcher-icon {
     width: 1.5rem;
     height: 1.5rem;
 }
 
-aside:hover .toggler div p, aside:hover .switcher div p, aside:focus-within .toggler div p, aside:focus-within .switcher div p {
+aside:hover .toggler div p, aside:hover .switcher div p, aside:has(:focus-visible) .toggler div p, aside:has(:focus-visible) .switcher div p {
     position: static;
     translate: 0;
     opacity: 1;
@@ -145,11 +145,11 @@ aside:hover .toggler div p, aside:hover .switcher div p, aside:focus-within .tog
     align-items: center;
 }
 
-body.cart .cart-toggler, body:not(.cart) .menu-toggler, .toggler:hover, .switcher.active, .switcher:hover, aside:focus-within .toggler, aside:focus-within .switcher {
+body.cart .cart-toggler, body:not(.cart) .menu-toggler, .toggler:hover, .switcher.active, .switcher:hover, .toggler:focus-visible, .switcher:focus-visible {
     background-color: var(--tastey-brand-color);  
 }
 
-body.cart .cart-toggler, body:not(.cart) .menu-toggler {
+body.cart .cart-toggler, body:not(.cart) .menu-toggler, .switcher.active {
     border: .13rem solid var(--current-theme-inverse-color);
 }
 
