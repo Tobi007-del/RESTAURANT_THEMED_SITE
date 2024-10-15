@@ -28,7 +28,7 @@ body {
 }
 
 *:focus-visible {
-    outline: .1rem solid var(--sub-text-color);
+    outline: .15rem solid var(--sub-text-color);
     outline-offset: .1rem;
     outline-style: dashed;
 }
