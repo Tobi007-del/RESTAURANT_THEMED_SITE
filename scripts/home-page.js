@@ -7,6 +7,8 @@ const setCartStates = () => {
 }
 setCartStates()
 
+// import {default as TasteyManager} from "./menu.js"
+
 document.querySelector(".navbar-cart").addEventListener('click', () => {
     localStorage.openCart = true
 })
@@ -150,10 +152,10 @@ carouselContainer.addEventListener("blur", () => {
 //for touch screen devices
 tasteyMealsCarousel.addEventListener("touchstart", () => {
     stop()
-})
+},{passive:true})
 tasteyMealsCarousel.addEventListener("touchcancel", () => {
     play()
-})
+},{passive:true})
 
 scrollCarouselTo(0)
 markToggler(0)
@@ -193,13 +195,24 @@ document.addEventListener('keydown', throttleKeyPresses(function(e) {
     }
 }))
 
-let resizeTimer 
-window.addEventListener('resize', () => {
-    offsetWidth = tasteyMeals[0].offsetWidth
+const resizeDebouncer = (delay=400,immediate=false) => {
     //for autoplay
-    if(resizeTimer) clearTimeout(resizeTimer)
+    offsetWidth = tasteyMeals[0].offsetWidth
+
+    let resizeTimer
+
+    let later = function(e) {
+        resizeTimer = null
+        if(!immediate) play()
+    }
+    let callNow = immediate && !resizeTimer
+    clearTimeout(resizeTimer)
     stop()
-    resizeTimer = setTimeout(() => {
-        play()
-    }, 400)
-})
+
+    resizeTimer = setTimeout(later, delay)
+    if(callNow) play()
+
+}
+
+let resizeTimer 
+window.addEventListener('resize', resizeDebouncer)

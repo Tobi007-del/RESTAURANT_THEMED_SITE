@@ -212,7 +212,7 @@ class TasteyManager {
             console.log(`%c
             Orders in total: ${this.ordersInTotal}\n 
             Tastey meals: ${this.tasteyMeals}\n
-            ActualAmount: ${this.actualAmount}
+            ActualAmount: ${this.actualAmount}\n
             Total Amount: ${this.totalAmount}\n
             Saved: ${this.savedAmount}\n
             Total Discount: ${this.totalDiscountPercentage}%\n
@@ -270,7 +270,6 @@ const wrapMethods = {
         return result
     }
 }
-
 
 const weakTastey = new TasteyManager
 const Tastey = new Proxy(weakTastey,wrapMethods)
