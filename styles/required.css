@@ -448,7 +448,7 @@ nav::after {
         --bar-gap: .4rem;
         --burger-margin: 1vw;
         --foreground: var(--current-theme-inverse-accent-color);
-        --background-color: var(var(--foreground));
+        --background-color: var(--foreground);
         --animation-timing: 200ms ease-in-out; 
         --hamburger-height: calc(var(--bar-height) * 3 + var(--bar-gap) * 2);
     }
@@ -528,8 +528,8 @@ nav::after {
         font-size: 1rem;
     }
     .hamburger-icon {
+        display: flex!important;
         position: absolute;
-        display: flex;
         z-index: 3;
         margin-left: var(--burger-margin);
     }
