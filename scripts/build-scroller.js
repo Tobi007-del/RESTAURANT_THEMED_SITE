@@ -6,7 +6,7 @@ export { autoRemoveScroller, quickScrollShow, quickScrolls, scrollToTop }
     scroller.id = "quick-scroll-wrapper"
     scroller.innerHTML += 
     `
-            <div id = "scroller-circle" tabindex="1">
+            <div id = "scroller-circle">
                 <svg id="scroll-circle" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
                     <path fill="none" stroke-width = "5" id="circle" d ="M2.5 50 a 46,46 0 1,1 95,0 a 46,46 0 1,1 -95,0"/>
                 </svg>

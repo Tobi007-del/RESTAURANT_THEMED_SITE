@@ -116,7 +116,7 @@ function tasteyMenu(data){
         menuSection.append(menuContainer)
         main.append(menuSection)
     })  
-    document.body.insertBefore(main,document.getElementById("quick-scroll-wrapper"))
+    document.body.append(main)
 }
 
 
@@ -205,7 +205,7 @@ function tasteyMenu(data){
             </div>
         `
     
-        document.body.insertBefore(main,document.getElementById("quick-scroll-wrapper"))
+        document.body.append(main)
     
         const orderReviewSectionContent = document.querySelector(".order-review-section-content")
     
