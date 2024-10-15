@@ -63,7 +63,7 @@ const formatValue = (currency, price) => {
 }
 
 //A Class to handle all major Tastey operations
-class TasteyManager {
+export default class TasteyManager {
     constructor() {
         this.tasteyRecord = ((localStorage.tasteyRecord !== undefined) && (localStorage.tasteyRecord !== "undefined")) ? JSON.parse(localStorage.tasteyRecord) : {}
         console.log(this.tasteyRecord)
