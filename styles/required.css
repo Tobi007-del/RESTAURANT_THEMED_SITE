@@ -15,6 +15,7 @@
     --darker-black: rgb(10,10,10);
     --main-text-color: lightgrey;
     --sub-text-color: grey;
+    --attractive-color: greenyellow;
 }
 
 html {
@@ -27,8 +28,9 @@ body {
 }
 
 *:focus-visible {
-    outline: .1rem solid var(--tastey-brand-accent-color);
+    outline: .1rem solid var(--sub-text-color);
     outline-offset: .1rem;
+    outline-style: dashed;
 }
 
 a {
@@ -210,14 +212,11 @@ nav::after {
     border-radius: .25rem;
     position: relative;
     font-weight: 600;
+    color: var(--current-theme-inverse-color);
 }
 
 .reservation-btn:hover {
     background-color: var(--tastey-brand-color);
-}
-
-.reservation-btn:focus {
-    outline-color: var(--current-theme-inverse-color)!important;
 }
 
 .hamburger-icon {
@@ -231,6 +230,13 @@ nav::after {
 
 .navbar-cart {
     opacity: 0.85;
+    border: none;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .navbar-cart svg {
@@ -239,7 +245,7 @@ nav::after {
     fill: var(--current-theme-inverse-color);
 }
 
-.navbar-cart:hover {
+.navbar-cart:hover, .navbar-cart:focus {
     cursor: pointer;
     opacity: 1;
 }
@@ -305,7 +311,7 @@ nav::after {
 }
 
 #circle{
-  stroke: greenyellow;
+  stroke: var(--attractive-color);
 }
 
 #quick-scroll-wrapper{
@@ -320,6 +326,12 @@ nav::after {
   align-items: center;
   justify-content: center;
   z-index: 4;
+}
+
+#quick-scroll-wrapper button {
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 
 #quick-scroll-show{
@@ -358,7 +370,7 @@ nav::after {
   transition: width 300ms ease, opacity 250ms ease;
 }
 
-#quick-scrolls.show {
+#quick-scroll-wrapper:focus-visible #quick-scrolls, #quick-scrolls.show {
     pointer-events: all;
     width: 4.25rem;
     opacity: 1;
@@ -528,7 +540,7 @@ nav::after {
         font-size: 1rem;
     }
     .hamburger-icon {
-        display: flex!important;
+        display: flex;
         position: absolute;
         z-index: 3;
         margin-left: var(--burger-margin);

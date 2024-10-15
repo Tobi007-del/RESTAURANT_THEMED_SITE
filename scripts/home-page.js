@@ -1,15 +1,14 @@
-const Tastey = JSON.parse(localStorage.tasteyRecord)
+const Tastey = JSON.parse(localStorage?.tasteyRecord)
 const setCartStates = () => {
     const dataCartStates = document.querySelectorAll("[data-cart]")
     dataCartStates.forEach(dataCartState => {
-        dataCartState.dataset.cart = Tastey.tasteyOrders.reduce((count, meal) => count + meal.orders,0)
+        dataCartState.dataset.cart = Tastey?.tasteyOrders.reduce((count, meal) => count + meal.orders,0)
     })
 }
 setCartStates()
 
-// import {default as TasteyManager} from "./menu.js"
-
 document.querySelector(".navbar-cart").addEventListener('click', () => {
+    window.location.href = "menu.html"
     localStorage.openCart = true
 })
 

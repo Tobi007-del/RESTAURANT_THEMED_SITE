@@ -264,15 +264,13 @@ main {
     transition: transform 250ms ease;
 }
 
- {
-    display: none;
-}
 
 @media only screen and (max-height: 12rem) {
     .tastey-meals-carousel-controls {
         display: none;
     }
 }
+
 
 @media only screen and (orientation:landscape) and (max-height: 30rem) {
     .hero-content-wrapper {

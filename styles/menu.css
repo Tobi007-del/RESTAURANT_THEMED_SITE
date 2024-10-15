@@ -1,4 +1,5 @@
 :root {
+    --attractive-color: greenyellow;
     --global-light-width: 35rem!important;
     --global-mouse-x: 50%;
     --global-mouse-y: 14rem;
@@ -93,7 +94,7 @@ aside.category-switcher-container::after {
     border-radius: .5rem 0 0 .5rem;
 }
 
-aside:hover {
+aside:hover, aside:focus-within {
     width: 3.5rem;
 }
 
@@ -130,6 +131,9 @@ aside:hover .toggler div p, aside:hover .switcher div p, aside:focus-within .tog
     overflow: hidden;
     position: relative;
     flex: 1 1 auto;
+    padding: 0;
+    margin: 0;
+    border: none;
 }
 
 .toggler:hover, .switcher:hover {
@@ -145,7 +149,7 @@ body.cart .cart-toggler, body:not(.cart) .menu-toggler, .toggler:hover, .switche
     background-color: var(--tastey-brand-color);  
 }
 
-body.cart .cart-toggler, body:not(.cart) .menu-toggler, .switcher.active, aside:focus-within .toggler, aside:focus-within .switcher {
+body.cart .cart-toggler, body:not(.cart) .menu-toggler, .switcher.active {
     border: .13rem solid var(--current-theme-inverse-color);
 }
 
@@ -267,7 +271,7 @@ main.menu h1 {
 
 main.menu h3 {
     font-size: 1.25rem;
-    color: greenyellow;
+    color: var(--attractive-color);
 }
 
 #magic {
@@ -308,7 +312,7 @@ main.menu h3 {
     }
 }
 .magic-star > svg > path{
-    fill: greenyellow;
+    fill: var(--attractive-color);
 }
 
 .menu-sections {
@@ -455,6 +459,9 @@ main.menu h3 {
 
 .heart-icon-wrapper {
     display: block;
+    border: none;
+    padding: 0;
+    margin: 0;
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
@@ -632,7 +639,7 @@ main.menu h3 {
 .product-price {
     width: 50%;
     padding-inline-start: .5rem;
-    color: greenyellow;
+    color: var(--attractive-color);
     font-size: 1.05rem;
     display: flex;
     align-items: center;
@@ -943,7 +950,7 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
 }
 
 .meal-price {
-    color: greenyellow;
+    color: var(--attractive-color);
 }
 
 .actual-meal-price {
@@ -1111,7 +1118,7 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
 }
 
 .TOTAL-COST {
-    color: greenyellow;
+    color: var(--attractive-color);
     font-size: 1.05rem;
 }
 
@@ -1343,6 +1350,7 @@ body.cart:hover .cart-section > div::before, body.cart:hover .cart-section > div
     .menu-sections {
         padding: 0;
     }
+    
     .tastey-meal::before {
         background: radial-gradient(
             400px circle at 8.5rem 5rem,
