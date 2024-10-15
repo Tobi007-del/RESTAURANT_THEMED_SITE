@@ -6,8 +6,9 @@ const setCartStates = () => {
     })
 }
 setCartStates()
-
-document.querySelector(".navbar-cart").addEventListener('click', () => {
+ 
+const navbarCart = document.querySelector(".navbar-cart")
+navbarCart.addEventListener('click', function() {
     window.location.href = "menu.html"
     localStorage.openCart = true
 })
