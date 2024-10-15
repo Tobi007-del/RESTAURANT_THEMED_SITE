@@ -149,7 +149,7 @@ body.cart .cart-toggler, body:not(.cart) .menu-toggler, .toggler:hover, .switche
     background-color: var(--tastey-brand-color);  
 }
 
-body.cart .cart-toggler, body:not(.cart) .menu-toggler, .switcher.active {
+body.cart .cart-toggler, body:not(.cart) .menu-toggler {
     border: .13rem solid var(--current-theme-inverse-color);
 }
 

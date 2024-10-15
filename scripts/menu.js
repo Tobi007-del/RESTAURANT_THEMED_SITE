@@ -522,11 +522,6 @@ menuToggler.addEventListener('click', () => {
     autoRemoveScroller()
 })
 
-if(localStorage.openCart) {
-    toggleCart()
-    delete localStorage.openCart
-}
-
 function toggleCart() {
     document.body.classList.add("cart")
     scrollToTop("instant")
