@@ -54,7 +54,12 @@ class TasteyManager {
         } else {
              orderReviewSectionContent.innerHTML += `
                 <div class="tastey-meal-order" data-id="${id}" data-like="${like?.like ?? false}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}">
-                    <div class="tastey-order-image" style="background-image: url('${picSrc}')"></div>
+                    <div class="tastey-meal-order-content">
+                    <div class="tastey-order-image-wrapper">
+                            <img class="tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
+                            <span class="tooltip-text like-tooltip">Double tap to like!</span>
+                            <span class="tooltip-text unlike-tooltip">Double tap to unlike</span>
+                    </div>
                     <div class="tastey-order-info">
                         <div class="tastey-order-text">
                             <div>
@@ -93,10 +98,11 @@ class TasteyManager {
                                 <p class="serving-size" data-serving=${serving ?'"' + serving + '"' : "NG"}>Note: </p>
                             </span>         
                             <span class="order-price" data-discount="${price.discount ?? 0}">
-                                <h3 class="meal-price">${formatValue(curr,check(price.currentValue,price.discount))}</h3>
+                                <h3 class="meal-price" data-discount="${price.discount ?? 0}">${formatValue(curr,check(price.currentValue,price.discount))}</h3>
                                 <h3 class="actual-meal-price">${formatValue(curr,price.currentValue)}</h3>
                             </span>
                         </div>
+                    </div>
                     </div>
                 </div>
             `   

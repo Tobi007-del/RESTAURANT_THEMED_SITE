@@ -1,4 +1,4 @@
-import { tasteyThrottler } from "./utility-functions.js"
+import { tasteyThrottler, scrollToTop, scrollToBottom } from "./utility-functions.js"
 export { autoRemoveScroller, quickScrollShow, quickScrolls, scrollToTop }
 
 (function buildScroller() {
@@ -46,41 +46,23 @@ quickScrolls = document.getElementById("quick-scrolls")
 
 
 //Quick scrolls implementation
-function scrollToTop(behavior = "smooth") {        
-    setTimeout(function () {
-        window.scrollTo({
-            top: 0,
-            behavior: behavior
-        })
-    }, 100);
-};
-
-function scrollToBottom(behavior = "smooth") {
-    setTimeout(function () {
-        window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: behavior
-        })
-    }, 100);
-}
-
 removeScrolls.addEventListener('click', ()=>{
     quickScroll.style.display = "none";
     categorySwitcherContainer.classList.remove('show')
- })
+})
  
- toTop.addEventListener('click', ()=>{
+toTop.addEventListener('click', ()=>{
     scrollToTop()
- })
+})
  
- toBottom.addEventListener('click', ()=>{
+toBottom.addEventListener('click', ()=>{
     scrollToBottom()
- })
+})
  
- quickScrollShow.addEventListener('click', ()=>{
+quickScrollShow.addEventListener('click', ()=>{
     quickScrolls.classList.toggle('show');
     autoRemoveScroller()
- })
+})
 
 var circle = document.getElementById("circle");
 var length = circle.getTotalLength();

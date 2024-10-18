@@ -6,21 +6,25 @@
     --tastey-brand-color: #ed8f23;
     --tastey-brand-accent-color: #eb9634;
     --tastey-brand-light-accent-color: #f0ad5f;
-    --current-theme-color: white;
+    --current-theme-main-color: wheat;
+    --current-theme-sub-color: white;
     --current-theme-fade-color: whitesmoke;
     --current-theme-accent-color: rgba(255, 255, 255, 0.75);
+    --current-theme-transparent-color: rgba(255, 255, 255, 0.1);
     --current-theme-inverse-color: black;
     --current-theme-inverse-accent-color: rgba(0, 0, 0, 0.75);
-    --lighter-black: rgb(15,15,15);
-    --darker-black: rgb(10,10,10);
+    --lighter-black: rgb(20,20,20);
+    --darker-black: rgb(15,15,15);
     --main-text-color: lightgrey;
     --sub-text-color: grey;
     --attractive-color: greenyellow;
+    --attractive-accent-color: rgba(172, 255, 47, 0.85);
 }
 
 html {
     font-family: Arial, Helvetica, sans-serif;
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -79,17 +83,12 @@ a:hover {
     .col-12 {width: 100%;}
 }
 
-html {
-    overflow-x: hidden;
-}
-
-
 .smooth-scroll {
     scroll-behavior: smooth!important;
 }
 
 nav {
-    background-color: var(--current-theme-color);
+    background-color: var(--current-theme-main-color);
     width: 97.5%;
     left: 1.25%;
     height: 3rem;
@@ -104,16 +103,6 @@ nav {
     color: var(--current-theme-inverse-color);
 }
 
-nav::before {
-    content: '';
-    position: absolute;
-    width: 100vw;
-    height: .5rem;
-    bottom: 100%;
-    left: -1.25vw;
-    background-color: var(--darker-black);
-}
-
 nav::after {
     content: '';
     position: absolute;
@@ -121,7 +110,7 @@ nav::after {
     left: 1%;
     height: 15%;
     border-radius: 0 0 .5rem .5rem;
-    background-color: rgba(255, 255, 255, 0.2); 
+    background-color: var(--current-theme-transparent-color); 
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     top: 100%;
@@ -223,6 +212,10 @@ nav::after {
     display: none;
 }
 
+.cart-container {
+    position: relative;
+}
+
 .Cart {
     position: relative;
     display: inline-block;
@@ -277,7 +270,7 @@ nav::after {
 .Cart::after {
     content: attr(data-cart);
     background-color: var(--tastey-brand-color);
-    color: var(--current-theme-color);
+    color: var(--current-theme-inverse-color);
     min-width: .75rem;
     padding: .01rem;
     aspect-ratio: 1/1;
@@ -291,13 +284,43 @@ nav::after {
     left: 50%;
 }
 
+.Cart.navbar-cart::after {
+    font-weight: bold;
+}
+
 .Cart.main-cart::after {
     top: 40%;
     left: auto;
     right: auto;
     bottom: auto;
-    color: var(--current-theme-color);
+    color: var(--current-theme-sub-color);
     background-color: var(--current-theme-inverse-color);
+}
+
+.mini-meal-cart {
+    /* remove this and see shege */
+    display: none;
+}
+
+.mini-meal-cart {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    width: clamp(5rem,100vw,20rem);
+    height: 25rem;
+    padding: .25rem;
+    border-radius: .25rem;
+    background-color: var(--current-theme-main-color);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 3;
+}
+
+.mini-meal-cart p {
+    margin: 0;
+}
+
+.mini-cart-tastey-order-image-wrapper img {
+    width: 5rem;
 }
 
 #scroller-circle {
@@ -339,7 +362,7 @@ nav::after {
   width: 92%;
   height: 92%;
   border-radius: 50%;
-  background: var(--current-theme-color);
+  background: var(--current-theme-main-color);
   position: absolute;
   transform: rotate(0);
   display: flex;
@@ -371,7 +394,7 @@ nav::after {
   transition: width 300ms ease, opacity 250ms ease;
 }
 
-#quick-scroll-wrapper:focus-visible #quick-scrolls, #quick-scrolls.show {
+#quick-scroll-wrapper:has(:focus-visible) #quick-scrolls, #quick-scrolls.show {
     pointer-events: all;
     width: 4.25rem;
     opacity: 1;
@@ -394,7 +417,7 @@ nav::after {
   align-items: center;
   justify-content: center;
   padding: 0;
-  background: var(--current-theme-color);
+  background: var(--current-theme-main-color);
 }
 
 #to-top,#to-bottom{
@@ -419,7 +442,7 @@ nav::after {
   font-size: 1.5rem;
   position: relative;
   right: 1rem;
-  background-color: var(--current-theme-color);
+  background-color: var(--current-theme-main-color);
   transition: 200ms ease;
 }
 
@@ -431,7 +454,7 @@ nav::after {
 }
 
 #remove-quick-scrolls:hover svg {
-    fill: var(--current-theme-color);
+    fill: var(--current-theme-sub-color);
 }
 
 #remove-quick-scrolls:hover {
@@ -513,7 +536,7 @@ nav::after {
         top: 0;
     }
     .navigation-section ul {
-        background-color: var(--current-theme-color);
+        background-color: var(--current-theme-main-color);
         flex-direction: column;
         width: 60vw;
         height: 100vh;

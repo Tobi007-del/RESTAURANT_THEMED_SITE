@@ -26,14 +26,13 @@ main {
     position: absolute;
     margin-left: 15%;
     width: 30rem;
-    color: white;
+    color: var(--current-theme-sub-color);
     display: flex;
     height: 100%;
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
     z-index: 1;
-    color: var(--current-theme-color);
     pointer-events: none;
 }
 
@@ -121,7 +120,7 @@ main {
     left: 5%;
     height: 12.5%;
     border-radius: 0 0 .25rem .25rem;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--current-theme-transparent-color);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     top: 100%;
@@ -130,7 +129,7 @@ main {
 .open-menu-btn {
     border: none;
     background-color: transparent;
-    color: var(--current-theme-color);
+    color: var(--current-theme-sub-color);
     font-size: .8rem;
     font-weight: 600;
 }
@@ -260,7 +259,7 @@ main {
     width: .9rem;
     height: .9rem;
     transform: scale(1.1);
-    fill: var(--current-theme-color);
+    fill: var(--current-theme-sub-color);
     transition: transform 250ms ease;
 }
 

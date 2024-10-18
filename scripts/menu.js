@@ -1,29 +1,25 @@
+import data from "./fetch.js"
 import { Tastey, weakTastey } from "./TasteyManager.js"
-import { tasteyDebouncer, tasteyThrottler, check, formatValue } from "./utility-functions.js"
-import { scrollToTop, autoRemoveScroller, quickScrollShow, quickScrolls } from "./build-scroller.js"
+import { tasteyDebouncer, tasteyThrottler, check, formatValue, clamp , panning, scrollContentTo, scrollToTop, remToPx, pxToRem, rand, scrollToBottom } from "./utility-functions.js"
+import { autoRemoveScroller, quickScrollShow, quickScrolls } from "./build-scroller.js"
 
-fetch('./tastey_meals.json')
-.then(response => {
-    if(!response.ok) {
-        throw new Error(`HTTP error!. Status: ${response.status}`)
-    }
-    return response.json()
-})
-.then(data => {
-    tasteyMenu(data)
-    return data
-})
-.then(data => {
-    tasteyBag(data)
-    return data
-})
-.then((data) => {
-    then(data)
-}).catch((error) => {
-    console.error(`%cIssue parsing data... ${error}`,"color:red")
-    console.warn("Please reload page")
-})
+//Getting necessary data
+const meals = data.tasteyMeals,
 
+allMeals = [...meals[0].starters,...meals[1]["main-meals"],...meals[2].drinks,...meals[3].desserts];
+
+// the code below fills up the cart immediately for development purposes
+// allMeals.forEach(({ id }) => {
+//     Tastey.addMeal(id,allMeals,data.currency)
+// })
+
+// the one-liner below clears the cart immediately for development purposes
+// delete localStorage.tasteyRecord
+
+const mobileThreshold = remToPx(36)
+
+tasteyMenu(data)
+tasteyBag(data)
 
 function tasteyMenu(data){
     const main = document.createElement("main");
@@ -73,8 +69,8 @@ function tasteyMenu(data){
             </span>
         </div>`
     
-    const tasteyMeals = data.tasteyMeals
-    tasteyMeals.forEach(meal => {
+    const TasteyMeals = data.tasteyMeals
+    TasteyMeals.forEach(meal => {
         const product = Object.keys(meal)[0]
         const productName = meal[product][0].category
         const menuSection = document.createElement('div')
@@ -91,7 +87,8 @@ function tasteyMenu(data){
             menuContainer.innerHTML += `
             <div class="tastey-meal" data-id='${id}' data-like="${weakTastey.getLikeValue(Number(id)) ?? like}">
                     <div class="tastey-meal-content">
-                        <div class="tastey-meal-image" style="background-image: url('${picSrc}');">
+                        <div class="tastey-meal-image-wrapper">
+                            <img class="tastey-meal-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
                             <span class="tooltip-text like-tooltip">Double tap to like!</span>
                             <span class="tooltip-text unlike-tooltip">Double tap to unlike</span>
                             <button type="button" title="Tap to like!" class="heart-icon-wrapper">
@@ -135,6 +132,7 @@ function tasteyMenu(data){
             <div class="empty-cart-section">
                 <div class="empty-cart-text">
                     <h2>No <span>Tastey</span> orders yet!</h2>
+                    <p>Click <a type="button" class="continue-shopping-button" href="menu.html" title="Continue Shopping">here</a> to continue shopping</p>
                 </div>
             </div>
             <div class="cart-section">
@@ -162,7 +160,7 @@ function tasteyMenu(data){
                                 </span>
                                 <span>
                                     <p>Total Discount :</p>
-                                    <p class="total-discount">${Tastey.totalDiscountPercentage ?? 0} %</p>
+                                    <p class="total-discount">-${Tastey.totalDiscountPercentage ?? 0} %</p>
                                 </span>
                                 <span>
                                     <p>Saved :</p>
@@ -199,14 +197,17 @@ function tasteyMenu(data){
                 </div>
                 <div class="order-review-section">
                     <div class="order-review-section-content">
-                        <span class="order-number" data-cart="0" data-meals="">Bag</span>
+                        <div class="order-number-wrapper">
+                            <span class="order-number" data-cart="0" data-meals="">
+                        </span>
+                        </div>
                     </div>
                 </div>
             </div>
         `
     
         document.body.append(main)
-    
+        
         const orderReviewSectionContent = document.querySelector(".order-review-section-content")
     
         Tastey.tasteyRecord.tasteyOrders?.forEach(({ id,orders }) => {
@@ -215,7 +216,12 @@ function tasteyMenu(data){
             orderReviewSectionContent.innerHTML += 
             `
                     <div class="tastey-meal-order" data-id="${id}" data-like="${weakTastey.getLikeValue(Number(id)) ?? false}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}">
-                        <div class="tastey-order-image" style="background-image: url('${picSrc}')"></div>
+                        <div class="tastey-meal-order-content">
+                        <div class="tastey-order-image-wrapper">
+                            <img class="tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
+                            <span class="tooltip-text like-tooltip">Double tap to like!</span>
+                            <span class="tooltip-text unlike-tooltip">Double tap to unlike</span>
+                        </div>
                         <div class="tastey-order-info">
                             <div class="tastey-order-text">
                                 <div>
@@ -225,7 +231,7 @@ function tasteyMenu(data){
                                 <div>
                                     <button type="button" title="Remove ${label} from Bag" class="delete-order">
                                         <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                         </span>
                                         <p>REMOVE MEAL</p>
                                     </button>
@@ -254,10 +260,11 @@ function tasteyMenu(data){
                                     <p class="serving-size" data-serving=${serving ?'"' + serving + '"' : "NG"}>Note: </p>
                                 </span>         
                                 <span class="order-price" data-discount="${price.discount ?? 0}">
-                                    <h3 class="meal-price">${formatValue(data.currency,check(price.currentValue,price.discount))}</h3>
+                                    <h3 class="meal-price" data-discount="${price.discount ?? 0}">${formatValue(data.currency,check(price.currentValue,price.discount))}</h3>
                                     <h3 class="actual-meal-price">${formatValue(data.currency,price.currentValue)}</h3>
                                 </span>
                             </div>
+                        </div>
                         </div>
                     </div>
                 `   
@@ -267,7 +274,6 @@ function tasteyMenu(data){
     }
 }
 
-function then(data){
 //DOM Elements
 const likeIconWrappers = document.querySelectorAll(".heart-icon-wrapper"),
 orderReviewSectionContent = document.querySelector(".order-review-section-content"),
@@ -280,8 +286,10 @@ categorySwitcherContainer = document.querySelector("aside.category-switcher-cont
 switchers = document.querySelectorAll(".switcher"),
 menuHeaders = document.querySelectorAll(".tastey-menu-title-wrapper h1"),
 tastey = document.querySelector(".tastey"),
+orderNumberWrapper = document.querySelector(".order-number-wrapper"),
 checkoutSection = document.querySelector(".checkout-section"),
 menuToggler = document.querySelector(".menu-toggler"),
+continueShoppingBtn = document.querySelector(".continue-shopping-button"),
 cartToggler = document.querySelector(".cart-toggler"),
 addToCartBtns = document.querySelectorAll(".add-to-cart-button"),
 deleteOrderBtns = document.getElementsByClassName("delete-order"),
@@ -293,34 +301,30 @@ mealsNumberElement = document.querySelector(".meals-number"),
 actualPriceElement = document.querySelector(".actual-price"),
 totalDiscountElement = document.querySelector(".total-discount"),
 savedElement = document.querySelector(".saved"),
-VATElement = document.querySelector(".VAT"),
 totalPriceElement = document.querySelector(".total-price"),
 TOTALCOSTElement = document.querySelector(".TOTAL-COST")
 
 //DOM operations
 
-const meals = data.tasteyMeals
-
-const allMeals = [...meals[0].starters,...meals[1]["main-meals"],...meals[2].drinks,...meals[3].desserts]
-
 const setCheckoutState = () => {
     cartNumberElement.textContent = Tastey.ordersInTotal
     mealsNumberElement.textContent = Tastey.tasteyMeals
     actualPriceElement.textContent = formatValue(data.currency, Tastey.actualAmount)
-    totalDiscountElement.textContent = Tastey.totalDiscountPercentage + "%"
+    totalDiscountElement.textContent = "-" + Tastey.totalDiscountPercentage + "%"
     savedElement.textContent = formatValue(data.currency, Tastey.savedAmount)
-    VATElement.textContent = "+" + Tastey.VAT + "%"
     totalPriceElement.textContent = formatValue(data.currency, Tastey.totalAmount)
     TOTALCOSTElement.textContent = formatValue(data.currency, Tastey.totalCost)
 }
 
 const setCartStates = () => {
     const dataCartStates = document.querySelectorAll("[data-cart]")
-    const dataMealsState = document.querySelector("[data-meals]")
+    const dataMealsState = document.querySelectorAll("[data-meals]")
     dataCartStates.forEach(dataCartState => {
         dataCartState.dataset.cart = Tastey.ordersInTotal
     })
-    dataMealsState.dataset.meals = Tastey.tasteyMeals
+    dataMealsState.forEach(mealsState => {
+        mealsState.dataset.meals = Tastey.tasteyMeals
+    })
 }
 setCartStates()
 
@@ -333,7 +337,7 @@ const setOrderStates = (id) => {
     }) 
 }
 
-const setlikeState = (id) => {
+const setLikeState = (id) => {
     const dataLikeStates = document.querySelectorAll("[data-like]")
     dataLikeStates.forEach(dataLikeState => {
         if(Number(dataLikeState.dataset.id) === id) {
@@ -354,35 +358,54 @@ function getOrderIndex(id){
     return i;
 }
 
+function resetOrdersStickyPosition() {
+const gap = pxToRem((checkoutSection.offsetHeight - (tasteyMealOrders[0].offsetHeight + orderNumberWrapper.offsetHeight + remToPx(0.75))) / tasteyMealOrders.length)
+const bottom = pxToRem(window.innerHeight - (remToPx(9.1 + (tasteyMealOrders.length * gap)) + tasteyMealOrders[0].offsetHeight))
+if (window.innerWidth > remToPx(55) && window.innerHeight > remToPx(30)) {
+    document.querySelector("main.meal-cart").style.setProperty('--bottom', `${bottom}rem`)
+    orderNumberWrapper.style.transform = `scaleX(${1 - ((tasteyMealOrders.length)/2000)})`
+    for (let i = 0; i < tasteyMealOrders.length; i++) {
+        if (CSS && CSS.supports('position', 'sticky')) {
+            tasteyMealOrders[i].style.setProperty('--sticky-top', `${9.25 + (i * gap)}rem`)
+            tasteyMealOrders[i].style.transform = `scaleX(${1 - ((tasteyMealOrders.length - i)/2000)})`
+        } else {
+            tasteyMealOrders[i].style.position = "relative"
+        }
+    }
+}
+}
+resetOrdersStickyPosition()
+
+function necessaryScroll() {
+    if (document.body.classList.contains("cart") && (window.innerWidth > remToPx(55) && window.innerHeight > remToPx(30))) {
+        scrollToBottom()
+    }
+}
+
 function resetBagEventListeners() {
     for(let i = 0; i < tasteyMealOrders.length; i++) {
-        wishlistTogglers[i]?.removeEventListener('click', wishlistTogglers[i].fn)
-        tasteyOrderImages[i]?.removeEventListener('dblclick', tasteyOrderImages[i].fn)
-        deleteOrderBtns[i]?.removeEventListener('click', deleteOrderBtns[i].fn)
-        plusCartBtns[i]?.removeEventListener('click', plusCartBtns[i].fn)
-        minusCartBtns[i]?.removeEventListener('click', minusCartBtns[i].fn) 
-        wishlistTogglers[i]?.addEventListener('click', wishlistTogglers[i].fn = () => {
+        wishlistTogglers[i].onclick = () => {
             handleWishlist(Number(tasteyMealOrders[i]?.dataset.id),i)      
-        })
-        tasteyOrderImages[i]?.addEventListener('dblclick', tasteyOrderImages[i].fn = () => {
+        }
+        tasteyOrderImages[i].ondblclick = tasteyOrderImages[i].fn = () => {
             handleWishlist(Number(tasteyMealOrders[i]?.dataset.id),i)  
-        })
-        deleteOrderBtns[i]?.addEventListener('click', deleteOrderBtns[i].fn = () => {
+        }
+        deleteOrderBtns[i].onclick = () => {
             handleDelete(Number(tasteyMealOrders[i]?.dataset.id),i)
-        })
-        plusCartBtns[i]?.addEventListener('click', plusCartBtns[i].fn = () => {
+        }
+        plusCartBtns[i].onclick = () => {
             handleAddMeal(Number(tasteyMealOrders[i].dataset.id),i)
-        })
-        plusCartBtns[i]?.classList.add('hover')
-        minusCartBtns[i]?.addEventListener('click', minusCartBtns[i].fn = () => {                        
+        }
+        plusCartBtns[i].classList.add('hover')
+        minusCartBtns[i].onclick = () => {                        
             handleRemoveMeal(Number(tasteyMealOrders[i]?.dataset.id),i)
-        }) 
+        }
         setMinusHoverState(i)
     }
 }
 resetBagEventListeners()
 
-addToCartBtns.forEach(btn =>{
+addToCartBtns.forEach(btn => {
     btn.addEventListener('click', e => {
         try {
             handleAddMeal(Number(e.target.dataset.id),getOrderIndex(Number(e.target.dataset.id)))
@@ -407,6 +430,8 @@ function handleAddMeal(id,i) {
     setCheckoutState()
     setMinusHoverState(i)
     resetBagEventListeners()                    
+    resetOrdersStickyPosition()
+    panning(document.querySelectorAll(".tastey-meal-image, .tastey-order-image, .mini-cart-tastey-order-image"))
 }
 
 function handleRemoveMeal(id,i) {
@@ -433,7 +458,9 @@ function handleDelete(id,n) {
     setCheckoutState()
     tasteyMealOrders[n].remove()
     resetBagEventListeners()
+    resetOrdersStickyPosition()
     autoRemoveScroller()
+    panning(document.getElementsByTagName("img"))
 }
     
 function handleClearCart() {    
@@ -454,12 +481,15 @@ function handleClearCart() {
     }
 }
 
+//handling the panning of the food images
+panning(document.getElementsByTagName("img"))
+
 //a function to handle likes
 function handleLikes(i) {
     tasteyMeals[i].dataset.like = tasteyMeals[i].dataset.like === "false" ? "true" : "false"
     likeIconWrappers[i].title = tasteyMeals[i].dataset.like === "false" ? "" : "Tap to like!"
     Tastey.handleLikes(Number(tasteyMeals[i].dataset.id),tasteyMeals[i].dataset.like === "true")
-    setlikeState(Number(tasteyMeals[i].dataset.id))
+    setLikeState(Number(tasteyMeals[i].dataset.id))
 }
 function handleWishlist(id,i) {
     const meal = allMeals.find(meal => meal.id === id)
@@ -467,7 +497,7 @@ function handleWishlist(id,i) {
     tasteyMealOrders[i].dataset.like = tasteyMealOrders[i].dataset.like === "false" ? "true" : "false"
     wishlistTogglers[i].title = tasteyMealOrders[i].dataset.like === "false" ? `Add ${label} to Wishlist` : `Remove ${label} from Wishlist`
     Tastey.handleLikes(Number(tasteyMealOrders[i].dataset.id),tasteyMealOrders[i].dataset.like === "true")
-    setlikeState(Number(tasteyMealOrders[i].dataset.id))
+    setLikeState(Number(tasteyMealOrders[i].dataset.id))
 }
 
 likeIconWrappers.forEach((likeIconWrapper,i) => {
@@ -484,25 +514,44 @@ tasteyMealsImages.forEach((tasteyMealsImage,i) => {
 //window event listeners
 window.addEventListener("resize", () => {
     adaptCheckoutContent()
+    resetOrdersStickyPosition()
+    necessaryScroll()
 })
 
 window.addEventListener("scroll", tasteyThrottler(() => {
     categorySwitcherContainer.classList.remove('show')
     controlActiveSwitcher(window.scrollY, [...menuHeaders])
+    if (!document.body.classList.contains('cart')) {
+        toggleMainMenuTitle()
+    }
 }))   
 window.addEventListener("scroll", tasteyDebouncer(() => {
     adaptCheckoutContent()
 },150))
 
-const remValue = parseFloat(getComputedStyle(document.documentElement).fontSize)
-const xThreshold = remValue * 45
+function toggleMainMenuTitle(bool = null) {
+    const menuTitle = document.querySelector('#magic')
+    if (bool === true) {
+        menuTitle.style.opacity = '1'
+        return
+    } else if (bool === false) {
+        menuTitle.style.opacity = '0'
+        return
+    }
+    if (tastey.getBoundingClientRect().y < (tasteyOffSetTop - 15)) 
+        menuTitle.style.opacity = '0'
+    else 
+        menuTitle.style.opacity = '1'
+}
+
+const xThreshold = remToPx(45)
 //a function to adapt the checkout content to the current screen size
 function adaptCheckoutContent () {
     if (document.body.classList.contains("cart") && window.innerWidth <= xThreshold) {
         checkoutSection.style.setProperty("--nav-width",`${document.querySelector('aside.menu-cart-toggler-container').offsetWidth}px`)
-        if ((document.documentElement.scrollTop / remValue) > 35) 
+        if (pxToRem(document.documentElement.scrollTop) > 35) 
             checkoutSection.classList.add("compact")
-        if ((document.documentElement.scrollTop / remValue) < 25) 
+        if (pxToRem(document.documentElement.scrollTop) < 25) 
             checkoutSection.classList.remove("compact")
     }
 }
@@ -515,18 +564,32 @@ quickScrollShow.addEventListener('click', () => {
 
 //toggling the cart on and off
 menuToggler.addEventListener('click', () => {
+    toggleMenu()
+})
+
+continueShoppingBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    toggleMenu()
+})
+
+function toggleMenu() {
     document.body.classList.remove("cart")
     scrollToTop("instant")
     controlActiveSwitcher(window.scrollY,[...menuHeaders])
     quickScrolls.classList.remove('show')
-    autoRemoveScroller()
-})
+    autoRemoveScroller() 
+    tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y;
+    toggleMainMenuTitle(true)
+}
 
 function toggleCart() {
     document.body.classList.add("cart")
     scrollToTop("instant")
     quickScrolls.classList.remove('show')
     autoRemoveScroller()
+    resetOrdersStickyPosition()
+    document.getElementById("to-top").focus()
+    necessaryScroll()
 }
 
 cartToggler.addEventListener('click', toggleCart)
@@ -551,9 +614,11 @@ const options = {
 const tasteyObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if(entry.isIntersecting) {
-            document.body.style.setProperty("--global-light-width", "35rem")
+            document.body.style.setProperty("--global-light-color", "rgba(255,255,255,0.475)")
+            document.body.style.setProperty("--global-light-complement-color", "transparent")
         } else if (!entry.target.classList.contains("tastey")) {
-            document.body.style.setProperty("--global-light-width", "0")
+            document.body.style.setProperty("--global-light-color", "var(--darker-black)")
+            document.body.style.setProperty("--global-light-complement-color", "var(--darker-black)")
         }
     })
 },options)
@@ -569,9 +634,6 @@ let starTimeout
 function starSetting(starIntersecting) {
     if(starIntersecting) {
         let index = 0, interval = 1000;
-    
-        const rand = (min,max) =>
-            Math.floor(Math.random() * (max - min)) + min;
         
         const animate = star => {
             star.style.setProperty("--star-left", `${rand(-20,120)}%`);
@@ -603,6 +665,7 @@ starSetting(starIntersecting)
 
 document.querySelectorAll("main").forEach(main => {
     main.onpointermove = e => {
+    if (window.innerWidth > mobileThreshold) {
         if(!document.body.classList.contains("cart")) {
             for(const card of document.getElementsByClassName("tastey-meal")){
                 const rect = card.getBoundingClientRect(),
@@ -613,7 +676,7 @@ document.querySelectorAll("main").forEach(main => {
                 card.style.setProperty("--mouse-y", `${y}px`);
             }
         } else {
-            for(const card of document.querySelectorAll(".cart-section > div")){
+            for(const card of document.querySelectorAll(".checkout-section, .order-number-wrapper, .tastey-meal-order")){
                 const rect = card.getBoundingClientRect(),
                     x = e.clientX - rect.left, 
                     y = e.clientY - rect.top;
@@ -622,18 +685,22 @@ document.querySelectorAll("main").forEach(main => {
             }
         }
     }
-})
-
-tastey.addEventListener("click", () => {
-    let active = getComputedStyle(tastey).getPropertyValue("--global-light-width") == "140rem" ? true : false
-    if(active) {
-        document.body.style.setProperty("--global-light-width", "35rem")
-    } else {
-        document.body.style.setProperty("--global-light-width", "140rem")
     }
 })
 
-const tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y;
+tastey.addEventListener("click", e => {
+    let active = getComputedStyle(tastey).getPropertyValue("--global-light-width") == "140rem" ? true : false
+    if(active) {
+        document.body.style.setProperty("--global-light-width", "35rem")
+        e.target.style.cursor = "zoom-in"
+    } else {
+        document.body.style.setProperty("--global-light-width", "140rem")
+        e.target.style.cursor = "zoom-out"
+    }
+})
+
+
+let tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y;
 
 function controlActiveSwitcher(ordinate,arr) {
     let index = -1;
@@ -643,18 +710,12 @@ function controlActiveSwitcher(ordinate,arr) {
         }
     }
     //clamping index incase of any error
-    index = Math.min(Math.max(index,0),arr.length - 1)
-    markSwitcher(index)
+    markSwitcher(clamp(0, index, arr.length - 1))
 }
 
-const scrollContentTo = (ordinate) => {
-    window.scrollTo(0,ordinate)
-}
-
-let scrollPosition;
 switchers.forEach((switcher,i) => {
     switcher.addEventListener('click', () => { 
-        scrollPosition = Math.round((menuHeaders[i].getBoundingClientRect().top + window.scrollY) - tasteyOffSetTop)
+        let scrollPosition = Math.round((menuHeaders[i].getBoundingClientRect().top + window.scrollY) - tasteyOffSetTop)
         scrollContentTo(scrollPosition)
     })
 })
@@ -663,4 +724,4 @@ const markSwitcher = (id) => {
     switchers.forEach(switcher => switcher.classList.remove("active"))
     switchers[id].classList.add("active")
 }
-}
+
