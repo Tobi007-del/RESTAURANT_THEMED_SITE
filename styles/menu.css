@@ -758,7 +758,7 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
     align-items: end;
     justify-content: center;
     margin: auto;
-    background: url('../assets/tastey-meal-images/empty-cart.png') center center, var(--current-theme-main-color);
+    background: url('../assets/tastey-meal-images/empty-cart.png') center 65%, var(--current-theme-main-color);
     background-size: cover;
 }
 
