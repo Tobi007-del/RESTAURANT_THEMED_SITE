@@ -11,7 +11,7 @@ export { autoRemoveScroller, quickScrollShow, quickScrolls, scrollToTop }
                     <path fill="none" stroke-width = "5" id="circle" d ="M2.5 50 a 46,46 0 1,1 95,0 a 46,46 0 1,1 -95,0"/>
                 </svg>
             </div>
-            <button type="button" title="Open Quick scroller" id = "quick-scroll-show">
+            <button type="button" title="Open scroller" id = "quick-scroll-show">
                 <svg viewBox="0 0 320 512">
                     <path d="M182.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L128 109.3l0 293.5L86.6 361.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 402.7l0-293.5 41.4 41.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-96-96z"/>
                 </svg>
@@ -22,7 +22,7 @@ export { autoRemoveScroller, quickScrollShow, quickScrolls, scrollToTop }
                     <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2 160 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-306.7L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/>
                 </svg>
             </button>
-            <button type="button" id = "remove-quick-scrolls" title = "Remove quick scroller">
+            <button type="button" id = "remove-quick-scrolls" title = "Remove scroller">
                 <svg viewBox="0 0 384 512">
                     <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
                 </svg>
@@ -61,6 +61,7 @@ toBottom.addEventListener('click', ()=>{
  
 quickScrollShow.addEventListener('click', ()=>{
     quickScrolls.classList.toggle('show');
+    quickScrollShow.title = quickScrolls.classList.contains("show") ? "Close scroller" : "Open scroller"
     autoRemoveScroller()
 })
 
@@ -97,7 +98,7 @@ function onscroll() {
 
 window.addEventListener("scroll", tasteyThrottler(() => {
     onscroll()
-}))   
+},2))   
 
 //window event listeners
 window.addEventListener("resize", () => {

@@ -31,6 +31,11 @@
     <link rel="stylesheet" href="styles/scroll-bar.css">
 </head>
 <body class="smooth-scroll">
+    <script defer="defer">
+        if(localStorage.openCart) {
+            document.body.classList.add("cart")
+        }
+    </script>
     <nav class="row">
         <div class="company-name-section">
             <div class="tastey-logo"></div>
@@ -194,12 +199,6 @@
             </button>
         </div>
     </aside>
-    <script>
-        if(localStorage.openCart) {
-            document.body.classList.add("cart")
-            delete localStorage.openCart
-        }
-    </script>
 
     <aside class="category-switcher-container">
         <div class="category-switcher-wrapper">

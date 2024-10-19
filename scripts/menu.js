@@ -1,3 +1,5 @@
+export { toggleCart }
+
 import data from "./fetch.js"
 import { Tastey, weakTastey } from "./TasteyManager.js"
 import { tasteyDebouncer, tasteyThrottler, check, formatValue, clamp , panning, scrollContentTo, scrollToTop, remToPx, pxToRem, rand, scrollToBottom } from "./utility-functions.js"
@@ -358,26 +360,30 @@ function getOrderIndex(id){
     return i;
 }
 
+const getCardsQuery = () => {
+    return (document.body.classList.contains("cart") && (window.innerWidth >= remToPx(55)) && (window.innerHeight >= remToPx(35)))
+}
+
+
 function resetOrdersStickyPosition() {
-const gap = pxToRem((checkoutSection.offsetHeight - (tasteyMealOrders[0].offsetHeight + orderNumberWrapper.offsetHeight + remToPx(0.75))) / tasteyMealOrders.length)
-const bottom = pxToRem(window.innerHeight - (remToPx(9.1 + (tasteyMealOrders.length * gap)) + tasteyMealOrders[0].offsetHeight))
-if (window.innerWidth > remToPx(55) && window.innerHeight > remToPx(30)) {
+const height = tasteyMealOrders[0].offsetHeight
+const gap = pxToRem((checkoutSection.offsetHeight - (height + orderNumberWrapper.offsetHeight + remToPx(0.75))) / tasteyMealOrders.length)
+const bottom = pxToRem(window.innerHeight - (remToPx(9.1 + (tasteyMealOrders.length * gap)) + height))
+if (getCardsQuery()) {
     document.querySelector("main.meal-cart").style.setProperty('--bottom', `${bottom}rem`)
-    orderNumberWrapper.style.transform = `scaleX(${1 - ((tasteyMealOrders.length)/2000)})`
+    orderNumberWrapper.style.transform = `scaleX(${1 - ((tasteyMealOrders.length)/900)})`
     for (let i = 0; i < tasteyMealOrders.length; i++) {
         if (CSS && CSS.supports('position', 'sticky')) {
             tasteyMealOrders[i].style.setProperty('--sticky-top', `${9.25 + (i * gap)}rem`)
-            tasteyMealOrders[i].style.transform = `scaleX(${1 - ((tasteyMealOrders.length - i)/2000)})`
-        } else {
-            tasteyMealOrders[i].style.position = "relative"
-        }
+            tasteyMealOrders[i].style.transform = `scaleX(${1 - ((tasteyMealOrders.length - i)/1000)})`
+        } 
     }
 }
 }
 resetOrdersStickyPosition()
 
 function necessaryScroll() {
-    if (document.body.classList.contains("cart") && (window.innerWidth > remToPx(55) && window.innerHeight > remToPx(30))) {
+    if (getCardsQuery()) {
         scrollToBottom()
     }
 }
@@ -524,7 +530,7 @@ window.addEventListener("scroll", tasteyThrottler(() => {
     if (!document.body.classList.contains('cart')) {
         toggleMainMenuTitle()
     }
-}))   
+},2))   
 window.addEventListener("scroll", tasteyDebouncer(() => {
     adaptCheckoutContent()
 },150))
@@ -588,9 +594,13 @@ function toggleCart() {
     quickScrolls.classList.remove('show')
     autoRemoveScroller()
     resetOrdersStickyPosition()
-    document.getElementById("to-top").focus()
     necessaryScroll()
 }
+
+if (localStorage.openCart) {
+    toggleCart()
+    delete localStorage.openCart
+} 
 
 cartToggler.addEventListener('click', toggleCart)
 document.querySelector(".navbar-cart").addEventListener('click', toggleCart)
@@ -670,18 +680,28 @@ document.querySelectorAll("main").forEach(main => {
             for(const card of document.getElementsByClassName("tastey-meal")){
                 const rect = card.getBoundingClientRect(),
                      x = e.clientX - rect.left,
-                     y = e.clientY - rect.top;
+                     y = e.clientY - rect.top
             
-                card.style.setProperty("--mouse-x", `${x}px`); 
-                card.style.setProperty("--mouse-y", `${y}px`);
+                card.style.setProperty("--mouse-x", `${x}px`)
+                card.style.setProperty("--mouse-y", `${y}px`)
             }
         } else {
-            for(const card of document.querySelectorAll(".checkout-section, .order-number-wrapper, .tastey-meal-order")){
-                const rect = card.getBoundingClientRect(),
-                    x = e.clientX - rect.left, 
-                    y = e.clientY - rect.top;
-                card.style.setProperty("--mouse-x", `${x}px`);
-                card.style.setProperty("--mouse-y", `${y}px`);
+            if (getCardsQuery()) {
+                for(const card of document.querySelectorAll(".checkout-section, .order-number-wrapper")){
+                    const rect = card.getBoundingClientRect(),
+                             x = e.clientX - rect.left, 
+                             y = e.clientY - rect.top
+                    card.style.setProperty("--mouse-x", `${x}px`)
+                    card.style.setProperty("--mouse-y", `${y}px`)
+                }
+            } else {
+                for(const card of document.querySelectorAll(".checkout-section, .order-number-wrapper, .tastey-meal-order")){
+                    const rect = card.getBoundingClientRect(),
+                             x = e.clientX - rect.left, 
+                             y = e.clientY - rect.top
+                    card.style.setProperty("--mouse-x", `${x}px`)
+                    card.style.setProperty("--mouse-y", `${y}px`)
+                }
             }
         }
     }

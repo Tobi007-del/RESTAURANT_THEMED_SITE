@@ -146,7 +146,7 @@ carouselContainer.addEventListener("focus", () => {
     stop()
 }, true)
 carouselContainer.addEventListener("blur", () => {
-    if(carouselContainer.matches(":hover")) return;
+    if(carouselContainer.matches(":hover")) return
     play()
 }, true)
 //for touch screen devices

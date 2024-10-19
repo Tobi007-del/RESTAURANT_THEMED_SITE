@@ -26,7 +26,7 @@ main {
     position: absolute;
     margin-left: 15%;
     width: 30rem;
-    color: var(--current-theme-sub-color);
+    color: var(--current-theme-fade-color);
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -218,7 +218,7 @@ main {
     border: none;
     border-radius: .25rem;
     padding: 0;
-    background-color: var(--current-theme-+color);
+    background-color: var(--current-theme-sub-color);
 }
 
 .toggler:hover {
@@ -299,14 +299,16 @@ main {
 @media only screen and (max-width: 50rem) {
     .hero-content-wrapper {
         width: 100%;
+        width: 35.5rem;
         margin-left: 0;
-        padding-inline: 11.5vw;
+        padding-inline-start: 11.5vw;
     }
 }
 
 @media only screen and (max-width:36rem) {
     .hero-content-wrapper {
-        padding-inline-start: 5vw;
+        padding-inline-start: 5.5vw;
+        padding-inline-end: 15.5vw;
         width: 100%;
     } 
     .welcome-message-wrapper {
