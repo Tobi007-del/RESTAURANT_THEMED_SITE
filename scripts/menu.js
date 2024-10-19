@@ -361,15 +361,14 @@ function getOrderIndex(id){
 }
 
 const getCardsQuery = () => {
-    return (document.body.classList.contains("cart") && (window.innerWidth >= remToPx(55)) && (window.innerHeight >= remToPx(35)) && (CSS && CSS.supports('position', 'sticky')))
+    return (document.body.classList.contains("cart") && (document.body.dataset.cart != 0) && (window.innerWidth >= remToPx(55)) && (window.innerHeight >= remToPx(35)) && (CSS && CSS.supports('position', 'sticky')))
 }
 
-
 function resetOrdersStickyPosition() {
-const height = tasteyMealOrders[0].offsetHeight
-const gap = pxToRem((checkoutSection.offsetHeight - (height + orderNumberWrapper.offsetHeight + remToPx(0.75))) / tasteyMealOrders.length)
-const bottom = pxToRem(window.innerHeight - (remToPx(9.1 + (tasteyMealOrders.length * gap)) + height))
 if (getCardsQuery()) {
+    const height = tasteyMealOrders[0].offsetHeight
+    const gap = pxToRem((checkoutSection.offsetHeight - (height + orderNumberWrapper.offsetHeight + remToPx(0.75))) / tasteyMealOrders.length)
+    const bottom = pxToRem(window.innerHeight - (remToPx(9.1 + (tasteyMealOrders.length * gap)) + height))
     document.querySelector("main.meal-cart").style.setProperty('--bottom', `${bottom}rem`)
     orderNumberWrapper.style.transform = `scaleX(${1 - ((tasteyMealOrders.length)/900)})`
     for (let i = 0; i < tasteyMealOrders.length; i++) {

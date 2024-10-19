@@ -114,7 +114,7 @@ function autoRemoveScroller() {
         } else {
             quickScroll.style.display = "flex"
         }
-    }, 5);
+    }, 100);
 }
 
 

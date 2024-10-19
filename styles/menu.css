@@ -1319,7 +1319,6 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
             position: sticky;
         }
         main.meal-cart {
-            --bottom: 50rem;
             padding-block-end: var(--bottom);
         }
         .tastey-meal-order::before, .tastey-meal-order::after {
