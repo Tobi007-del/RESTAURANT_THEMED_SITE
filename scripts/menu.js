@@ -361,7 +361,7 @@ function getOrderIndex(id){
 }
 
 const getCardsQuery = () => {
-    return (document.body.classList.contains("cart") && (window.innerWidth >= remToPx(55)) && (window.innerHeight >= remToPx(35)))
+    return (document.body.classList.contains("cart") && (window.innerWidth >= remToPx(55)) && (window.innerHeight >= remToPx(35)) && (CSS && CSS.supports('position', 'sticky')))
 }
 
 
@@ -373,10 +373,8 @@ if (getCardsQuery()) {
     document.querySelector("main.meal-cart").style.setProperty('--bottom', `${bottom}rem`)
     orderNumberWrapper.style.transform = `scaleX(${1 - ((tasteyMealOrders.length)/900)})`
     for (let i = 0; i < tasteyMealOrders.length; i++) {
-        if (CSS && CSS.supports('position', 'sticky')) {
-            tasteyMealOrders[i].style.setProperty('--sticky-top', `${9.25 + (i * gap)}rem`)
-            tasteyMealOrders[i].style.transform = `scaleX(${1 - ((tasteyMealOrders.length - i)/1000)})`
-        } 
+        tasteyMealOrders[i].style.setProperty('--sticky-top', `${9.25 + (i * gap)}rem`)
+        tasteyMealOrders[i].style.transform = `scaleX(${1 - ((tasteyMealOrders.length - i)/1000)})`
     }
 }
 }
@@ -584,8 +582,10 @@ function toggleMenu() {
     controlActiveSwitcher(window.scrollY,[...menuHeaders])
     quickScrolls.classList.remove('show')
     autoRemoveScroller() 
-    tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y;
     toggleMainMenuTitle(true)
+    setTimeout(() => {
+        tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y;
+    }, 100)
 }
 
 function toggleCart() {
