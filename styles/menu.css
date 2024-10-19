@@ -1333,10 +1333,11 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         .tastey-meal-order {
             padding: .035rem;
             background-color: gray;
+            transition: translate 100ms ease;
+        }
+        .tastey-meal-order:not(:last-child):hover {
+            translate: 0 -32.5%;
         }   
-        .tastey-meal-order:hover {
-            transform: translateY(-10%);
-        }     
     }
 }
 
