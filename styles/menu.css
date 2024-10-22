@@ -270,9 +270,17 @@ main.menu .main-menu-title-wrapper h3 {
     pointer-events: none;
 }
 
-.tastey {
+#tastey {
     cursor: zoom-in;
     pointer-events: all!important;
+}
+
+.hide {
+    opacity: 0!important;
+}
+
+#magic, .attention-grabber, .attention-grabber-two {
+    transition: opacity 500ms ease;
 }
 
 #magic {
@@ -280,7 +288,7 @@ main.menu .main-menu-title-wrapper h3 {
     display: flex;
     align-items: center;
     height: 10rem;
-    transition: opacity 500ms ease;
+    opacity: 1;
 }
 .magic-star {
     --size: clamp(20px,1.5vw,30px);
@@ -300,7 +308,7 @@ main.menu .main-menu-title-wrapper h3 {
         transform: scale(1);
     }
 }
-.magic-star > svg{
+.magic-star > svg {
     display: block;
     opacity: 0.7;
     animation: rotate 1000ms linear infinite;
@@ -313,7 +321,7 @@ main.menu .main-menu-title-wrapper h3 {
         transform: rotate(180deg);
     }
 }
-.magic-star > svg > path{
+.magic-star > svg > path {
     fill: var(--attractive-color);
 }
 
@@ -336,7 +344,7 @@ main.menu .main-menu-title-wrapper h3 {
     flex: 0 0 17rem;
     border-radius: .5rem;
     position: relative;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.25);
 }
 
 .menu-sections:hover .tastey-meal::before, main:hover .tastey-meal::after {
@@ -393,7 +401,7 @@ main.menu .main-menu-title-wrapper h3 {
 .tastey-meal-image-wrapper {
     width: 100%;
     flex: 0 0 10rem;
-    border-radius: .25rem;
+    border-radius: .35rem;
     padding: .35rem;
     display: flex;
     gap: 1rem;
@@ -412,13 +420,17 @@ main.menu .main-menu-title-wrapper h3 {
 .tastey-meal-image, .tastey-order-image {
     width: 100%;
     height: 100%;
-    border-radius: inherit;
+    text-align: center;
     object-fit: cover;
     object-position: 0% 0%;
 }
 
 .tastey-meal-image:hover, .tastey-order-image:hover {
     cursor: move;
+}
+
+.tastey-meal-image-wrapper, .tastey-order-image-wrapper {
+    overflow: hidden;
 }
 
 .tastey-meal-image-wrapper::after, .tastey-order-image-wrapper::after {
@@ -671,7 +683,7 @@ main.menu .main-menu-title-wrapper h3 {
     top: -.5rem;
     left: .25rem;
     font-size: .625rem;
-    color: var(--current-theme-sub-color);
+    color: var(--current-theme-fade-color);
     background-color: rgba(255, 0, 0, 0.8);
     min-width: 1.4rem;
     height: 1.4rem;
@@ -684,8 +696,9 @@ main.menu .main-menu-title-wrapper h3 {
     transition: 250ms ease-in-out;
 }
 
-.product-price:not([data-discount="0"]):hover::after {
+.tastey-meal:not([data-discount="0"]):hover .product-price::after {
     scale: 1;
+    color: var(--current-theme-sub-color);
 }
 
 main.meal-cart {
@@ -702,6 +715,10 @@ main.meal-cart {
 
 main.meal-cart:not([data-cart = '0']) {
     position: absolute;
+}
+
+body.cart main.meal-cart[data-cart = '0'] {
+    padding-block-end: 5rem;
 }
 
 main.meal-cart[data-cart="0"] .empty-cart-section, main.meal-cart:not([data-cart = '0']) .cart-section {
@@ -884,11 +901,8 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 .tastey-order-image-wrapper {
     flex: 0 0 25%;
     background: var(--tastey-brand-accent-color);
-    border-radius: .5rem;
+    border-radius: .4rem;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-content: center;
 }
 
 .tastey-order-info {
@@ -925,6 +939,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     display: flex;
     flex-direction: column;
     gap: 1.15rem;
+    text-align: center;
 }
 
 .tastey-order-text div:nth-child(2) {
@@ -933,6 +948,14 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     align-items: center;
     white-space: nowrap;
     gap: 1rem;
+}
+
+.tastey-order-text div:first-child button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    border-radius: .001rem;
 }
 
 .tastey-order-text div:nth-child(2) button {
@@ -944,6 +967,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     padding: 0;
     background-color: transparent;
     border: none;
+    border-radius: .001rem;
 }
 
 .tastey-order-text div:nth-child(2) button p {
@@ -1201,6 +1225,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 .clear-cart-btn {
     width: 75%;
     aspect-ratio: 6 / 1;
+    max-height: 2.25rem;
     color: var(--main-text-color);
     background-color: var(--darker-black);
     border: 0;
@@ -1309,7 +1334,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
     .tastey-order-text {
         width: 100%;
-        text-align: center;
+        align-items: center;
     }
 }
 
@@ -1321,23 +1346,85 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         main.meal-cart {
             padding-block-end: var(--bottom);
         }
-        .tastey-meal-order::before, .tastey-meal-order::after {
-            display: none;
-        }
         .order-number-wrapper {
             top: 5.5rem;
         }
+        .order-number-wrapper {
+            scale: var(--sticky-scale) 1;
+        }
         .tastey-meal-order {
             top: var(--sticky-top);
+            scale: var(--sticky-scale) 1;
         }
         .tastey-meal-order {
             padding: .035rem;
             background-color: gray;
-            transition: translate 100ms ease;
+            transition: translate 500ms ease-out;
         }
-        .tastey-meal-order:not(:last-child):hover {
-            translate: 0 -32.5%;
+        .tastey-meal-order:not(:last-child).lift:hover, .tastey-meal-order:not(:last-child):has(:focus-visible) {
+            translate: 13.5rem -5.25rem;
+        }
+        body.cart .tastey-meal-order.lift:not(:last-child):hover::after, body.cart .tastey-meal-order.lift:not(:last-child):hover::before, body.cart .tastey-meal-order:has(:focus-visible)::after, body.cart .tastey-meal-order:has(:focus-visible)::before {
+            opacity: 1;
+            transform: translate(0,0);
         }   
+        body.cart .order-review-section .tastey-meal-order::after, body.cart .order-review-section .tastey-meal-order::before {
+            display: flex;
+            opacity: 0;
+        }
+        .tastey-meal-order::after, .tastey-meal-order::before {
+            position: absolute;
+            border: 1px solid var(--alt-sub-text-color);
+            background: var(--lighter-black)!important;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--sub-text-color);
+            z-index: 3;
+            transition: opacity 250ms ease-in, transform 150ms ease-in;
+        }   
+        .tastey-meal-order::after {
+            width: 3rem;
+            height: 3rem;
+            font-weight: bold;
+            top: 100%;
+            left: calc(100% - 2.5rem);
+            font-size: 1rem;
+            margin-top: 1rem;
+            transform: translateY(-4rem);
+        }
+        .tastey-meal-order::before {
+            content: "Order Position";
+            padding: 1rem;
+            font-size: .8rem;
+            width: 4.5rem;
+            height: 4.5rem;
+            top: calc(100% - 3.25rem);
+            left: 100%;
+            margin-left: 1rem;
+            transform: translateX(-5rem);
+        }
+        .tastey-meal-order[data-position$="1"]::after {
+            content: attr(data-position) "st";
+        }
+        .tastey-meal-order[data-position$="2"]::after {
+            content: attr(data-position) "nd";
+        }
+        .tastey-meal-order[data-position$="3"]::after {
+            content: attr(data-position) "rd";
+        }
+        .tastey-meal-order:not([data-position$="1"],[data-position$="2"],[data-position$="3"]):after {
+            content: attr(data-position) "th";
+        }
+        .tastey-order-text div:nth-of-type(1) button {
+            text-align: left;
+            width: 100%;
+        }
+        .tastey-order-text h2:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
     }
 }
 

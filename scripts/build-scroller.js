@@ -1,5 +1,6 @@
-import { tasteyThrottler, scrollToTop, scrollToBottom } from "./utility-functions.js"
-export { autoRemoveScroller, quickScrollShow, quickScrolls, scrollToTop }
+import { Tastey } from "./TasteyManager.js"
+import { syncScrollToTop, syncScrollToBottom, tasteyThrottler } from "./utility-functions.js"
+export { autoRemoveScroller, quickScrollShow, quickScrolls }
 
 (function buildScroller() {
     const scroller = document.createElement('div')
@@ -52,11 +53,11 @@ removeScrolls.addEventListener('click', ()=>{
 })
  
 toTop.addEventListener('click', ()=>{
-    scrollToTop()
+    syncScrollToTop()
 })
  
 toBottom.addEventListener('click', ()=>{
-    scrollToBottom()
+    syncScrollToBottom()
 })
  
 quickScrollShow.addEventListener('click', ()=>{
@@ -73,7 +74,7 @@ circle.style.strokeDasharray = length;
 circle.style.strokeDashoffset = length;
 
 
-function scrollfunction() {
+function drawOnScroll() {
     let scrollpercent = (document.body.scrollTop + document.documentElement.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
   
     let draw = length * scrollpercent;
@@ -92,18 +93,13 @@ function onscroll() {
     if (isReachBottom || isReachTop){
         quickScroll.style.display = "flex"
     }
-    scrollfunction()
+    drawOnScroll()
 }
 
-
-window.addEventListener("scroll", tasteyThrottler(() => {
-    onscroll()
-},2))   
-
 //window event listeners
-window.addEventListener("resize", () => {
-    autoRemoveScroller()
-})
+const scrollThrottler = new tasteyThrottler
+window.addEventListener("scroll", scrollThrottler.throttle(onscroll))   
+window.addEventListener("resize", autoRemoveScroller)
 
 //a function to remove the scroller when necessary
 function autoRemoveScroller() {

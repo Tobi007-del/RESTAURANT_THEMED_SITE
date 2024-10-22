@@ -45,7 +45,6 @@ class TasteyManager {
             this.tasteyRecord.tasteyOrders[index].orders += 1
             currentProductCount = this.tasteyRecord.tasteyOrders[index].orders
         }
-
         const currentProductCountElement = document.querySelector(`.tastey-meal-order[data-id="${id}"] .cart-number`)
         const orderReviewSectionContent = document.querySelector(".order-review-section-content")
         const like = this.tasteyRecord.likes.find(meal => meal.id === id)
@@ -53,7 +52,7 @@ class TasteyManager {
             currentProductCountElement.textContent = currentProductCount
         } else {
              orderReviewSectionContent.innerHTML += `
-                <div class="tastey-meal-order" data-id="${id}" data-like="${like?.like ?? false}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}">
+                <div class="tastey-meal-order" data-id="${id}" data-like="${like?.like ?? false}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}" data-position = "${this.tasteyRecord.tasteyOrders.length ?? 1}">
                     <div class="tastey-meal-order-content">
                     <div class="tastey-order-image-wrapper">
                             <img class="tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
@@ -63,7 +62,9 @@ class TasteyManager {
                     <div class="tastey-order-info">
                         <div class="tastey-order-text">
                             <div>
-                                <h2>${label}</h2>
+                                <button type="button" title="${label}">
+                                    <h2>${label}</h2>
+                                </button>
                                 <p>Category: ${category}</p>
                             </div>
                             <div>
@@ -115,6 +116,10 @@ class TasteyManager {
     getOrdersValue(id) {
         const meal = this.tasteyRecord.tasteyOrders.find(meal => meal.id === id)
         return meal?.orders
+    }
+
+    getPositionValue(id) {
+        return this.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
     }
 
     handleLikes(id,bool) {
@@ -182,14 +187,17 @@ class TasteyManager {
             console.error(`Error clearing cart: ${error}`)
         }
     }
+
+    getEmpty() {
+        return (this.tasteyRecord.tasteyOrders.length == 0)
+    }
 }
 
 function store() {
     localStorage.tasteyRecord = JSON.stringify(weakTastey.tasteyRecord)
 }
 
-//using a proxy and the reflect object to make sure store is called after every function in the TasteyManager class is run
-
+//using a proxy and the reflect object to make sure store is called after every relevant function in the TasteyManager class is run
 const storingHandler = {
     apply() {
         new Promise((res,rej) => {

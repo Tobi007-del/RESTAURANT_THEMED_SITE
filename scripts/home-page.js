@@ -10,7 +10,7 @@ setCartStates()
 const navbarCart = document.querySelector(".navbar-cart")
 navbarCart.addEventListener('click', function() {
     window.location.href = "menu.html"
-    localStorage.openCart = true
+    sessionStorage.open_cart = true
 })
 
 const tasteyMealsCarousel = document.querySelector(".tastey-meals-carousel")
@@ -123,7 +123,7 @@ function stop() {
 let carouselInView = true
 const observer = new IntersectionObserver(callback, {threshold:0.99})
 observer.observe(carouselContainer)
-function callback(entries,observer) {
+function callback(entries) {
     entries.forEach((entry) => {
         if(entry.isIntersecting) {
             play()       
@@ -211,7 +211,6 @@ const resizeDebouncer = (delay=400,immediate=false) => {
 
     resizeTimer = setTimeout(later, delay)
     if(callNow) play()
-
 }
 
 let resizeTimer 

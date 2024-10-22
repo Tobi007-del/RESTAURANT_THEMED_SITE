@@ -17,6 +17,7 @@
     --darker-black: rgb(15,15,15);
     --main-text-color: lightgrey;
     --sub-text-color: grey;
+    --alt-sub-text-color: gray;
     --attractive-color: greenyellow;
     --attractive-accent-color: rgb(181, 255, 69);
 }
@@ -40,6 +41,7 @@ body {
 a {
     text-decoration: none;
     color: inherit;
+    border-radius: .001rem;
 }
 
 a:hover {
@@ -192,6 +194,10 @@ nav::after {
     gap: 1rem;
 }
 
+.user-service-wrapper a, .navbar-cart {
+    border-radius: .25rem;
+}
+
 .reservation-btn { 
     background-color: var(--tastey-brand-accent-color);
     border: none;
@@ -300,27 +306,88 @@ nav::after {
 .mini-meal-cart {
     /* remove this and see shege */
     display: none;
-}
+} 
 
 .mini-meal-cart {
     position: absolute;
-    top: 120%;
+    top: 2.2rem;
     right: 0;
-    width: clamp(5rem,100vw,20rem);
-    height: 25rem;
-    padding: .25rem;
-    border-radius: .25rem;
-    background-color: var(--current-theme-main-color);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    z-index: 3;
+    width: clamp(5rem,100vw,22.5rem);
+    height: 27.5rem;
+    border-radius: .5rem;
+    background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 2px 2px 2rem rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    z-index: 10;
 }
 
-.mini-meal-cart p {
+.mini-meal-cart::after, .mini-meal-cart::before {
+    border-radius: inherit;
+    content: '';
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 250ms ease;
+    pointer-events: none;
+} 
+
+.mini-meal-cart::before {
+    background: radial-gradient(
+        28rem circle at var(--mouse-x) var(--mouse-y),
+        rgba(255,255,255,0.2),
+        transparent 40%
+    );
+    z-index: 13;
+}
+
+.mini-meal-cart::after {
+    background: radial-gradient(
+        22rem circle at var(--mouse-x) var(--mouse-y),
+        rgba(255,255,255,1),
+        transparent 40%
+    );
+    z-index: 11;
+}
+
+.mini-meal-cart-content {
+    background-color: var(--lighter-black);
+    border-radius: inherit;
+    position: absolute;
+    padding: .5rem;
+    inset: .035rem;
+    padding: .25rem;
+    border-radius: inherit;
+    z-index: 12;
+    display: flex;
+    flex-direction: column;    
+}
+
+.mini-meal-cart:hover::before, .mini-meal-cart:hover::after {
+    opacity: 1;
+}
+
+.mini-meal-cart[data-cart='0'] .mini-cart-section, .mini-meal-cart:not([data-cart='0']) .mini-empty-cart-section {
+    display: none;
+}
+
+.mini-meal-cart[data-cart='0'] .mini-empty-cart-section, .mini-meal-cart:not([data-cart='0']) .mini-cart-section {
+    display: flex;
+}
+
+.mini-meal-cart p, .mini-meal-cart button, .mini-meal-cart h2 {
     margin: 0;
 }
 
-.mini-cart-tastey-order-image-wrapper img {
-    width: 5rem;
+.mini-cart-top-section {
+
+}
+
+.mini-empty-cart-section {
+
 }
 
 #scroller-circle {

@@ -1,8 +1,6 @@
-export { toggleCart }
-
 import data from "./fetch.js"
 import { Tastey, weakTastey } from "./TasteyManager.js"
-import { tasteyDebouncer, tasteyThrottler, check, formatValue, clamp , panning, scrollContentTo, scrollToTop, remToPx, pxToRem, rand, scrollToBottom } from "./utility-functions.js"
+import { tasteyThrottler, tasteyDebouncer, check, formatValue, clamp , panning, scrollContentTo, remToPx, pxToRem, rand, syncScrollToTop, syncScrollToBottom , asyncScrollToTop , asyncScrollToBottom, positionGradient, stars } from "./utility-functions.js"
 import { autoRemoveScroller, quickScrollShow, quickScrolls } from "./build-scroller.js"
 
 //Getting necessary data
@@ -16,7 +14,7 @@ allMeals = [...meals[0].starters,...meals[1]["main-meals"],...meals[2].drinks,..
 // })
 
 // the one-liner below clears the cart immediately for development purposes
-// delete localStorage.tasteyRecord
+// localStorage.clear()
 
 const mobileThreshold = remToPx(36)
 
@@ -67,7 +65,7 @@ function tasteyMenu(data){
                 <span class="magic-star">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
                 </span>
-            <h3 class="main-menu-title">Our <span class="tastey">Tastey</span> Menu</h3>
+            <h3 class="main-menu-title">Our <span id="tastey">Tastey</span> Menu</h3>
             </span>
         </div>`
     
@@ -87,7 +85,7 @@ function tasteyMenu(data){
         meal[product].forEach(({ id, label, description, price, like, picSrc}) => {
             like = like ?? false 
             menuContainer.innerHTML += `
-            <div class="tastey-meal" data-id='${id}' data-like="${weakTastey.getLikeValue(Number(id)) ?? like}">
+            <div class="tastey-meal" data-id='${id}' data-like="${weakTastey.getLikeValue(Number(id)) ?? like}" data-discount="${price.discount ?? 0}">
                     <div class="tastey-meal-content">
                         <div class="tastey-meal-image-wrapper">
                             <img class="tastey-meal-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
@@ -127,7 +125,8 @@ function tasteyMenu(data){
         const main = document.createElement("main")
         main.classList.add("meal-cart")
         main.dataset.cart = "0"
-        main.innerHTML += `
+        main.innerHTML += 
+        `
             <div class="cart-title-wrapper">
                 <h3>Your Shopping Bag</h3>
             </div>
@@ -217,7 +216,7 @@ function tasteyMenu(data){
             const { label, category, price, serving, picSrc } = meal
             orderReviewSectionContent.innerHTML += 
             `
-                    <div class="tastey-meal-order" data-id="${id}" data-like="${weakTastey.getLikeValue(Number(id)) ?? false}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}">
+                    <div class="tastey-meal-order" data-id="${id}" id="tastey-meal-order-${id}" data-like="${weakTastey.getLikeValue(Number(id)) ?? false}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}" data-position = "${(weakTastey.getPositionValue(id)??0) + 1}">
                         <div class="tastey-meal-order-content">
                         <div class="tastey-order-image-wrapper">
                             <img class="tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
@@ -227,7 +226,9 @@ function tasteyMenu(data){
                         <div class="tastey-order-info">
                             <div class="tastey-order-text">
                                 <div>
-                                    <h2>${label}</h2>
+                                    <button type="button" title="${label}">
+                                        <h2>${label}</h2>
+                                    </button>
                                     <p>Category: ${category}</p>
                                 </div>
                                 <div>
@@ -269,7 +270,7 @@ function tasteyMenu(data){
                         </div>
                         </div>
                     </div>
-                `   
+            `   
         })        
     } catch (error) {
         console.error(`Error occured while restoring Tastey Bag: ${error}`)
@@ -277,7 +278,10 @@ function tasteyMenu(data){
 }
 
 //DOM Elements
-const likeIconWrappers = document.querySelectorAll(".heart-icon-wrapper"),
+const tastey = document.getElementById("tastey"),
+attentionGrabber = document.querySelector(".attention-grabber"),
+attentionGrabberTwo = document.querySelector(".attention-grabber-two"),
+likeIconWrappers = document.querySelectorAll(".heart-icon-wrapper"),
 orderReviewSectionContent = document.querySelector(".order-review-section-content"),
 wishlistTogglers = document.getElementsByClassName("wishlist"),
 tasteyMeals = document.querySelectorAll(".tastey-meal"),
@@ -287,8 +291,6 @@ tasteyOrderImages = document.getElementsByClassName("tastey-order-image"),
 categorySwitcherContainer = document.querySelector("aside.category-switcher-container"),
 switchers = document.querySelectorAll(".switcher"),
 menuHeaders = document.querySelectorAll(".tastey-menu-title-wrapper h1"),
-tastey = document.querySelector(".tastey"),
-orderNumberWrapper = document.querySelector(".order-number-wrapper"),
 checkoutSection = document.querySelector(".checkout-section"),
 menuToggler = document.querySelector(".menu-toggler"),
 continueShoppingBtn = document.querySelector(".continue-shopping-button"),
@@ -308,7 +310,7 @@ TOTALCOSTElement = document.querySelector(".TOTAL-COST")
 
 //DOM operations
 
-const setCheckoutState = () => {
+function setCheckoutState() {
     cartNumberElement.textContent = Tastey.ordersInTotal
     mealsNumberElement.textContent = Tastey.tasteyMeals
     actualPriceElement.textContent = formatValue(data.currency, Tastey.actualAmount)
@@ -318,7 +320,7 @@ const setCheckoutState = () => {
     TOTALCOSTElement.textContent = formatValue(data.currency, Tastey.totalCost)
 }
 
-const setCartStates = () => {
+function setCartStates() {
     const dataCartStates = document.querySelectorAll("[data-cart]")
     const dataMealsState = document.querySelectorAll("[data-meals]")
     dataCartStates.forEach(dataCartState => {
@@ -330,7 +332,7 @@ const setCartStates = () => {
 }
 setCartStates()
 
-const setOrderStates = (id) => {
+function setOrderStates(id) {
     const dataOrderStates = document.querySelectorAll("[data-orders]")
     dataOrderStates.forEach(dataOrderState => {
         if(Number(dataOrderState.dataset.id) === id) {
@@ -339,7 +341,14 @@ const setOrderStates = (id) => {
     }) 
 }
 
-const setLikeState = (id) => {
+function setPositionStates() {
+    const dataPositionStates = document.querySelectorAll('[data-position]')
+    dataPositionStates.forEach(dataPositionState => {
+        dataPositionState.dataset.position = ((weakTastey.getPositionValue(Number(dataPositionState.dataset.id)) ?? 0) + 1)
+    })    
+}
+
+function setLikeState(id) {
     const dataLikeStates = document.querySelectorAll("[data-like]")
     dataLikeStates.forEach(dataLikeState => {
         if(Number(dataLikeState.dataset.id) === id) {
@@ -360,30 +369,126 @@ function getOrderIndex(id){
     return i;
 }
 
-const getCardsQuery = () => {
+//functions for the Card User Interface that activates on certain conditions
+function getCardsQuery() {
     return (document.body.classList.contains("cart") && (document.body.dataset.cart != 0) && (window.innerWidth >= remToPx(55)) && (window.innerHeight >= remToPx(35)) && (CSS && CSS.supports('position', 'sticky')))
 }
 
-function resetOrdersStickyPosition() {
-if (getCardsQuery()) {
-    const height = tasteyMealOrders[0].offsetHeight
-    const gap = pxToRem((checkoutSection.offsetHeight - (height + orderNumberWrapper.offsetHeight + remToPx(0.75))) / tasteyMealOrders.length)
-    const bottom = pxToRem(window.innerHeight - (remToPx(9.1 + (tasteyMealOrders.length * gap)) + height))
-    document.querySelector("main.meal-cart").style.setProperty('--bottom', `${bottom}rem`)
-    orderNumberWrapper.style.transform = `scaleX(${1 - ((tasteyMealOrders.length)/900)})`
-    for (let i = 0; i < tasteyMealOrders.length; i++) {
-        tasteyMealOrders[i].style.setProperty('--sticky-top', `${9.25 + (i * gap)}rem`)
-        tasteyMealOrders[i].style.transform = `scaleX(${1 - ((tasteyMealOrders.length - i)/1000)})`
-    }
-}
-}
-resetOrdersStickyPosition()
+const liftOffset = () => {return pxToRem(tasteyMealOrders[0].getBoundingClientRect().height) - 6}
 
-function necessaryScroll() {
-    if (getCardsQuery()) {
-        scrollToBottom()
+function positionCards() {
+if (getCardsQuery() && !weakTastey.getEmpty()) {
+    const orderNumberWrapper = document.querySelector(".order-number-wrapper")
+    const gap = pxToRem((checkoutSection.getBoundingClientRect().height - (tasteyMealOrders[0].getBoundingClientRect().height + orderNumberWrapper.getBoundingClientRect().height + remToPx(0.75))) / tasteyMealOrders.length)
+    const bottom = pxToRem(window.innerHeight - (remToPx(9.1 + (tasteyMealOrders.length * gap)) + tasteyMealOrders[0].getBoundingClientRect().height))
+    document.querySelector("main.meal-cart").style.setProperty('--bottom', `${bottom}rem`)
+    for (let i = 0; i < tasteyMealOrders.length; i++) {
+        const top = 9.25 + (i * gap)
+        tasteyMealOrders[i].dataset.top = top
+        tasteyMealOrders[i].style.setProperty('--sticky-top', `${top}rem`)
+        //adding pointer over event listener to all cards
+        tasteyMealOrders[i].onpointerover = () => {
+            setTimeout(() => {
+                if(tasteyMealOrders[i].matches(":hover"))
+                    liftCard()
+            }, 250)
+        }
+        tasteyMealOrders[i].onmouseleave = () => tasteyMealOrders[i].classList.remove("lift")
+        function liftCard() {
+            const currTop = Math.round(pxToRem(tasteyMealOrders[i].getBoundingClientRect()?.top))
+            const prevTop = Math.round(parseFloat(tasteyMealOrders[i].dataset?.top)) 
+            const nCurrTop = Math.round(pxToRem(tasteyMealOrders[i].nextElementSibling?.getBoundingClientRect()?.top))
+            const nPrevTop = Math.round(parseFloat(tasteyMealOrders[i].nextElementSibling?.dataset?.top))
+            if ((currTop == prevTop) && (nCurrTop < (nPrevTop + liftOffset()))) {
+                tasteyMealOrders[i].classList.add("lift")
+            } 
+            if ((currTop > prevTop) || (nCurrTop >= (nPrevTop + liftOffset()))) {
+                tasteyMealOrders[i].classList.remove("lift")
+            }            
+        }
+        const header = tasteyMealOrders[i].querySelector(".tastey-order-text div:nth-of-type(1) button")
+        header.onclick = () => moveToHeader()
+        header.onfocus = () => {
+            if (header.matches(':focus-visible')) 
+                moveToHeader()
+        }
+        function moveToHeader() {
+            const order = tasteyMealOrders[i]
+            let pos = orderReviewSectionContent.getBoundingClientRect().height - (orderReviewSectionContent.getBoundingClientRect().height - (((order.getBoundingClientRect().height - remToPx(gap) + remToPx(1.25)) * (i+1)) + orderNumberWrapper.getBoundingClientRect().height + remToPx(2.5))) - order.getBoundingClientRect().height
+            scrollContentTo(pos)
+            order.classList.remove("lift")
+        }
     }
 }
+}
+positionCards()
+
+function adjustCards() {
+    const orderNumberWrapper = document.querySelector(".order-number-wrapper")
+    if(getCardsQuery() && !weakTastey.getEmpty()) {
+        let hCurrTop = Math.round(pxToRem(orderNumberWrapper.getBoundingClientRect()?.top))
+        let hPrevTop = Math.round(5.5) 
+        let fCurrTop = Math.round(pxToRem(tasteyMealOrders[0].getBoundingClientRect()?.top))
+        let fPrevTop = Math.round(parseFloat(tasteyMealOrders[0].dataset?.top)) 
+        if ((hCurrTop == hPrevTop) && (fCurrTop < (fPrevTop + 1.25))) { 
+            orderNumberWrapper.style.setProperty('--sticky-scale', `${1 - (allMeals.length/1000)}`)
+        } 
+        if ((hCurrTop > hPrevTop) || (fCurrTop >= (fPrevTop + 1.25))) {
+            orderNumberWrapper.style.setProperty('--sticky-scale', '1')
+        }
+        for (let i = 0; i < tasteyMealOrders.length; i++) {
+            let currTop = Math.round(pxToRem(tasteyMealOrders[i].getBoundingClientRect().top))
+            let prevTop = Math.round(parseFloat(tasteyMealOrders[i].dataset.top)) 
+            let nCurrTop = Math.round(pxToRem(tasteyMealOrders[i].nextElementSibling?.getBoundingClientRect().top))
+            let nPrevTop = Math.round(parseFloat(tasteyMealOrders[i].nextElementSibling?.dataset.top))
+            if ((currTop == prevTop) && (nCurrTop < (nPrevTop + liftOffset()))) {
+                tasteyMealOrders[i].style.setProperty('--sticky-scale', `${1 - ((allMeals.length * ((tasteyMealOrders.length - (i))/tasteyMealOrders.length))/1000)}`)
+            } 
+            if ((currTop > prevTop) || (nCurrTop >= (nPrevTop + liftOffset()))) {
+                tasteyMealOrders[i].style.setProperty('--sticky-scale', '1')
+                tasteyMealOrders[i].classList.remove("lift")
+            }   
+        }
+    }
+}
+
+//time stalling values for removing from and emptying bag
+let removeStall = 200
+let emptyStall = 2000
+
+function removeCard(id) {
+    if (getCardsQuery() && !weakTastey.getEmpty()) {
+        if(Tastey.tasteyRecord.tasteyOrders.length == 1) {
+            removeStall = 2000
+            removeAllCards()
+            return
+        } else {
+            removeStall = 100
+            let stall = 195
+            const element = document.querySelector(`.tastey-meal-order[data-id="${id}"]`)        
+            element.animate({transform: `translate(${rand(-20,20)}%, ${pxToRem(window.innerHeight) - (parseFloat(element.dataset?.top))}rem)`},{duration: stall, fill: "forwards"})
+        }
+    }
+}
+
+function removeExtras() {
+    const orderNumberWrapper = document.querySelector(".order-number-wrapper")
+    orderNumberWrapper.animate({transform: `translate(${rand(-20,20)}%, ${pxToRem(window.innerHeight) - 6}rem)`},{duration: emptyStall})                
+    checkoutSection.animate({transform: `translate(${rand(-20,20)}%, ${pxToRem(window.innerHeight) - 6}rem)`},{duration: emptyStall})                
+}
+
+function removeAllCards() {
+    if (getCardsQuery() && !weakTastey.getEmpty()) {
+        syncScrollToBottom("instant")
+        const allTasteyMealOrders = document.querySelectorAll(".tastey-meal-order")   
+        removeExtras()
+        allTasteyMealOrders.forEach((order,i) => {
+            const stall = (((allTasteyMealOrders.length - i)/allTasteyMealOrders.length * 200) + 1000)
+            order.animate({transform: `translate(${rand(-15,15)}%, ${pxToRem(window.innerHeight) - (parseFloat(order.dataset?.top))}rem)`},{duration: stall, fill: "forwards"})                
+        })   
+    }
+}
+
 
 function resetBagEventListeners() {
     for(let i = 0; i < tasteyMealOrders.length; i++) {
@@ -413,7 +518,8 @@ addToCartBtns.forEach(btn => {
         try {
             handleAddMeal(Number(e.target.dataset.id),getOrderIndex(Number(e.target.dataset.id)))
         } catch (error) {
-            console.log(error)
+            alert("Error adding meal to Bag :)")
+            console.error(error)
         }            
     })
 })
@@ -425,82 +531,143 @@ function setMinusHoverState(i) {
     minusCartBtns[i]?.classList.toggle('hover',number > 1)
 }
 
-function handleAddMeal(id,i) {
-    Tastey.addMeal(id,allMeals,data.currency)
+//CRUD functions
+function updateStates(id) {
     Tastey.calculateCheckoutDetails(allMeals)
     setCartStates()
+    setPositionStates()
     setOrderStates(id)
     setCheckoutState()
-    setMinusHoverState(i)
-    resetBagEventListeners()                    
-    resetOrdersStickyPosition()
-    panning(document.querySelectorAll(".tastey-meal-image, .tastey-order-image, .mini-cart-tastey-order-image"))
+}
+
+function handleAddMeal(id,i) {
+    try {
+        Tastey.addMeal(id,allMeals,data.currency)
+        updateStates(id)
+        setMinusHoverState(i)
+        resetBagEventListeners()                    
+        controlPanning()
+    } catch(err) {
+        alert("Error adding a meal to bag :)")
+        console.error(err)
+    }
 }
 
 function handleRemoveMeal(id,i) {
-    const number = (weakTastey.getOrdersValue(Number(tasteyMealOrders[i]?.dataset.id)) ?? 0)
-    if(Number(number) > 1) { 
-        Tastey.removeMeal(id)
-        Tastey.calculateCheckoutDetails(allMeals)
-        setCartStates()
-        setOrderStates(id)
-        setCheckoutState()
-        setMinusHoverState(i)
-    } else if(Number(number) == 1) { 
-        handleDelete(id,i)
+    try {
+        const number = (weakTastey.getOrdersValue(Number(tasteyMealOrders[i]?.dataset.id)) ?? 0)
+        if(Number(number) > 1) { 
+            Tastey.removeMeal(id)
+            updateStates(id)
+            setMinusHoverState(i)
+        } else if(Number(number) == 1) { 
+            handleDelete(id,i)
+        }
+    } catch(err) {
+        alert("Error removing a meal from bag :)")
+        console.error(err)
     }
-    setMinusHoverState(i)
+}
+
+//a function for deleting orders
+function deleteMeal(id,n) {
+    tasteyMealOrders[n].remove()
+    Tastey.deleteMeal(id)
+    updateStates(id)
+    resetBagEventListeners()
+    positionCards()
+    autoRemoveScroller()               
 }
 
 //a function to handle deleting orders 
 function handleDelete(id,n) {
-    Tastey.deleteMeal(id)
-    Tastey.calculateCheckoutDetails(allMeals)
-    setCartStates()
-    setOrderStates(id)
-    setCheckoutState()
-    tasteyMealOrders[n].remove()
-    resetBagEventListeners()
-    resetOrdersStickyPosition()
-    autoRemoveScroller()
-    panning(document.getElementsByTagName("img"))
-}
-    
-function handleClearCart() {    
-    if (!Tastey.tasteyRecord.tasteyOrders.length) {
-        alert("Your Shopping Bag is already empty")
-        return
+    try {
+        if (getCardsQuery()) {
+            let timeout
+            clearTimeout(timeout)
+            timeout = setTimeout(() => {
+                removeCard(id)    
+                setTimeout(() => {
+                    deleteMeal(id,n)
+                }, removeStall)                        
+            }, removeStall);
+            return
+        }
+        deleteMeal(id,n)
+    } catch(err) {
+        alert("Error removing meal from bag :)")
+        console.error(err)
     }
-    const isCartCleared = confirm(`You are about to remove ${Tastey.ordersInTotal} ${Tastey.ordersInTotal > 1 ? "orders" : "order"} from your Shopping Bag!`)
-    if (isCartCleared) {
-        const allTasteyMealOrders = document.querySelectorAll(".tastey-meal-order")   
-        Tastey.clearCart()
-        Tastey.calculateCheckoutDetails(allMeals)
-        setCartStates()
-        allMeals.forEach(({ id }) => setOrderStates(id))
-        setCheckoutState()
-        allTasteyMealOrders.forEach(order => order.remove())
-        autoRemoveScroller()
+}
+
+//a function to clear the tastey bag
+function clearCart() {
+    const allTasteyMealOrders = document.querySelectorAll(".tastey-meal-order")   
+    allTasteyMealOrders.forEach(order => order.remove())
+    Tastey.clearCart()
+    Tastey.calculateCheckoutDetails(allMeals)
+    allMeals.forEach(({ id }) => setOrderStates(id))
+    setCheckoutState()
+    setCartStates()
+    autoRemoveScroller()                
+}
+
+//a function to handle clearing the tastey bag
+function handleClearCart() {   
+    try{
+        if (weakTastey.getEmpty()) {
+            console.warn("You literally have no items in your Shopping Bag :)")
+            alert("Your Shopping Bag is already empty")
+            return
+        }
+        const isCartCleared = confirm(`You are about to remove ${Tastey.ordersInTotal} ${Tastey.ordersInTotal > 1 ? "orders" : "order"} from your Shopping Bag!`)
+        if (isCartCleared) {
+            if (getCardsQuery()) {
+                removeAllCards()
+                setTimeout(() => {
+                    clearCart()
+                }, emptyStall);
+                return
+            }
+            clearCart()
+        }        
+    } catch(err) {
+        alert("Error occured while clearing bag :)")
+        console.error(err)
     }
 }
 
 //handling the panning of the food images
-panning(document.getElementsByTagName("img"))
+function controlPanning() {
+    panning(document.querySelectorAll(".tastey-meal-image, .tastey-order-image, .mini-cart-tastey-order-image"))
+}
+controlPanning()
 
 //a function to handle likes
 function handleLikes(i) {
-    tasteyMeals[i].dataset.like = tasteyMeals[i].dataset.like === "false" ? "true" : "false"
-    likeIconWrappers[i].title = tasteyMeals[i].dataset.like === "false" ? "" : "Tap to like!"
-    Tastey.handleLikes(Number(tasteyMeals[i].dataset.id),tasteyMeals[i].dataset.like === "true")
-    setLikeState(Number(tasteyMeals[i].dataset.id))
+    try {
+        tasteyMeals[i].dataset.like = tasteyMeals[i].dataset.like === "false" ? "true" : "false"
+        likeIconWrappers[i].title = tasteyMeals[i].dataset.like === "false" ? "" : "Tap to like!"
+        Tastey.handleLikes(Number(tasteyMeals[i].dataset.id),tasteyMeals[i].dataset.like === "true")
+        setLikeState(Number(tasteyMeals[i].dataset.id))
+    } catch(err) {
+        alert("Error while accessing wishlist :)")
+        console.error(err)
+    }
 }
+
 function handleWishlist(id,i) {
-    const meal = allMeals.find(meal => meal.id === id)
-    const { label } = meal
-    tasteyMealOrders[i].dataset.like = tasteyMealOrders[i].dataset.like === "false" ? "true" : "false"
-    wishlistTogglers[i].title = tasteyMealOrders[i].dataset.like === "false" ? `Add ${label} to Wishlist` : `Remove ${label} from Wishlist`
-    Tastey.handleLikes(Number(tasteyMealOrders[i].dataset.id),tasteyMealOrders[i].dataset.like === "true")
-    setLikeState(Number(tasteyMealOrders[i].dataset.id))
+    try {
+        const meal = allMeals.find(meal => meal.id === id)
+        const { label } = meal
+        tasteyMealOrders[i].dataset.like = tasteyMealOrders[i].dataset.like === "false" ? "true" : "false"
+        wishlistTogglers[i].title = tasteyMealOrders[i].dataset.like === "false" ? `Add ${label} to Wishlist` : `Remove ${label} from Wishlist`
+        Tastey.handleLikes(Number(tasteyMealOrders[i].dataset.id),tasteyMealOrders[i].dataset.like === "true")
+        setLikeState(Number(tasteyMealOrders[i].dataset.id))        
+    } catch(err) {
+        alert("Error while accessing wishlist :)")
+        console.error(err)
+    }
 }
 
 likeIconWrappers.forEach((likeIconWrapper,i) => {
@@ -508,43 +675,51 @@ likeIconWrappers.forEach((likeIconWrapper,i) => {
         handleLikes(i)
     })
 })
+
 tasteyMealsImages.forEach((tasteyMealsImage,i) => {
     tasteyMealsImage.addEventListener('dblclick', () => {
         handleLikes(i)
     })
 })
 
+function onPageScroll() {
+    if (!document.body.classList.contains('cart')) {
+        categorySwitcherContainer.classList.remove('show')
+        controlActiveSwitcher(window.scrollY, [...menuHeaders])
+        toggleMenuHeader()
+    } else {
+        adjustCards()
+    }
+}
+
 //window event listeners
 window.addEventListener("resize", () => {
     adaptCheckoutContent()
-    resetOrdersStickyPosition()
-    necessaryScroll()
+    positionCards()
 })
+const scrollThrottler = new tasteyThrottler
+const scrollDebouncer = new tasteyDebouncer
+window.addEventListener("scroll", scrollThrottler.throttle(onPageScroll))   
+window.addEventListener("scroll", scrollDebouncer.debounce(adaptCheckoutContent,150))
 
-window.addEventListener("scroll", tasteyThrottler(() => {
-    categorySwitcherContainer.classList.remove('show')
-    controlActiveSwitcher(window.scrollY, [...menuHeaders])
-    if (!document.body.classList.contains('cart')) {
-        toggleMainMenuTitle()
-    }
-},2))   
-window.addEventListener("scroll", tasteyDebouncer(() => {
-    adaptCheckoutContent()
-},150))
 
-function toggleMainMenuTitle(bool = null) {
+let tasteyOffSetTop = tastey.getBoundingClientRect().y;
+
+function toggleMenuHeader(bool = null) {
     const menuTitle = document.querySelector('#magic')
-    if (bool === true) {
-        menuTitle.style.opacity = '1'
-        return
-    } else if (bool === false) {
-        menuTitle.style.opacity = '0'
+    if (bool !== null) {
+        menuTitle.classList.toggle('hide', !bool)
         return
     }
-    if (tastey.getBoundingClientRect().y < (tasteyOffSetTop - 15)) 
-        menuTitle.style.opacity = '0'
-    else 
-        menuTitle.style.opacity = '1'
+    if (tastey.getBoundingClientRect().y < (tasteyOffSetTop - 50)) {
+        menuTitle.classList.add('hide')
+        attentionGrabber.classList.add('hide')
+        attentionGrabberTwo.classList.add('hide')
+    } else {
+        menuTitle.classList.remove('hide')
+        attentionGrabber.classList.remove('hide')
+        attentionGrabberTwo.classList.remove('hide')
+    }
 }
 
 const xThreshold = remToPx(45)
@@ -559,46 +734,39 @@ function adaptCheckoutContent () {
     }
 }
 
-//adding extra functionality to the quick scroll wrapper
-autoRemoveScroller()
-quickScrollShow.addEventListener('click', () => {
-    categorySwitcherContainer.classList.toggle('show');
-})
-
 //toggling the cart on and off
-menuToggler.addEventListener('click', () => {
-    toggleMenu()
-})
+menuToggler.addEventListener('click', toggleMenu)
 
-continueShoppingBtn.addEventListener('click', (e) => {
+continueShoppingBtn.addEventListener('click', e => {
     e.preventDefault()
     toggleMenu()
 })
 
 function toggleMenu() {
     document.body.classList.remove("cart")
-    scrollToTop("instant")
+    syncScrollToTop("instant")
     controlActiveSwitcher(window.scrollY,[...menuHeaders])
     quickScrolls.classList.remove('show')
-    autoRemoveScroller() 
-    toggleMainMenuTitle(true)
+    autoRemoveScroller()
     setTimeout(() => {
-        tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y;
+        tasteyOffSetTop = tastey.getBoundingClientRect().y;
+        toggleMenuHeader(true)
     }, 100)
 }
 
 function toggleCart() {
     document.body.classList.add("cart")
-    scrollToTop("instant")
+    syncScrollToTop("instant")
     quickScrolls.classList.remove('show')
     autoRemoveScroller()
-    resetOrdersStickyPosition()
-    necessaryScroll()
+    setTimeout(() => {
+        positionCards()
+    }, 100);
 }
 
-if (localStorage.openCart) {
+if (sessionStorage.open_cart) { 
     toggleCart()
-    delete localStorage.openCart
+    delete sessionStorage.open_cart
 } 
 
 cartToggler.addEventListener('click', toggleCart)
@@ -625,7 +793,7 @@ const tasteyObserver = new IntersectionObserver((entries) => {
         if(entry.isIntersecting) {
             document.body.style.setProperty("--global-light-color", "rgba(255,255,255,0.475)")
             document.body.style.setProperty("--global-light-complement-color", "transparent")
-        } else if (!entry.target.classList.contains("tastey")) {
+        } else if (!(entry.target.id === "tastey")) {
             document.body.style.setProperty("--global-light-color", "var(--darker-black)")
             document.body.style.setProperty("--global-light-complement-color", "var(--darker-black)")
         }
@@ -636,76 +804,34 @@ menuHeaders.forEach(worthy => {
 })
 tasteyObserver.observe(tastey)
 
-let starIntersecting = true;
-let starInterval
-let starTimeout
+//calling the stars maker function page startup
+stars(document.getElementsByClassName("magic-star"))
 
-function starSetting(starIntersecting) {
-    if(starIntersecting) {
-        let index = 0, interval = 1000;
-        
-        const animate = star => {
-            star.style.setProperty("--star-left", `${rand(-20,120)}%`);
-            star.style.setProperty("--star-top", `${rand(-20,120)}%`);
-        
-            star.style.animation = "none";
-            star.offsetHeight;
-            star.style.animation = "";
-        }
-    
-        for(const star of document.getElementsByClassName("magic-star")) {
-            starTimeout = setTimeout(() => {
-                animate(star);
-                starInterval = setInterval(() => {
-                    animate(star);
-                }, 1000);
-            }, index++ * (interval / 3))
-        
-        }
-    } else {
-        clearTimeout(starTimeout)
-        clearInterval(starInterval)
-        starTimeout = null
-        starInterval = null
-    }
-}
-//calling star setting at page startup
-starSetting(starIntersecting)
-
+//positioning gradient where necessary
 document.querySelectorAll("main").forEach(main => {
     main.onpointermove = e => {
     if (window.innerWidth > mobileThreshold) {
         if(!document.body.classList.contains("cart")) {
             for(const card of document.getElementsByClassName("tastey-meal")){
-                const rect = card.getBoundingClientRect(),
-                     x = e.clientX - rect.left,
-                     y = e.clientY - rect.top
-            
-                card.style.setProperty("--mouse-x", `${x}px`)
-                card.style.setProperty("--mouse-y", `${y}px`)
+                positionGradient(e,card)
             }
         } else {
             if (getCardsQuery()) {
                 for(const card of document.querySelectorAll(".checkout-section, .order-number-wrapper")){
-                    const rect = card.getBoundingClientRect(),
-                             x = e.clientX - rect.left, 
-                             y = e.clientY - rect.top
-                    card.style.setProperty("--mouse-x", `${x}px`)
-                    card.style.setProperty("--mouse-y", `${y}px`)
+                    positionGradient(e,card)
                 }
             } else {
                 for(const card of document.querySelectorAll(".checkout-section, .order-number-wrapper, .tastey-meal-order")){
-                    const rect = card.getBoundingClientRect(),
-                             x = e.clientX - rect.left, 
-                             y = e.clientY - rect.top
-                    card.style.setProperty("--mouse-x", `${x}px`)
-                    card.style.setProperty("--mouse-y", `${y}px`)
+                    positionGradient(e,card)
                 }
             }
         }
     }
     }
-})
+}) 
+document.querySelector(".mini-meal-cart").onpointermove = e => {
+    positionGradient(e,document.querySelector(".mini-meal-cart"))
+}
 
 tastey.addEventListener("click", e => {
     let active = getComputedStyle(tastey).getPropertyValue("--global-light-width") == "140rem" ? true : false
@@ -717,9 +843,6 @@ tastey.addEventListener("click", e => {
         e.target.style.cursor = "zoom-out"
     }
 })
-
-
-let tasteyOffSetTop = document.getElementsByClassName("tastey")[0].getBoundingClientRect().y;
 
 function controlActiveSwitcher(ordinate,arr) {
     let index = -1;
@@ -739,8 +862,9 @@ switchers.forEach((switcher,i) => {
     })
 })
 
-const markSwitcher = (id) => {
+function markSwitcher(id) {
     switchers.forEach(switcher => switcher.classList.remove("active"))
     switchers[id].classList.add("active")
 }
 
+autoRemoveScroller()
