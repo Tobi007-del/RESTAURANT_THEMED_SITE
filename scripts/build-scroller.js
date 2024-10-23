@@ -88,9 +88,9 @@ function onscroll() {
     quickScrolls.classList.remove('show');
     const scrolledTo = window.scrollY + window.innerHeight;
     const threshold = 0;
-    const isReachBottom = document.body.scrollHeight - threshold <= scrolledTo;
+    const isReachBottom = document.documentElement.scrollHeight - threshold <= scrolledTo;
     const isReachTop = window.scrollY === 0;
-    if (isReachBottom || isReachTop){
+    if (isReachBottom || isReachTop) {
         quickScroll.style.display = "flex"
     }
     drawOnScroll()
