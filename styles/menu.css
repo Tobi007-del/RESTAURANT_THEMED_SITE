@@ -1555,7 +1555,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         align-items: center!important;
     }
     .menu-sections {
-        padding: 0;
+        padding-top: 0;
     }
     .tastey-meal::before, .tastey-meal-order::before {
         background: radial-gradient(
