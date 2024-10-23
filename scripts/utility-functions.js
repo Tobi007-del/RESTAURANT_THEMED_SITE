@@ -31,7 +31,7 @@ class tasteyThrottler {
         this.delay = null
     }
 
-    throttle(mainFunction, delay = 100) {
+    throttle(mainFunction, delay = 50) {
         this.delay = delay
             
         return (...args) => {

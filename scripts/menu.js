@@ -391,21 +391,19 @@ if (getCardsQuery() && !weakTastey.getEmpty()) {
             setTimeout(() => {
                 if(tasteyMealOrders[i].matches(":hover"))
                     liftCard()
-            }, 250)
+            }, 200)
         }
-        tasteyMealOrders[i].onmouseleave = () => tasteyMealOrders[i].classList.remove("lift")
         function liftCard() {
             const currTop = Math.round(pxToRem(tasteyMealOrders[i].getBoundingClientRect()?.top))
             const prevTop = Math.round(parseFloat(tasteyMealOrders[i].dataset?.top)) 
             const nCurrTop = Math.round(pxToRem(tasteyMealOrders[i].nextElementSibling?.getBoundingClientRect()?.top))
             const nPrevTop = Math.round(parseFloat(tasteyMealOrders[i].nextElementSibling?.dataset?.top))
-            if ((currTop == prevTop) && (nCurrTop < (nPrevTop + liftOffset()))) {
+            if ((currTop == prevTop) && (nCurrTop < (nPrevTop + liftOffset()))) 
                 tasteyMealOrders[i].classList.add("lift")
-            } 
-            if ((currTop > prevTop) || (nCurrTop >= (nPrevTop + liftOffset()))) {
+            if ((currTop > prevTop) || (nCurrTop >= (nPrevTop + liftOffset()))) 
                 tasteyMealOrders[i].classList.remove("lift")
-            }            
         }
+        tasteyMealOrders[i].onmouseleave = () => tasteyMealOrders[i].classList.remove("lift")
         const header = tasteyMealOrders[i].querySelector(".tastey-order-text div:nth-of-type(1) button")
         header.onclick = () => moveToHeader()
         header.onfocus = () => {
