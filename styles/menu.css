@@ -939,7 +939,6 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     display: flex;
     flex-direction: column;
     gap: 1.15rem;
-    text-align: center;
 }
 
 .tastey-order-text div:nth-child(2) {
@@ -952,6 +951,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 
 .tastey-order-text div:first-child button {
     background-color: transparent;
+    width: fit-content;
     border: none;
     padding: 0;
     margin: 0;
@@ -1335,6 +1335,9 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     .tastey-order-text {
         width: 100%;
         align-items: center;
+    }
+    .tastey-order-text div:first-child button {
+        margin-inline: auto;
     }
 }
 
