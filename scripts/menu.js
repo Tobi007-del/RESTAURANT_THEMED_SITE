@@ -713,6 +713,8 @@ function toggleMenuHeader(bool = null) {
     const menuTitle = document.querySelector('#magic')
     if (bool !== null) {
         menuTitle.classList.toggle('hide', !bool)
+        attentionGrabber.classList.toggle('hide',!bool)
+        attentionGrabberTwo.classList.toggle('hide',!bool)
         return
     }
     if (tastey.getBoundingClientRect().y < (tasteyOffSetTop - 50)) {
