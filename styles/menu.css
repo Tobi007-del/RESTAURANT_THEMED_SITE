@@ -1556,6 +1556,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
     .menu-sections {
         padding-top: 0;
+        padding-inline: 5vw;
     }
     .tastey-meal::before, .tastey-meal-order::before {
         background: radial-gradient(
@@ -1613,7 +1614,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
 }
 
-@media only screen and (max-width: 19rem) {
+@media only screen and (max-width: 20rem) {
     .cart-title-wrapper h3 {
         translate: 0;
         width: 100%;
@@ -1622,6 +1623,12 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
     .cart-title-wrapper h3::after {
         display: none;
+    }
+    .tastey-menu-title-wrapper::after, .tastey-menu-title-wrapper::before {
+        display: none;
+    }
+    .tastey-meal {
+        max-width: 100%;
     }
 }
 
