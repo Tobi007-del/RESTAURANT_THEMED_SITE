@@ -1,6 +1,6 @@
 import { Tastey } from "./TasteyManager.js"
 import { syncScrollToTop, syncScrollToBottom, tasteyThrottler } from "./utility-functions.js"
-export { autoRemoveScroller, quickScrollShow, quickScrolls }
+export { autoRemoveScroller, quickScrollShow, quickScrolls, removeScrolls }
 
 (function buildScroller() {
     const scroller = document.createElement('div')

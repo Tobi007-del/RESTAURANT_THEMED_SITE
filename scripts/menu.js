@@ -1,7 +1,7 @@
 import data from "./fetch.js"
 import { Tastey, weakTastey } from "./TasteyManager.js"
 import { tasteyThrottler, tasteyDebouncer, check, formatValue, clamp , panning, scrollContentTo, remToPx, pxToRem, rand, syncScrollToTop, syncScrollToBottom , asyncScrollToTop , asyncScrollToBottom, positionGradient, stars } from "./utility-functions.js"
-import { autoRemoveScroller, quickScrollShow, quickScrolls } from "./build-scroller.js"
+import { autoRemoveScroller, quickScrollShow, removeScrolls, quickScrolls } from "./build-scroller.js"
 
 //Getting necessary data
 const meals = data.tasteyMeals,
@@ -700,6 +700,12 @@ const scrollDebouncer = new tasteyDebouncer
 window.addEventListener("scroll", scrollThrottler.throttle(onPageScroll))   
 window.addEventListener("scroll", scrollDebouncer.debounce(adaptCheckoutContent,150))
 
+quickScrollShow.addEventListener('click', ()=>{
+    categorySwitcherContainer.classList.toggle('show')
+})
+removeScrolls.addEventListener('click', ()=>{
+    categorySwitcherContainer.classList.remove('show')
+})
 
 let tasteyOffSetTop = tastey.getBoundingClientRect().y;
 
