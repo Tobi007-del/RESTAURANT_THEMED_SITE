@@ -741,7 +741,6 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
 }
 
 .cart-title-wrapper {
-    font-size: 1.35rem;
     display: flex;
     justify-content: center;
     margin-block: .75rem;
@@ -752,6 +751,7 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
     max-width: fit-content;
     position: relative;
     translate: 1.25rem;
+    font-size: 1.625rem;
 }
 
 .cart-title-wrapper h3::after {
@@ -802,7 +802,7 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
 }
 
 .empty-cart-section p {
-    font-size: clamp(.75rem, calc(.6vw + 1.1vh), .85rem);
+    font-size: clamp(.65rem, calc(.6vw + 1.1vh), .85rem);
 }
 
 .continue-shopping-button {
@@ -1610,6 +1610,18 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
     #remove-quick-scrolls svg {
         fill: var(--current-theme-sub-color);
+    }
+}
+
+@media only screen and (max-width: 19rem) {
+    .cart-title-wrapper h3 {
+        translate: 0;
+        width: 100%;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    .cart-title-wrapper h3::after {
+        display: none;
     }
 }
 
