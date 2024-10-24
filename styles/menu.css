@@ -1336,6 +1336,9 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         width: 100%;
         align-items: center;
     }
+    .tastey-order-text div:first-child {
+        text-align: center;
+    }
     .tastey-order-text div:first-child button {
         margin-inline: auto;
     }
