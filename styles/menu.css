@@ -802,7 +802,7 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
 }
 
 .empty-cart-section p {
-    font-size: clamp(.65rem, calc(.6vw + 1.1vh), .85rem);
+    font-size: clamp(.85rem, calc(.6vw + 1.1vh), .85rem);
 }
 
 .continue-shopping-button {
