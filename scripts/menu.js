@@ -338,7 +338,7 @@ function toggleMenuHeader(bool = null) {
         attentionGrabberTwo.classList.toggle('hide',!bool)
         return
     }
-    if (tastey.getBoundingClientRect().y < (tasteyOffSetTop - 55)) {
+    if (tastey.getBoundingClientRect().y < (tasteyOffSetTop - 50)) {
         menuTitle.classList.add('hide')
         attentionGrabber.classList.add('hide')
         attentionGrabberTwo.classList.add('hide')
@@ -394,10 +394,12 @@ mcContinueShoppingBtn.onclick = e => {
 mcShoppingBtn.onclick = e => {
     e.preventDefault()
     toggleMenu()
+    document.querySelector(".mini-meal-cart").classList.add('close')
 }
 
 mcShoppingBagBtn.onclick = e => {
     e.preventDefault()
+    sessionStorage.open_cart = true
     toggleCart()
 }
 

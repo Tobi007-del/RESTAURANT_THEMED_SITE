@@ -146,7 +146,7 @@ mcShoppingBagBtn.addEventListener("click", () => {
 
 //closing the cart automatically when necessary for a better experience and for privacy reasons
 let timeout
-miniMealCart.addEventListener("pointerover", () => {
+miniMealCart.addEventListener("mouseover", () => {
     clearTimeout(timeout)
 })
 cartContainer.addEventListener("mouseleave", handleCartView)

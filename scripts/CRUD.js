@@ -548,6 +548,10 @@ function handleRemoveMeal(id,i) {
 //The delete function is different due to its async nature
 function handleDelete(id,n) {
     try {
+        if (!getCardsQuery() && document.body.classList.contains("cart")) {
+            deleteMeal(id,n)
+            return
+        }
         let timeout
         clearTimeout(timeout)
         timeout = setTimeout(() => {
