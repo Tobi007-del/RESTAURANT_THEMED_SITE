@@ -72,8 +72,7 @@ main {
 }
 
 .welcome-text-wrapper h1 {
-    font-size: clamp(2rem, 13vh, 5.15rem);
-    font-family: 'Times New Roman', Times, serif;   
+    font-size: clamp(2rem, 13vh, 5.15rem); 
 }
 
 .welcome-text-wrapper.old-timer h1 {
@@ -111,19 +110,6 @@ main {
 
 .quick-links-wrapper .reservation-btn:hover {
     transform: scale(1.025);
-}
-
-.quick-links-wrapper .reservation-btn::after {
-    content: '';
-    position: absolute;
-    width: 90%;
-    left: 5%;
-    height: 12.5%;
-    border-radius: 0 0 .25rem .25rem;
-    background-color: var(--current-theme-transparent-color);
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
-    top: 100%;
 }
 
 .open-menu-btn {
@@ -248,11 +234,11 @@ main {
 }
 
 .switcher-arrows:nth-child(1):hover {
-    transform: scale(1.25) translateX(-.15rem);
+    transform: scale(1.3) translateX(-.1rem);
 }
 
 .switcher-arrows:nth-child(2):hover {
-    transform: scale(1.25) translateX(.15rem);
+    transform: scale(1.3) translateX(.1rem);
 }
 
 .switcher-arrows svg {
@@ -263,6 +249,9 @@ main {
     transition: transform 250ms ease;
 }
 
+#quick-scroll-wrapper {
+    display: none!important;
+}
 
 @media only screen and (max-height: 12rem) {
     .tastey-meals-carousel-controls {

@@ -57,6 +57,7 @@ const round = (d) => {
         return d.toFixed()
     }
 }
+
 //function to check and apply discount to prices
 const check = (price, discount) => {
     if(!discount) {
@@ -76,7 +77,6 @@ const formatter = (curr) => {
         maximumFractionDigits: 2,
     })
 }
-
 
 const formatValue = (currency, price) => {
         return formatter(currency).format(price).replace('NGN',"\u20A6")            

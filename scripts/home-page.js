@@ -1,17 +1,4 @@
-const Tastey = JSON.parse(localStorage?.tasteyRecord)
-const setCartStates = () => {
-    const dataCartStates = document.querySelectorAll("[data-cart]")
-    dataCartStates.forEach(dataCartState => {
-        dataCartState.dataset.cart = Tastey?.tasteyOrders.reduce((count, meal) => count + meal.orders,0)
-    })
-}
-setCartStates()
- 
-const navbarCart = document.querySelector(".navbar-cart")
-navbarCart.addEventListener('click', function() {
-    window.location.href = "menu.html"
-    sessionStorage.open_cart = true
-})
+//The javascript for the home page sliding carousel, a near perfect implementation
 
 const tasteyMealsCarousel = document.querySelector(".tastey-meals-carousel")
 const carouselContainer = tasteyMealsCarousel.parentElement
@@ -215,3 +202,4 @@ const resizeDebouncer = (delay=400,immediate=false) => {
 
 let resizeTimer 
 window.addEventListener('resize', resizeDebouncer)
+

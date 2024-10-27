@@ -1,5 +1,5 @@
 import { Tastey } from "./TasteyManager.js"
-import { syncScrollToTop, syncScrollToBottom, tasteyThrottler } from "./utility-functions.js"
+import { syncScrollToTop, syncScrollToBottom, tasteyThrottler, tasteyDebouncer } from "./utility-functions.js"
 export { autoRemoveScroller, quickScrollShow, quickScrolls, removeScrolls }
 
 (function buildScroller() {
@@ -98,7 +98,9 @@ function onscroll() {
 
 //window event listeners
 const scrollThrottler = new tasteyThrottler
-window.addEventListener("scroll", scrollThrottler.throttle(onscroll))   
+const scrollDebouncer = new tasteyDebouncer
+window.addEventListener("scroll", scrollThrottler.throttle(onscroll), 10)   
+window.addEventListener("scroll", scrollDebouncer.debounce(onscroll), 500)
 window.addEventListener("resize", autoRemoveScroller)
 
 //a function to remove the scroller when necessary
@@ -112,5 +114,3 @@ function autoRemoveScroller() {
         }
     }, 100);
 }
-
-

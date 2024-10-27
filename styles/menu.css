@@ -15,6 +15,10 @@ body.cart {
     background: fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
 }
 
+body.cart[data-cart='0'] {
+    background: fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-6.png'), var(--darker-black);
+}
+
 body.cart::after {
     display: none;
 }
@@ -31,7 +35,7 @@ body.cart main.meal-cart, body:not(.cart) main.menu{
     display: block!important;
 }
 
-nav::before {
+nav::after {
     content: '';
     position: absolute;
     width: 100vw;
@@ -68,24 +72,19 @@ aside.category-switcher-container {
     transition: height 300ms ease, opacity 250ms ease;
 }
 
-aside.menu-cart-toggler-container::after, aside.category-switcher-container::after {
-    content: '';
-    position: absolute;
-    width: 12.5%;
-    height: 96%;
-    top: 2%;
-    background-color: var(--current-theme-transparent-color);
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
+aside.menu-cart-toggler-container::before, aside.category-switcher-container::before {
+    width: .4rem;
+    height: calc(100% - .7rem);
+    top: .35rem;
 }
 
-aside.menu-cart-toggler-container::after {
+aside.menu-cart-toggler-container::before {
     left: 100%;
     border-radius: 0 .5rem .5rem 0;
 }
 
-aside.category-switcher-container::after {
-    right: 100%;
+aside.category-switcher-container::before {
+    left: -.4rem;
     border-radius: .5rem 0 0 .5rem;
 }
 
@@ -518,27 +517,18 @@ main.menu .main-menu-title-wrapper h3 {
 
 .liked-heart-icon, .unliked-heart-icon {
     position: relative;
-    fill: red;
 }
 
 .heart-icon:hover {
     cursor: pointer;
 }
 
-.tastey-meal[data-like="false"] .liked-heart-icon, .tastey-meal-order[data-like="false"] .liked-heart-icon, .tastey-meal-order[data-like="false"] .remove-from-wishlist {
+.tastey-meal[data-like="false"] .liked-heart-icon, .tastey-meal-order[data-like="false"] .liked-heart-icon, .tastey-meal-order[data-like="false"] .remove-from-wishlist, .tastey-meal[data-like="true"] .unliked-heart-icon, .tastey-meal-order[data-like="true"] .unliked-heart-icon, .tastey-meal-order[data-like="true"] .move-to-wishlist {
     display: none;
 }
 
-.tastey-meal[data-like="false"] .unliked-heart-icon, .tastey-meal-order[data-like="false"] .unliked-heart-icon, .tastey-meal-order[data-like="false"] .move-to-wishlist {
+.tastey-meal[data-like="false"] .unliked-heart-icon, .tastey-meal-order[data-like="false"] .unliked-heart-icon, .tastey-meal-order[data-like="false"] .move-to-wishlist, .tastey-meal[data-like="true"] .liked-heart-icon, .tastey-meal-order[data-like="true"] .liked-heart-icon,.tastey-meal-order[data-like="true"] .remove-from-wishlist {
     display: block;
-}
-
-.tastey-meal[data-like="true"] .liked-heart-icon, .tastey-meal-order[data-like="true"] .liked-heart-icon,.tastey-meal-order[data-like="true"] .remove-from-wishlist {
-    display: block;
-}
-
-.tastey-meal[data-like="true"] .unliked-heart-icon, .tastey-meal-order[data-like="true"] .unliked-heart-icon, .tastey-meal-order[data-like="true"] .move-to-wishlist {
-    display: none;
 }
 
 .main-menu-title-wrapper {
@@ -682,7 +672,7 @@ main.menu .main-menu-title-wrapper h3 {
     position: relative;
     top: -.5rem;
     left: .25rem;
-    font-size: .625rem;
+    font-size: .6rem;
     color: var(--current-theme-fade-color);
     background-color: rgba(255, 0, 0, 0.8);
     min-width: 1.4rem;
@@ -796,11 +786,6 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
     font-size: clamp(1rem, calc(.75vw + 1.25vh), 1.2rem);
 }
 
-.empty-cart-text h2 span {
-    font-family: 'Times New Roman', Times, serif;
-    color: var(--current-theme-inverse-color);
-}
-
 .empty-cart-section p {
     font-size: clamp(.85rem, calc(.6vw + 1.1vh), .85rem);
 }
@@ -875,15 +860,15 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 }
 
 .order-number[data-meals = "1"][data-cart = "1"]::after {
-    content: ' (' attr(data-cart) ' Order, ' attr(data-meals) ' Tastey Meal)';
+    content: attr(data-cart) ' Order and ' attr(data-meals) ' Tastey Meal';
 }
 
 .order-number[data-meals = "1"]:not([data-cart = "1"])::after {
-    content: ' (' attr(data-cart) ' Orders, ' attr(data-meals) ' Tastey Meal)';
+    content: attr(data-cart) ' Orders and ' attr(data-meals) ' Tastey Meal';
 }
 
 .order-number:not([data-meals = "1"])::after {
-    content: ' (' attr(data-cart) ' Orders, ' attr(data-meals) ' Tastey Meals)';
+    content: attr(data-cart) ' Orders and ' attr(data-meals) ' Tastey Meals';
 }
 
 .tastey-meal-order-content {
@@ -987,6 +972,8 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 }
 
 .delete-order svg {
+    position: relative;
+    top: .05rem;
     fill: var(--current-theme-fade-color);
     width: 1.3rem;
     height: 1.3rem;                             
@@ -1018,7 +1005,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     gap: .65rem;
 }
 
-.order-price[data-discount = "0"] .actual-meal-price {
+.tastey-meal-order[data-discount = "0"] .actual-meal-price {
     display: none;
 }
 
@@ -1092,7 +1079,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 }
 
 .minus {
-    background-color: rgb(255, 35, 35);
+    background-color: var(--soft-red);
     border-radius: .25rem 0 0 .25rem;
 }
 
@@ -1361,10 +1348,8 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         .tastey-meal-order {
             top: var(--sticky-top);
             scale: var(--sticky-scale) 1;
-        }
-        .tastey-meal-order {
             padding: .035rem;
-            background-color: gray;
+            background-color: var(--alt-sub-text-color);
             transition: translate 500ms ease-out;
         }
         .tastey-meal-order:not(:last-child).lift:hover, .tastey-meal-order:not(:last-child):has(:focus-visible) {

@@ -19,7 +19,7 @@
        <meta property="twitter:title" content="The Tastey Restaurant">
        <meta property="twitter:description" content="Wanna tease your taste buds, try a Tastey meal now!...">
     <title>Tastey</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/tastey-meal-icons/tastey-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/tastey-meal-icons/tastey-icon.jpeg">
     <link rel="preload" href="assets/tastey-meal-images/tastey_meal_one.jpg" as="image" type="image/jpg">
     <link rel="preload" href="assets/tastey-meal-images/tastey_meal_two.jpg" as="image" type="image/jpg">
     <link rel="preload" href="assets/tastey-meal-images/tastey_meal_three.jpg" as="image" type="image/jpg">
@@ -31,8 +31,8 @@
     <link rel="stylesheet" href="styles/home-page.css">
     <link rel="stylesheet" href="styles/scroll-bar.css">
 </head>
-<body data-cart="0">
-    <nav class="row">
+<body data-cart="0" data-mini-bag="true">
+    <nav class="row Tastey-blur">
         <div class="company-name-section">
             <div class="tastey-logo"></div>
             <div>
@@ -91,7 +91,7 @@
             <div class="greeting-wrapper">
                 <p>HELLO, <span class="friendship"></span> FRIEND!</p>
             </div>
-            <div class="welcome-text-wrapper">
+            <div class="welcome-text-wrapper Tastey-text">
                 <h1>Welcome to Tastey</h1>
             </div>
             <div class="welcome-message-wrapper">
@@ -99,9 +99,7 @@
             </div>
             <div class="quick-links-wrapper">
                 <a href="">
-                    <div title="Reservation" class="reservation-btn">
-                        RESERVATION
-                    </div>
+                    <div title="Reservation" class="reservation-btn Tastey-blur">RESERVATION</div>
                 </a>
                 <div title="open menu" class="open-menu-btn">
                     <a href="menu.html">OPEN MENU</a>
@@ -153,8 +151,8 @@
             </div>
         </div>
     </main>
-
-    <script type="module" src="scripts/home-page.js"></script>
     
+    <script src="scripts/home-page.js"></script>
+    <script type="module" src="scripts/mini-bag.js"></script>
 </body>
 </html>
