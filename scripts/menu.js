@@ -268,11 +268,13 @@ menuHeaders = document.querySelectorAll(".tastey-menu-title-wrapper h1"),
 checkoutSection = document.querySelector(".checkout-section"),
 menuToggler = document.querySelector(".menu-toggler"),
 continueShoppingBtn = document.querySelector(".continue-shopping-button"),
-miniCartShoppingBtn = document.querySelector(".mini-continue-shopping-button"),
-miniCartShoppingBagBtn = document.querySelector(".mini-cart-shopping-bag-button"),
+mcContinueShoppingBtn = document.querySelector(".mini-continue-shopping-button"),
+mcShoppingBtn = document.querySelector(".mini-cart-continue-shopping-button"),
+mcShoppingBagBtn = document.querySelector(".mini-cart-shopping-bag-button"),
 cartToggler = document.querySelector(".cart-toggler"),
 addToCartBtns = document.querySelectorAll(".add-to-cart-button"),
 clearCartBtn = document.querySelector(".clear-cart-btn")
+
 
 //DOM operations
 getDOMElements()
@@ -380,15 +382,21 @@ removeScrolls.addEventListener('click', ()=>{
 continueShoppingBtn.addEventListener('click', e => {
     e.preventDefault()
     toggleMenu()
+    document.querySelector(".mini-meal-cart").classList.add('close')
 })
 
-miniCartShoppingBtn.onclick = e => {
+mcContinueShoppingBtn.onclick = e => {
     e.preventDefault()
-    sessionStorage.open_cart = true
+    toggleMenu()
+    document.querySelector(".mini-meal-cart").classList.add('close')
+}
+
+mcShoppingBtn.onclick = e => {
+    e.preventDefault()
     toggleMenu()
 }
 
-miniCartShoppingBagBtn.onclick = e => {
+mcShoppingBagBtn.onclick = e => {
     e.preventDefault()
     toggleCart()
 }
