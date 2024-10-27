@@ -222,7 +222,7 @@ function adjustMiniCards() {
 function removeMiniCard(id) {
     if (getMiniCardsQuery() && !weakTastey.getEmpty()) {
         let stall
-        if (weakTastey.tasteyRecord.tasteyOrders.length == 1) {
+        if (weakTastey.tasteyRecord.tasteyOrders.length == 1 && getCardsQuery() && document.body.classList.contains("cart")) {
             removeStall = 2000
             stall = 2000
         } else {
@@ -421,7 +421,7 @@ function deleteMeal(id,n) {
     if (bagQuery()) {
         tasteyMealOrders[n].remove()
         positionCards()
-        setTimeout(autoRemoveScroller)
+        setTimeout(autoRemoveScroller,100)
     }
     if (miniBagQuery()) {
         mcTasteyMealOrders[n].remove()
@@ -574,7 +574,7 @@ function clearCart() {
     if (bagQuery()) {
         const allTasteyMealOrders = document.querySelectorAll(".tastey-meal-order")   
         allTasteyMealOrders.forEach(order => order.remove())
-        setTimeout(autoRemoveScroller)
+        setTimeout(autoRemoveScroller,100)
     }
     if (miniBagQuery()) {
         const mcAllTasteyMealOrders = document.querySelectorAll(".mini-cart-tastey-meal-order")
