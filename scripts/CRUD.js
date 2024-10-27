@@ -421,7 +421,7 @@ function deleteMeal(id,n) {
     if (bagQuery()) {
         tasteyMealOrders[n].remove()
         positionCards()
-        autoRemoveScroller()               
+        setTimeout(autoRemoveScroller)
     }
     if (miniBagQuery()) {
         mcTasteyMealOrders[n].remove()
@@ -574,7 +574,7 @@ function clearCart() {
     if (bagQuery()) {
         const allTasteyMealOrders = document.querySelectorAll(".tastey-meal-order")   
         allTasteyMealOrders.forEach(order => order.remove())
-        autoRemoveScroller()                
+        setTimeout(autoRemoveScroller)
     }
     if (miniBagQuery()) {
         const mcAllTasteyMealOrders = document.querySelectorAll(".mini-cart-tastey-meal-order")
