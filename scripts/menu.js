@@ -338,7 +338,7 @@ function toggleMenuHeader(bool = null) {
         attentionGrabberTwo.classList.toggle('hide',!bool)
         return
     }
-    if (tastey.getBoundingClientRect().y < (tasteyOffSetTop - 75)) {
+    if (tastey.getBoundingClientRect().y < (tasteyOffSetTop - 55)) {
         menuTitle.classList.add('hide')
         attentionGrabber.classList.add('hide')
         attentionGrabberTwo.classList.add('hide')

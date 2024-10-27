@@ -419,6 +419,7 @@ main.menu .main-menu-title-wrapper h3 {
 .tastey-meal-image, .tastey-order-image {
     width: 100%;
     height: 100%;
+    border-radius: inherit;
     text-align: center;
     object-fit: cover;
     object-position: 0% 0%;
@@ -426,10 +427,6 @@ main.menu .main-menu-title-wrapper h3 {
 
 .tastey-meal-image:hover, .tastey-order-image:hover {
     cursor: move;
-}
-
-.tastey-meal-image-wrapper, .tastey-order-image-wrapper {
-    overflow: hidden;
 }
 
 .tastey-meal-image-wrapper::after, .tastey-order-image-wrapper::after {
@@ -448,7 +445,8 @@ main.menu .main-menu-title-wrapper h3 {
 .tooltip-text {
     visibility: hidden;
     min-width: 8rem;
-    background-color: var(--tastey-brand-light-accent-color);
+    height: fit-content;
+    background: var(--tastey-brand-light-accent-color);
     color: var(--current-theme-sub-color);
     text-align: center;
     border-radius: .25rem;
@@ -460,11 +458,10 @@ main.menu .main-menu-title-wrapper h3 {
     left: calc(50% - 4rem);
     opacity: 0;
     transition: opacity 300ms;
-    font-size: .85rem;
 }
 
 .tooltip-text::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 100%;
     left: calc(50% - .175rem);
@@ -473,11 +470,11 @@ main.menu .main-menu-title-wrapper h3 {
     border-color: var(--tastey-brand-light-accent-color) transparent transparent transparent;
 }
 
-.tastey-meal[data-like="true"] .like-tooltip, .tastey-meal:not([data-like="true"]) .unlike-tooltip, .tastey-meal-order[data-like="true"] .like-tooltip, .tastey-meal-order:not([data-like="true"]) .unlike-tooltip {
+.tastey-meal[data-like="true"] .like-tooltip, .tastey-meal[data-like="false"] .unlike-tooltip, .tastey-meal-order[data-like="true"] .like-tooltip, .tastey-meal-order[data-like="false"] .unlike-tooltip {
     display: none;
 }
 
-.tastey-meal:not([data-like="true"]) .like-tooltip, .tastey-meal[data-like="true"] .unlike-tooltip, .tastey-meal-order:not([data-like="true"]) .like-tooltip, .tastey-meal-order[data-like="true"] .unlike-tooltip {
+.tastey-meal[data-like="false"] .like-tooltip, .tastey-meal[data-like="true"] .unlike-tooltip, .tastey-meal-order[data-like="false"] .like-tooltip, .tastey-meal-order[data-like="true"] .unlike-tooltip {
     display: inline-block;
 }
 
