@@ -304,10 +304,10 @@ main {
         padding-inline-start: 2.5vw;
     }
     .welcome-text-wrapper h1 {
-        font-size: clamp(2rem, 13vh, 4.15rem);
+        font-size: clamp(2rem, 12vh, 4rem);
     }
     .welcome-text-wrapper.old-timer h1 {
-        font-size: clamp(2rem, 10vh, 4rem);
+        font-size: clamp(2rem, 9vh, 3.85rem);
     }
     .tastey-meal_one {
         background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.5)), url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center center, black;
