@@ -17,7 +17,7 @@ class TasteyManager {
         this.totalCost = 0 
     }
 
-    addMeal(id) {
+    addMeal(id,n = 1) {
     try {
         const index = this.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
         if (index === -1) {
@@ -26,17 +26,17 @@ class TasteyManager {
             meal.orders = 1
             this.tasteyRecord.tasteyOrders.push(meal)
         } else {
-            this.tasteyRecord.tasteyOrders[index].orders += 1
+            this.tasteyRecord.tasteyOrders[index].orders += n
         }
     } catch (error) {
         console.error(`Error occured while adding meal to bag ${error}`)
     }
     }
 
-    removeMeal(id) {
+    removeMeal(id,n = 1) {
         try {
             const index = this.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
-            this.tasteyRecord.tasteyOrders[index].orders -= 1
+            this.tasteyRecord.tasteyOrders[index].orders -= n
         } catch (error) {
             console.error(`Error occured while removing meal from bag ${error}`)
         }

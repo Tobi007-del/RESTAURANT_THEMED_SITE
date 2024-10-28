@@ -18,11 +18,13 @@ const miniBagQuery = () => {
 }
 
 // the code below fills up the cart immediately for development purposes
-allMeals.forEach(({ id }) => {
-    Tastey.addMeal(id,allMeals,data.currency)
-    // Tastey.handleLikes(id,true)
-})
-// window.location.reload()
+// allMeals.forEach(({ id }) => {
+//     Tastey.addMeal(id)
+// })
+
+// allMeals.forEach(({ id }) => {
+//     Tastey.handleLikes(id,true)
+// })
 
 // the one-liner below clears the cart immediately for development purposes
 // localStorage.clear()
@@ -211,12 +213,21 @@ function positionMiniCards() {
 function adjustMiniCards() {
     if(getMiniCardsQuery() && !weakTastey.getEmpty()) {
         for (let i = 0; i < mcTasteyMealOrders.length; i++) {
-            if (mcTasteyMealOrders[i].getBoundingClientRect().top < (remToPx(1.25 + (gap * i)) + mcTasteyMealOrders[i].getBoundingClientRect().height)) {
-                mcTasteyMealOrders[i].style.setProperty('--mini-sticky-scale', `${1 - ((allMeals.length * ((mcTasteyMealOrders.length - i)/mcTasteyMealOrders.length))/950)}`)
-            } 
-            if (mcTasteyMealOrders[i].getBoundingClientRect().top > (remToPx(1.075 + (gap * i))+mcTasteyMealOrders[i].getBoundingClientRect().height)) {
-                mcTasteyMealOrders[i].style.setProperty('--mini-sticky-scale', '1')
-            }   
+            if (i>0) {
+                if (mcTasteyMealOrders[i].getBoundingClientRect().top < (remToPx(1.25 + (gap * i)) + mcTasteyMealOrders[i].getBoundingClientRect().height)) {
+                    mcTasteyMealOrders[i].style.setProperty('--mini-sticky-scale', `${1 - ((allMeals.length * ((mcTasteyMealOrders.length - i)/mcTasteyMealOrders.length))/950)}`)
+                } 
+                if (mcTasteyMealOrders[i].getBoundingClientRect().top > (remToPx(1.05 + (gap * i)) + mcTasteyMealOrders[i].getBoundingClientRect().height)) {
+                    mcTasteyMealOrders[i].style.setProperty('--mini-sticky-scale', '1')
+                }               
+            } else {        
+                if (mcTasteyMealOrders[i].getBoundingClientRect().top < 114) {
+                    mcTasteyMealOrders[i].style.setProperty('--mini-sticky-scale', `${1 - ((allMeals.length * ((mcTasteyMealOrders.length - i)/mcTasteyMealOrders.length))/950)}`)
+                } 
+                if (mcTasteyMealOrders[i].getBoundingClientRect().top > 115.75) {
+                    mcTasteyMealOrders[i].style.setProperty('--mini-sticky-scale', '1')                
+                }
+            }
         }
     }
 }
