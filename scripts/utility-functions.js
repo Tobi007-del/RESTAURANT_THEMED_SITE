@@ -86,38 +86,41 @@ const clamp = (min, amount, max) => {
     return Math.min(Math.max(amount, min), max)
 }
 
-function scrollContentTo(ordinate) {
-    document.documentElement.scrollTo(0,ordinate)
+function scrollContentTo(ordinate, behavior="smooth", parent = document.documentElement) {
+    parent.scrollTo({
+        top: ordinate,
+        behavior: behavior
+    })
 }
 
-function asyncScrollToTop(behavior = "smooth", delay = 0) {        
+function asyncScrollToTop(behavior = "smooth", delay = 0, parent = document.documentElement) {        
     setTimeout(function () {
-        document.documentElement.scrollTo({
+        parent.scrollTo({
             top: 0,
             behavior: behavior
         })
     }, delay);
 };
 
-function asyncScrollToBottom(behavior = "smooth", delay = 0) {
+function asyncScrollToBottom(behavior = "smooth", delay = 0, parent = document.documentElement) {
     setTimeout(function () {
-        document.documentElement.scrollTo({
-            top: document.documentElement.scrollHeight,
+        parent.scrollTo({
+            top: parent.scrollHeight,
             behavior: behavior
         })
     }, delay);
 }
 
-function syncScrollToTop(behavior = "smooth") { 
-    document.documentElement.scrollTo({
+function syncScrollToTop(behavior = "smooth", parent = document.documentElement) { 
+    parent.scrollTo({
         top: 0,
         behavior: behavior
     })
 }
 
-function syncScrollToBottom(behavior = "smooth") {      
-    document.documentElement.scrollTo({
-        top: document.documentElement.scrollHeight,
+function syncScrollToBottom(behavior = "smooth", parent = document.documentElement) {      
+    parent.scrollTo({
+        top: parent.scrollHeight,
         behavior: behavior
     })
 }

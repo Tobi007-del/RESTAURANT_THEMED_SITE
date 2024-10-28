@@ -398,6 +398,10 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     gap: 1rem;  
 }
 
+.mini-meal-cart[data-cart='0'] .mini-meal-cart-content {
+    background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--lighter-black);
+}
+
 .mini-meal-cart:hover::before, .mini-meal-cart:hover::after {
     opacity: 1;
 }
@@ -478,15 +482,12 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 
 .mini-empty-cart-section {
     display: flex;
-}
-
-.mini-empty-cart-section {
     color: var(--tastey-brand-color);
     display: flex;
     align-items: end;
     justify-content: center;
-    background: center/cover no-repeat url('../assets/tastey-meal-images/empty-cart.png');
-    height: 20rem;
+    background: url('../assets/tastey-meal-images/empty-cart.png') center 60%/80% no-repeat;
+    height: 17.75rem;
 } 
 
 .mini-empty-cart-text {
@@ -497,12 +498,12 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 }
 
 .mini-empty-cart-text h6 {
-    font-size: .95rem;
+    font-size: .9rem;
 }
 
 .mini-empty-cart-text a {
-    font-size: .85rem;
-    color: var(--tastey-brand-light-accent-color);
+    font-size: .8rem;
+    color: lightblue;
     text-decoration: underline;
 }
 

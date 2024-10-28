@@ -16,7 +16,7 @@ body.cart {
 }
 
 body.cart[data-cart='0'] {
-    background: fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-6.png'), var(--darker-black);
+    background: fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
 }
 
 body.cart::after {
@@ -754,16 +754,17 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
 }
 
 .empty-cart-section {
-    width: 30rem;
-    aspect-ratio: 1 / .75;
+    width: unset;
+    max-width: 100vw;
+    height: clamp(15rem,calc(32.5vh + 10vw),22.5rem);
+    aspect-ratio: 1 / .63;
     border-radius: .5rem;
     color: var(--tastey-brand-color);
     display: flex;
     align-items: end;
     justify-content: center;
     margin: auto;
-    background: url('../assets/tastey-meal-images/empty-cart.png') center 65%, var(--current-theme-main-color);
-    background-size: cover;
+    background: url('../assets/tastey-meal-images/empty-cart.png') no-repeat center 80%/90%;
 }
 
 .empty-cart-text {
@@ -788,12 +789,12 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
 }
 
 .continue-shopping-button {
-    color: blue;
+    color: lightblue;
     width: max-content;
+    text-decoration: underline;
 }
 
 .continue-shopping-button:hover { 
-    text-decoration: underline;
     cursor: pointer;
 }
 
@@ -929,15 +930,6 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     align-items: center;
     white-space: nowrap;
     gap: 1rem;
-}
-
-.tastey-order-text div:first-child button {
-    background-color: transparent;
-    width: fit-content;
-    border: none;
-    padding: 0;
-    margin: 0;
-    border-radius: .001rem;
 }
 
 .tastey-order-text div:nth-child(2) button {
@@ -1408,7 +1400,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         .tastey-order-text div:first-child {
             text-align: left;
         }
-        .tastey-order-text div:first-child button {
+        .tastey-order-text div:first-child h2 {
             text-align: left;
             width: 100%;
         }
@@ -1561,8 +1553,8 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         padding-top: 7.5em;
         padding-inline: 2rem;
     }
-    .empty-cart-section {
-        width: 100%;
+    body[data-cart="0"] main.meal-cart {
+        padding-inline: 0;
     }
     #quick-scroll-show svg, #to-top svg, #to-bottom svg {
         fill: var(--current-theme-inverse-color);

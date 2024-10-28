@@ -108,14 +108,20 @@ if (getCardsQuery() && !weakTastey.getEmpty()) {
                 tasteyMealOrders[i].classList.remove("lift")
         }
         tasteyMealOrders[i].onmouseleave = () => tasteyMealOrders[i].classList.remove("lift")
-        const header = tasteyMealOrders[i].querySelector(".tastey-order-text div:nth-of-type(1) button")
-        tasteyMealOrders[i].ondblclick = moveToHeader
-        header.onclick = moveToHeader
-        header.onfocus = () => {
-            if (header.matches(':focus-visible')) 
-                moveToHeader()
+        const buttons = tasteyMealOrders[i].querySelectorAll("button")
+        tasteyMealOrders[i].onclick = () => {
+            if (getCardsQuery())
+                if (document.activeElement.tagName.toLowerCase() !== "button") 
+                    moveToCard()
         }
-        function moveToHeader() {
+        for (const button of buttons) {
+            button.onfocus = () => {
+                if (getCardsQuery())
+                    if (button.matches(':focus-visible')) 
+                        moveToCard()
+            }
+        }
+        function moveToCard() {
             let pos = orderReviewSectionContent.getBoundingClientRect().height - (orderReviewSectionContent.getBoundingClientRect().height - (((tasteyMealOrders[i].getBoundingClientRect().height - remToPx(gap) + remToPx(1.25)) * (i+1)) + orderNumberWrapper.getBoundingClientRect().height + remToPx(2.5))) - tasteyMealOrders[i].getBoundingClientRect().height
             scrollContentTo(pos)
             tasteyMealOrders[i].classList.remove("lift")
@@ -206,6 +212,22 @@ function positionMiniCards() {
         mcOrderReviewSection.style.setProperty('--mini-bottom', `${bottom}rem`)
         for (let i = 0; i < mcTasteyMealOrders.length; i++) {
             mcTasteyMealOrders[i].style.setProperty('--mini-sticky-top', `${.25+(i*gap)}rem`)
+            const buttons = mcTasteyMealOrders[i].querySelectorAll("button")
+            mcTasteyMealOrders[i].onclick = e => {
+                if (document.activeElement.tagName.toLowerCase() !== "button") {
+                    moveToCard()
+                }
+            }
+            for (const button of buttons) {
+                button.onfocus = () => {
+                    if (button.matches(':focus-visible')) 
+                        moveToCard()
+                }
+            }
+            function moveToCard() {
+                let pos = mcOrderReviewSection.getBoundingClientRect().height - (mcOrderReviewSection.getBoundingClientRect().height - (((mcTasteyMealOrders[i].getBoundingClientRect().height - remToPx(gap) + remToPx(.5)) * (i+1)))) - mcTasteyMealOrders[i].getBoundingClientRect().height
+                scrollContentTo(pos,"smooth",mcOrderReviewSection)
+            }
         }
     }
 }
@@ -310,9 +332,7 @@ function addMeal(id,meals,curr) {
                     <div class="tastey-order-info">
                         <div class="tastey-order-text">
                             <div>
-                                <button type="button" title="${label}">
-                                    <h2>${label}</h2>
-                                </button>
+                                <h2 title="${label}">${label}</h2>
                                 <p>Category: ${category}</p>
                             </div>
                             <div>

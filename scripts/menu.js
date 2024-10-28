@@ -203,9 +203,7 @@ function tasteyMenu(data){
                         <div class="tastey-order-info">
                             <div class="tastey-order-text">
                                 <div>
-                                    <button type="button" title="${label}">
-                                        <h2>${label}</h2>
-                                    </button>
+                                    <h2 title="${label}">${label}</h2>
                                     <p>Category: ${category}</p>
                                 </div>
                                 <div>
