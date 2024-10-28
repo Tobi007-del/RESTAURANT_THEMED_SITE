@@ -1,6 +1,6 @@
 import data from "./fetch.js"
 import { Tastey, weakTastey } from "./TasteyManager.js"
-import { check, formatValue, clamp , panning, scrollContentTo, remToPx, pxToRem, rand, syncScrollToBottom } from "./utility-functions.js"
+import { check, formatValue, panning, scrollContentTo, remToPx, pxToRem, rand, syncScrollToBottom } from "./utility-functions.js"
 import { autoRemoveScroller } from "./build-scroller.js"
 
 export { data, meals, allMeals, getDOMElements, handleAddMeal, handleClearCart, handleLikes, getCardsQuery, positionCards, adjustCards, positionMiniCards, adjustMiniCards } 

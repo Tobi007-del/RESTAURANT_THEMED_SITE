@@ -1,7 +1,7 @@
 //module imports
 import { data, meals, allMeals, getDOMElements, handleAddMeal, handleClearCart, handleLikes, getCardsQuery, positionCards, adjustCards } from "./CRUD.js"
 import { weakTastey } from "./TasteyManager.js"
-import { tasteyThrottler, tasteyDebouncer, check, formatValue, clamp , panning, scrollContentTo, remToPx, pxToRem, syncScrollToTop, positionGradient, stars } from "./utility-functions.js"
+import { tasteyThrottler, tasteyDebouncer, check, formatValue, clamp , panning, scrollContentTo, remToPx, syncScrollToTop, positionGradient, stars } from "./utility-functions.js"
 import { autoRemoveScroller, quickScrollShow, removeScrolls, quickScrolls } from "./build-scroller.js"
 
 
@@ -265,7 +265,6 @@ tasteyMealsImages = document.querySelectorAll(".tastey-meal-image"),
 categorySwitcherContainer = document.querySelector("aside.category-switcher-container"),
 switchers = document.querySelectorAll(".switcher"),
 menuHeaders = document.querySelectorAll(".tastey-menu-title-wrapper h1"),
-checkoutSection = document.querySelector(".checkout-section"),
 menuToggler = document.querySelector(".menu-toggler"),
 continueShoppingBtn = document.querySelector(".continue-shopping-button"),
 mcContinueShoppingBtn = document.querySelector(".mini-continue-shopping-button"),
@@ -316,17 +315,6 @@ tasteyMealsImages.forEach((tasteyMealsImage,i) => {
 //handling the panning of the food images
 panning(document.querySelectorAll(".tastey-meal-image, .tastey-order-image"))
 
-const xThreshold = remToPx(45)
-//a function to adapt the checkout content to the current screen size
-function adaptCheckoutContent () {
-    if (document.body.classList.contains("cart") && window.innerWidth <= xThreshold) {
-        checkoutSection.style.setProperty("--nav-width",`${document.querySelector('aside.menu-cart-toggler-container').offsetWidth}px`)
-        if (pxToRem(document.documentElement.scrollTop) > 35) 
-            checkoutSection.classList.add("compact")
-        if (pxToRem(document.documentElement.scrollTop) < 25) 
-            checkoutSection.classList.remove("compact")
-    }
-}
 
 let tasteyOffSetTop = tastey.getBoundingClientRect().y;
 
@@ -362,15 +350,9 @@ function onPageScroll() {
 const scrollThrottler = new tasteyThrottler
 const scrollDebouncer = new tasteyDebouncer
 //window event listeners
-window.addEventListener("resize", () => {
-    adaptCheckoutContent()
-    positionCards()
-})
+window.addEventListener("resize",positionCards)
 window.addEventListener("scroll", scrollThrottler.throttle(onPageScroll,10))   
-window.addEventListener("scroll", scrollDebouncer.debounce(() => {
-    adaptCheckoutContent()
-    onPageScroll()
-},150))
+window.addEventListener("scroll", scrollDebouncer.debounce(onPageScroll,150))
 
 quickScrollShow.addEventListener('click', ()=>{
     categorySwitcherContainer.classList.toggle('show')
