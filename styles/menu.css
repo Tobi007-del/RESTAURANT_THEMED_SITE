@@ -1449,6 +1449,9 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         top: 0;
         width: clamp(5rem,100%,20rem);
     }
+    .checkout-section {
+        position: relative;
+    }
 }
 
 @media only screen and (max-width:36rem) {
