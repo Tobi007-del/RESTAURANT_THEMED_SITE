@@ -1497,6 +1497,9 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         left: 2.5%;
         flex-flow: row nowrap;
     }
+    aside.menu-cart-toggler-container::before {
+        display: none;
+    }
     aside.category-switcher-container {
         width: 3rem!important;
     }
