@@ -1446,8 +1446,10 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         height: 2.15rem;
     }
     .order-review-section, .checkout-section {
-        top: 0;
         width: clamp(5rem,100%,20rem);
+    }
+    .order-review-section {
+        top: 0;
     }
     .checkout-section {
         position: relative;
