@@ -18,10 +18,11 @@ const miniBagQuery = () => {
 }
 
 // the code below fills up the cart immediately for development purposes
-// allMeals.forEach(({ id }) => {
-//     Tastey.addMeal(id,allMeals,data.currency)
-//     Tastey.handleLikes(id,true)
-// })
+allMeals.forEach(({ id }) => {
+    Tastey.addMeal(id,allMeals,data.currency)
+    // Tastey.handleLikes(id,true)
+})
+// window.location.reload()
 
 // the one-liner below clears the cart immediately for development purposes
 // localStorage.clear()
@@ -213,7 +214,7 @@ function adjustMiniCards() {
             if (mcTasteyMealOrders[i].getBoundingClientRect().top < (remToPx(1.25 + (gap * i)) + mcTasteyMealOrders[i].getBoundingClientRect().height)) {
                 mcTasteyMealOrders[i].style.setProperty('--mini-sticky-scale', `${1 - ((allMeals.length * ((mcTasteyMealOrders.length - i)/mcTasteyMealOrders.length))/950)}`)
             } 
-            if (mcTasteyMealOrders[i].getBoundingClientRect().top > (remToPx(1.2 + (gap * i))+mcTasteyMealOrders[i].getBoundingClientRect().height)) {
+            if (mcTasteyMealOrders[i].getBoundingClientRect().top > (remToPx(1.075 + (gap * i))+mcTasteyMealOrders[i].getBoundingClientRect().height)) {
                 mcTasteyMealOrders[i].style.setProperty('--mini-sticky-scale', '1')
             }   
         }
