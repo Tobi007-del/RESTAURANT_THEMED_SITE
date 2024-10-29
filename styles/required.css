@@ -350,10 +350,6 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     box-shadow: 2px 2px 2.5rem rgba(255, 255, 255, 0.1);
 }
 
-.mini-meal-cart[data-cart='0'] {
-    touch-action: none;
-}
-
 .mini-meal-cart::after, .mini-meal-cart::before {
     border-radius: inherit;
     content: '';
@@ -369,7 +365,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 
 .mini-meal-cart::before {
     background: radial-gradient(
-        28rem circle at var(--mouse-x) var(--mouse-y),
+        25rem circle at var(--mouse-x) var(--mouse-y),
         rgba(255,255,255,0.2),
         transparent 40%
     );
@@ -378,7 +374,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 
 .mini-meal-cart::after {
     background: radial-gradient(
-        22rem circle at var(--mouse-x) var(--mouse-y),
+        20rem circle at var(--mouse-x) var(--mouse-y),
         rgba(255,255,255,1),
         transparent 40%
     );
@@ -402,11 +398,20 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--lighter-black);
 }
 
-.mini-meal-cart[data-cart='0']::before, .mini-meal-cart[data-cart='0']::after {
+.mini-meal-cart[data-cart='0'] {
+    touch-action: none;
+}
+
+.mini-meal-cart[data-cart='0']::before, .mini-meal-cart:hover::after {
     opacity: 1;
 }
 
-.mini-meal-cart:not([data-cart='0'])::before, .mini-meal-cart:not([data-cart='0']):hover::after {
+.mini-meal-cart:not([data-cart='0'])::before {
+    background: radial-gradient(
+        17.5rem circle at center 50%,
+        rgba(255,255,255,0.2),
+        transparent 40%
+    );
     opacity: 1;
 }
 

@@ -695,24 +695,21 @@ main.meal-cart {
 }
 
 main.meal-cart[data-cart='0'] {
-    background: radial-gradient(
+    background: fixed no-repeat radial-gradient(
         clamp(5rem,90vw,35rem) circle at var(--mouse-x) var(--mouse-y),
         rgba(255,255,255,0.2),
         transparent 50%
     );
-}
-
-body:hover main.meal-cart:not([data-cart='0']) {
-    background: radial-gradient(
-        clamp(5rem,90vw,35rem) circle at var(--mouse-x) var(--mouse-y),
-        rgba(255,255,255,0.2),
-        transparent 50%
-    );
-}
-
-main.meal-cart[data-cart = '0'] {
     touch-action: none;
     height: 100vh;
+}
+
+main.meal-cart:not([data-cart='0']) {
+    background: fixed no-repeat radial-gradient(
+        clamp(5rem,90vw,40rem) circle at center 80%,
+        rgba(255,255,255,0.2),
+        transparent 60%
+    );
 }
 
 .cart-section {
@@ -1152,18 +1149,18 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 }
 
 .order-preview:nth-child(2) h2 {
-    font-size: .85rem;
+    font-size: .825rem;
 }
 
 .order-preview p {
     margin: 0;
-    font-size: .85rem;
+    font-size: .825rem;
     color: var(--sub-text-color);
 }
 
 .order-preview h2 {
     margin: 0;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     color: var(--main-text-color);
     padding-block-start: .75rem;
 }
@@ -1195,7 +1192,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 }
 
 .checkout-preview p:not(.TOTAL-COST) {
-    font-size: .925rem;
+    font-size: .825rem;
     color: var(--main-text-color);
 }
 
@@ -1466,13 +1463,6 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 }
 
 @media only screen and (max-width:36rem) {
-    main.meal-cart:not([data-cart='0']) {
-        background: fixed no-repeat radial-gradient(
-            90vw circle at center 80%,
-            rgba(255,255,255,0.2),
-            transparent 60%
-        )!important;
-    }
     .tooltip-text {
         top: .5rem;
         background: none;
@@ -1551,7 +1541,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     .checkout-section::before {
         background: radial-gradient(
             400px circle at center 65%,
-            rgba(255,255,255,0.3),
+            rgba(255,255,255,0.2),
             transparent 40%
         )!important;
         opacity: 1!important;
