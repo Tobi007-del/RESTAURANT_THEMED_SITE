@@ -105,12 +105,12 @@ window.addEventListener("resize", autoRemoveScroller)
 
 //a function to remove the scroller when necessary
 function autoRemoveScroller() {
-    const difference = document.documentElement.scrollHeight - window.innerHeight
     setTimeout(() => {
+        const difference = document.documentElement.scrollHeight - window.innerHeight
         if (Number(difference) == 0) {
             quickScroll.style.display = "none"
         } else {
             quickScroll.style.display = "flex"
         }
-    }, 100);
+    }, 500);
 }

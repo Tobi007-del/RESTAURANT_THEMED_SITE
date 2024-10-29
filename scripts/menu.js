@@ -413,21 +413,7 @@ if (sessionStorage.open_cart) {
 menuToggler.addEventListener('click', toggleMenu)
 cartToggler.addEventListener('click', toggleCart)
 
-//the options object for the intersection observer api
-const options = {
-    root: null,
-    rootMargin: '0px',
-    threshold: (() => {
-        let threshold = []
-        let step = 5
-        for(let i = 1.0; i <= step; i++) {
-            let ratio = i/step
-            threshold.push(ratio)
-        }
-        threshold.push(0)
-        return threshold;
-    })(),
-}
+
 //using the intersection observer to turn the lights off/on
 const tasteyObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -439,7 +425,7 @@ const tasteyObserver = new IntersectionObserver((entries) => {
             document.body.style.setProperty("--global-light-complement-color", "var(--darker-black)")
         }
     })
-},options)
+},{root:null,rootMargin:'0px',threshold:[.2,.4,.6,.8,1]})
 menuHeaders.forEach(worthy => {
     tasteyObserver.observe(worthy)
 })
@@ -451,6 +437,8 @@ stars(document.querySelectorAll(".magic-star"))
 //positioning gradient where necessary
 document.querySelectorAll("main").forEach(main => {
     main.onpointermove = e => {
+    if (document.body.classList.contains("cart")) 
+        positionGradient(e,document.querySelector("main.meal-cart"))
     if (window.innerWidth > mobileThreshold) {
         if(!document.body.classList.contains("cart")) {
             for(const card of document.getElementsByClassName("tastey-meal")){

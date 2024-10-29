@@ -438,7 +438,7 @@ main.menu .main-menu-title-wrapper h3 {
     height: 2rem;
     pointer-events: none;
     margin-block-start: .1rem;
-    background: radial-gradient(1.75rem circle at center, rgba(255,255,255,0.45), transparent 40%), url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center center/cover;
+    background: radial-gradient(1.75rem circle at center, rgba(255,255,255,0.3), transparent 40%), url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center center/cover;
     pointer-events: none;
 }
 
@@ -692,6 +692,27 @@ main.meal-cart {
     padding-inline-start: 5rem;
     padding-inline-end: 1rem;
     padding-block: 5rem;
+}
+
+main.meal-cart[data-cart='0'] {
+    background: radial-gradient(
+        clamp(5rem,90vw,35rem) circle at var(--mouse-x) var(--mouse-y),
+        rgba(255,255,255,0.2),
+        transparent 50%
+    );
+}
+
+body:hover main.meal-cart:not([data-cart='0']) {
+    background: radial-gradient(
+        clamp(5rem,90vw,35rem) circle at var(--mouse-x) var(--mouse-y),
+        rgba(255,255,255,0.2),
+        transparent 50%
+    );
+}
+
+main.meal-cart[data-cart = '0'] {
+    touch-action: none;
+    height: 100vh;
 }
 
 .cart-section {
@@ -1174,6 +1195,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 }
 
 .checkout-preview p:not(.TOTAL-COST) {
+    font-size: .925rem;
     color: var(--main-text-color);
 }
 
@@ -1444,6 +1466,13 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 }
 
 @media only screen and (max-width:36rem) {
+    main.meal-cart:not([data-cart='0']) {
+        background: fixed no-repeat radial-gradient(
+            90vw circle at center 80%,
+            rgba(255,255,255,0.2),
+            transparent 60%
+        )!important;
+    }
     .tooltip-text {
         top: .5rem;
         background: none;
@@ -1514,15 +1543,15 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
     .tastey-meal::before, .tastey-meal-order::before {
         background: radial-gradient(
-            400px circle at 8.5rem 5rem,
-            rgba(255,255,255,0.35),
-            transparent 40%
+            400px circle at 8rem 4rem,
+            rgba(255,255,255,0.3),
+            transparent 50%
         )!important;
     }
     .checkout-section::before {
         background: radial-gradient(
             400px circle at center 65%,
-            rgba(255,255,255,0.35),
+            rgba(255,255,255,0.3),
             transparent 40%
         )!important;
         opacity: 1!important;

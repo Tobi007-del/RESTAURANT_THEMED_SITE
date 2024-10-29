@@ -271,7 +271,6 @@ function setCartStates() {
         mealsState.dataset.meals = weakTastey.tasteyMeals
     })
 }
-setCartStates()
 
 function setOrderStates(id) {
     const dataOrderStates = document.querySelectorAll("[data-orders]")
@@ -300,6 +299,7 @@ function setPositionStates() {
 
 //functions for specific tastey operations
 
+//a function for adding a meal to the page
 function addMeal(id,meals,curr) {
     const meal = meals.find(meal => meal.id === id)
     const { label, category, price, serving, picSrc } = meal
@@ -426,7 +426,7 @@ function addMeal(id,meals,curr) {
     }
 }
 
-//a function for removing a meal
+//a function for removing a meal from the page
 function removeMeal(id) {
     const index = weakTastey.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
     const currentProductCount = weakTastey.tasteyRecord.tasteyOrders[index].orders
@@ -457,6 +457,7 @@ function deleteMeal(id,n) {
     resetBagEventListeners()
 }
 
+//a function for updating the checkout state
 function setCheckoutState() {
     if (bagQuery()) {
         cartNumberElement.textContent = weakTastey.ordersInTotal
@@ -473,6 +474,7 @@ function setCheckoutState() {
     }
 }
 
+//a function to assign all necessary event listeners
 function resetBagEventListeners() {
     if (bagQuery()) {
         for(let i = 0; i < tasteyMealOrders.length; i++) {
@@ -518,6 +520,7 @@ function resetBagEventListeners() {
     }
 }
 
+//a function to control the minus btn hover state
 function setMinusHoverState(i) {
     if (bagQuery()) {
         const number = (weakTastey.getOrdersValue(Number(tasteyMealOrders[i]?.dataset.id)) ?? 0)
@@ -529,6 +532,7 @@ function setMinusHoverState(i) {
     }
 }
 
+//a function to handle updating general states
 function updateStates(id) {
     weakTastey.calculateCheckoutDetails(allMeals)
     setCartStates()
@@ -537,6 +541,7 @@ function updateStates(id) {
     setCheckoutState()
 }
 
+//a function to handle the adding of a meal
 function handleAddMeal(id,i) {
     try {
         // #TASTEY CRUD - CU
@@ -551,6 +556,7 @@ function handleAddMeal(id,i) {
     }
 }
 
+//a function to handle the removing of a meal
 function handleRemoveMeal(id,i) {
     try {
         const number = (weakTastey.getOrdersValue(Number(tasteyMealOrders[i]?.dataset.id ?? mcTasteyMealOrders[i]?.dataset.id)) ?? 0)
@@ -655,6 +661,7 @@ function handleLikes(i) {
     }
 }
 
+//a function to handle likes
 function handleWishlist(likeId,i) {
     try {
         const meal = allMeals.find(meal => meal.id === likeId)

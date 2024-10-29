@@ -152,7 +152,7 @@ miniMealCart.addEventListener("mouseover", () => {
 cartContainer.addEventListener("mouseleave", handleCartView)
 document.body.addEventListener("mouseleave", handleCartView)
 function handleCartView() {
-    const itv = 20000
+    const itv = 25000
     timeout = setTimeout(() => {
         if((!cartContainer.matches(":hover") && !cartContainer.matches(":focus-within"))) {
             miniMealCart.classList.add("close")
@@ -161,7 +161,7 @@ function handleCartView() {
 }
 
 const mcScrollThrottler = new tasteyThrottler
-mcOrderReviewSection.addEventListener("scroll", mcScrollThrottler.throttle(adjustMiniCards,150))
+mcOrderReviewSection.addEventListener("scroll", mcScrollThrottler.throttle(adjustMiniCards,10))
 
 //handling the panning of the food images
 panning(document.querySelectorAll(".mini-cart-tastey-order-image"))
