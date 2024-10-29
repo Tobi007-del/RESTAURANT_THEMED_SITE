@@ -486,8 +486,8 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     display: flex;
     align-items: end;
     justify-content: center;
-    background: url('../assets/tastey-meal-images/empty-cart.png') center 60%/80% no-repeat;
-    height: 17.75rem;
+    background: url('../assets/tastey-meal-images/empty-cart.png') center 40%/80% no-repeat;
+    height: 17rem;
 } 
 
 .mini-empty-cart-text {
