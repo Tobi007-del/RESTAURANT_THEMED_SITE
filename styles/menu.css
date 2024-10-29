@@ -700,7 +700,6 @@ main.meal-cart[data-cart='0'] {
         rgba(255,255,255,0.15),
         transparent 50%
     );
-    touch-action: none;
     min-height: 100vh;
 }
 
@@ -1601,20 +1600,12 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
 }
 
-@media only screen and (max-height: 21.5rem) {
-    .order-summary {
-        display: none;
+@media only screen and (min-height: 34rem) {
+    main.meal-cart[data-cart='0'] {
+        touch-action: none;
     }
 }
 
-@media only screen and (max-height: 26.5rem) {
-    .order-preview:first-child {
-        display: none;
-    }
-    main .order-preview:last-child {
-        display: flex;
-    }
-}
 
 @media only screen and (max-height: 32.5rem) {
     .order-preview:last-child {
@@ -1647,6 +1638,21 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     } 
     #quick-scrolls {
         justify-content: center;
+    }
+}
+
+@media only screen and (max-height: 26.5rem) {
+    .order-preview:first-child {
+        display: none;
+    }
+    main .order-preview:last-child {
+        display: flex;
+    }
+}
+
+@media only screen and (max-height: 21.5rem) {
+    .order-summary {
+        display: none;
     }
 }
 
