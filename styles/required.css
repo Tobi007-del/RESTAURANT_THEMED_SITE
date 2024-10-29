@@ -366,7 +366,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 .mini-meal-cart::before {
     background: radial-gradient(
         25rem circle at var(--mouse-x) var(--mouse-y),
-        rgba(255,255,255,0.2),
+        rgba(255,255,255,0.15),
         transparent 40%
     );
     z-index: 13;

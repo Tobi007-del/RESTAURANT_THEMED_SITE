@@ -696,12 +696,12 @@ main.meal-cart {
 
 main.meal-cart[data-cart='0'] {
     background: fixed no-repeat radial-gradient(
-        clamp(5rem,90vw,35rem) circle at var(--mouse-x) var(--mouse-y),
-        rgba(255,255,255,0.2),
+        clamp(5rem,80vw,32.5rem) circle at var(--mouse-x) var(--mouse-y),
+        rgba(255,255,255,0.15),
         transparent 50%
     );
     touch-action: none;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 main.meal-cart:not([data-cart='0']) {
