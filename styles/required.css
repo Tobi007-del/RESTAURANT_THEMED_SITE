@@ -236,6 +236,15 @@ nav {
     padding: 1rem 0 1rem 1rem;
 }
 
+.cart-container .mini-meal-cart.close {
+    display: none;
+}
+
+.cart-container:hover .navbar-cart, .cart-container:has(:focus-visible) .navbar-cart {
+    cursor: pointer;
+    opacity: 1;
+}
+
 nav .cart-container:has(:focus-visible) .mini-meal-cart {
     display: flex;
 }
@@ -251,10 +260,6 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     nav .cart-container:hover .mini-meal-cart.close .close-cart-button {
         display: none;
     }
-}
-
-.cart-container .mini-meal-cart.close {
-    display: none;
 }
 
 .Cart {
@@ -277,11 +282,6 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     width: 1.65rem;
     height: 1.65rem;
     fill: var(--current-theme-inverse-color);
-}
-
-.cart-container:hover .navbar-cart, .cart-container:has(:focus-visible) .navbar-cart {
-    cursor: pointer;
-    opacity: 1;
 }
 
 .cart-icon.empty {
@@ -511,6 +511,11 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+
+.mini-cart-idle-content {
+    opacity: 0;
+    height: .5rem;
 }
 
 .mini-cart-order-review-section { 

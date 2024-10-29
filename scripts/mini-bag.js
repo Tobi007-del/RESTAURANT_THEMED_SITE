@@ -33,7 +33,7 @@ function tasteyMiniBag(data) {
                                 </div>
                                 <div class="mini-cart-section">
                                     <div class="mini-cart-order-review-section">
-                                        <div class="mini-cart-idle-content"></div>
+                                        <div class="mini-cart-idle-content">Tastey</div>
                                     </div>
                                     <div class="mini-cart-checkout">
                                         <div class="mini-cart-checkout-preview">
@@ -145,23 +145,23 @@ mcShoppingBagBtn.addEventListener("click", () => {
 })
 
 //closing the cart automatically when necessary for a better experience and for privacy reasons
-// let timeout
-// miniMealCart.addEventListener("mouseover", () => {
-//     clearTimeout(timeout)
-// })
-// cartContainer.addEventListener("mouseleave", handleCartView)
-// document.body.addEventListener("mouseleave", handleCartView)
-// function handleCartView() {
-//     const itv = 10000
-//     timeout = setTimeout(() => {
-//         if((!cartContainer.matches(":hover") && !cartContainer.matches(":focus-within"))) {
-//             miniMealCart.classList.add("close")
-//         }
-//     }, itv);
-// }
+let timeout
+miniMealCart.addEventListener("mouseover", () => {
+    clearTimeout(timeout)
+})
+cartContainer.addEventListener("mouseleave", handleCartView)
+document.body.addEventListener("mouseleave", handleCartView)
+function handleCartView() {
+    const itv = 20000
+    timeout = setTimeout(() => {
+        if((!cartContainer.matches(":hover") && !cartContainer.matches(":focus-within"))) {
+            miniMealCart.classList.add("close")
+        }
+    }, itv);
+}
 
 const mcScrollThrottler = new tasteyThrottler
-mcOrderReviewSection.addEventListener("scroll", mcScrollThrottler.throttle(adjustMiniCards,10))
+mcOrderReviewSection.addEventListener("scroll", mcScrollThrottler.throttle(adjustMiniCards,100))
 
 //handling the panning of the food images
 panning(document.querySelectorAll(".mini-cart-tastey-order-image"))

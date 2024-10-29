@@ -381,6 +381,7 @@ mcShoppingBagBtn.onclick = e => {
     e.preventDefault()
     sessionStorage.open_cart = true
     toggleCart()
+    document.querySelector(".mini-meal-cart").classList.add('close')
 }
 
 function toggleMenu() {

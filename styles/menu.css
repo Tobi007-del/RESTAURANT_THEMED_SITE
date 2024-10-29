@@ -212,7 +212,7 @@ main.menu h1 {
     content: '';
     position: absolute;
     height: 100%;
-    width: 40%;
+    width: 35%;
     top: 0;
     background-size: clamp(1rem,25%,7.5rem)!important;
 }
@@ -1396,9 +1396,6 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         }
         .tastey-meal-order:not([data-position$="1"],[data-position$="2"],[data-position$="3"]):after {
             content: attr(data-position) "th";
-        }
-        .tastey-order-text div:first-child {
-            text-align: left;
         }
         .tastey-order-text div:first-child h2 {
             text-align: left;
