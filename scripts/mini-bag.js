@@ -161,7 +161,7 @@ function handleCartView() {
 }
 
 const mcScrollThrottler = new tasteyThrottler
-mcOrderReviewSection.addEventListener("scroll", mcScrollThrottler.throttle(adjustMiniCards,100))
+mcOrderReviewSection.addEventListener("scroll", mcScrollThrottler.throttle(adjustMiniCards,150))
 
 //handling the panning of the food images
 panning(document.querySelectorAll(".mini-cart-tastey-order-image"))

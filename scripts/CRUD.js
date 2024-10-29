@@ -235,9 +235,10 @@ function positionMiniCards() {
 function adjustMiniCards() {
     if(getMiniCardsQuery() && !weakTastey.getEmpty()) {
         for (let i = 0; i < mcTasteyMealOrders.length; i++) {
-            if (mcTasteyMealOrders[i].getBoundingClientRect().top < (remToPx(1.175 + (gap * i)) + mcTasteyMealOrders[i].getBoundingClientRect().height)) {
+            if (mcTasteyMealOrders[i].getBoundingClientRect().top < (remToPx(1.075 + (gap * i)) + mcTasteyMealOrders[i].getBoundingClientRect().height)) {
                 mcTasteyMealOrders[i].style.setProperty('--mini-sticky-scale', `${1 - ((allMeals.length * ((mcTasteyMealOrders.length - i)/mcTasteyMealOrders.length))/950)}`)
-            } else if (mcTasteyMealOrders[i].getBoundingClientRect().top > (remToPx(1.25 + (gap * i)) + mcTasteyMealOrders[i].getBoundingClientRect().height)) {
+            } 
+            if (mcTasteyMealOrders[i].getBoundingClientRect().top > (remToPx(1.075 + (gap * i)) + mcTasteyMealOrders[i].getBoundingClientRect().height)) {
                     mcTasteyMealOrders[i].style.setProperty('--mini-sticky-scale', '1')
             }               
         }
