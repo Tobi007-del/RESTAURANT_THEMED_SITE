@@ -27,7 +27,7 @@ const miniBagQuery = () => {
 // })
 
 // the one-liner below clears the cart immediately for development purposes
-localStorage.clear()
+// localStorage.clear()
 
 //Calculating checkout details
 weakTastey.calculateCheckoutDetails(allMeals)
@@ -264,7 +264,7 @@ function removeMiniCard(id) {
 function setCartStates() {
     const dataCartStates = document.querySelectorAll("[data-cart]")
     const dataMealsState = document.querySelectorAll("[data-meals]")
-    dataCartStates.forEach(dataCartState => {
+    dataCartStates.forEach((dataCartState,i) => {
         dataCartState.dataset.cart = weakTastey.ordersInTotal
     })
     dataMealsState.forEach(mealsState => {
