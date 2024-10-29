@@ -27,7 +27,7 @@ const miniBagQuery = () => {
 // })
 
 // the one-liner below clears the cart immediately for development purposes
-// localStorage.clear()
+localStorage.clear()
 
 //Calculating checkout details
 weakTastey.calculateCheckoutDetails(allMeals)

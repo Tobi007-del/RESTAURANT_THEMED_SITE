@@ -367,7 +367,7 @@ main.menu .main-menu-title-wrapper h3 {
 .tastey-meal::before, .checkout-section::before, .order-number-wrapper::before, .tastey-meal-order::before {
     background: radial-gradient(
         28rem circle at var(--mouse-x) var(--mouse-y),
-        rgba(255,255,255,0.2),
+        rgba(255,255,255,0.1),
         transparent 40%
     );
     z-index: 3;
