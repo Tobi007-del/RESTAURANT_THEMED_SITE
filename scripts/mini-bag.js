@@ -135,8 +135,9 @@ positionMiniCards()
 
 navbarCart.addEventListener("click", () => {
     miniMealCart.classList.toggle("close")
-    setTimeout(positionMiniCards,500)
 })
+navbarCart.addEventListener("click", positionMiniCards)
+navbarCart.addEventListener("pointerover", positionMiniCards)
 closeCartBtn.addEventListener("click", () => {
     miniMealCart.classList.add("close")
 })
@@ -162,7 +163,7 @@ function handleCartView() {
 
 const mcScrollThrottler = new tasteyThrottler
 mcOrderReviewSection.addEventListener("scroll", mcScrollThrottler.throttle(adjustMiniCards,10))
-window.addEventListener("resize",positionMiniCards)
+window.addEventListener("resize", positionMiniCards)
 
 
 //handling the panning of the food images

@@ -114,3 +114,4 @@ function autoRemoveScroller() {
         }
     }, 500);
 }
+document.body.addEventListener('pointerover', autoRemoveScroller)
