@@ -543,7 +543,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 @media only screen and (max-height: 35rem) {
     .mini-meal-cart {
         width: clamp(15rem,90vw,36rem);
-        height: clamp(15rem,calc(100vh - 4rem),17.5rem);
+        height: clamp(15rem,calc(100vh - 4rem),17rem);
     }
     .mini-empty-cart-section {
         height: 11rem;
