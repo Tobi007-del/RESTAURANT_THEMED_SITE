@@ -1615,8 +1615,8 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 
 @media only screen and (max-height: 30rem) {
     aside.menu-cart-toggler-container {
-        height: 60vh;
-        scale: .95;
+        height: 55vh;
+        scale: .9;
     }
     aside.category-switcher-container {
         bottom: 20vh;

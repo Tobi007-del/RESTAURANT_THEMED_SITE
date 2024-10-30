@@ -204,14 +204,14 @@ function getMiniCardsQuery() {
 }
 
 const offset = () => {
-    return pxToRem(mcOrderReviewSection.getBoundingClientRect().height - mcTasteyMealOrders[0].getBoundingClientRect().height) - 4
+    return pxToRem(mcOrderReviewSection?.getBoundingClientRect().height - mcTasteyMealOrders[0]?.getBoundingClientRect().height) - 4
 }
 
 let gap
 function positionMiniCards() {
     if (getMiniCardsQuery() && !weakTastey.getEmpty()) {
         gap = offset() / mcTasteyMealOrders.length    
-        const bottom = pxToRem(mcOrderReviewSection.getBoundingClientRect().height) - (((mcTasteyMealOrders.length * gap)) + pxToRem(mcTasteyMealOrders[0].getBoundingClientRect().height)) 
+        const bottom = pxToRem(mcOrderReviewSection?.getBoundingClientRect().height) - (((mcTasteyMealOrders.length * gap)) + pxToRem(mcTasteyMealOrders[mcTasteyMealOrders.length-1]?.getBoundingClientRect().height)) 
         mcOrderReviewSection.style.setProperty('--mini-bottom', `${bottom}rem`)
         for (let i = 0; i < mcTasteyMealOrders.length; i++) {
             mcTasteyMealOrders[i].style.setProperty('--mini-sticky-top', `${.25+(i*gap)}rem`)

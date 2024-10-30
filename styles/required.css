@@ -546,8 +546,8 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
         height: clamp(15rem,calc(100vh - 4rem),17.5rem);
     }
     .mini-empty-cart-section {
-        background-size: 40%;
-        max-height: 90%;
+        height: 11rem;
+        background: url('../assets/tastey-meal-images/empty-cart.png') center 85%/40% no-repeat;
     }
     .mini-meal-cart:not([data-cart='0'])::before {
         background: radial-gradient(
