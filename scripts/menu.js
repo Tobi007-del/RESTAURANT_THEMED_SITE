@@ -417,10 +417,10 @@ cartToggler.addEventListener('click', toggleCart)
 //using the intersection observer to turn the lights off/on
 const tasteyObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        if(entry.isIntersecting) {
+        if (entry.isIntersecting) {
             document.body.style.setProperty("--global-light-color", "rgba(255,255,255,0.475)")
             document.body.style.setProperty("--global-light-complement-color", "transparent")
-        } else if (!(entry.target.id === "tastey")) {
+        } else if ((tastey.getBoundingClientRect().y < (tasteyOffSetTop - 50)) && (entry.target.id !== "tastey")) {
             document.body.style.setProperty("--global-light-color", "var(--darker-black)")
             document.body.style.setProperty("--global-light-complement-color", "var(--darker-black)")
         }

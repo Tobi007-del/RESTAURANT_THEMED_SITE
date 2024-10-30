@@ -344,7 +344,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     top: 3.2rem;
     right: 0;
     width: clamp(5rem,90vw,22.5rem);
-    height: clamp(5rem,90vh,30rem);
+    height: 30rem;
     border-radius: .5rem;
     background-color: rgba(255, 255, 255, 0.25);
     box-shadow: 2px 2px 2.5rem rgba(255, 255, 255, 0.1);
@@ -431,7 +431,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 2rem;
+    height: 1rem;
     margin-inline: 1.25rem;
 }
 
@@ -519,7 +519,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 .mini-cart-section {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: calc(100% - 3.75rem);
 }
 
 .mini-cart-idle-content {
@@ -529,7 +529,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 
 .mini-cart-order-review-section { 
     background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
-    height: 14.5rem;
+    flex: 0 0 14.5rem;
     width: 100%;
     padding-inline: 1.25rem;
     padding-block-end: .25rem;
@@ -538,6 +538,43 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     gap: .5rem;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+@media only screen and (max-height: 35rem) {
+    .mini-meal-cart {
+        width: clamp(15rem,90vw,36rem);
+        height: clamp(15rem,calc(100vh - 4rem),17.5rem);
+    }
+    .mini-empty-cart-section {
+        background-size: 40%;
+        max-height: 90%;
+    }
+    .mini-meal-cart:not([data-cart='0'])::before {
+        background: radial-gradient(
+            17.5rem circle at 10rem 90%,
+            rgba(255,255,255,0.2),
+            transparent 40%
+        );
+    }
+    .mini-cart-section {
+        flex-direction: row;
+        height: calc(100% - 1rem);
+    }
+    .mini-cart-order-review-section {
+        flex: 0 0 55%;
+    }
+    .mini-cart-order-review-section, .mini-meal-cart .mini-cart-checkout {
+        padding-inline: .75rem;
+    }
+    .mini-meal-cart .mini-cart-checkout-preview {
+        height: 32.5%;
+    }
+    .mini-meal-cart .mini-cart-buttons-wrapper {
+        gap: .65rem;
+    }
+    .mini-meal-cart .mini-cart-checkout .mini-cart-checkout-button {
+        margin-block-end: 7.5%;
+    }
 }
 
 .mini-cart-order-review-section::-webkit-scrollbar {
@@ -794,8 +831,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 .mini-cart-checkout {
     display: flex;
     flex-direction: column;
-    width: calc(100% - 2.5rem);
-    margin-inline: 1.25rem;
+    padding-inline: 1.25rem;
 }
 
 .mini-cart-checkout-preview {

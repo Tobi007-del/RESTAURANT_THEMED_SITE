@@ -75,7 +75,7 @@ function getDOMElements() {
 
 //functions for the Card User Interface that activates on certain conditions
 function getCardsQuery() {
-    return (document.body.classList.contains("cart") && (document.body.dataset.cart != 0) && (window.innerWidth >= remToPx(55)) && (window.innerHeight >= remToPx(35)) && (CSS && CSS.supports('position', 'sticky')))
+    return (document.body.classList.contains("cart") && (document.body.dataset.cart != 0) && (window.innerWidth >= remToPx(55)) && (window.innerHeight >= remToPx(32.55)) && (CSS && CSS.supports('position', 'sticky')))
 }
 
 const liftOffset = () => {return pxToRem(tasteyMealOrders[0].getBoundingClientRect().height) - 6}
@@ -203,12 +203,15 @@ function getMiniCardsQuery() {
     return (CSS && CSS.supports('position', 'sticky'))
 }
 
-const offset = 14.5 - 6.5 - 4
+const offset = () => {
+    return pxToRem(mcOrderReviewSection.getBoundingClientRect().height - mcTasteyMealOrders[0].getBoundingClientRect().height) - 4
+}
+
 let gap
 function positionMiniCards() {
     if (getMiniCardsQuery() && !weakTastey.getEmpty()) {
-        gap = offset / mcTasteyMealOrders.length    
-        const bottom = 14.5 - (((mcTasteyMealOrders.length * gap)) + 6.5) 
+        gap = offset() / mcTasteyMealOrders.length    
+        const bottom = pxToRem(mcOrderReviewSection.getBoundingClientRect().height) - (((mcTasteyMealOrders.length * gap)) + pxToRem(mcTasteyMealOrders[0].getBoundingClientRect().height)) 
         mcOrderReviewSection.style.setProperty('--mini-bottom', `${bottom}rem`)
         for (let i = 0; i < mcTasteyMealOrders.length; i++) {
             mcTasteyMealOrders[i].style.setProperty('--mini-sticky-top', `${.25+(i*gap)}rem`)
@@ -225,7 +228,7 @@ function positionMiniCards() {
                 }
             }
             function moveToCard() {
-                let pos = mcOrderReviewSection.getBoundingClientRect().height - (mcOrderReviewSection.getBoundingClientRect().height - (((mcTasteyMealOrders[i].getBoundingClientRect().height - remToPx(gap) + remToPx(.5)) * (i+1)))) - mcTasteyMealOrders[i].getBoundingClientRect().height
+                let pos = mcOrderReviewSection.getBoundingClientRect().height - (mcOrderReviewSection.getBoundingClientRect().height - (((mcTasteyMealOrders[mcTasteyMealOrders.length-1].getBoundingClientRect().height - remToPx(gap) + remToPx(.5)) * (i+1)))) - mcTasteyMealOrders[mcTasteyMealOrders.length-1].getBoundingClientRect().height
                 scrollContentTo(pos,"smooth",mcOrderReviewSection)
             }
         }
@@ -256,7 +259,7 @@ function removeMiniCard(id) {
             stall = 195            
         }
         const order = document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"]`)        
-        order.animate({transform: `translate(${rand(-10,10)}%, 14rem)`},{duration: stall, fill: "forwards"})
+        order?.animate({transform: `translate(${rand(-10,10)}%, 14rem)`},{duration: stall, fill: "forwards"})
     }
 }
 
