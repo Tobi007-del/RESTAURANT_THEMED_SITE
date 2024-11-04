@@ -42,7 +42,8 @@ html, *::after, *::before, aside, button {
 
 body {
     margin: 0;
-    background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black)
+    background: fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
+    overflow-x: hidden;
 }
 
 body.loading {
@@ -1071,7 +1072,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 }
 
 footer {
-    background: url('/RESTATURANT_THEMED_SITE/assets/tastey-food-themed-backgrounds/dark-food-themed-background-2.png') bottom/cover, var(--darker-black);
+    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-2.png') bottom/cover, var(--darker-black);
     width: 100%;
 }
 

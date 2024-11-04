@@ -697,7 +697,7 @@ function handleCheckout() {
     const title = "Tastey";
     const options = {
         body: `We are sorry :) but checkout is currently unavailable!!! We see you are trying to check out ${weakTastey.ordersInTotal} Tastey orders with a total cost of ${formatValue(data.currency, weakTastey.totalCost)}`,
-        image: `${lastOrderPicSrc}`,
+        image: `${"../" + lastOrderPicSrc}`,
         vibrate: [200, 100, 200, 100, 200, 100, 200],
         tag: "tastey-checkout-notification",
         renotify: true

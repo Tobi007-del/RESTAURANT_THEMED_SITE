@@ -1,7 +1,7 @@
 body {
     color: var(--current-theme-sub-color);
     min-height: 100dvh;
-    width: 100%;
+    width: 100%;    
 }
 
 
@@ -20,7 +20,6 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: linear-gradient(var(--darker-black) 5%, rgb(0,0,0,.05) 65%, var(--darker-black)) ,linear-gradient(to right, #ed8f231f 40%, #ed8f2341), url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') 0 85%/cover no-repeat, var(--darker-black);
     height: 9rem;
     gap: .65rem;
     color: var(--current-theme-sub-color);
@@ -29,6 +28,7 @@ body {
 .archive-content-header-wrapper h2 {
     position: relative;
     font-size: 1.75rem;
+    text-align: center;
 }
 
 .archive-content-header-wrapper h2::after, .archive-content-header-wrapper h2::before {
@@ -120,7 +120,7 @@ body {
 }
 
 .archive-content {
-    flex: 0 1 27.5rem;
+    flex: 0 1 25rem;
     min-width: 17.5rem;
     padding-block-start: 3rem;
     padding-block-end: 1.5rem;
@@ -134,49 +134,11 @@ body {
     padding-inline: 2vw;
 }
 
-.archive-content.visible {
-    border: .05rem solid var(--tastey-brand-light-accent-color);
+.archive-content > * {
+    transition: 250ms ease;
 }
 
-.archive:nth-child(odd) .archive-content {
-    flex-direction: row-reverse;
-}
-
-.archive-time-wrapper {
-    position: absolute;
-    top: 1rem;
-}
-
-.archive-img-wrapper {
-    flex: 0 1 30%;
-    height: 20rem;
-    border-radius: .5rem;
-}
-
-.archive-text-wrapper {
-    flex: 0 1 70%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.archive-text-wrapper h2 {
-    color: var(--main-text-color);
-    font-size: clamp(1.5rem, calc(1.5vw + 1.5vh), 2rem);
-}
-
-.archive-text-wrapper p {
-    color: var(--sub-text-color);
-    font-size: clamp(.8rem, calc(1vw + 1vh), 1rem);
-}
-
-.archive-img-wrapper > img {
-    width: 100%;
-    height: 100%;
-    border-radius: inherit;
-}
-
-.archive-img-wrapper > img:hover {
+/* .archive-content {
   animation: shake 0.5s;
   animation-iteration-count: infinite;
 }
@@ -192,6 +154,64 @@ body {
   80% { transform: translate(-1px, -1px) rotate(1deg); }
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
+} */
+
+.archive-content.visible {
+    border: .05rem solid var(--tastey-brand-light-accent-color);
+}
+
+.archive-content.visible h4 {
+    color: var(--current-theme-sub-color)!important;
+}
+
+.archive-content.visible h2 {
+    color: var(--tastey-brand-accent-color)!important;
+}
+
+.archive-content.visible p {
+    color: var(--main-text-color)!important;
+}
+
+.archive:nth-child(odd) .archive-content {
+    flex-direction: row-reverse;
+}
+
+.archive-time-wrapper {
+    position: absolute;
+    top: 1rem;
+}
+
+.archive-time-wrapper h4 {
+    color: var(--current-theme-fade-color);
+}
+
+.archive-img-wrapper {
+    flex: 0 1 30%;
+    min-height: 20rem;
+    border-radius: .5rem;
+}
+
+.archive-text-wrapper {
+    flex: 0 1 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.archive-text-wrapper h2 {
+    color: var(--main-text-color);
+    font-size: clamp(1.75rem, calc(1.25vw + 1.75vh), 2rem);
+}
+
+.archive-text-wrapper p {
+    color: var(--sub-text-color);
+    font-size: clamp(.85rem, calc(.75vw + 1.25vh), 1rem);
+}
+
+.archive-img-wrapper > img {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
 }
 
 main.about-section {
@@ -515,15 +535,25 @@ main.about-section {
         border-right: 0;
         border-bottom: .1rem solid var(--tastey-brand-light-accent-color);
     }
+    .archive-content-container .archives-content-wrapper {
+        padding-block-start: 0;
+    }
     .archives-content-wrapper .archive {
         margin-block: 2rem;
-        margin-inline: 2vw;
-        padding: 0;
+        margin-inline: 2.5vw;
+        padding-left: 15%;
+        padding-right: 0;
+        flex: 0 0 100%;
+        justify-content: center;
     }
     .archives-content-wrapper .archive .archive-content {
+        min-width: 75%;
         flex-direction: row;
-        gap: .5rem;
+        gap: .75rem;
         text-align: left;
+    }
+    .archive-img-wrapper {
+        min-height: 15rem;
     }
 }
 

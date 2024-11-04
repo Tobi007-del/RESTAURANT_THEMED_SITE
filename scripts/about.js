@@ -1,9 +1,9 @@
 // archive data import
-import archives from './fetch-archives.js'
+import Archives from './fetch-archives.js'
 import { panning } from './utility-functions.js'
 
 const archiveContentWrapper = document.querySelector(".archives-content-wrapper")
-archives.forEach(({ year, imgSrc, event, description }) => {
+Archives.forEach(({ year, imgSrc, event, description }) => {
 archiveContentWrapper.innerHTML += 
 `
                 <div class="archive">
@@ -22,6 +22,11 @@ archiveContentWrapper.innerHTML +=
                 </div>    
 `
 })
+
+const archives = document.querySelectorAll(".archive-content")
+archives[0].classList.add("visible")
+
+// Panning effect for images
 
 panning(document.querySelectorAll('.archive-img-wrapper img'))
 

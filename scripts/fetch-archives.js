@@ -1,4 +1,4 @@
-const archives = fetch('./JSON/tastey_archives.json')
+const Archives = fetch('./JSON/tastey_archives.json')
 .then(response => {
     if(!response.ok) 
         throw new Error(`HTTP error!. Status: ${response.status}`)
@@ -9,4 +9,4 @@ const archives = fetch('./JSON/tastey_archives.json')
     console.warn("Please reload page")
 })
 
-export default await archives
+export default await Archives
