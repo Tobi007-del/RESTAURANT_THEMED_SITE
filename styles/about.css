@@ -235,6 +235,7 @@ main.about-section {
 .about-title-wrapper h2 {
     position: relative;
     width: fit-content;
+    text-align: center;
 }
 
 .about-title-wrapper h2::before, .about-title-wrapper h2::after {
@@ -324,22 +325,26 @@ main.about-section {
     border-right: .1rem solid var(--tastey-brand-light-accent-color);
 }
 
-.reservation-content-wrapper {
+.reservation-content-wrapper-content {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     gap: 2vw;
+    z-index: 1;
+    background-color: var(--current-theme-inverse-transparent-color);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
 }
 
-.reservation-content-wrapper > div:first-child {
+.reservation-content-wrapper-content > div:first-child {
     flex: 0 1 clamp(10rem, 32.5%, 25rem);
 }
 
-.reservation-content-wrapper > div:last-child {
+.reservation-content-wrapper-content > div:last-child {
     flex: 0 1 35rem;
 }
 
-.reservation-content-wrapper > div {
+.reservation-content-wrapper-content > div {
     height: 30rem;
     display: flex;
     flex-direction: column;
@@ -347,26 +352,26 @@ main.about-section {
     justify-content: center;
 }
 
-.reservation-content-wrapper > div h2 {
+.reservation-content-wrapper-content > div h2 {
     font-size: clamp(2.75rem, 4vw, 3.25rem);
     margin: 0;
 }
 
-.reservation-content-wrapper > div p {
+.reservation-content-wrapper-content > div p {
     font-size: clamp(.9rem, 2vw, 1rem);
     line-height: 1.5rem;
     margin: 0;
 }
 
-.reservation-content-wrapper > div:first-of-type {
+.reservation-content-wrapper-content > div:first-of-type {
     font-size: 1rem;
 }
 
-.reservation-content-wrapper > div:last-of-type {
+.reservation-content-wrapper-content > div:last-of-type {
     background: no-repeat url('../assets/tastey-meal-images/reserved.png');
 }
 
-.reservation-content-wrapper > div > div {
+.reservation-content-wrapper-content > div > div {
     display: flex;
     gap: 1rem;
     align-items: center;
@@ -380,13 +385,13 @@ main.about-section {
     font-weight: 600;
 }
 
-.reservation-content-wrapper .reservation-btn {
+.reservation-content-wrapper-content .reservation-btn {
     padding: 1rem;
     padding-inline: 2rem;
     transition: transform 300ms ease-in-out;
 }
 
-.reservation-content-wrapper .reservation-btn:hover {
+.reservation-content-wrapper-content .reservation-btn:hover {
     transform: scale(1.025);
 }
 
@@ -510,7 +515,7 @@ main.about-section {
 }
 
 @media only screen and (max-width: 60rem) {
-    .reservation-content-wrapper > div:first-child {
+    .reservation-content-wrapper-content > div:first-child {
         flex: 0 1 30rem;
         height: fit-content;
         padding: 5rem 2rem 2rem 2rem;
