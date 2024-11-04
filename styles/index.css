@@ -1,0 +1,322 @@
+body {
+    width: 100dvw;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+main {
+    width: 100%;
+    height: 100dvh;
+}
+
+.hero-content-wrapper {
+    position: absolute;
+    margin-left: 15%;
+    width: 30rem;
+    color: var(--current-theme-fade-color);
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-content-wrapper p ,.hero-content-wrapper h1 {
+    margin: 0;
+}
+
+.greeting-wrapper, .welcome-text-wrapper {
+    pointer-events: none;
+}
+
+.greeting-wrapper p {
+    font-size: .75rem;
+    font-weight: 600;
+    word-spacing: .1rem;
+    letter-spacing: .025rem;
+    position: relative;
+    width: fit-content;
+    left: 2.75rem;
+}
+
+.greeting-wrapper p::before {
+    content: '';
+    background-size: 100% .285rem;
+    background-image: linear-gradient(transparent .15rem, var(--tastey-brand-color) .135rem);
+    width: 2rem;
+    position: absolute;
+    top: .1rem;
+    height: .575rem;
+    left: -2.75rem;
+}
+
+.welcome-text-wrapper h1 {
+    font-size: clamp(2rem, 13vh, 5.15rem); 
+}
+
+.welcome-text-wrapper.old-taker h1 {
+    font-size: clamp(2rem, 11vh, 4.75rem);
+}
+
+.welcome-message-wrapper {
+    font-size: clamp(.65rem, 3.5vh,.8rem);
+    word-spacing: .05rem;
+    letter-spacing: .05rem;
+    line-height: 1.25rem;
+    color: var(--current-theme-accent-color);
+}
+
+.welcome-message-wrapper p > span {
+    display: block;
+}
+
+.welcome-message-wrapper p span span {
+    color: var(--tastey-brand-color);
+}
+
+.quick-links-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    pointer-events: all;
+}
+
+.quick-links-wrapper .reservation-btn {
+    padding: 1rem;
+    padding-inline: 2rem;
+    transition: transform 300ms ease-in-out;
+}
+
+.quick-links-wrapper .reservation-btn:hover {
+    transform: scale(1.025);
+}
+
+.open-menu-btn {
+    border: none;
+    background-color: transparent;
+    color: var(--current-theme-sub-color);
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.tastey-meals-carousel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    scroll-snap-type: x mandatory;
+    overflow-x: scroll;
+}
+
+.tastey-meals-carousel.smooth-scroll {
+    scroll-behavior: smooth;
+}
+
+.tastey-meal.smooth-scroll {
+    scroll-behavior: smooth;
+}
+
+.tastey-meals-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.tastey-meal {
+    flex: 0 0 auto;
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: start;
+    background-size: cover!important;
+}
+
+.tastey-meal_one {
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center center, black;
+}
+
+.tastey-meal_two {
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_two.jpg') no-repeat center center, black;
+}
+
+.tastey-meal_three {
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_three.jpg') no-repeat center center, black;
+}
+
+.tastey-meal_four {
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_four.jpg') no-repeat center center, black;
+}
+
+.tastey-meal_five {
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_five.jpg') no-repeat center center, black;
+}
+
+.tastey-meal_six {
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_six.jpg') no-repeat center center, black;
+}
+
+.tastey-meal_seven {
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 35%, transparent, rgba(0,0,0,0.8)), url('../assets/tastey-meal-images/tastey_meal_seven.jpg') no-repeat center center, black;
+}
+
+.tastey-meals-carousel-controls {
+    position: absolute;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    bottom: 2.5rem;
+    margin-left: 7.5%;
+}
+
+.tastey-meals-toggler, .tastey-meals-switcher {
+    flex: 1;
+    display: flex;
+}
+
+.tastey-meals-toggler {
+    justify-content: center;
+    gap: 1rem;
+}
+
+.toggler {
+    width: .5rem;
+    height: .5rem;
+    border: none;
+    border-radius: .25rem;
+    padding: 0;
+    background-color: var(--current-theme-sub-color);
+}
+
+.toggler:hover {
+    cursor: pointer;
+}
+
+.toggler.active {
+    outline: .1rem solid var(--tastey-brand-color);
+    background-color: transparent;
+}
+
+.tastey-meals-switcher {
+    gap: .25rem;
+}
+
+.switcher-arrows {
+    height: 1rem;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    transition: transform 250ms ease;
+}
+
+.switcher-arrows:hover {
+    cursor: pointer;
+}
+
+.switcher-arrows:nth-child(1):hover {
+    transform: scale(1.3) translateX(-.1rem);
+}
+
+.switcher-arrows:nth-child(2):hover {
+    transform: scale(1.3) translateX(.1rem);
+}
+
+.switcher-arrows svg {
+    width: .9rem;
+    height: .9rem;
+    transform: scale(1.1);
+    fill: var(--current-theme-sub-color);
+    transition: transform 250ms ease;
+}
+
+#quick-scroll-wrapper {
+    display: none!important;
+}
+
+@media only screen and (max-height: 12rem) {
+    .tastey-meals-carousel-controls {
+        display: none;
+    }
+}
+
+
+@media only screen and (orientation:landscape) and (max-height: 30rem) {
+    .hero-content-wrapper {
+        width: max-content;
+        gap: 2vh;
+    }
+    .welcome-text-wrapper h1 {
+        width: 100%;
+    }
+    .welcome-message-wrapper p span {
+        display: inline;
+        margin-left: .25rem;
+    }
+    .tastey-meals-carousel-controls {
+        bottom: 5vh;
+        gap: 4rem;
+    }
+    .tastey-meals-switcher {
+        gap: .5rem;
+    }
+    .switcher-arrows svg {
+        height: 1rem;
+        width: 1rem;
+    }
+}
+
+@media only screen and (max-width: 50rem) {
+    .hero-content-wrapper {
+        width: 100%;
+        width: 35.5rem;
+        margin-left: 0;
+        padding-inline-start: 11.5vw;
+    }
+}
+
+@media only screen and (max-width:36rem) {
+    .hero-content-wrapper {
+        padding-inline-start: 5.5vw;
+        padding-inline-end: 15.5vw;
+        width: 100%;
+    } 
+    .welcome-message-wrapper {
+        padding-inline-start: 2.5vw;
+    }
+    .welcome-text-wrapper h1 {
+        font-size: clamp(2rem, 12vh, 4rem);
+    }
+    .welcome-text-wrapper.old-taker h1 {
+        font-size: clamp(2rem, 9vh, 3.85rem);
+    }
+    .tastey-meal_one {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.5)), url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center center, black;
+    }
+    .tastey-meal_two {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.5)), url('../assets/tastey-meal-images/tastey_meal_two.jpg') no-repeat center center, black;
+    }
+    .tastey-meal_three {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.5)), url('../assets/tastey-meal-images/tastey_meal_three.jpg') no-repeat center center, black;
+    }
+    .tastey-meal_four {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.5)), url('../assets/tastey-meal-images/tastey_meal_four.jpg') no-repeat center center, black;
+    }
+    .tastey-meal_five {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.5)), url('../assets/tastey-meal-images/tastey_meal_five.jpg') no-repeat center center, black;
+    }
+    .tastey-meal_six {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.5)), url('../assets/tastey-meal-images/tastey_meal_six.jpg') no-repeat center center, black;
+    }
+    .tastey-meal_seven {
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.5)), url('../assets/tastey-meal-images/tastey_meal_seven.jpg') no-repeat center center, black;
+    }    
+}
+
+@media only screen and (max-width: 28rem) {
+    .tastey-meals-carousel-controls {
+        display: none;
+    }
+}

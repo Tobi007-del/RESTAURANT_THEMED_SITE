@@ -1,6 +1,6 @@
-import { data, allMeals, getDOMElements, positionMiniCards, adjustMiniCards } from "./CRUD.js"
+import { data, allMeals, getDOMElements, handleAddMeal, handleCheckout, positionMiniCards, adjustMiniCards } from "./CRUD.js"
 import { weakTastey } from "./TasteyManager.js"
-import { tasteyThrottler, check, formatValue, panning, positionGradient } from "./utility-functions.js"
+import { tasteyThrottler, check, formatValue, panning, positionGradient, scrollContentTo, remToPx, tasteyDebouncer } from "./utility-functions.js"
 
 tasteyMiniBag(data)
 
@@ -121,13 +121,15 @@ function tasteyMiniBag(data) {
     }
 }
 
+
 //DOM Elements
 const navbarCart = document.querySelector(".navbar-cart"),
 cartContainer = document.querySelector(".cart-container"),
 miniMealCart = document.querySelector(".mini-meal-cart"),
 closeCartBtn = document.querySelector(".close-cart-button"),
 mcShoppingBagBtn = document.querySelector(".mini-cart-shopping-bag-button"),
-mcOrderReviewSection = document.querySelector(".mini-cart-order-review-section")
+mcOrderReviewSection = document.querySelector(".mini-cart-order-review-section"),
+mcCheckoutBtn = document.querySelector(".mini-cart-checkout-button")
 
 //DOM Operations
 getDOMElements()
@@ -147,11 +149,10 @@ mcShoppingBagBtn.addEventListener("click", () => {
 
 //closing the cart automatically when necessary for a better experience and for privacy reasons
 let timeout
-miniMealCart.addEventListener("mouseover", () => {
-    clearTimeout(timeout)
-})
+miniMealCart.addEventListener("mouseover", clearTimeout(timeout))
 cartContainer.addEventListener("mouseleave", handleCartView)
 document.body.addEventListener("mouseleave", handleCartView)
+
 function handleCartView() {
     const itv = 25000
     timeout = setTimeout(() => {
@@ -161,15 +162,21 @@ function handleCartView() {
     }, itv);
 }
 
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") 
+        miniMealCart.classList.add("close")
+})
+
 const mcScrollThrottler = new tasteyThrottler
 mcOrderReviewSection.addEventListener("scroll", mcScrollThrottler.throttle(adjustMiniCards,10))
 window.addEventListener("resize", positionMiniCards)
 
 
 //handling the panning of the food images
-panning(document.querySelectorAll(".mini-cart-tastey-order-image"))
+panning(document.querySelectorAll('.mini-cart-tastey-order-image'))
 
 miniMealCart.onpointermove = e => {
     positionGradient(e,document.querySelector(".mini-meal-cart"))
 }
 
+mcCheckoutBtn.addEventListener("click", handleCheckout)

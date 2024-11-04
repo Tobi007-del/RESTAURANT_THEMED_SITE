@@ -1,9 +1,12 @@
-import data from "./fetch.js"
-import { Tastey, weakTastey } from "./TasteyManager.js"
-import { check, formatValue, panning, scrollContentTo, remToPx, pxToRem, rand, syncScrollToBottom } from "./utility-functions.js"
-import { autoRemoveScroller } from "./build-scroller.js"
+// TODO: TOAST NOTIFICATIONS AND INDEXED DB
 
-export { data, meals, allMeals, getDOMElements, handleAddMeal, handleClearCart, handleLikes, getCardsQuery, positionCards, adjustCards, positionMiniCards, adjustMiniCards } 
+import data from "./fetch-meals.js"
+import { Tastey, weakTastey } from "./TasteyManager.js"
+import { check, formatValue, panning, scrollContentTo, remToPx, pxToRem, rand } from "./utility-functions.js"
+import { autoRemoveScroller } from "./build-scroller.js"
+import { notificationQuery } from "./service-worker-helper.js"
+
+export { data, meals, allMeals, getDOMElements, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards, positionMiniCards, adjustMiniCards } 
 
 //Getting necessary data
 const meals = data.tasteyMeals,
@@ -30,7 +33,7 @@ const miniBagQuery = () => {
 // localStorage.clear()
 
 //Calculating checkout details
-weakTastey.calculateCheckoutDetails(allMeals)
+weakTastey.calculateCheckoutDetails(allMeals, data.currency)
 
 //DOM Elements
 let likeIconWrappers,orderReviewSectionContent,wishlistTogglers,tasteyMeals,tasteyMealsImages,tasteyMealOrders,tasteyOrderImages,addToCartBtns,deleteOrderBtns,plusCartBtns,minusCartBtns,checkoutSection,cartNumberElement,mealsNumberElement,actualPriceElement,totalDiscountElement,savedElement,totalPriceElement,TOTALCOSTElement,mcOrderReviewSection,mcTasteyMealOrders,mcTasteyOrderImages,mcWishlistTogglers,mcDeleteOrderBtns,mcPlusCartBtns,mcMinusCartBtns,mcActualPriceElement,mcTOTALCOSTElement
@@ -187,7 +190,6 @@ function removeExtras() {
 
 function removeAllCards() {
     if (getCardsQuery() && !weakTastey.getEmpty()) {
-        syncScrollToBottom("instant")
         const allTasteyMealOrders = document.querySelectorAll(".tastey-meal-order")   
         removeExtras()
         allTasteyMealOrders.forEach((order,i) => {
@@ -217,9 +219,8 @@ function positionMiniCards() {
             mcTasteyMealOrders[i].style.setProperty('--mini-sticky-top', `${.25+(i*gap)}rem`)
             const buttons = mcTasteyMealOrders[i].querySelectorAll("button")
             mcTasteyMealOrders[i].onclick = e => {
-                if (document.activeElement.tagName.toLowerCase() !== "button") {
+                if (document.activeElement.tagName.toLowerCase() !== "button") 
                     moveToCard()
-                }
             }
             for (const button of buttons) {
                 button.onfocus = () => {
@@ -462,11 +463,12 @@ function deleteMeal(id,n) {
 
 //a function for updating the checkout state
 function setCheckoutState() {
+    // #TASTEY CRUD - R
     if (bagQuery()) {
         cartNumberElement.textContent = weakTastey.ordersInTotal
         mealsNumberElement.textContent = weakTastey.tasteyMeals
         actualPriceElement.textContent = formatValue(data.currency, weakTastey.actualAmount)
-        totalDiscountElement.textContent = "-" + weakTastey.totalDiscountPercentage + "%"
+        totalDiscountElement.textContent = '-' + weakTastey.totalDiscountPercentage + '%'
         savedElement.textContent = formatValue(data.currency, weakTastey.savedAmount)
         totalPriceElement.textContent = formatValue(data.currency, weakTastey.totalAmount)
         TOTALCOSTElement.textContent = formatValue(data.currency, weakTastey.totalCost)
@@ -484,7 +486,7 @@ function resetBagEventListeners() {
             wishlistTogglers[i].onclick = () => {
                 handleWishlist(Number(tasteyMealOrders[i]?.dataset.id),i)      
             }
-            tasteyOrderImages[i].ondblclick = tasteyOrderImages[i].fn = () => {
+            tasteyOrderImages[i].ondblclick = () => {
                 handleWishlist(Number(tasteyMealOrders[i]?.dataset.id),i)  
             }
             deleteOrderBtns[i].onclick = () => {
@@ -505,7 +507,7 @@ function resetBagEventListeners() {
             mcWishlistTogglers[i].onclick = () => {
                 handleWishlist(Number(mcTasteyMealOrders[i]?.dataset.id),i)      
             }
-            mcTasteyOrderImages[i].ondblclick = mcTasteyOrderImages[i].fn = () => {
+            mcTasteyOrderImages[i].ondblclick =  () => {
                 handleWishlist(Number(mcTasteyMealOrders[i]?.dataset.id),i)  
             }
             mcDeleteOrderBtns[i].onclick = () => {
@@ -537,7 +539,7 @@ function setMinusHoverState(i) {
 
 //a function to handle updating general states
 function updateStates(id) {
-    weakTastey.calculateCheckoutDetails(allMeals)
+    weakTastey.calculateCheckoutDetails(allMeals, data.currency)
     setCartStates()
     setPositionStates()
     setOrderStates(id)
@@ -615,7 +617,7 @@ function clearCart() {
     }
     // #TASTEY CRUD - D
     Tastey.clearCart()
-    weakTastey.calculateCheckoutDetails(allMeals)
+    weakTastey.calculateCheckoutDetails(allMeals, data.currency)
     setCheckoutState()
     setCartStates()
     allMeals.forEach(({ id }) => setOrderStates(id))
@@ -687,3 +689,19 @@ function handleWishlist(likeId,i) {
         console.error(err)
     }
 }
+
+function handleCheckout() {
+    const id = weakTastey.tasteyRecord.tasteyOrders[weakTastey.tasteyMeals - 1].id
+    const meal = allMeals.find(meal => meal.id === id)
+    const { picSrc: lastOrderPicSrc } = meal 
+    const title = "Tastey";
+    const options = {
+        body: `We are sorry :) but checkout is currently unavailable!!! We see you are trying to check out ${weakTastey.ordersInTotal} Tastey orders with a total cost of ${formatValue(data.currency, weakTastey.totalCost)}`,
+        image: `${lastOrderPicSrc}`,
+        vibrate: [200, 100, 200, 100, 200, 100, 200],
+        tag: "tastey-checkout-notification",
+        renotify: true
+    }
+    notificationQuery(title, options)
+}
+

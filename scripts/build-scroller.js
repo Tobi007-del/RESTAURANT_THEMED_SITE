@@ -1,5 +1,5 @@
 import { Tastey } from "./TasteyManager.js"
-import { syncScrollToTop, syncScrollToBottom, tasteyThrottler, tasteyDebouncer } from "./utility-functions.js"
+import { syncScrollToTop, syncScrollToBottom, tasteyThrottler, tasteyDebouncer, remToPx } from "./utility-functions.js"
 export { autoRemoveScroller, quickScrollShow, quickScrolls, removeScrolls }
 
 (function buildScroller() {
@@ -93,6 +93,12 @@ function onscroll() {
     if (isReachBottom || isReachTop) {
         quickScroll.style.display = "flex"
     }
+    if ((window.innerWidth >= remToPx(36)) && (window.innerHeight >= remToPx(30))) {
+        if (isReachTop) 
+            document.querySelector('nav').classList.remove('top')
+        else 
+            document.querySelector('nav').classList.add('top')
+    }
     drawOnScroll()
 }
 
@@ -100,18 +106,15 @@ function onscroll() {
 const scrollThrottler = new tasteyThrottler
 const scrollDebouncer = new tasteyDebouncer
 window.addEventListener("scroll", scrollThrottler.throttle(onscroll), 10)   
-window.addEventListener("scroll", scrollDebouncer.debounce(onscroll), 500)
+window.addEventListener("scroll", scrollDebouncer.debounce(onscroll), 150)
 window.addEventListener("resize", autoRemoveScroller)
 
 //a function to remove the scroller when necessary
 function autoRemoveScroller() {
-    setTimeout(() => {
-        const difference = document.documentElement.scrollHeight - window.innerHeight
-        if (Number(difference) == 0) {
-            quickScroll.style.display = "none"
-        } else {
-            quickScroll.style.display = "flex"
-        }
-    }, 500);
+    const difference = document.documentElement.scrollHeight - window.innerHeight
+    if (Number(difference) == 0) {
+        quickScroll.style.display = "none"
+    } else {
+        quickScroll.style.display = "flex"
+    }
 }
-document.body.addEventListener('pointerover', autoRemoveScroller)

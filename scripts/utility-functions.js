@@ -86,11 +86,20 @@ const clamp = (min, amount, max) => {
     return Math.min(Math.max(amount, min), max)
 }
 
-function scrollContentTo(ordinate, behavior="smooth", parent = document.documentElement) {
-    parent.scrollTo({
-        top: ordinate,
-        behavior: behavior
-    })
+function scrollContentTo(value, behavior="smooth", parent = document.documentElement, orientation = "vertical") {
+    switch(orientation) {
+        case "horizontal":
+            parent.scrollTo({
+                left: value,
+                behavior: behavior
+            })
+        break 
+        default: 
+            parent.scrollTo({
+                top: value,
+                behavior: behavior
+            })
+    }
 }
 
 function asyncScrollToTop(behavior = "smooth", delay = 0, parent = document.documentElement) {        
@@ -128,6 +137,9 @@ function syncScrollToBottom(behavior = "smooth", parent = document.documentEleme
 //A function to handle panning of images
 function panning(elements) {
     for (const element of elements) {
+        element.style.cursor = "move"
+        element.style.objectFit = "cover"
+        element.style.objectPosition = "0% 0%"
         element.dataset.xPointerDownAt = 0
         element.dataset.xPrevPercentage = 0
         element.dataset.yPointerDownAt = 0

@@ -2,8 +2,14 @@
     box-sizing: border-box;
 }
 
+img, button, .navigation-section {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 :root {
     --tastey-brand-color: #ed8f23;
+    --tastey-brand-transparent-color: #ed8f2385;
     --tastey-brand-accent-color: #eb9634;
     --tastey-brand-light-accent-color: #f0ad5f;
     --current-theme-main-color: wheat;
@@ -13,6 +19,7 @@
     --current-theme-transparent-color: rgba(255, 255, 255, 0.15);
     --current-theme-inverse-color: black;
     --current-theme-inverse-accent-color: rgba(0, 0, 0, 0.75);
+    --current-theme-inverse-transparent-color: rgba(0, 0, 0, 0.1);
     --lighter-black: rgb(20,20,20);
     --darker-black: rgb(15,15,15);
     --main-text-color: lightgrey;
@@ -24,13 +31,31 @@
 }
 
 html {
-    font-family: Arial, Helvetica, sans-serif;
     scroll-behavior: smooth;
     overflow-x: hidden;
 }
 
+html, *::after, *::before, aside, button {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
+    background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black)
+}
+
+body.loading {
+    background: fixed radial-gradient(35rem circle at center 14rem, rgba(255,255,255,0.475), transparent 40%), fixed center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), fixed no-repeat center 10.5rem url('../assets/tastey-meal-images/tastey_preloader.gif'), fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
+    height: 100vh;
+}
+
+body.loading > *:not(nav) {
+    display: none!important;
+}
+
+footer.delay {
+    display: none!important;
 }
 
 *:focus-visible {
@@ -47,47 +72,6 @@ a {
 
 a:hover {
     cursor: pointer;
-}
-
-/* For mobile phones: */
-[class*="col-"] {
-    width: 100%;
-}
-  
-/* Small devices (portrait tablets and large phones - 600px and up) */
-@media only screen and (min-width: 37.5rem) {
-    .col-s-1 {width: 8.33%;}
-    .col-s-2 {width: 16.66%;}
-    .col-s-3 {width: 25%;}
-    .col-s-4 {width: 33.33%;}
-    .col-s-5 {width: 41.66%;}
-    .col-s-6 {width: 50%;}
-    .col-s-7 {width: 58.33%;}
-    .col-s-8 {width: 66.66%;}
-    .col-s-9 {width: 75%;}
-    .col-s-10 {width: 83.33%;}
-    .col-s-11 {width: 91.66%;}
-    .col-s-12 {width: 100%;}
-}
-
-/* Medium devices (landscape tablets and laptops/desktops - 768px and up) */
-@media only screen and (min-width: 48rem) {
-    .col-1 {width: 8.33%;}
-    .col-2 {width: 16.66%;}
-    .col-3 {width: 25%;}
-    .col-4 {width: 33.33%;}
-    .col-5 {width: 41.66%;}
-    .col-6 {width: 50%;}
-    .col-7 {width: 58.33%;}
-    .col-8 {width: 66.66%;}
-    .col-9 {width: 75%;}
-    .col-10 {width: 83.33%;}
-    .col-11 {width: 91.66%;}
-    .col-12 {width: 100%;}
-}
-
-.smooth-scroll {
-    scroll-behavior: smooth!important;
 }
 
 .Tastey-text {
@@ -121,7 +105,7 @@ nav {
     left: 1.25%;
     height: 3rem;
     position: fixed;
-    top: .5rem;
+    top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -129,6 +113,18 @@ nav {
     border-radius: .5rem;
     z-index: 5;
     color: var(--current-theme-inverse-color);
+    transition: 450ms ease;
+}
+
+@media only screen and (min-width: 36rem) and (min-height: 30rem) {
+    nav {
+        transform: translateY(.5rem);
+    }
+
+    nav.top {
+        transform: translateY(0);
+        border-radius: 0 0 .5rem .5rem;
+    }
 }
 
 .navigation-section {
@@ -213,6 +209,7 @@ nav {
 .reservation-btn { 
     background-color: var(--tastey-brand-accent-color);
     border: none;
+    width: fit-content;
     padding: .65rem;
     padding-inline: 1rem;
     font-size: .75rem;
@@ -251,15 +248,6 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart {
 
 nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button {
     display: none;
-}
-
-@media only screen and (min-width: 70rem) and (min-height: 30rem) {
-    nav .cart-container:hover .mini-meal-cart {
-        display: flex;
-    }
-    nav .cart-container:hover .mini-meal-cart.close .close-cart-button {
-        display: none;
-    }
 }
 
 .Cart {
@@ -382,7 +370,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 }
 
 .mini-meal-cart-content {
-    background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-6.png'), var(--lighter-black);
+    background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--lighter-black);
     border-radius: inherit;
     position: absolute;
     inset: .035rem;
@@ -395,7 +383,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 }
 
 .mini-meal-cart[data-cart='0'] .mini-meal-cart-content {
-    background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--lighter-black);
+    background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-2.png'), var(--lighter-black);
 }
 
 .mini-meal-cart[data-cart='0'] {
@@ -528,7 +516,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 }
 
 .mini-cart-order-review-section { 
-    background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
+    background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-2.png'), var(--darker-black);
     flex: 0 0 14.5rem;
     width: 100%;
     padding-inline: 1.25rem;
@@ -610,15 +598,15 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     display: flex;
     align-items: center;
     position: relative;
+    background: var(--tastey-brand-accent-color);
+    border-radius: .25rem;
 }
 
 .mini-cart-tastey-order-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     text-align: center;
-    object-position: 0% 0%;
-    border-radius: .25rem;
+    border-radius: inherit;
 }
 
 .mini-cart-tastey-order-image-wrapper::after {
@@ -632,10 +620,6 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     margin-block-start: .1rem;
     background: radial-gradient(1.75rem circle at center, rgba(255,255,255,0.25), transparent 20%), url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center center/cover;
     pointer-events: none;
-}
-
-.mini-cart-tastey-order-image:hover {
-    cursor: move;
 }
 
 .mini-cart-tastey-order-info p, .mini-cart-tastey-order-info h5 {
@@ -1086,6 +1070,378 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
   background-color: red;
 }
 
+footer {
+    background: url('/RESTATURANT_THEMED_SITE/assets/tastey-food-themed-backgrounds/dark-food-themed-background-2.png') bottom/cover, var(--darker-black);
+    width: 100%;
+}
+
+.footer-content {
+    -webkit-backdrop-filter: 5px;
+    backdrop-filter: blur(5px);
+    background: var(--current-theme-inverse-transparent-color);
+    display: flex;
+    flex-direction: column;
+    padding-block-start: 3.5rem;
+    padding-block-end: 1rem;
+    padding-inline: 2vw;
+    z-index: 1;
+    gap: 2rem;
+}
+
+.footer-top-section {
+    display: flex;
+    flex-flow: row wrap;
+    column-gap: 1rem;
+    row-gap: 2.5rem;
+    justify-content: space-between;
+}
+
+.footer-top-section > div {
+    width: 25rem;
+    max-width: 100vw;
+    flex: 1 1 20rem;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding-inline: 2vw;
+    gap: 1.25rem;
+}
+
+.footer-top-section p, .footer-top-section h2 {
+    margin: 0;
+}
+
+.footer-top-section h2 {
+    font-size: 1.35rem;
+    color: var(--main-text-color);
+}
+
+.footer-top-section p, .footer-top-section a {
+    font-size: .95rem;
+    color: var(--sub-text-color);
+}
+
+.footer-top-section .see-more, .footer-top-section .view-bag {
+    color: var(--tastey-brand-light-accent-color);
+    position: relative;
+    width: fit-content;
+}
+
+.view-bag::after {
+    content: '\00BB';
+    position: absolute; 
+    font-size: 1.5rem;
+    top: -.45rem;
+    left: calc(100% + .25rem);
+    transition: transform 0s ease;
+}
+
+.view-bag:hover::after {
+    transform: scale(1.25);
+    transition: transform 0.25s ease;
+}
+
+.footer-top-section .see-more:hover, .view-bag:hover {
+    color: var(--tastey-brand-accent-color);
+}
+
+.footer-top-section .see-more:hover, .view-bag:hover {
+    text-decoration: underline;
+}
+
+.footer-top-section .see-more::after {
+    content: '\2716';
+    position: absolute;
+    margin-left: .5rem;
+    scale: .8;
+    bottom: 0;
+    rotate: 45deg;
+}
+
+.footer-top-section .see-more:hover::after {
+    rotate: 135deg;
+    transition: rotate 500ms ease;
+}
+
+.footer-contact-section div {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.footer-contact-section div > a > span:nth-of-type(2) {
+    text-decoration: underline;
+}
+
+.footer-contact-section div > a > span > icon {
+    margin-right: .2rem;
+}
+
+.footer-contact-section a {
+    display: block;
+}
+
+.footer-top-section .footer-special-section {
+    gap: 0;
+}
+
+.footer-special-section h2, .footer-special-section p {
+    margin-bottom: 1rem;
+}
+
+.offers-container {
+    position: relative;
+}
+
+.footer-arrow-container {
+    position: absolute;
+    z-index: 1;
+    top: 1rem;
+    height: 4rem;
+    width: 2rem;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+}
+
+.footer-arrow-container > svg {
+    height: 100%;
+    width: 2rem;
+    fill: var(--current-theme-inverse-accent-colorcolor);
+    opacity: .75;
+    transition: 300ms ease;
+}
+
+.footer-arrow-container > svg:hover {
+    cursor: pointer;
+    scale: 1.1;
+    opacity: 1;
+}
+
+.left-arrow:hover {
+    animation: backward-push 250ms ease;
+}
+@keyframes backward-push {
+    from, to {
+        translate: -.1rem;
+    } 50% {
+        translate: 0;
+    }
+}
+
+.right-arrow:hover {
+    animation: forward-push 250ms ease;
+}
+@keyframes forward-push {
+    from, to {
+        translate: .1rem;
+    } 50% {
+        translate: 0;
+    }
+}
+
+.footer-arrow-container:nth-of-type(2) {
+    right: 0;
+}
+
+.offers-imgs-wrapper {
+    display: flex;
+    gap: .6rem;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.offers-imgs-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.footer-tastey-meal {
+    flex: 0 0 5rem;
+    width: 5rem;
+    height: 10rem;
+    padding-block: .5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-tastey-meal a {
+    background: var(--tastey-brand-color);
+    width: inherit;
+    height: 4.65rem;
+    position: relative;
+    border-radius: .25rem;
+}
+
+.footer-tastey-meal a:not([data-discount="0"])::after {
+    content: '-'attr(data-discount) '%';
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: .6rem;
+    color: var(--current-theme-fade-color);
+    background-color: var(--soft-red);
+    min-width: 1.35rem;
+    height: 1.35rem;
+    padding-inline: .075rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scale: .9;
+    transition: 250ms ease-in-out;
+}
+
+.footer-tastey-meal:hover a:not([data-discount="0"])::after {
+    scale: 1;
+    color: var(--current-theme-sub-color);
+}
+
+.footer-tastey-meal a img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 0% 0%;
+    text-align: center;
+    border-radius: inherit;
+    cursor: move;
+} 
+
+.footer-tastey-meal > p {
+    color: var(--attractive-color);
+    opacity: .9;
+    font-size: .85rem;
+    text-align: center;
+    margin-block: .15rem;
+}
+
+.footer-tastey-meal:hover > p {
+    opacity: 1;
+}
+
+.footer-add-to-cart-button {
+    border: none;
+    width: 100%;
+    height: 1.35rem;
+    margin: 0;
+    padding: 0;
+    border-radius: .25rem;
+    background-color: var(--tastey-brand-accent-color);
+    color: var(--current-theme-fade-color);
+    font-size: .75rem;
+    font-weight: bold;
+    position: relative;
+}
+
+.footer-add-to-cart-button:hover {
+    cursor: pointer;
+    background-color: var(--tastey-brand-color);
+    color: var(--current-theme-sub-color);
+}
+
+.footer-add-to-cart-button:hover {
+    font-size: .775rem;
+}
+
+.footer-add-to-cart-button:not([data-orders="0"])::after {
+    position: absolute;
+    content: attr(data-orders) ' in Shopping Bag';
+    width: 100%;
+    text-align: center;
+    left: 0;
+    top: 100%;
+    font-size: .6rem;
+    color: var(--sub-text-color);
+}
+
+.view-bag {
+    margin-left: 2rem;
+}
+
+.footer-bottom-section {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.footer-rights-section {
+    font-size: .85rem;
+    color: var(--current-theme-accent-color);
+}
+
+.footer-rights-section p span {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.footer-social-section {
+    display: flex;
+    gap: .5rem;
+}
+
+.footer-social-section a {
+    padding: .25rem;
+}
+
+.footer-social-section a icon {
+    height: 2.5rem;
+    width: 2.5rem;
+    background: #1a1a1a;
+    line-height: 2.5rem;
+    text-align: center;
+    font-size: 1rem;
+    border-radius: .3rem;
+    transition: 300ms ease;
+}
+
+.fa-facebook:hover {
+    color: #4267B2;
+    background: white;
+}
+
+.fa-twitter:hover {
+    background: #00acee;
+}
+
+.fa-instagram:hover {
+    background: linear-gradient(to right, #f9ce34, #ee2a7b,#6228d7);
+}
+
+.fa-youtube:hover {
+    color: #f12020;
+    background: white;
+}
+
+@media only screen and (min-width: 70rem) and (min-height: 30rem) {
+    nav .cart-container:hover .mini-meal-cart {
+        display: flex;
+    }
+    nav .cart-container:hover .mini-meal-cart.close .close-cart-button {
+        display: none;
+    }
+    .mini-cart-top-section button {
+        position: absolute;
+        top: -.85rem;
+        right: -2.5rem;
+        background-color: var(--darker-black);
+        border: .05px solid var(--sub-text-color);
+        justify-content: center;
+        align-items: center;
+        height: 1.5rem;
+        width: 1.5rem;
+        border-radius: 50%;
+    }
+    .mini-cart-top-section button:hover {
+        background-color: var(--soft-red);
+    }
+    .mini-cart-top-section button:hover svg {
+        fill: var(--darker-black);
+    }
+    #quick-scroll-wrapper:hover #quick-scrolls {
+        pointer-events: all;
+        width: 4.25rem;
+        opacity: 1;        
+    }
+}
 
 @media only screen and (max-width: 50rem) {
     nav {
@@ -1114,17 +1470,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
         --hamburger-height: calc(var(--bar-height) * 3 + var(--bar-gap) * 2);
     }
     nav {
-        top: 0;
-    }
-    nav::before {
-        display: none;
-    }
-    nav,nav::after {
-        border-radius: 0;
-        left: 0;
-    }
-    nav::after {
-        width: 100%;
+        border-radius: 0 0 .5rem .5rem;
     }
     .company-name-section, .user-service-section {
         width: 50%;
@@ -1238,18 +1584,45 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     .hamburger-icon:has(input:checked) + .navigation-section {
         translate: 0vw;
     }
+    #quick-scroll-show svg, #to-top svg, #to-bottom svg {
+        fill: var(--current-theme-inverse-color);
+    }
+    #remove-quick-scrolls {
+        background-color: red;
+    }
+    #remove-quick-scrolls svg {
+        fill: var(--current-theme-sub-color);
+    }
+    .footer-bottom-section {
+        justify-content: center;
+    }
+    .footer-social-section .fa-facebook {
+        color: #4267B2;
+        background: white;
+    }
+    .footer-social-section .fa-twitter {
+        background: #00acee;
+    }
+    .footer-social-section .fa-instagram {
+        background: linear-gradient(to right, #f9ce34, #ee2a7b,#6228d7);
+    }
+    .footer-social-section .fa-youtube {
+        color: #f12020;
+        background: white;
+    }    
 }
 
 @media only screen and (max-height: 30rem) {
     nav {
         width: 100%;
         left: 0;
-        top: 0;
-        border-radius: 0;
-    }
-    nav::after {
-        border-radius: 0;
-        left: 0;
-        width: 100%;
+        border-radius: 0 0 .5rem .5rem;
     }    
+    #quick-scroll-wrapper {
+        bottom: 5vh;
+        scale: .8;
+    } 
+    #quick-scrolls {
+        justify-content: center;
+    }
 }

@@ -7,16 +7,12 @@
 
 body {
     width: 100%;
-    background: fixed radial-gradient(var(--global-light-width) circle at var(--global-mouse-x) var(--global-mouse-y), var(--global-light-color), var(--global-light-complement-color) 40%), fixed center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-6.png'), var(--darker-black);
+    background: fixed radial-gradient(var(--global-light-width) circle at var(--global-mouse-x) var(--global-mouse-y), var(--global-light-color), var(--global-light-complement-color) 40%), fixed center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
     overflow-x: hidden;
 }
 
 body.cart {
-    background: fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
-}
-
-body.cart[data-cart='0'] {
-    background: fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
+    background: fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-2.png'), var(--darker-black);
 }
 
 body.cart::after {
@@ -24,25 +20,15 @@ body.cart::after {
 }
 
 body.cart aside.category-switcher-container {
-    display: none!important;
+    display: none;
 }
 
 body:not(.cart) main.meal-cart, body.cart main.menu {
-    display: none!important;
+    display: none;
 }
 
 body.cart main.meal-cart, body:not(.cart) main.menu{
-    display: block!important;
-}
-
-nav::after {
-    content: '';
-    position: absolute;
-    width: 100vw;
-    height: .5rem;
-    bottom: 100%;
-    left: -1.25vw;
-    background-color: var(--current-theme-inverse-color);
+    display: block;
 }
 
 aside.menu-cart-toggler-container, aside.category-switcher-container {
@@ -58,7 +44,8 @@ aside.menu-cart-toggler-container, aside.category-switcher-container {
 }
 
 aside.menu-cart-toggler-container {
-    bottom: 10vh;
+    top: calc(50vh + 1.5rem);
+    transform: translateY(-50%);
     height: 75vh;
     left: .5rem;
 }
@@ -93,8 +80,7 @@ aside:hover, aside:has(:focus-visible) {
 }
 
 aside:hover .icon, aside:hover .switcher-icon, aside:has(:focus-visible) .icon, aside:has(:focus-visible) .switcher-icon {
-    width: 1.5rem;
-    height: 1.5rem;
+   scale: .75;
 }
 
 aside:hover .toggler div p, aside:hover .switcher div p, aside:has(:focus-visible) .toggler div p, aside:has(:focus-visible) .switcher div p {
@@ -134,11 +120,6 @@ aside:hover .toggler div p, aside:hover .switcher div p, aside:has(:focus-visibl
     cursor: pointer;
 }
 
-.main-cart {
-    display: flex;
-    align-items: center;
-}
-
 body.cart .cart-toggler, body:not(.cart) .menu-toggler, .toggler:hover, .switcher.active, .switcher:hover, .toggler:focus-visible, .switcher:focus-visible {
     background-color: var(--tastey-brand-color);  
 }
@@ -147,16 +128,23 @@ body.cart .cart-toggler, body:not(.cart) .menu-toggler, .switcher.active {
     border: .13rem solid var(--current-theme-inverse-color);
 }
 
-.toggler:hover .icon, .switcher:hover .icon, aside:hover .icon {
-    opacity: 1;
+.toggler:hover .icon, .switcher:hover .switcher-icon, .toggler.active .icon, .switcher.active .switcher-icon, .toggler:focus .icon, .switcher:focus .switcher-icon {
+    opacity: 1!important;
 }
 
 .icon, .switcher-icon, .switcher-icon path {
     fill: var(--current-theme-inverse-color);
-    width: 2rem;
-    height: 2rem;
     opacity: 0.8;
     transition: 200ms ease;
+}
+
+.icon {
+    width: 2rem;
+    height: 2rem;
+}
+
+.switcher-icon {
+    height: clamp(1.5rem,calc(1.75vh + 1.25vw),2rem);
 }
 
 .toggler div p, .switcher div p {
@@ -190,7 +178,6 @@ main {
 
 main.menu p, main.menu h1, main.menu h3 {
     text-align: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 main.menu h1 {
@@ -225,36 +212,24 @@ main.menu h1 {
     right: 0;
 }
 
-.tastey-menu-title-wrapper.starters::after {
+.tastey-menu-title-wrapper.starters::after, .tastey-menu-title-wrapper.starters::before {
     background: url('../assets/tastey-meal-icons/fast-food-svgrepo-com.svg') no-repeat center;
 } 
 
-.tastey-menu-title-wrapper.starters::before {
-    background: url('../assets/tastey-meal-icons/fast-food-2-svgrepo-com.svg') no-repeat center;
-}
-
-.tastey-menu-title-wrapper.main-meals::after {
+.tastey-menu-title-wrapper.main-meals::after, .tastey-menu-title-wrapper.main-meals::before {
     background: url('../assets/tastey-meal-icons/food-dish-svgrepo-com.svg') no-repeat center;
 }
 
-.tastey-menu-title-wrapper.main-meals::before {
-    background: url('../assets/tastey-meal-icons/food-dish-2-svgrepo-com.svg') no-repeat center;
-}
-
-.tastey-menu-title-wrapper.drinks::after {
+.tastey-menu-title-wrapper.drinks::after, .tastey-menu-title-wrapper.drinks::before {
     background: url('../assets/tastey-meal-icons/glass-drinks-svgrepo-com.svg') no-repeat center;
 }
 
-.tastey-menu-title-wrapper.drinks::before {
-    background: url('../assets/tastey-meal-icons/glass-drinks-2-svgrepo-com.svg') no-repeat center;
-}
-
-.tastey-menu-title-wrapper.desserts::after {
+.tastey-menu-title-wrapper.desserts::after, .tastey-menu-title-wrapper.desserts::before {
     background: url('../assets/tastey-meal-icons/ice-cream-svgrepo-com.svg') no-repeat center;
 }
 
-.tastey-menu-title-wrapper.desserts::before {
-    background: url('../assets/tastey-meal-icons/ice-cream-2-svgrepo-com.svg') no-repeat center;
+.tastey-menu-title-wrapper.starters::before, .tastey-menu-title-wrapper.main-meals::before, .tastey-menu-title-wrapper.drinks::before, .tastey-menu-title-wrapper.desserts::before {
+    transform: scaleX(-1);
 }
 
 .tastey-menu-title-wrapper h1 {
@@ -289,6 +264,7 @@ main.menu .main-menu-title-wrapper h3 {
     height: 10rem;
     opacity: 1;
 }
+
 .magic-star {
     --size: clamp(20px,1.5vw,30px);
     display: block;
@@ -307,6 +283,7 @@ main.menu .main-menu-title-wrapper h3 {
         transform: scale(1);
     }
 }
+
 .magic-star > svg {
     display: block;
     opacity: 0.7;
@@ -320,6 +297,7 @@ main.menu .main-menu-title-wrapper h3 {
         transform: rotate(180deg);
     }
 }
+
 .magic-star > svg > path {
     fill: var(--attractive-color);
 }
@@ -406,7 +384,6 @@ main.menu .main-menu-title-wrapper h3 {
     gap: 1rem;
     justify-content: flex-end;
     background: var(--tastey-brand-accent-color);
-    cursor: pointer;
     position: relative;
 }
 
@@ -421,12 +398,6 @@ main.menu .main-menu-title-wrapper h3 {
     height: 100%;
     border-radius: inherit;
     text-align: center;
-    object-fit: cover;
-    object-position: 0% 0%;
-}
-
-.tastey-meal-image:hover, .tastey-order-image:hover {
-    cursor: move;
 }
 
 .tastey-meal-image-wrapper::after, .tastey-order-image-wrapper::after {
@@ -444,18 +415,17 @@ main.menu .main-menu-title-wrapper h3 {
 
 .tooltip-text {
     visibility: hidden;
-    min-width: 8rem;
-    height: fit-content;
     background: var(--tastey-brand-light-accent-color);
     color: var(--current-theme-sub-color);
-    text-align: center;
     border-radius: .25rem;
     position: absolute;
     pointer-events: none;
     z-index: 1;
     padding: .25rem;
     bottom: calc(100% + 0.3rem);
-    left: calc(50% - 4rem);
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
     opacity: 0;
     transition: opacity 300ms;
 }
@@ -464,7 +434,8 @@ main.menu .main-menu-title-wrapper h3 {
     content: '';
     position: absolute;
     top: 100%;
-    left: calc(50% - .175rem);
+    left: 50%;
+    transform: translateX(-50%);
     border-width: .35rem;
     border-style: solid;
     border-color: var(--tastey-brand-light-accent-color) transparent transparent transparent;
@@ -534,6 +505,8 @@ main.menu .main-menu-title-wrapper h3 {
     justify-content: center;
     align-items: end;
     color: var(--tastey-brand-color);
+    -webkit-user-select: none;
+    user-select: none;
 } 
 
 .menu-sections .tastey-menu-title-wrapper {
@@ -580,7 +553,7 @@ main.menu .main-menu-title-wrapper h3 {
 .attention-grabber-two span {
     position: relative;
     height: 15rem;
-    background: url('../assets/tastey-meal-images/attention-grabber-three.png') no-repeat center center;
+    background: url('../assets/tastey-meal-images/attention-grabber-two.png') no-repeat center center;
     background-size: cover;
 }
 
@@ -721,7 +694,7 @@ main.meal-cart:not([data-cart = '0']) {
     position: absolute;
 }
 
-body.cart main.meal-cart[data-cart = '0'] {
+main.meal-cart[data-cart = '0'] {
     padding-block-end: 5rem;
 }
 
@@ -1253,7 +1226,6 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     content: ' ('attr(data-cart) ' orders)';
 }
 
-
 @media only screen and (max-width: 70rem) {
     .attention-grabber, .attention-grabber-two {
         display: none;
@@ -1267,8 +1239,8 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         gap: 0;
     }
     .tastey-order-image-wrapper {
-        min-width: 32.5%;
-        height: 13.5rem;
+        min-width: 11rem;
+        height: 14rem;
         margin-block: auto;
     }
     .tastey-order-text div:first-child {
@@ -1305,11 +1277,6 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     .tastey-meal-image-wrapper:hover .heart-icon-wrapper, .tastey-meal:has(:focus-visible) .heart-icon-wrapper, .tastey-meal[data-like="true"] .heart-icon-wrapper {
         opacity: 1;
         transform: translateY(0);
-    }
-    #quick-scroll-wrapper:hover #quick-scrolls {
-        pointer-events: all;
-        width: 4.25rem;
-        opacity: 1;        
     }
 }
 
@@ -1351,6 +1318,9 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         }
         .order-number-wrapper {
             scale: var(--sticky-scale) 1;
+        }
+        .order-number-wrapper .order-number {
+            position: relative;
         }
         .tastey-meal-order {
             top: var(--sticky-top);
@@ -1440,7 +1410,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
 }
 
-@media only screen and (max-width: 42rem) {
+@media only screen and (max-width: 46.25rem) {
     main.meal-cart {
         justify-content: center;
     }
@@ -1475,6 +1445,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         width: 95%!important;
         height: 2.5rem!important;
         scale: 1!important;
+        transform: translateY(0)!important;
         left: 2.5%;
         flex-flow: row nowrap;
     }
@@ -1485,7 +1456,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         width: 3rem!important;
     }
     aside.category-switcher-container, #quick-scroll-wrapper {
-        right: .15rem;
+        right: .25rem;
     }
     aside::after {
         display: none!important;
@@ -1517,12 +1488,11 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         font-size: 1rem;
     }
     .switcher div p {
-        font-size: .6rem;
+        font-size: .55rem;
     }
     .toggler .icon, .switcher .switcher-icon {
         opacity: 1;
-        width: 2rem!important;
-        height: 2rem!important;
+        scale: 1!important;
         display: flex;
         align-items: center!important;
     }
@@ -1571,15 +1541,6 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     body[data-cart="0"] main.meal-cart {
         padding-inline: 0;
     }
-    #quick-scroll-show svg, #to-top svg, #to-bottom svg {
-        fill: var(--current-theme-inverse-color);
-    }
-    #remove-quick-scrolls {
-        background-color: red;
-    }
-    #remove-quick-scrolls svg {
-        fill: var(--current-theme-sub-color);
-    }
 }
 
 @media only screen and (max-width: 20rem) {
@@ -1606,7 +1567,6 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
 }
 
-
 @media only screen and (max-height: 32.5rem) {
     .order-preview:last-child {
         display: none;
@@ -1625,19 +1585,11 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     .toggler div p {
         margin: 0;
     }
+    aside:hover .switcher .switcher-icon {
+        scale: 1;
+    }
     .switcher div p {
         display: none;
-    }
-    .switcher-icon {
-        width: 1.5rem;
-        height: 1.5rem
-    }
-    #quick-scroll-wrapper {
-        bottom: 5vh;
-        scale: .8;
-    } 
-    #quick-scrolls {
-        justify-content: center;
     }
 }
 
@@ -1657,6 +1609,12 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 }
 
 @media(max-height: 15rem) {
+    aside:hover .toggler .icon {
+        scale: 1;
+    }
+    aside .toggler div p {
+        display: none;
+    }
     aside.category-switcher-container {
         display: none;
     }

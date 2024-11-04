@@ -1,5 +1,53 @@
-import { round, check} from "./utility-functions.js"
 export { Tastey, weakTastey }
+
+import { notificationQuery } from "./service-worker-helper.js"
+import { round, check, formatValue, rand} from "./utility-functions.js"
+
+//a loading page implementation
+window.addEventListener('load', () => {
+    document.body.classList.remove("loading")
+})
+
+if (!sessionStorage.is_this_first_visit_to_Tastey) {
+    sessionStorage.is_this_first_visit_to_Tastey = true
+    window.addEventListener('load', displayWelcomeNotification)
+}
+
+function displayWelcomeNotification() {
+    let randomImgSrc
+    switch(rand(1,6)) {
+        case 2:
+            randomImgSrc = "/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_two.jpg"
+            break
+        case 3: 
+            randomImgSrc = "/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_three.jpg"
+            break
+        case 4:
+            randomImgSrc = "/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_four.jpg"
+            break
+        case 5:
+            randomImgSrc = "/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_five.jpg"
+            break
+        case 6:
+            randomImgSrc = "/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_six.jpg"
+            break
+        case 7: 
+            randomImgSrc = "/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_seven.jpg"
+            break
+        default:
+            randomImgSrc = "/RESTATURANT_THEMED_SITE/assets/tastey-meal-images/tastey_meal_one.jpg" 
+    }
+    // FT for "First Timer" & OT for "Old Taker"
+    const welcomeMssg = !sessionStorage.tastey_friendship_log && localStorage.tastey_friendship_log ? "Hello, Old Friend!, Welcome back to Tastey" : "Hello, New Friend!, Welcome to Tastey"
+    const title = "Tastey"
+    const options = {
+        body: `${welcomeMssg}. Wanna tease your taste buds?, try a Tastey meal now!`,
+        image: randomImgSrc,
+        tag: "tastey-welcome-notification",
+        renotify: true
+    }
+    notificationQuery(title, options)
+}
 
 //A Class to handle all major Tastey operations
 class TasteyManager {
@@ -59,7 +107,7 @@ class TasteyManager {
         }
     }
 
-    calculateCheckoutDetails(arr) {
+    calculateCheckoutDetails(arr, curr) {
         try {
             this.tasteyMeals = this.tasteyRecord.tasteyOrders.length
             this.ordersInTotal = this.tasteyRecord.tasteyOrders.reduce((count,meal) => count + meal.orders,0)
@@ -76,11 +124,12 @@ class TasteyManager {
             console.log(`%c
             Orders in total: ${this.ordersInTotal}\n 
             Tastey meals: ${this.tasteyMeals}\n
-            ActualAmount: ${this.actualAmount}\n
-            Total Amount: ${this.totalAmount}\n
-            Saved: ${this.savedAmount}\n
-            Total Discount: ${this.totalDiscountPercentage}%\n
-            Total Cost: ${this.totalCost}
+            Actual Amount: ${formatValue(curr, this.actualAmount)}\n
+            Total Discount: -${weakTastey.totalDiscountPercentage}%\n
+            Saved: ${formatValue(curr, this.savedAmount)}\n
+            Total Amount: ${formatValue(curr, this.totalAmount)}\n
+            VAT: +${this.VAT}\n
+            Total Cost: ${formatValue(curr, this.totalCost)}
             `,"color: green; font-weight: bold; font-size: large;")            
         } catch (error) {
             console.error(`Error calculating checkout details: ${error}`)

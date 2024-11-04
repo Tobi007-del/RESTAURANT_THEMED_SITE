@@ -1,5 +1,5 @@
 //module imports
-import { data, meals, allMeals, getDOMElements, handleAddMeal, handleClearCart, handleLikes, getCardsQuery, positionCards, adjustCards } from "./CRUD.js"
+import { data, meals, allMeals, getDOMElements, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards } from "./CRUD.js"
 import { weakTastey } from "./TasteyManager.js"
 import { tasteyThrottler, tasteyDebouncer, check, formatValue, clamp , panning, scrollContentTo, remToPx, syncScrollToTop, positionGradient, stars } from "./utility-functions.js"
 import { autoRemoveScroller, quickScrollShow, removeScrolls, quickScrolls } from "./build-scroller.js"
@@ -11,43 +11,7 @@ tasteyMenu(data)
 tasteyBag(data)
 
 function tasteyMenu(data){
-    const main = document.createElement("main");
-    main.classList.add("menu")
-    main.innerHTML += 
-        `
-        <div class="attention-grabber">
-            <p>You really haven't tasted food this goated!</p>
-            <span></span>
-        </div>
-        <div class="attention-grabber-two">
-            <span></span>
-            <p>Meals that are guaranteed to leave a mark.</p>
-        </div>
-        <div class="main-menu-title-wrapper">
-            <span id="magic">
-                <span class="magic-star">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
-                </span>
-                <span class="magic-star">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
-                </span>
-                <span class="magic-star">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
-                </span>
-                <span class="magic-star">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
-                </span>
-                <span class="magic-star">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
-                </span>
-                <span class="magic-star">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
-                </span>
-            <h3 class="main-menu-title">Our <span id="tastey">Tastey</span> Menu</h3>
-            </span>
-        </div>
-        `
-    
+    const main = document.querySelector('main.menu')
     meals.forEach(meal => {
         const product = Object.keys(meal)[0]
         const productName = meal[product][0].category
@@ -80,7 +44,7 @@ function tasteyMenu(data){
                                 <p class="food-description">${description}</p>
                             </div>
                             <div class="price-container">
-                                <button type="button" class="add-to-cart-button" title="Add to Shopping Bag" data-id='${id}' data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}">Add to Bag</button>
+                                <button type="button" class="add-to-cart-button" title="Add ${label} to Bag" data-id="${id}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}">Add to Bag</button>
                                 <span class="product-price" data-discount="${price.discount ?? 0}">${formatValue(data.currency,check(price.currentValue,price.discount))}</span>
                             </div>
                         </div>
@@ -91,27 +55,16 @@ function tasteyMenu(data){
         menuSection.append(menuContainer)
         main.append(menuSection)
     })  
-    //Appeding the Tastey Menu to the body
-    document.body.append(main)
 }
 
 
  function tasteyBag(data) {
     try {
-        const main = document.createElement("main")
+        const main = document.querySelector('main.meal-cart')
         main.classList.add("meal-cart")
         main.dataset.cart = "0"
         main.innerHTML += 
         `
-            <div class="cart-title-wrapper">
-                <h3>Your Shopping Bag</h3>
-            </div>
-            <div class="empty-cart-section">
-                <div class="empty-cart-text">
-                    <h2>No <span class="Tastey-text">Tastey</span> orders yet!</h2>
-                    <p>Click <a type="button" class="continue-shopping-button" href="menu.html" title="Continue Shopping">here</a> to continue shopping</p>
-                </div>
-            </div>
             <div class="cart-section">
                 <div class="checkout-section">
                     <div class="checkout-section-content">
@@ -183,9 +136,6 @@ function tasteyMenu(data){
             </div>
         `        
 
-        //Appending the Tastey Bag to the body
-        document.body.append(main)
-
         const orderReviewSectionContent = document.querySelector(".order-review-section-content")
     
         weakTastey.tasteyRecord.tasteyOrders?.forEach(({ id,orders }) => {
@@ -252,7 +202,6 @@ function tasteyMenu(data){
     }
 }
 
-
 //DOM Elements
 const tastey = document.getElementById("tastey"),
 attentionGrabber = document.querySelector(".attention-grabber"),
@@ -270,7 +219,8 @@ mcShoppingBtn = document.querySelector(".mini-cart-continue-shopping-button"),
 mcShoppingBagBtn = document.querySelector(".mini-cart-shopping-bag-button"),
 cartToggler = document.querySelector(".cart-toggler"),
 addToCartBtns = document.querySelectorAll(".add-to-cart-button"),
-clearCartBtn = document.querySelector(".clear-cart-btn")
+clearCartBtn = document.querySelector(".clear-cart-btn"),
+checkoutBtn = document.querySelector(".checkout-btn")
 
 
 //DOM operations
@@ -291,12 +241,12 @@ function getOrderIndex(id){
 }
 
 addToCartBtns.forEach(btn => {
-    btn.addEventListener('click', e => {
-        handleAddMeal(Number(e.target.dataset.id),getOrderIndex(Number(e.target.dataset.id)))
-    })
+    btn.onclick = e => handleAddMeal(Number(e.target.dataset.id),getOrderIndex(Number(e.target.dataset.id)))
 })
 
 clearCartBtn.addEventListener('click', handleClearCart)
+
+checkoutBtn.addEventListener('click', handleCheckout)
 
 likeIconWrappers.forEach((likeIconWrapper,i) => {
     likeIconWrapper.addEventListener('click', () => {
@@ -350,7 +300,7 @@ const scrollDebouncer = new tasteyDebouncer
 //window event listeners
 window.addEventListener("resize",positionCards)
 window.addEventListener("scroll", scrollThrottler.throttle(onPageScroll,10))   
-window.addEventListener("scroll", scrollDebouncer.debounce(onPageScroll,150))
+window.addEventListener("scroll", scrollDebouncer.debounce(onPageScroll,250))
 
 quickScrollShow.addEventListener('click', ()=>{
     categorySwitcherContainer.classList.toggle('show')
@@ -413,19 +363,18 @@ if (sessionStorage.open_cart) {
 menuToggler.addEventListener('click', toggleMenu)
 cartToggler.addEventListener('click', toggleCart)
 
-
 //using the intersection observer to turn the lights off/on
 const tasteyObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             document.body.style.setProperty("--global-light-color", "rgba(255,255,255,0.475)")
             document.body.style.setProperty("--global-light-complement-color", "transparent")
-        } else if ((tastey.getBoundingClientRect().y < (tasteyOffSetTop - 50)) && (entry.target.id !== "tastey")) {
+        } else if ((tastey.getBoundingClientRect().bottom < 0) && (entry.target.id !== "tastey")) {
             document.body.style.setProperty("--global-light-color", "var(--darker-black)")
             document.body.style.setProperty("--global-light-complement-color", "var(--darker-black)")
         }
     })
-},{root:null,rootMargin:'0px',threshold:[.2,.4,.6,.8,1]})
+},{root:null,rootMargin:'0px',threshold:[0,.5,1]})
 menuHeaders.forEach(worthy => {
     tasteyObserver.observe(worthy)
 })

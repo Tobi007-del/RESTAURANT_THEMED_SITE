@@ -19,21 +19,16 @@
        <meta property="twitter:title" content="The Tastey Restaurant">
        <meta property="twitter:description" content="Wanna tease your taste buds, try a Tastey meal now!...">
     <title>Tastey</title>
-    <!-- Preloading all Tastey food images for the carousel, whether it is right or not -->
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/tastey-meal-icons/tastey-icon.jpeg">
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="assets/tastey-meal-icons/tastey-icon.jpeg">
     <link rel="preload" href="assets/tastey-meal-images/tastey_meal_one.jpg" as="image" type="image/jpg">
-    <link rel="preload" href="assets/tastey-meal-images/tastey_meal_two.jpg" as="image" type="image/jpg">
-    <link rel="preload" href="assets/tastey-meal-images/tastey_meal_three.jpg" as="image" type="image/jpg">
-    <link rel="preload" href="assets/tastey-meal-images/tastey_meal_four.jpg" as="image" type="image/jpg">
-    <link rel="preload" href="assets/tastey-meal-images/tastey_meal_five.jpg" as="image" type="image/jpg">
-    <link rel="preload" href="assets/tastey-meal-images/tastey_meal_six.jpg" as="image" type="image/jpg">
-    <link rel="preload" href="assets/tastey-meal-images/tastey_meal_seven.jpg" as="image" type="image/jpg">
+    <link rel="preload" href="assets/tastey-meal-images/tastey_preloader.gif" as="image" type="image/jpg">
+    <link rel="preload" href="assets/tastey-meal-icons/tastey-icon.png" as="image" type="image/jpg">
     <link rel="stylesheet" href="styles/required.css">
-    <link rel="stylesheet" href="styles/home-page.css">
+    <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/scroll-bar.css">
 </head>
-<body data-cart="0" data-mini-bag="true">
-    <nav class="row Tastey-blur">
+<body class="loading" data-cart="0" data-mini-bag="true">
+    <nav class="Tastey-blur">
         <div class="company-name-section">
             <div class="tastey-logo"></div>
             <div>
@@ -75,10 +70,10 @@
                 </a>
                 <div class="cart-container">
                     <button type="button" title="Shopping Bag" class="navbar-cart Cart" data-cart="0">
-                        <svg class="cart-icon" viewBox="0 -960 960 960">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="cart-icon" viewBox="0 -960 960 960">
                             <path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"/>
                         </svg>
-                        <svg class="cart-icon empty" viewBox="0 -960 960 960">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="cart-icon empty" viewBox="0 -960 960 960">
                             <path d="M200-80q-33 0-56.5-23.5T120-160v-480q0-33 23.5-56.5T200-720h80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720h80q33 0 56.5 23.5T840-640v480q0 33-23.5 56.5T760-80H200Zm0-80h560v-480H200v480Zm280-240q83 0 141.5-58.5T680-600h-80q0 50-35 85t-85 35q-50 0-85-35t-35-85h-80q0 83 58.5 141.5T480-400ZM360-720h240q0-50-35-85t-85-35q-50 0-85 35t-35 85ZM200-160v-480 480Z"/>
                         </svg>
                     </button>
@@ -87,7 +82,7 @@
         </div>
     </nav>
 
-    <main class="row">
+    <main>
         <div class="hero-content-wrapper">
             <div class="greeting-wrapper">
                 <p>HELLO, <span class="friendship"></span> FRIEND!</p>
@@ -109,18 +104,18 @@
         </div>
         <script defer="defer">
             (function() {
-                if (!localStorage.friendshipLog) {
-                    sessionStorage.friendshipLog = "FT"
+                if (!localStorage.tastey_friendship_log) {
+                    sessionStorage.tastey_friendship_log = "FT"
                 } 
-                localStorage.friendshipLog = "OT"
-                if (!sessionStorage.friendshipLog && localStorage.friendshipLog) {
+                localStorage.tastey_friendship_log = "OT"
+                if (!sessionStorage.tastey_friendship_log && localStorage.tastey_friendship_log) {
                     document.querySelector(".friendship").textContent = "OLD"
                     document.querySelector(".welcome-text-wrapper h1").textContent = "Welcome back to Tastey"
-                    document.querySelector(".welcome-text-wrapper").classList.add("old-timer")
+                    document.querySelector(".welcome-text-wrapper").classList.add("old-taker")
                 } else {
                     document.querySelector(".friendship").textContent = "NEW"   
                 }
-                // FT for "First Timer" OT for "Old Taker"
+                // FT for "First Timer" & OT for "Old Taker"
             })()
         </script>
         <div class="tastey-meals-carousel" role="group" aria-label="Tastey meals Carousel" aria-roledescription="carousel" aria-atomic="false" aria-live="off">
@@ -144,16 +139,60 @@
             </div>
             <div class="tastey-meals-switcher" aria-label="Move slides" role="group">
                 <button type="button" title="Previous" class="switcher-arrows bwd-arrow" aria-label="previous slide">
-                    <svg viewBox="0 -960 960 960"><path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z"/></svg>
                 </button>
                 <button type="button" title="Next" class="switcher-arrows fwd-arrow" aria-label="next slide">
-                    <svg viewBox="0 -960 960 960"><path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z"/></svg>
                 </button>
             </div>
         </div>
     </main>
     
-    <script src="scripts/home-page.js"></script>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-top-section">
+                <div class="footer-about-section">
+                    <h2>About us</h2>
+                    <p>
+                        At Tastey's, we believe in creating a truly unique dining experience. Wanna know what makes us Tastey... Then make a reservation and come have a wonderful evening with that special person.
+                    </p>
+                    <a href="about.html" title="See more about Tastey" class="see-more">READ MORE</a>
+                </div>
+                <div class="footer-contact-section">
+                    <h2>Contact info</h2>
+                    <div>
+                        <a href="tel: +2349052425395"><span><icon class="fas fa-envelope"></icon></span>Call: <span>+234 905 242 5395</span></a>
+                        <a href="tobioketade007@gmail.com"><span><icon class="fas fa-phone-alt"></icon></span>Email: <span>info@tastey.com</span></a>
+                        <p><span><icon class="fa-solid fa-location-dot"></icon></span>Address: 123 Main St, City, State, Zip</p>
+                    </div>
+                    <a href="contact.html" title="Contact us at Tastey" class="see-more">SEE MORE</a>
+                </div>
+                <div class="footer-special-section">
+                    <h2>Special Offers</h2>
+                    <p>
+                        Check out our special offers and discounts.
+                    </p>
+                    <div>
+                        <a href="menu.html" title="See more on our menu" class="see-more">SEE MORE</a>
+                        <a href="menu.html" class="view-bag" title="View Shopping Bag">VIEW BAG</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom-section">
+                <div class="footer-rights-section">
+                    <p>© 2024 <span>Tastey.</span> All rights reserved.</p>
+                </div>
+                <div class="footer-social-section">
+                    <a href="#"  title="Tastey Facebook handle"><icon class="fab fa-facebook"></icon></a>
+                    <a href="#"  title="Tastey Twitter handle"><icon class="fab fa-twitter"></icon></a>
+                    <a href="#"  title="Tastey Instagram handle"><icon class="fab fa-instagram"></icon></a>
+                    <a href="#"  title="Tastey YouTube handle"><icon class="fab fa-youtube"></icon></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="scripts/index.js"></script>
     <script type="module" src="scripts/mini-bag.js"></script>
+    <script type="module" src="scripts/footer.js"></script>
 </body>
 </html>

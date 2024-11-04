@@ -1,0 +1,249 @@
+:root {
+    --brand-color : var(--tastey-brand-color);
+    --neutral-controls-background: rgba(0,0,0,.25);
+    --neutral-darker-controls-background: rgba(0,0,0,.75);
+    --controls-background: var(--tastey-brand-transparent-color);
+}
+
+.audio-container {
+    --controls-size: 25px;
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+
+.audio-container svg {
+    width: var(--controls-size);
+    height: var(--controls-size);
+}
+
+.audio-container svg path {
+    fill: var(--current-theme-sub-color);
+}
+
+.audio-controls-container {
+    display: flex;
+    flex-direction: column;
+    height: 3.5rem;
+    margin-block: 1rem;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--darker-black);
+    border-radius: .25rem;
+    position: relative;
+}
+
+.audio-controls-container > div {
+    display: flex;
+    padding-inline: calc(var(--controls-size)/1.75);
+    align-items: center;
+    width: 100%;
+    gap: calc(var(--controls-size)/1.5);    
+}
+
+.audio-controls-container > div:first-of-type {
+    justify-content: space-between;
+    height: 100%;
+}
+
+.audio-controls-container > div:last-of-type {
+    position: absolute;
+    bottom: .3rem;
+    height: 1rem;
+}
+
+.audio-controls-container > div button {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    height: var(--controls-size);
+    width: var(--controls-size);
+    font-size: calc(var(--controls-size)/1.5); 
+    cursor: pointer;
+    opacity: .85;
+    transition: opacity 150ms ease-in-out;    
+}
+
+.audio-controls-container > div button:hover {
+    opacity: 1;
+    scale: 1.05;
+}
+
+.audio-container.paused .audio-pause-icon, .audio-container:not(.paused):not(.replay) .audio-play-icon, .audio-container.replay .audio-pause-icon, .audio-container:not(.replay) .audio-replay-icon  {
+    display: none;
+}
+
+.audio-container.paused:not(.replay) .audio-play-icon {
+    display: block;
+}
+
+.audio-container.replay .audio-replay-icon {
+    display: block;
+}
+
+.audio-volume-high-icon,
+.audio-volume-low-icon,
+.audio-volume-muted-icon {
+    display: none;
+}
+
+.audio-container[data-volume-level = "high"] .audio-volume-high-icon {
+    display: block;
+}
+
+.audio-container[data-volume-level = "low"] .audio-volume-low-icon {
+    display: block;
+}
+
+.audio-container[data-volume-level = "muted"] .audio-volume-muted-icon {
+    display: block;
+}
+
+.audio-volume-container {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--controls-size)/5);
+}
+
+.audio-volume-slider {
+    width: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+    max-width: calc(var(--controls-size)*2.4);
+    position: relative;
+    transition: width 150ms ease-in-out, transform 150ms ease-in-out;
+    -moz-appearance: none; 
+    -ms-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background: linear-gradient(to right, var(--current-theme-sub-color) var(--audio-volume-percent), rgba(100, 100, 100, 0.75) 1%);
+    cursor:grabbing;
+    border-radius: calc(var(--controls-size)/8.3);
+    box-shadow: 1px 1px 10px black;
+}
+
+.audio-volume-slider:focus {
+    outline-offset: calc(var(--controls-size)/3.57);
+}
+
+/* input[type="range"]::-moz-range-track,  */
+input[type="range"]::-webkit-slider-runnable-track {
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    height: calc(var(--controls-size)/5);
+}
+
+/* input[type="range"]::-moz-range-thumb, */
+input[type="range"]::-webkit-slider-thumb {
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--current-theme-sub-color);
+    height: calc(var(--controls-size)/1.67);
+    width: calc(var(--controls-size)/5);
+    margin-top: calc(var(--controls-size)/-5);
+}
+
+.audio-volume-slider::after {
+    content: attr(data-volume);
+    position: absolute;
+    top: calc(var(--controls-size)/2.27);
+    width: calc(var(--controls-size)/1.04);
+    text-align: center;
+    font-size: calc(var(--controls-size)/2);
+    transform: translateX(calc(-50% + calc(var(--controls-size)/10)));
+    left: var(--audio-volume-position);
+    color: var(--current-theme-sub-color);
+    display: none;
+}
+
+.audio-volume-slider:hover::after {
+    display: block;
+}
+
+.audio-volume-slider:focus-within::after{
+    display: block;
+}
+
+.audio-volume-container:hover .audio-volume-slider,
+.audio-volume-slider:focus-within {
+    width: calc(var(--controls-size)*2.4);
+    transform: scaleX(1);
+}
+
+.audio-duration-container {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--controls-size)/5);
+    color: var(--current-theme-sub-color);
+    font-size: calc(var(--controls-size)/1.75);
+}
+
+.audio-timeline-container {
+    height: calc(var(--controls-size)/3);
+    margin-inline: calc(var(--controls-size)/2);
+    flex-grow: 1;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    touch-action: none;
+}
+
+.audio-container.seeking .audio-timeline-container {
+    cursor: grabbing;
+}
+
+.audio-timeline {
+    background-color: rgba(100, 100, 100, .5);
+    height: calc(var(--controls-size)/6);
+    width: 100%;
+    position: relative;
+}
+
+.audio-timeline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: calc(100% - var(--audio-progress-position) * 100%);
+    background-color: var(--brand-color);
+}
+
+.audio-timeline .audio-thumb-indicator {
+    --scale: 0;
+    position: absolute;
+    height: 300%;
+    top: -100%;
+    left: calc(var(--audio-progress-position) * 100%);
+    background-color: var(--brand-color);
+    border-radius: 50%;
+    transition: transform 150ms ease-in-out;
+    aspect-ratio: 1 / 1;
+    transform: translateX(-50%) scale(var(--scale));
+}
+
+.audio-container.scrubbing .audio-thumb-indicator,
+.audio-timeline-container:hover .audio-thumb-indicator {
+    --scale: 1;
+} 
+
+@media(max-width: 600px) {
+    .audio-container {
+        --controls-size: 22.5px;
+    }
+    .audio-timeline-container {
+        height: calc(var(--controls-size)/3);
+    }
+    .audio-timeline {
+        height: calc(var(--controls-size)/5);
+    }
+    .audio-timeline .audio-thumb-indicator {
+        --scale: 1!important;
+    }
+}

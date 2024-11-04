@@ -1,0 +1,542 @@
+body {
+    color: var(--current-theme-sub-color);
+    min-height: 100dvh;
+    width: 100%;
+}
+
+
+.archive-content-container {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+}
+
+.archive-content-container * {
+    padding: 0;
+    margin: 0;
+}
+
+.archive-content-header-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(var(--darker-black) 5%, rgb(0,0,0,.05) 65%, var(--darker-black)) ,linear-gradient(to right, #ed8f231f 40%, #ed8f2341), url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') 0 85%/cover no-repeat, var(--darker-black);
+    height: 9rem;
+    gap: .65rem;
+    color: var(--current-theme-sub-color);
+}
+
+.archive-content-header-wrapper h2 {
+    position: relative;
+    font-size: 1.75rem;
+}
+
+.archive-content-header-wrapper h2::after, .archive-content-header-wrapper h2::before {
+    content: '';
+    position: absolute;
+    width: 2rem;
+    height: 250%;
+    background-color: #ed8f2381;
+}
+
+.archive-content-header-wrapper h2::after {
+    left: calc(100% - 0.475rem);
+    transform: skewY(-55deg) translateY(-1rem) translateX(1rem);
+}
+
+.archive-content-header-wrapper h2::before {
+    right: calc(100% + 2.525rem);
+    transform: skewY(-55deg) translateY(-1rem) translateX(1rem);
+}
+
+.archive-content-header-wrapper h5 {
+    position: relative;
+}
+
+.archive-content-header-wrapper h5::before, .archive-content-header-wrapper h5::after {
+    content: '';
+    background-size: 100% .225rem;
+    background-image: linear-gradient(transparent .125rem, var(--tastey-brand-color) .1rem);
+    width: 2rem;
+    position: absolute;
+    top: .25rem;
+    height: .45rem;
+}
+
+.archive-content-header-wrapper h5::before {
+    left: -2.75rem;
+}
+
+.archive-content-header-wrapper h5::after {
+    right: -2.75rem;
+}
+
+.archive-content-sub-header-wrapper {
+    padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.archive-content-sub-header-wrapper h3 {
+    color: var(--main-text-color);
+}
+
+.archive-content-sub-header-wrapper p {
+    max-width: 40rem;
+    color: var(--sub-text-color);
+    padding-inline: 2rem;
+}
+
+.archives-content-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+    padding-block: 2rem;
+    padding-inline: 1.5rem;
+}
+
+.archive {
+    flex: 0 0 50%;
+    display: flex;
+}
+
+.archive:nth-child(odd) {
+    margin-block-end: 7.5rem;
+    padding-right: 3rem;
+    text-align: right;
+    justify-content: end;
+}
+
+.archive:nth-child(even) {
+    margin-block-start: 7.5rem;
+    text-align: left;
+    padding-left: 3rem;
+    padding-right: 0;
+    justify-content: start;
+}
+
+.archive-content {
+    flex: 0 1 27.5rem;
+    min-width: 17.5rem;
+    padding-block-start: 3rem;
+    padding-block-end: 1.5rem;
+    display: flex;
+    z-index: 1;
+    background-color: var(--current-theme-inverse-transparent-color);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    border-radius: .5rem;
+    gap: 1vw;
+    padding-inline: 2vw;
+}
+
+.archive-content.visible {
+    border: .05rem solid var(--tastey-brand-light-accent-color);
+}
+
+.archive:nth-child(odd) .archive-content {
+    flex-direction: row-reverse;
+}
+
+.archive-time-wrapper {
+    position: absolute;
+    top: 1rem;
+}
+
+.archive-img-wrapper {
+    flex: 0 1 30%;
+    height: 20rem;
+    border-radius: .5rem;
+}
+
+.archive-text-wrapper {
+    flex: 0 1 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.archive-text-wrapper h2 {
+    color: var(--main-text-color);
+    font-size: clamp(1.5rem, calc(1.5vw + 1.5vh), 2rem);
+}
+
+.archive-text-wrapper p {
+    color: var(--sub-text-color);
+    font-size: clamp(.8rem, calc(1vw + 1vh), 1rem);
+}
+
+.archive-img-wrapper > img {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+}
+
+.archive-img-wrapper > img:hover {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+main.about-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.video-content-wrapper {
+    margin-block-end: 2rem;
+}
+
+.about-title-wrapper {
+    padding: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-title-wrapper h2 {
+    position: relative;
+    width: fit-content;
+}
+
+.about-title-wrapper h2::before, .about-title-wrapper h2::after {
+    content: '';
+    background-size: 100% .285rem;
+    background-image: linear-gradient(transparent .15rem, var(--tastey-brand-color) .135rem);
+    width: 2rem;
+    position: absolute;
+    top: .5rem;
+    height: .575rem;
+}
+
+.about-title-wrapper h2::before {
+    left: -2.75rem;
+}
+
+.about-title-wrapper h2::after {
+    right: -2.75rem;
+}
+
+.accreditation-sections, .review-panel-container {
+    width: 100%;
+    padding-block: 1rem;
+}
+
+.accreditation-sections {
+    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') 0 0/200% no-repeat, var(--darker-black);
+}
+
+.review-panel-container {
+    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') 100% bottom/cover no-repeat, var(--darker-black);
+}
+
+.accreditation-sections-content, .review-panel-content {
+    background-color: var(--current-theme-inverse-transparent-color);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+    margin-inline: auto;
+    border-radius: .5rem;
+    display: flex;
+    align-items: center;
+}
+
+.accreditation-sections-content {
+    width: 90%;
+    height: 10rem;
+    justify-content: space-between;
+}
+
+.accreditation-section {
+    flex: 1;
+    height: 4.5rem;
+    color: var(--main-text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accreditation-section .number-values {
+    color: var(--tastey-brand-light-accent-color);
+}
+
+.accreditation-section > span {
+    height: 53px;
+    margin: 20px;
+}
+
+.number-values {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.85rem;
+    margin-bottom: .4rem;
+}
+
+.accreditation-text {
+    font-size: clamp(.75rem, calc(1vh + 1vw), 1rem);
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.15rem; 
+}
+
+.accreditation-section:nth-of-type(1),
+.accreditation-section:nth-of-type(2),
+.accreditation-section:nth-of-type(3) {
+    border-right: .1rem solid var(--tastey-brand-light-accent-color);
+}
+
+.reservation-content-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 2vw;
+}
+
+.reservation-content-wrapper > div:first-child {
+    flex: 0 1 clamp(10rem, 32.5%, 25rem);
+}
+
+.reservation-content-wrapper > div:last-child {
+    flex: 0 1 35rem;
+}
+
+.reservation-content-wrapper > div {
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.reservation-content-wrapper > div h2 {
+    font-size: clamp(2.75rem, 4vw, 3.25rem);
+    margin: 0;
+}
+
+.reservation-content-wrapper > div p {
+    font-size: clamp(.9rem, 2vw, 1rem);
+    line-height: 1.5rem;
+    margin: 0;
+}
+
+.reservation-content-wrapper > div:first-of-type {
+    font-size: 1rem;
+}
+
+.reservation-content-wrapper > div:last-of-type {
+    background: no-repeat url('../assets/tastey-meal-images/reserved.png');
+}
+
+.reservation-content-wrapper > div > div {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.open-menu-btn {
+    border: none;
+    background-color: transparent;
+    color: var(--current-theme-sub-color);
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.reservation-content-wrapper .reservation-btn {
+    padding: 1rem;
+    padding-inline: 2rem;
+    transition: transform 300ms ease-in-out;
+}
+
+.reservation-content-wrapper .reservation-btn:hover {
+    transform: scale(1.025);
+}
+
+.review-panel-content {
+    width: clamp(10rem, 90%, 45rem);
+    margin-block: 2.5rem;
+    padding-block: 2rem;
+    padding-inline: calc(2rem + 2vw);
+    height: fit-content;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.review-top {
+    display: block;
+    text-align: center;
+}
+
+.qa:not(:last-of-type) {
+    border-bottom: 0.1rem solid var(--sub-text-color);
+}
+
+.qa:not(:last-of-type):hover {
+    border-bottom: .1rem solid var(--tastey-brand-light-accent-color);
+}
+
+.review-header {
+    color: var(--current-theme-sub-color);
+    font-size: clamp(1.85rem, 4vw, 2.15rem);
+    margin: 0 0 2rem 0;
+    font-weight: bold;
+}
+
+.review-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.reviews {
+    color:  var(--current-theme-sub-color);
+    padding-block: 1rem;
+    font-weight: bold;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.reviews > div {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: 1rem;
+}
+
+.reviews > div > img {
+    height: 3rem;
+    width: 3rem;
+    object-fit: cover;
+    object-position: 0% 0%;
+}
+
+.reviews > div > img, .toggle-audio-content {
+    border-radius: 50%;
+}
+
+.reviews p {
+    font-size: clamp(.85rem, calc(1.25vw + 1.25vh), 1.15rem);
+    display: inline-block;
+    color: var(--main-text-color);
+    margin: 0 0 0 .2rem;
+    transition: 300ms ease;
+}
+
+.qa:hover p {
+    color: var(--tastey-brand-light-accent-color);
+}
+
+.qa:hover .reviews > div > img {
+    border: .1rem solid var(--tastey-brand-light-accent-color);
+}
+
+.toggle-audio-content {
+    border: none;
+    background-color: transparent;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-audio-content svg {
+    fill: var(--current-theme-fade-color);
+    flex: 0 0 100%;
+}
+
+.qa:hover .toggle-audio-content svg {
+    fill: var(--tastey-brand-color);
+}
+
+.review-answers {
+    transition: 200ms ease;
+}
+
+.audio-content-wrapper {
+    width: 100%;
+}
+
+.none {
+    display: none;
+}
+
+.inline {
+    display: inline;
+}
+
+#review-top:hover, .reviews:hover, .review-answers:hover, .minus:hover, .plus:hover{
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 60rem) {
+    .reservation-content-wrapper > div:first-child {
+        flex: 0 1 30rem;
+        height: fit-content;
+        padding: 5rem 2rem 2rem 2rem;
+    }
+}
+
+@media only screen and (max-width: 45rem) {
+    .accreditation-sections-content {
+        flex-flow: column nowrap;
+        height: fit-content;
+    }
+    .accreditation-section {
+        flex: 0;
+        width: 80%;
+        height: fit-content;
+    }
+    .accreditation-section > span > span {
+        text-align: center;
+    }
+    .accreditation-section:nth-child(1),
+    .accreditation-section:nth-child(2),
+    .accreditation-section:nth-child(3) {
+        border-right: 0;
+        border-bottom: .1rem solid var(--tastey-brand-light-accent-color);
+    }
+    .archives-content-wrapper .archive {
+        margin-block: 2rem;
+        margin-inline: 2vw;
+        padding: 0;
+    }
+    .archives-content-wrapper .archive .archive-content {
+        flex-direction: row;
+        gap: .5rem;
+        text-align: left;
+    }
+}
+
+@media only screen and (max-width: 36rem) {
+    .reviews > div > img {
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+}
+
+@media only screen and (max-width: 25rem) {
+    .archive-content-header-wrapper h2::after, .archive-content-header-wrapper h2::before, 
+    .about-title-wrapper h2::before, .about-title-wrapper h2::after {
+        display: none;
+    }
+}
