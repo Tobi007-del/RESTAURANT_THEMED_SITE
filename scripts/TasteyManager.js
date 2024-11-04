@@ -17,25 +17,25 @@ function displayWelcomeNotification() {
     let randomImgSrc
     switch(rand(1,6)) {
         case 2:
-            randomImgSrc = "../assets/tastey-meal-images/tastey_meal_two.jpg"
+            randomImgSrc = "assets/tastey-meal-images/tastey_meal_two.jpg"
             break
         case 3: 
-            randomImgSrc = "../assets/tastey-meal-images/tastey_meal_three.jpg"
+            randomImgSrc = "assets/tastey-meal-images/tastey_meal_three.jpg"
             break
         case 4:
-            randomImgSrc = "../assets/tastey-meal-images/tastey_meal_four.jpg"
+            randomImgSrc = "assets/tastey-meal-images/tastey_meal_four.jpg"
             break
         case 5:
-            randomImgSrc = "../assets/tastey-meal-images/tastey_meal_five.jpg"
+            randomImgSrc = "assets/tastey-meal-images/tastey_meal_five.jpg"
             break
         case 6:
-            randomImgSrc = "../assets/tastey-meal-images/tastey_meal_six.jpg"
+            randomImgSrc = "assets/tastey-meal-images/tastey_meal_six.jpg"
             break
         case 7: 
-            randomImgSrc = "../assets/tastey-meal-images/tastey_meal_seven.jpg"
+            randomImgSrc = "assets/tastey-meal-images/tastey_meal_seven.jpg"
             break
         default:
-            randomImgSrc = "../assets/tastey-meal-images/tastey_meal_one.jpg" 
+            randomImgSrc = "assets/tastey-meal-images/tastey_meal_one.jpg" 
     }
     // FT for "First Timer" & OT for "Old Taker"
     const welcomeMssg = !sessionStorage.tastey_friendship_log && localStorage.tastey_friendship_log ? "Hello, Old Friend!, Welcome back to Tastey" : "Hello, New Friend!, Welcome to Tastey"

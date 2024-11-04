@@ -10,20 +10,20 @@ export async function registerTasteyServiceWorker() {
 }
 
 export function notificationQuery(title, options) {
-    options.icon = "../assets/tastey-meal-icons/tastey-icon.jpeg"
-    options.badge = "../assets/tastey-meal-icons/tastey-icon.png"
+    options.icon = "assets/tastey-meal-icons/tastey-icon.jpeg"
+    options.badge = "assets/tastey-meal-icons/tastey-icon.png"
     options.actions = [
         {
             action: "open-reservation",
             title: "Make a Reservation",
             type: "button",
-            icon: "../assets/tastey-meal-icons/reservation-icon.png"
+            icon: "assets/tastey-meal-icons/reservation-icon.png"
         },
         {
             action: "open-menu",
             title: "Open Tastey Menu",
             type: "button",
-            icon: "../assets/tastey-meal-icons/menu-icon.svg"
+            icon: "assets/tastey-meal-icons/menu-icon.svg"
         }
     ]
     if (Notification?.permission === "granted") {

@@ -29,6 +29,7 @@ body {
     position: relative;
     font-size: 1.75rem;
     text-align: center;
+    color: var(--current-theme-main-color);
 }
 
 .archive-content-header-wrapper h2::after, .archive-content-header-wrapper h2::before {
