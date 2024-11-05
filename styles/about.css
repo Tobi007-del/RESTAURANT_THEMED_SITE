@@ -3,8 +3,9 @@ body {
     width: 100%;    
 }
 
-
 .archive-content-container {
+    --timeline-length: 100%;
+    --timeline-position: 0;
     margin-top: 4rem;
     margin-bottom: 2rem;
 }
@@ -21,14 +22,14 @@ body {
     flex-direction: column;
     height: 9rem;
     gap: .65rem;
-    color: var(--current-theme-sub-color);
+    background-image: linear-gradient(transparent, #ed8f2335, transparent);
 }
 
 .archive-content-header-wrapper h2 {
     position: relative;
     font-size: 1.75rem;
     text-align: center;
-    color: var(--current-theme-main-color);
+    color: var(--current-theme-sub-color);
 }
 
 .archive-content-header-wrapper h2::after, .archive-content-header-wrapper h2::before {
@@ -97,6 +98,41 @@ body {
     width: 100%;
     padding-block: 2rem;
     padding-inline: 1.5rem;
+    position: relative;
+}
+
+.tastey-timeline {
+    position: absolute;
+    height: var(--timeline-length);
+    background-color: var(--lighter-black);
+    width: 1rem;
+    display: flex;
+    justify-content: center;
+    margin-block-start: 1rem;
+}
+
+.tastey-timeline::after, .tastey-timeline-seeker {
+    content: '';
+    border-radius: .2rem;
+    position: absolute;
+    left: 50%;
+    margin-left: -.1rem;
+    width: .2rem;
+    transition: max-height 400ms ease;
+}
+
+.tastey-timeline::after {
+    padding-block: 1rem;
+    height: 100%;
+    background-color: var(--sub-text-color);
+}
+
+.tastey-timeline-seeker {
+    height: var(--timeline-length);
+    max-height: var(--timeline-position);
+    background-color: var(--tastey-brand-light-accent-color);
+    z-index: 1;
+    margin-block: 1rem;
 }
 
 .archive {
@@ -131,33 +167,18 @@ body {
     backdrop-filter: blur(5px);
     border-radius: .5rem;
     gap: 1vw;
-    padding-inline: 2vw;
+    padding-inline: 1.6rem;
+    border-width: .05rem;
+    border-style: solid;
+    border-color: transparent;
 }
 
-.archive-content > * {
-    transition: 250ms ease;
+.archive-content.visible, .archive-content.visible > *, .archive-content.visible .archive-time-wrapper h4::before, .archive-content.visible .archive-time-wrapper h4::after {
+    transition: background-color 1600ms ease, border-color 1600ms ease;
 }
-
-/* .archive-content {
-  animation: shake 0.5s;
-  animation-iteration-count: infinite;
-}
-@keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
-} */
 
 .archive-content.visible {
-    border: .05rem solid var(--tastey-brand-light-accent-color);
+    border-color: var(--tastey-brand-light-accent-color);
 }
 
 .archive-content.visible h4 {
@@ -185,6 +206,62 @@ body {
     color: var(--current-theme-fade-color);
 }
 
+.archive-time-wrapper h4::before, .archive-time-wrapper h4::after {
+    content: '';
+    position: absolute;
+}
+
+@media only screen and (min-width: 45rem) {
+    .archive:nth-child(odd) .archive-time-wrapper h4::before {
+        left: 3.2rem;
+    }   
+    .archive:nth-child(odd) .archive-time-wrapper h4::after {
+        left: 6.35rem;
+    }  
+    .archive:nth-child(even) .archive-time-wrapper h4::before {
+        right: 3.2rem;
+    }
+    .archive:nth-child(even) .archive-time-wrapper h4::after {
+        right: 6.35rem;
+    }        
+}
+
+.archive-time-wrapper h4::before {
+    z-index: 1;
+    top: .5rem;
+    height: .25rem;
+    width: 3rem;
+    border-radius: .1rem;
+    background-color: var(--sub-text-color);
+}
+
+.archive-time-wrapper h4::after {
+    --current-shade: var(--lighter-black);
+    z-index: 2;
+    top: 0;
+    height: 1.25rem;
+    width: 1.25rem;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 0 0 4px var(--current-shade);
+    box-shadow: 0 0 0 .4rem var(--current-shade);
+    border-width: .25rem;
+    border-style: solid;
+    border-color: var(--sub-text-color);
+    background-color: var(--current-shade);
+}
+
+.archive-content.visible .archive-time-wrapper h4::before {
+    background-color: var(--tastey-brand-light-accent-color);
+} 
+
+.archive-content.visible .archive-time-wrapper h4::after {
+    border-color: var(--tastey-brand-light-accent-color);
+}
+
+.archive-content.visible .archive-img-wrapper img {
+    filter: brightness(100%);
+}
+
 .archive-img-wrapper {
     flex: 0 1 30%;
     min-height: 20rem;
@@ -200,18 +277,19 @@ body {
 
 .archive-text-wrapper h2 {
     color: var(--main-text-color);
-    font-size: clamp(1.75rem, calc(1.25vw + 1.75vh), 2rem);
+    font-size: clamp(1.75rem, calc(1.5vw + 1.75vh), 2rem);
 }
 
 .archive-text-wrapper p {
     color: var(--sub-text-color);
-    font-size: clamp(.85rem, calc(.75vw + 1.25vh), 1rem);
+    font-size: clamp(.85rem, calc(1vw + 1.25vh), 1rem);
 }
 
 .archive-img-wrapper > img {
     width: 100%;
     height: 100%;
     border-radius: inherit;
+    filter: brightness(80%) grayscale(90%);
 }
 
 main.about-section {
@@ -543,23 +621,41 @@ main.about-section {
     .archive-content-container .archives-content-wrapper {
         padding-block-start: 0;
     }
+    .archives-content-wrapper .archive:nth-child(1) {
+        margin-top: 0;
+    }
     .archives-content-wrapper .archive {
-        margin-block: 2rem;
-        margin-inline: 2.5vw;
-        padding-left: 15%;
-        padding-right: 0;
+        margin-block-start: 0;
+        margin-block-end: 4rem;
+        padding-left: 4rem;
+        padding-right: 7.5%;
         flex: 0 0 100%;
         justify-content: center;
     }
     .archives-content-wrapper .archive .archive-content {
-        min-width: 75%;
+        min-width: 100%;
         flex-direction: row;
         gap: .75rem;
         text-align: left;
+        padding-inline: 1rem;
     }
     .archive-img-wrapper {
         min-height: 15rem;
     }
+    .tastey-timeline, .tastey-timeline-seeker {
+        left: 2.5rem;
+    }
+    .tastey-timeline {
+        transform: translateX(-50%);
+        margin-block-start: .75rem;
+    }
+    .archive-content .archive-time-wrapper h4::before {
+        right: 3rem;
+        width: 3rem;
+    }
+    .archive-content .archive-time-wrapper h4::after {
+        right: 5.75rem;
+    } 
 }
 
 @media only screen and (max-width: 36rem) {
@@ -567,6 +663,19 @@ main.about-section {
         height: 2.5rem;
         width: 2.5rem;
     }
+    .tastey-timeline, .tastey-timeline-seeker {
+        left: 1.25rem;
+    }
+    .archives-content-wrapper .archive {
+        padding-left: 1.5rem;
+        padding-right: 0;
+    }
+    .archive-content .archive-time-wrapper h4::before {
+        width: 2rem;
+    }
+    .archive-content .archive-time-wrapper h4::after {
+        right: 4.5rem;
+    } 
 }
 
 @media only screen and (max-width: 25rem) {

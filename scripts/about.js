@@ -1,6 +1,6 @@
 // archive data import
 import Archives from './fetch-archives.js'
-import { panning } from './utility-functions.js'
+import { panning,remToPx,tasteyDebouncer } from './utility-functions.js'
 
 const archiveContentWrapper = document.querySelector(".archives-content-wrapper")
 Archives.forEach(({ year, imgSrc, event, description }) => {
@@ -24,7 +24,57 @@ archiveContentWrapper.innerHTML +=
 })
 
 const archives = document.querySelectorAll(".archive-content")
-archives[0].classList.add("visible")
+
+const observer = new IntersectionObserver(entries => {  
+    entries.forEach(entry => {  
+        if (entry.isIntersecting) {
+            const rect = entry.boundingClientRect
+            const viewportHeight = window.innerHeight;  
+            const centerY = viewportHeight / 2
+            const offset = 0
+            // console.log(rect.top, rect.top + offset)
+            // console.log(centerY)
+            // console.log(rect.bottom, rect.bottom - offset)
+            if (((rect.top + offset) <= centerY) && ((rect.bottom - offset) >= centerY)) {  
+                setTimelinePosition(entry.target.querySelector(".archive-time-wrapper h4"))
+                entry.target.classList.add("visible")
+                // console.log('Element is at the center of the screen');  
+            } else {
+                entry.target.classList.remove("visible") 
+                // console.log('Element is not at the center of the screen');  
+            }
+        } else {
+            entry.target.classList.remove("visible")
+    
+        }
+    })
+}, {root: null, rootMargin: '0px', threshold:1})
+
+for (const archive of archives) {
+    observer.observe(archive)
+}
+
+
+const timeline = document.querySelector(".tastey-timeline")
+function setTimelinePosition(header) {
+    const headerPosition = header.getBoundingClientRect().top
+    const timelineTop = timeline.getBoundingClientRect().top
+    const position = headerPosition - timelineTop
+    archiveContentWrapper.style.setProperty('--timeline-position', `${position}px`)
+}
+
+const timelineLength = () => {
+    const lastArchive = [...document.querySelectorAll(".archive-content")][Archives.length - 1]
+    let totalHeight = archiveContentWrapper.getBoundingClientRect().height
+    const lastArchiveHeight = lastArchive.getBoundingClientRect().height
+    totalHeight = totalHeight - lastArchiveHeight - remToPx(4.25)
+    archiveContentWrapper.style.setProperty('--timeline-length', `${totalHeight}px`)
+}
+window.addEventListener('load', () => {
+    setTimeout(timelineLength)
+})
+const resizeDebounder = new tasteyDebouncer
+window.addEventListener('resize', timelineLength)
 
 // Panning effect for images
 
@@ -89,7 +139,7 @@ const firstValueCount = () => {
 
 
 //CURRENTLY USING INTERSECTION OBSERVER API FOR THE AUTOMATIC COUNTER
-let observer = new IntersectionObserver((entries,observer) => {
+let accrediationSectionObserver = new IntersectionObserver((entries,observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             if (entry.intersectionRatio > 0.2) {
@@ -104,22 +154,10 @@ let observer = new IntersectionObserver((entries,observer) => {
 })}, {
         root:null,
         rootMargin:"0px",
-        threshold: buildThreshold()
+        threshold: 1
     }
 )
-function buildThreshold(){
-    let threshold = [];
-    let step = 10;
-
-    for(let i = 1.0; i <= step; i++){
-        let ratio = i / step;
-        threshold.push(ratio);
-    }
-
-    threshold.push(0);
-    return threshold;
-}
-observer.observe(document.querySelector('#accreditation-section-container'))
+accrediationSectionObserver.observe(document.querySelector('#accreditation-section-container'))
 
 
 //COUNTER FUNCTIONS

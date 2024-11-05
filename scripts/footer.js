@@ -82,7 +82,7 @@ const footerObserver = new IntersectionObserver(entries => {
             footerInView = false
         } 
     })
-}, {threshold:[0,.25,.5,.75,1]})
+}, {threshold:[0,.2,.4,.6,.8,1]})
 footerObserver.observe(footerSpecialSection)
 
 function playOffers() {

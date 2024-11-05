@@ -118,7 +118,7 @@ const observer = new IntersectionObserver(entries => {
             carouselInView = false
         }
     })
-}, {threshold:0.99})
+}, {threshold:[0,.2,.4,.6,.8,1]})
 observer.observe(carouselContainer)
 
 //for mouse support
