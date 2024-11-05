@@ -41,6 +41,10 @@ html, *::after, *::before, aside, button {
     scroll-behavior: smooth;
 }
 
+.smooth-scroll {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     background: fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
@@ -54,6 +58,15 @@ body.loading {
 
 body.loading > *:not(nav) {
     display: none!important;
+}
+
+main.dev {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5vmin;
+    color: var(--current-theme-sub-color)
 }
 
 footer.delay {

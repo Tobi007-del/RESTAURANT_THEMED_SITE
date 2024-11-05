@@ -9,7 +9,7 @@ export async function registerTasteyServiceWorker() {
     }
 }
 
-export function notificationQuery(title, options) {
+export function notificationQuery(title, options, type = "") {
     options.icon = "assets/tastey-meal-icons/tastey-icon.jpeg"
     options.badge = "assets/tastey-meal-icons/tastey-icon.png"
     options.actions = [
@@ -39,10 +39,10 @@ export function notificationQuery(title, options) {
                     registration.showNotification(title, options)
                 })
             } else {
-                alert("You have to give notifiction permission to get the Tastey Check Out Notification")
+                alert(`You have to give notifiction permission to get the Tastey ${type} Notification`)
             }
         })
     } else {
-        alert("You have to give notifiction permission to get the Tastey Check Out Notification")
+        alert(`You have to give notifiction permission to get the Tastey ${type} Notification`)
     }
 }

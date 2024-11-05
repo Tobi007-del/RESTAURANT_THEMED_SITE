@@ -173,8 +173,8 @@ body {
     border-color: transparent;
 }
 
-.archive-content.visible, .archive-content.visible > *, .archive-content.visible .archive-time-wrapper h4::before, .archive-content.visible .archive-time-wrapper h4::after {
-    transition: background-color 1600ms ease, border-color 1600ms ease;
+.archive-content.visible, .archive-content.visible > *, .archive-content.visible .archive-time-wrapper h4::before, .archive-content.visible .archive-time-wrapper h4::after, .archive-content.visible h4, .archive-content.visible h2, .archive-content.visible p, .archive-img-wrapper > img {
+    transition: 1600ms ease;
 }
 
 .archive-content.visible {

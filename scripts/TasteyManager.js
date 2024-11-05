@@ -46,7 +46,7 @@ function displayWelcomeNotification() {
         tag: "tastey-welcome-notification",
         renotify: true
     }
-    notificationQuery(title, options)
+    notificationQuery(title, options, "Welcome")
 }
 
 //A Class to handle all major Tastey operations

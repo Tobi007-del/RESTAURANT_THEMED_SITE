@@ -702,6 +702,6 @@ function handleCheckout() {
         tag: "tastey-checkout-notification",
         renotify: true
     }
-    notificationQuery(title, options)
+    notificationQuery(title, options, "Check Out")
 }
 

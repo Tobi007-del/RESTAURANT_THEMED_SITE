@@ -28,24 +28,10 @@ const archives = document.querySelectorAll(".archive-content")
 const observer = new IntersectionObserver(entries => {  
     entries.forEach(entry => {  
         if (entry.isIntersecting) {
-            const rect = entry.boundingClientRect
-            const viewportHeight = window.innerHeight;  
-            const centerY = viewportHeight / 2
-            const offset = 0
-            // console.log(rect.top, rect.top + offset)
-            // console.log(centerY)
-            // console.log(rect.bottom, rect.bottom - offset)
-            if (((rect.top + offset) <= centerY) && ((rect.bottom - offset) >= centerY)) {  
-                setTimelinePosition(entry.target.querySelector(".archive-time-wrapper h4"))
-                entry.target.classList.add("visible")
-                // console.log('Element is at the center of the screen');  
-            } else {
-                entry.target.classList.remove("visible") 
-                // console.log('Element is not at the center of the screen');  
-            }
+            setTimelinePosition(entry.target.querySelector(".archive-time-wrapper h4"))
+            entry.target.classList.add("visible")
         } else {
             entry.target.classList.remove("visible")
-    
         }
     })
 }, {root: null, rootMargin: '0px', threshold:1})
