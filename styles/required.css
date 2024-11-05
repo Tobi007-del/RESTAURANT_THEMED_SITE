@@ -1186,12 +1186,8 @@ footer {
     gap: .5rem;
 }
 
-.footer-contact-section div > a > span:nth-of-type(2) {
+.footer-contact-section div > a > span {
     text-decoration: underline;
-}
-
-.footer-contact-section div > a > span > icon {
-    margin-right: .2rem;
 }
 
 .footer-contact-section a {
@@ -1405,12 +1401,12 @@ footer {
     justify-content: center;
     font-size: 1rem;
     border-radius: .3rem;
-    background: #1a1a1a;
+    background: var(--lighter-black);
     transition: 300ms ease;
 }
 
 .footer-social-section a > svg {
-    fill: var(--main-text-color);
+    fill: var(--current-theme-sub-color);
     width: 100%;
     height: 100%;
 }
