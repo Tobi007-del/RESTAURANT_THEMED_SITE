@@ -1399,9 +1399,10 @@ footer {
 .footer-social-section a {
     height: 2.5rem;
     width: 2.5rem;
-    line-height: 2.5rem;
     padding: .5rem;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 1rem;
     border-radius: .3rem;
     background: #1a1a1a;
