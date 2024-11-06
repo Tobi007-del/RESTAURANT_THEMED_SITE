@@ -25,12 +25,16 @@ archiveContentWrapper.innerHTML +=
 
 const archives = document.querySelectorAll(".archive-content")
 
+let scrollY
 const observer = new IntersectionObserver(entries => {  
     entries.forEach(entry => {  
         if (entry.isIntersecting) {
+            scrollY = window.scrollY
             setTimelinePosition(entry.target.querySelector(".archive-time-wrapper h4"))
             entry.target.classList.add("visible")
         } else {
+            if (window.scrollY < scrollY) 
+                setTimelinePosition(entry.target.parentElement.previousElementSibling?.querySelector(".archive-time-wrapper h4"))
             entry.target.classList.remove("visible")
         }
     })
