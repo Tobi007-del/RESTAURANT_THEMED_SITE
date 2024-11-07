@@ -44,17 +44,17 @@ aside.menu-cart-toggler-container, aside.category-switcher-container {
 }
 
 aside.menu-cart-toggler-container {
-    top: calc(50vh + 1.5rem);
+    top: calc(50dvh + 1.5rem);
     transform: translateY(-50%);
-    height: 75vh;
+    height: 75dvh;
     left: .5rem;
 }
 
 aside.category-switcher-container { 
     display: flex;
     right: .5rem;
-    bottom: 25vh;
-    height: 50vh;
+    bottom: 25dvh;
+    height: 50dvh;
     opacity: 1;
     transition: height 300ms ease, opacity 250ms ease;
 }
@@ -144,7 +144,7 @@ body.cart .cart-toggler, body:not(.cart) .menu-toggler, .switcher.active {
 }
 
 .switcher-icon {
-    height: clamp(1.5rem,calc(1.75vh + 1.25vw),2rem);
+    height: clamp(1.5rem,calc(1.75dvh + 1.25dvw),2rem);
 }
 
 .toggler div p, .switcher div p {
@@ -266,7 +266,7 @@ main.menu .main-menu-title-wrapper h3 {
 }
 
 .magic-star {
-    --size: clamp(20px,1.5vw,30px);
+    --size: clamp(20px,1.5dvw,30px);
     display: block;
     height: var(--size);
     width: var(--size);
@@ -669,16 +669,16 @@ main.meal-cart {
 
 main.meal-cart[data-cart='0'] {
     background: fixed no-repeat radial-gradient(
-        clamp(5rem,80vw,32.5rem) circle at var(--mouse-x) var(--mouse-y),
+        clamp(5rem,80dvw,32.5rem) circle at var(--mouse-x) var(--mouse-y),
         rgba(255,255,255,0.15),
         transparent 50%
     );
-    min-height: 100vh;
+    min-height: 100dvh;
 }
 
 main.meal-cart:not([data-cart='0']) {
     background: fixed no-repeat radial-gradient(
-        clamp(5rem,90vw,40rem) circle at center 80%,
+        clamp(5rem,90dvw,40rem) circle at center 80%,
         rgba(255,255,255,0.2),
         transparent 60%
     );
@@ -741,8 +741,8 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
 
 .empty-cart-section {
     width: unset;
-    max-width: 100vw;
-    height: clamp(15rem,calc(32.5vh + 10vw),22.5rem);
+    max-width: 100dvw;
+    height: clamp(15rem,calc(32.5dvh + 10dvw),22.5rem);
     aspect-ratio: 1 / .63;
     border-radius: .5rem;
     color: var(--tastey-brand-color);
@@ -767,11 +767,11 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
 }
 
 .empty-cart-text h2 {
-    font-size: clamp(1rem, calc(.75vw + 1.25vh), 1.2rem);
+    font-size: clamp(1rem, calc(.75dvw + 1.25dvh), 1.2rem);
 }
 
 .empty-cart-section p {
-    font-size: clamp(.85rem, calc(.6vw + 1.1vh), .85rem);
+    font-size: clamp(.85rem, calc(.6dvw + 1.1dvh), .85rem);
 }
 
 .continue-shopping-button {
@@ -1467,7 +1467,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
     aside.category-switcher-container.show {
         opacity: 1;
-        height: 50vh;
+        height: 50dvh;
     }
     .toggler-wrapper {
         width: 95%;
@@ -1477,7 +1477,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     .toggler {
         height: 80%;
         flex-flow: row nowrap;
-        gap: 3vw;
+        gap: 3dvw;
     }
     .toggler div p, .switcher div p {
         position: static;
@@ -1498,7 +1498,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
     .menu-sections {
         padding-top: 0;
-        padding-inline: 5vw;
+        padding-inline: 5dvw;
     }
     .tastey-meal::before, .tastey-meal-order::before {
         background: radial-gradient(
@@ -1575,11 +1575,11 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 
 @media only screen and (max-height: 30rem) {
     aside.menu-cart-toggler-container {
-        height: 55vh;
+        height: 55dvh;
         scale: .9;
     }
     aside.category-switcher-container {
-        bottom: 20vh;
+        bottom: 20dvh;
         scale: .85;
     }
     .toggler div p {

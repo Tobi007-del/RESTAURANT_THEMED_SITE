@@ -8,9 +8,9 @@
 .video-container {
     --controls-size: 25px;
     position: relative;
-    width: 90vw;
+    width: 90dvw;
     max-width: 700px;
-    max-height: 80vh;
+    max-height: 80dvh;
     display: flex;
     justify-content: center;
     margin-inline: auto;
@@ -158,12 +158,12 @@
 }
 
 .video-container.theater {
-    max-height: 90vh;
+    max-height: 90dvh;
 }
 
 .video-container.full-screen {
     --controls-size: 30px;
-    max-height: 100vh;
+    max-height: 100dvh;
 }
 
 .video-container.full-screen .timeline-container {
@@ -192,21 +192,21 @@
     top: 0;
     pointer-events: none;
     opacity: .85;
-    background: url('/TMG.com/SPARE-PICS/two-balls-white.gif') no-repeat center center/calc(6vh + 6vw); 
+    background: url('/TMG.com/SPARE-PICS/two-balls-white.gif') no-repeat center center/calc(6dvh + 6dvw); 
     animation: ball_one 1s infinite ease-in-out;
 }
 .ground-buffer {
     position: absolute;
-    width: calc(3vh + 3vw);
-    height: calc(3vh + 3vw);
+    width: calc(3dvh + 3dvw);
+    height: calc(3dvh + 3dvw);
     background: url('/TMG.com/SPARE-PICS/two-balls-white.gif') no-repeat center center;
     animation: balls_two 1s infinite ease-in-out;
     background-size: 100%;
 }
 .middle-buffer {
     position: absolute;
-    width: calc(3vh + 3vw);
-    height: calc(3vh + 3vw);
+    width: calc(3dvh + 3dvw);
+    height: calc(3dvh + 3dvw);
     transform: rotate(90deg);
     background: url('/TMG.com/SPARE-PICS/two-balls-white.gif') no-repeat center center;
     animation: balls_two 1s infinite ease-in-out;
@@ -214,8 +214,8 @@
 }
 .top-buffer {
     position: absolute;
-    width: calc(6vh + 6vw);
-    height: calc(6vh + 6vw);
+    width: calc(6dvh + 6dvw);
+    height: calc(6dvh + 6dvw);
     transform: rotate(90deg);
     background: url('/TMG.com/SPARE-PICS/two-balls-white.gif') no-repeat center center;
     animation: ball_three 1s infinite ease-in-out;
@@ -223,19 +223,19 @@
 }
 @keyframes ball_one{
     to{
-       background-size: calc(3vh + 3vw);
+       background-size: calc(3dvh + 3dvw);
     }
 }
 @keyframes balls_two{
     to{
-      width: calc(6vh + 6vw);
-      height: calc(6vh + 6vw);
+      width: calc(6dvh + 6dvw);
+      height: calc(6dvh + 6dvw);
     }
 }
 @keyframes ball_three{
     to{
-      width: calc(3vh + 3vw);
-      height: calc(3vh + 3vw);
+      width: calc(3dvh + 3dvw);
+      height: calc(3dvh + 3dvw);
     }
 }
 
