@@ -1,19 +1,130 @@
-# A WEBSITE FOR A THE TASTEY RESTAURANT
+# THE TASTEY RESTAURANT WEBSITE
 
 ### Table of contents
 
+- [Project Developer](#project-developer)
+- [Brief Description](#brief-description)
+- [Visual Previews](#visual-previews)
+- [More Info!](#more-info)
+  - [Folder Contents](#folder-contents)
+  - [Built With](#built-with)
+  - [Links](#quick-links)
+
 ## Project Developer
 
-- I am Oketade Oluwatobiloba, a Fullstack Developer in training. This restaurant themed website is a supposed website for a made up restaurant called 'Tastey'. It was supposed to be a school assignment but I ventured into it alone since the teacher was no longer interested. The goal for now is to finish the project.
+- I am Oketade Oluwatobiloba, a Fullstack Developer in training. This restaurant themed website is a supposed website for a made up restaurant called 'Tastey'. It was supposed to be a school assignment but I ventured into it alone since the teacher was no longer interested. The goal for now is to finish the project as a form of practice.
 
 ## Brief Description
 
-This project includes html files, css files in a style folder and js files in a scripts folder and the assets folder containing all the extra materials used in development for the web pages of a restaurant website for The Tastey Restaurant.
-It is a 5 page website but connected to each other by internal links. 
-It is a personal project and I would really like to describe it as just practice.
+This project includes html files, css files in a styles folder and js files in a scripts folder and the assets folder containing all the extra materials used in development for the web pages of a restaurant website for The Tastey Restaurant.
+It is a 5 page website but connected to each other by internal links. The Contact and Reservation pages are still in the development phase.
+It is a personal project and I would really like to describe it as just practice as I experimented a quite Uncommon user interefaces.
 
-## Visusal Previews
+### Visusal Previews
+
+
+![Desktop Preview of the Preloader for Tastey](./assets/Tastey-previews/Tastey-loading-desktop-preview.png)
+*Desktop view of the Tastey Preloader*
+
+![Mobile Preview of the Preloader for Tastey](./assets/Tastey-previews/Tastey-loading-mobile-preview.png)
+*Mobile view of the Tastey Preloader*
+
+![Desktop Preview of the homepage for Tastey](./assets/Tastey-previews/Tastey-desktop-preview.png)
+*Desktop view of the Tastey Landing Page*
 
 ![Mobile Preview of the homepage for Tastey](./assets/Tastey-previews/Tastey-mobile-preview.png)
 *Mobile view of the Tastey Landing Page*
 
+
+![Desktop Preview of the menu for Tastey](./assets/Tastey-previews/Tastey-menu-desktop.png)
+*Desktop view of the Tastey Manu*
+
+![Mobile Preview of the menu for Tastey](./assets/Tastey-previews/Tastey-menu-mobile.png)
+*Mobile view of the Tastey Menu*
+
+![Desktop Preview of the Shopping Bag for Tastey](./assets/Tastey-previews/Tastey-bag-desktop.png)
+*Desktop view of the Tastey Shopping Bag*
+
+![Mobile Preview of the Shopping Bag for Tastey](./assets/Tastey-previews/Tastey-bag-mobile.png)
+*Mobile view of the Tastey Shopping Bag*
+
+![Default View of the mini bag for Tastey](./assets/Tastey-previews/Tastey-mini-bag.png)
+*Default view of the Tastey Mini Bag*
+
+![Responsive View of the mini bag for Tastey](./assets/Tastey-previews/Tastey-responsive-mini-bag.png)
+*Responsive view of the Tastey Mini Bag*
+
+![Desktop Preview of the about page for Tastey](./assets/Tastey-previews/Tastey-about-desktop-preview.png)
+*Desktop view of the Tastey About Page*
+
+![Mobile Preview of the about page for Tastey](./assets/Tastey-previews/Tastey-about-mobile-preview.png)
+*Mobile view of the Tastey About Page*
+
+### More Info! 
+
+#### Folder Contents
+
+- assets 
+  - audio
+  - subtitles
+  - tastey-archive-images
+  - tastey-desserts-images
+  - tastey-dining-video
+  - tastey-drinks-images
+  - tastey-food-themed-backgrounds
+  - tastey-main-meal-images
+  - tastey-meal-icons
+  - tastey-meal-images
+  - Tastey-previews
+  - Tastey-reviewers
+  - tastey-starters-images
+  - videos
+- JSON
+  - tastey_archives.json
+  - tastey_meals.json
+- scripts
+  - about.js
+  - build-scroller.js
+  - CRUD.js
+  - fetch-archives.js
+  - fetch-meals.js
+  - footer.js
+  - index.js
+  - menu.js
+  - mini-bag.js
+  - service-worker-helper.js
+  - tastey-audio.js
+  - tastey-video.js
+  - TasteyManager.js
+  - utility-functions.js
+- styles
+  - about.css
+  - index.css
+  - menu.css
+  - required.css
+  - scroll-bar.css
+  - tastey-audio.css
+  - tastey-video.css
+- about.html
+- contact.html
+- index.html
+- menu.html
+- reservation.html
+- Tastey_service_worker.js
+
+### Built with
+
+- HTML5 markup
+- CSS custom properties
+- Flexbox
+- Super Responsive Workflow
+- Vanilla Javascript
+
+### Links
+To view the live preview of this webpage, you can visit *[here][1]* or you can also visit *[here][2]* to view the github repository that houses this project
+
+[1]: <https://tobi007-del.github.io/RESTAURANT_THEMED_SITE/index.html>
+"LIVE PREVIEW OF THE TASTEY WEBSITE"
+
+[2]: <https://github.com/Tobi007-del/RESTAURANT_THEMED_SITE>
+"GITHUB REPOSITORY FOR THIS PROJECT"

@@ -1,8 +1,7 @@
 {
     "currency": "NGN",
-    "taxRate": 3.5,
-    "tasteyMeals": [
-        {"starters": [
+    "tasteyMeals": {
+        "starters": [
             {
                 "id": 1001,
                 "category": "Starters",
@@ -123,8 +122,8 @@
                 "like": null,
                 "picSrc": "assets/tastey-starters-images/isi-ewu.jpg"
             }
-        ]},
-        {"main-meals": [
+        ],
+        "main-meals": [
              {
                 "id": 2001,
                 "category": "Main meals",
@@ -245,8 +244,8 @@
                 "like": null,
                 "picSrc": "assets/tastey-main-meals-images/banga-soup-and-starch.jpg"
             }
-        ]},
-        {"drinks": [
+        ],
+        "drinks": [
              {
                 "id": 3001,
                 "category": "Drinks",
@@ -367,8 +366,8 @@
                 "like": null,
                 "picSrc": "assets/tastey-drinks-images/apple-juice.jpg"
             }
-        ]},
-        {"desserts": [
+        ],
+        "desserts": [
              {
                 "id": 4001,
                 "category": "Desserts",
@@ -489,6 +488,6 @@
                 "like": null,
                 "picSrc": "assets/tastey-desserts-images/dates.jpg"
             }
-        ]}
-    ]
+        ]
+    }
 }

@@ -6,13 +6,16 @@ import { check, formatValue, panning, scrollContentTo, remToPx, pxToRem, rand } 
 import { autoRemoveScroller } from "./build-scroller.js"
 import { notificationQuery } from "./service-worker-helper.js"
 
-export { data, meals, allMeals, getDOMElements, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards, positionMiniCards, adjustMiniCards } 
+export { meals, allMeals, currency, getDOMElements, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards, positionMiniCards, adjustMiniCards } 
 
 //Getting necessary data
 const meals = data.tasteyMeals,
 
-allMeals = [...meals[0].starters,...meals[1]["main-meals"],...meals[2].drinks,...meals[3].desserts]
+allMeals = Object.values(meals).flat(),
 
+currency = data.currency
+
+//queries to handle the present bag
 const bagQuery = () => {
     return (document.body.dataset.bag === "true")
 }
@@ -33,7 +36,7 @@ const miniBagQuery = () => {
 // localStorage.clear()
 
 //Calculating checkout details
-weakTastey.calculateCheckoutDetails(allMeals, data.currency)
+weakTastey.calculateCheckoutDetails(allMeals, currency)
 
 //DOM Elements
 let likeIconWrappers,orderReviewSectionContent,wishlistTogglers,tasteyMeals,tasteyMealsImages,tasteyMealOrders,tasteyOrderImages,addToCartBtns,deleteOrderBtns,plusCartBtns,minusCartBtns,checkoutSection,cartNumberElement,mealsNumberElement,actualPriceElement,totalDiscountElement,savedElement,totalPriceElement,TOTALCOSTElement,mcOrderReviewSection,mcTasteyMealOrders,mcTasteyOrderImages,mcWishlistTogglers,mcDeleteOrderBtns,mcPlusCartBtns,mcMinusCartBtns,mcActualPriceElement,mcTOTALCOSTElement
@@ -304,7 +307,7 @@ function setPositionStates() {
 //functions for specific tastey operations
 
 //a function for adding a meal to the page
-function addMeal(id,meals,curr) {
+function addMeal(id, meals, curr) {
     const meal = meals.find(meal => meal.id === id)
     const { label, category, price, serving, picSrc } = meal
     const index = weakTastey.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
@@ -467,15 +470,15 @@ function setCheckoutState() {
     if (bagQuery()) {
         cartNumberElement.textContent = weakTastey.ordersInTotal
         mealsNumberElement.textContent = weakTastey.tasteyMeals
-        actualPriceElement.textContent = formatValue(data.currency, weakTastey.actualAmount)
+        actualPriceElement.textContent = formatValue(currency, weakTastey.actualAmount)
         totalDiscountElement.textContent = '-' + weakTastey.totalDiscountPercentage + '%'
-        savedElement.textContent = formatValue(data.currency, weakTastey.savedAmount)
-        totalPriceElement.textContent = formatValue(data.currency, weakTastey.totalAmount)
-        TOTALCOSTElement.textContent = formatValue(data.currency, weakTastey.totalCost)
+        savedElement.textContent = formatValue(currency, weakTastey.savedAmount)
+        totalPriceElement.textContent = formatValue(currency, weakTastey.totalAmount)
+        TOTALCOSTElement.textContent = formatValue(currency, weakTastey.totalCost)
     } 
     if (miniBagQuery()) {
-        mcActualPriceElement.textContent = formatValue(data.currency, weakTastey.actualAmount)
-        mcTOTALCOSTElement.textContent = formatValue(data.currency, weakTastey.totalCost)        
+        mcActualPriceElement.textContent = formatValue(currency, weakTastey.actualAmount)
+        mcTOTALCOSTElement.textContent = formatValue(currency, weakTastey.totalCost)        
     }
 }
 
@@ -539,7 +542,7 @@ function setMinusHoverState(i) {
 
 //a function to handle updating general states
 function updateStates(id) {
-    weakTastey.calculateCheckoutDetails(allMeals, data.currency)
+    weakTastey.calculateCheckoutDetails(allMeals, currency)
     setCartStates()
     setPositionStates()
     setOrderStates(id)
@@ -551,7 +554,7 @@ function handleAddMeal(id,i) {
     try {
         // #TASTEY CRUD - CU
         Tastey.addMeal(id)
-        addMeal(id,allMeals,data.currency)
+        addMeal(id, allMeals, currency)
         updateStates(id)
         setMinusHoverState(i)
         resetBagEventListeners()                    
@@ -617,7 +620,7 @@ function clearCart() {
     }
     // #TASTEY CRUD - D
     Tastey.clearCart()
-    weakTastey.calculateCheckoutDetails(allMeals, data.currency)
+    weakTastey.calculateCheckoutDetails(allMeals, currency)
     setCheckoutState()
     setCartStates()
     allMeals.forEach(({ id }) => setOrderStates(id))
@@ -696,7 +699,7 @@ function handleCheckout() {
     const { picSrc: lastOrderPicSrc } = meal 
     const title = "Tastey";
     const options = {
-        body: `We are sorry :) but checkout is currently unavailable!!! We see you are trying to check out ${weakTastey.ordersInTotal} Tastey orders with a total cost of ${formatValue(data.currency, weakTastey.totalCost)}`,
+        body: `We are sorry :) but checkout is currently unavailable!!! We see you are trying to check out ${weakTastey.ordersInTotal} Tastey orders with a total cost of ${formatValue(currency, weakTastey.totalCost)}`,
         image: `${lastOrderPicSrc}`,
         vibrate: [200, 100, 200, 100, 200, 100, 200],
         tag: "tastey-checkout-notification",

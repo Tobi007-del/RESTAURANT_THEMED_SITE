@@ -1,4 +1,4 @@
-export { tasteyThrottler, tasteyDebouncer, round, check, formatValue, clamp, panning, scrollContentTo, asyncScrollToBottom, asyncScrollToTop, syncScrollToBottom, syncScrollToTop, remToPx, pxToRem, rand, positionGradient, stars }
+export { tasteyThrottler, tasteyDebouncer, round, check, formatValue, clamp, panning, scrollContentTo, asyncScrollToBottom, asyncScrollToTop, syncScrollToBottom, syncScrollToTop, remToPx, pxToRem, rand, positionGradient, stars, write, erase }
 
 //Some utility functions for general use
 class tasteyDebouncer {
@@ -201,5 +201,30 @@ function stars(stars) {
                 animate(star);
             }, 1000);
         }, index++ * (interval / 3))
+    }
+}
+
+function write(text, parent, stall = 100) {
+    let n = 0
+    write()
+    function write() {
+        if (n < text.length) {
+            parent.textContent += text[n]
+            n++
+            setTimeout(write, stall)
+        }
+    }
+}
+
+function erase(parent, stall = 100) {
+    console.log(parent)
+    let n = parent.textContent.length
+    cancel()
+    function cancel() {
+        if (n > 0) {
+            parent.textContent = parent.textContent.slice(0,-1)
+            n--
+            setTimeout(cancel, stall)
+        }
     }
 }

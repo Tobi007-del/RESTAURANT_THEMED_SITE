@@ -1,10 +1,10 @@
-import { data, allMeals, getDOMElements, handleAddMeal, handleCheckout, positionMiniCards, adjustMiniCards } from "./CRUD.js"
+import { allMeals, currency, getDOMElements, handleAddMeal, handleCheckout, positionMiniCards, adjustMiniCards } from "./CRUD.js"
 import { weakTastey } from "./TasteyManager.js"
 import { tasteyThrottler, check, formatValue, panning, positionGradient, scrollContentTo, remToPx, tasteyDebouncer } from "./utility-functions.js"
 
-tasteyMiniBag(data)
+tasteyMiniBag()
 
-function tasteyMiniBag(data) {
+function tasteyMiniBag() {
     const cartContainer = document.querySelector(".cart-container")
     try {
         const miniCart = document.createElement("div")
@@ -42,8 +42,8 @@ function tasteyMiniBag(data) {
                                                 <p>(including VAT)</p>
                                             </span>
                                             <span class="mini-cart-total-amount-values">
-                                                <span class="mini-cart-TOTAL-COST">${formatValue(data.currency, weakTastey.totalCost)}</span>
-                                                <span class="mini-cart-actual-price">${formatValue(data.currency, weakTastey.actualAmount) ?? 0}</span>
+                                                <span class="mini-cart-TOTAL-COST">${formatValue(currency, weakTastey.totalCost)}</span>
+                                                <span class="mini-cart-actual-price">${formatValue(currency, weakTastey.actualAmount) ?? 0}</span>
                                             </span>
                                         </div>
                                         <div class="mini-cart-buttons-wrapper">
@@ -82,8 +82,8 @@ function tasteyMiniBag(data) {
                                                 <div class="mini-cart-tastey-order-text">
                                                     <h5 data-serving=${serving ?'"' + serving + '"' : "NG"} title="${label}">${label}</h5>
                                                     <span>
-                                                    <p class="mini-cart-meal-price">${formatValue(data.currency,check(price.currentValue,price.discount))}</p>
-                                                    <p  class="mini-cart-actual-meal-price">${formatValue(data.currency,price.currentValue)}</p>
+                                                    <p class="mini-cart-meal-price">${formatValue(currency,check(price.currentValue,price.discount))}</p>
+                                                    <p  class="mini-cart-actual-meal-price">${formatValue(currency,price.currentValue)}</p>
                                                     </span>
                                                 </div>
                                                 <div>

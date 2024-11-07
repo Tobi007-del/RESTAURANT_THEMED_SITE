@@ -1,6 +1,11 @@
 // archive data import
 import Archives from './fetch-archives.js'
-import { panning,remToPx,tasteyDebouncer } from './utility-functions.js'
+import { panning, remToPx, tasteyThrottler } from './utility-functions.js'
+
+window.addEventListener('load', () => {
+    setTimeout(timelineLength, 100)
+    setTimeout(archiveUI, 100)
+})
 
 const archiveContentWrapper = document.querySelector(".archives-content-wrapper")
 Archives.forEach(({ year, imgSrc, event, description }) => {
@@ -25,25 +30,19 @@ archiveContentWrapper.innerHTML +=
 
 const archives = document.querySelectorAll(".archive-content")
 
-let scrollY
-const observer = new IntersectionObserver(entries => {  
-    entries.forEach(entry => {  
-        if (entry.isIntersecting) {
-            scrollY = window.scrollY
-            setTimelinePosition(entry.target.querySelector(".archive-time-wrapper h4"))
-            entry.target.classList.add("visible")
+const scrollThrottler = new tasteyThrottler
+window.addEventListener('scroll', scrollThrottler.throttle(archiveUI))
+
+function archiveUI() {
+    archives.forEach(archive => {
+        if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(10))) && (archive.getBoundingClientRect().top > remToPx(1.5))) {
+            setTimelinePosition(archive.querySelector(".archive-time-wrapper h4"))
+            archive.classList.add("visible")
         } else {
-            if (window.scrollY < scrollY) 
-                setTimelinePosition(entry.target.parentElement.previousElementSibling?.querySelector(".archive-time-wrapper h4"))
-            entry.target.classList.remove("visible")
+            archive.classList.remove("visible")
         }
-    })
-}, {root: null, rootMargin: '0px', threshold:1})
-
-for (const archive of archives) {
-    observer.observe(archive)
+    }) 
 }
-
 
 const timeline = document.querySelector(".tastey-timeline")
 function setTimelinePosition(header) {
@@ -53,18 +52,18 @@ function setTimelinePosition(header) {
     archiveContentWrapper.style.setProperty('--timeline-position', `${position}px`)
 }
 
-const timelineLength = () => {
+function timelineLength() {
     const lastArchive = [...document.querySelectorAll(".archive-content")][Archives.length - 1]
     let totalHeight = archiveContentWrapper.getBoundingClientRect().height
     const lastArchiveHeight = lastArchive.getBoundingClientRect().height
     totalHeight = totalHeight - lastArchiveHeight - remToPx(4.25)
     archiveContentWrapper.style.setProperty('--timeline-length', `${totalHeight}px`)
 }
-window.addEventListener('load', () => {
-    setTimeout(timelineLength)
+
+window.addEventListener('resize', () => {
+    setTimeout(timelineLength, 10)
+    setTimeout(archiveUI, 10)
 })
-const resizeDebounder = new tasteyDebouncer
-window.addEventListener('resize', timelineLength)
 
 // Panning effect for images
 

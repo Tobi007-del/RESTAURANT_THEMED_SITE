@@ -608,6 +608,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     padding: .5rem;
     display: flex;
     flex-flow: row nowrap;
+    will-change: transform;
 }
 
 .mini-cart-tastey-order-image-wrapper {

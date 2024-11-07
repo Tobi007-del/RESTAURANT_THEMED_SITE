@@ -1,5 +1,5 @@
 //module imports
-import { data, meals, allMeals, getDOMElements, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards } from "./CRUD.js"
+import { meals, allMeals, currency, getDOMElements, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards } from "./CRUD.js"
 import { weakTastey } from "./TasteyManager.js"
 import { tasteyThrottler, tasteyDebouncer, check, formatValue, clamp , panning, scrollContentTo, remToPx, syncScrollToTop, positionGradient, stars } from "./utility-functions.js"
 import { autoRemoveScroller, quickScrollShow, removeScrolls, quickScrolls } from "./build-scroller.js"
@@ -7,24 +7,25 @@ import { autoRemoveScroller, quickScrollShow, removeScrolls, quickScrolls } from
 
 const mobileThreshold = remToPx(36)
 
-tasteyMenu(data)
-tasteyBag(data)
+tasteyMenu(meals)
+tasteyBag()
 
-function tasteyMenu(data){
+function tasteyMenu(meals){ 
     const main = document.querySelector('main.menu')
-    meals.forEach(meal => {
-        const product = Object.keys(meal)[0]
-        const productName = meal[product][0].category
+    Object.entries(meals).forEach(meal => {
+        const section = meal[0]
+        const sectionName = meal[1][0].category
+
         const menuSection = document.createElement('div')
-        menuSection.className += `${productName}-section menu-sections`
+        menuSection.className += `${sectionName}-section menu-sections`
         const menuHeader = document.createElement('div')
-        menuHeader.className +=`tastey-menu-title-wrapper ${product}`
-        menuHeader.innerHTML += `<h1>${productName.toUpperCase()}</h1>`
+        menuHeader.className +=`tastey-menu-title-wrapper ${section}`
+        menuHeader.innerHTML += `<h1>${sectionName.toUpperCase()}</h1>`
         menuSection.append(menuHeader)
         const menuContainer = document.createElement('div')
-        menuContainer.className += `tastey-menu tastey-${product}`
+        menuContainer.className += `tastey-menu tastey-${section}`
 
-        meal[product].forEach(({ id, label, description, price, like, picSrc}) => {
+        meal[1].forEach(({ id, label, description, price, like, picSrc}) => {
             like = like ?? false 
             menuContainer.innerHTML += `
             <div class="tastey-meal" data-id='${id}' data-like="${weakTastey.getLikeValue(Number(id)) ?? like}" data-discount="${price.discount ?? 0}">
@@ -45,7 +46,7 @@ function tasteyMenu(data){
                             </div>
                             <div class="price-container">
                                 <button type="button" class="add-to-cart-button" title="Add ${label} to Bag" data-id="${id}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}">Add to Bag</button>
-                                <span class="product-price" data-discount="${price.discount ?? 0}">${formatValue(data.currency,check(price.currentValue,price.discount))}</span>
+                                <span class="product-price" data-discount="${price.discount ?? 0}">${formatValue(currency,check(price.currentValue,price.discount))}</span>
                             </div>
                         </div>
                     </div>
@@ -58,7 +59,7 @@ function tasteyMenu(data){
 }
 
 
- function tasteyBag(data) {
+ function tasteyBag() {
     try {
         const main = document.querySelector('main.meal-cart')
         main.classList.add("meal-cart")
@@ -86,7 +87,7 @@ function tasteyMenu(data){
                                 </span>
                                 <span>
                                     <p>Actual Amount :</p>
-                                    <p class="actual-price">${formatValue(data.currency, weakTastey.actualAmount) ?? 0}</p>
+                                    <p class="actual-price">${formatValue(currency, weakTastey.actualAmount) ?? 0}</p>
                                 </span>
                                 <span>
                                     <p>Total Discount :</p>
@@ -94,14 +95,14 @@ function tasteyMenu(data){
                                 </span>
                                 <span>
                                     <p>Saved :</p>
-                                    <p class="saved">${formatValue(data.currency, weakTastey.savedAmount) ?? 0}</p>
+                                    <p class="saved">${formatValue(currency, weakTastey.savedAmount) ?? 0}</p>
                                 </span>
                             </div>
                             <div class="order-preview">
                                 <h2>The total amount of</h2>
                                 <span>
                                     <p>Total Amount</p>
-                                    <p class="total-price">${formatValue(data.currency, weakTastey.totalAmount) ?? 0}</p>
+                                    <p class="total-price">${formatValue(currency, weakTastey.totalAmount) ?? 0}</p>
                                 </span>
                                 <span>
                                     <p>VAT</p>
@@ -116,7 +117,7 @@ function tasteyMenu(data){
                                     <p>(including VAT)</p>
                                 </span>
                                 <span class="total-amount-values">
-                                    <p class="TOTAL-COST">${formatValue(data.currency, weakTastey.totalCost)}</p>
+                                    <p class="TOTAL-COST">${formatValue(currency, weakTastey.totalCost)}</p>
                                 </span>
                             </div>
                             <div class="checkout-btn-wrapper">
@@ -188,8 +189,8 @@ function tasteyMenu(data){
                                     <p class="serving-size" data-serving=${serving ?'"' + serving + '"' : "NG"}>Note: </p>
                                 </span>         
                                 <span class="order-price">
-                                    <h3 class="meal-price" data-discount="${price.discount ?? 0}">${formatValue(data.currency,check(price.currentValue,price.discount))}</h3>
-                                    <h3 class="actual-meal-price">${formatValue(data.currency,price.currentValue)}</h3>
+                                    <h3 class="meal-price" data-discount="${price.discount ?? 0}">${formatValue(currency,check(price.currentValue,price.discount))}</h3>
+                                    <h3 class="actual-meal-price">${formatValue(currency,price.currentValue)}</h3>
                                 </span>
                             </div>
                         </div>

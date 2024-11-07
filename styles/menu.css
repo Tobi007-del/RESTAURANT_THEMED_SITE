@@ -690,10 +690,6 @@ main.meal-cart:not([data-cart='0']) {
     gap: 1rem;
 }
 
-main.meal-cart:not([data-cart = '0']) {
-    position: absolute;
-}
-
 main.meal-cart[data-cart = '0'] {
     padding-block-end: 5rem;
 }
@@ -1307,6 +1303,9 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 
 @media only screen and (min-width: 55rem) and (min-height: 32.55rem) {
     @supports(position: sticky) {
+        main.meal-cart:not([data-cart = '0']) {
+            position: absolute;
+        }
         .tastey-meal-order, .order-number-wrapper {
             position: sticky;
         }
@@ -1328,6 +1327,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
             padding: .035rem;
             background-color: var(--alt-sub-text-color);
             transition: translate 500ms ease-out;
+            will-change: transform;
         }
         .tastey-meal-order:not(:last-child).lift:hover, .tastey-meal-order:not(:last-child):has(:focus-visible) {
             translate: 13.5rem -5.25rem;

@@ -1,10 +1,10 @@
-import { data, allMeals, handleAddMeal } from "./CRUD.js"
+import { allMeals, currency, handleAddMeal } from "./CRUD.js"
 import { weakTastey } from "./TasteyManager.js"
 import { tasteyThrottler, check, formatValue, panning, scrollContentTo, remToPx } from "./utility-functions.js"
 
-tasteyFooterMenu(data)
+tasteyFooterMenu()
 
-function tasteyFooterMenu(data) {
+function tasteyFooterMenu() {
     const offersContainer = document.createElement('div')
     offersContainer.className = "offers-container"
     offersContainer.innerHTML = 
@@ -26,7 +26,7 @@ function tasteyFooterMenu(data) {
                     <a href="menu.html" title="Open Menu" data-discount="${price.discount ?? 0}">
                         <img src="${picSrc}" alt="Image of ${label}" title="${label}" class="offer-image">
                     </a>
-                    <p>${formatValue(data.currency,check(price.currentValue,price.discount))}</p>
+                    <p>${formatValue(currency,check(price.currentValue,price.discount))}</p>
                     <button type="button" title="Add ${label} to Bag" class="footer-add-to-cart-button" data-id="${id}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}">Add to Bag</button>
                 </div>
             `
