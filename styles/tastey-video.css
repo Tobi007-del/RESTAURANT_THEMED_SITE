@@ -498,7 +498,7 @@ video::-webkit-media-text-track-container {
     touch-action: none;
 }
 
-.video-container.seeking .timeline-container {
+.video-container.scrubbing .timeline-container {
     cursor: grabbing;
 }
 

@@ -102,7 +102,6 @@ audios.forEach(audio => {
                 if (!wasPaused) {
                     audio.play()     
                 }
-                audioContainer.classList.remove("seeking");
             }
 
             handleTimelineUpdate(e)
@@ -111,10 +110,8 @@ audios.forEach(audio => {
         function handleTimelineUpdate(e) {
             const rect = timelineContainer.getBoundingClientRect()
             const percent = Math.min(Math.max(0, e.clientX - rect.x), rect.width) / rect.width
-            if (isScrubbing) {
+            if (isScrubbing) 
                 timelineContainer.style.setProperty("--audio-progress-position", percent)
-                audioContainer.classList.add("seeking")
-            }
         }
 
         audio.addEventListener("loadeddata", () => {

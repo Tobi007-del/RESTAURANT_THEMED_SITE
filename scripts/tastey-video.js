@@ -331,7 +331,6 @@ videos.forEach(video => {
             } else {
                 video.currentTime = percent * video.duration
                 if (!wasPaused) video.play()     
-                videoContainer.classList.remove("seeking");
             }
         
             handleTimelineUpdate(e)
@@ -344,18 +343,15 @@ videos.forEach(video => {
             const previewImgPercent = Math.min(Math.max(percent, previewImgMin),(1 - previewImgMin))
             const previewImgNumber = Math.max(1, Math.floor((percent * video.duration) / 2))
             const previewImgSrc = `assets/tastey-dining-video-preview-imgs/preview${previewImgNumber}.jpg`
+            const previewTime = parseInt(percent * video.duration) > 0 ? formatDuration(percent * video.duration) : ''
             previewImg.src = previewImgSrc
             timelineContainer.style.setProperty("--preview-position", percent)
             timelineContainer.style.setProperty("--preview-img-position", previewImgPercent)
-        
+            previewImgContainer.dataset.previewTime = previewTime  
             if(isScrubbing) {
                 thumbnailImg.src = previewImgSrc
                 timelineContainer.style.setProperty("--progress-position", percent)
-                videoContainer.classList.add("seeking");
             }
-        
-            const previewTime = parseInt(percent * video.duration) > 0 ? formatDuration(percent * video.duration) : ''
-            previewImgContainer.dataset.previewTime = previewTime  
         }
         
         //Playback Speed
