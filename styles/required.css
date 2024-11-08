@@ -261,7 +261,7 @@ nav {
 }
 
 nav .cart-container:has(:focus-visible) .mini-meal-cart {
-    display: flex;
+    display: block;
 }
 
 nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button {
@@ -587,18 +587,21 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     }
 }
 
-@media only screen and (max-width: 30rem), only screen and (max-height: 32.5rem) and (max-width: 40rem) {
-    .mini-cart-order-review-section {
-        padding-inline: 1.5vw;
-    }
-    .mini-meal-cart .mini-cart-checkout .mini-cart-checkout-button::after {
-        display: none;
-    }
+@media only screen and (max-width: 21.75rem), only screen and (max-height: 32.5rem) and (max-width: 38.5rem) {
     .mini-meal-cart .mini-cart-tastey-order-text h5:not([data-serving="NG"])::after {
         display: none;
     }
     .mini-meal-cart .mini-cart-actual-meal-price {
         display: none;    
+    }
+}
+
+@media only screen and (max-width: 17.5rem), only screen and (max-height: 32.5rem) and (max-width: 40rem) {
+    .mini-meal-cart .mini-cart-checkout .mini-cart-checkout-button::after {
+        display: none;
+    }
+    .mini-cart-order-review-section {
+        padding-inline: 1.75vw;
     }
 }
 
@@ -879,6 +882,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 .mini-cart-checkout-preview {
     display: flex;
     justify-content: space-between;
+    gap: 1rem;
     height: 3.5rem; 
     align-items: center;
     color: var(--main-text-color);

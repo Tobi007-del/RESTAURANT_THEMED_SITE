@@ -1,4 +1,3 @@
-import { Tastey } from "./TasteyManager.js"
 import { syncScrollToTop, syncScrollToBottom, tasteyThrottler, tasteyDebouncer, remToPx } from "./utility-functions.js"
 export { autoRemoveScroller, quickScrollShow, quickScrolls, removeScrolls }
 

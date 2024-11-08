@@ -1,6 +1,6 @@
 import { allMeals, currency, getDOMElements, handleAddMeal, handleCheckout, positionMiniCards, adjustMiniCards } from "./CRUD.js"
 import { weakTastey } from "./TasteyManager.js"
-import { tasteyThrottler, check, formatValue, panning, positionGradient, scrollContentTo, remToPx, tasteyDebouncer } from "./utility-functions.js"
+import { tasteyThrottler, check, formatValue, panning, positionGradient } from "./utility-functions.js"
 
 tasteyMiniBag()
 
@@ -140,6 +140,7 @@ navbarCart.addEventListener("click", () => {
 })
 navbarCart.addEventListener("click", positionMiniCards)
 navbarCart.addEventListener("pointerover", positionMiniCards)
+navbarCart.addEventListener("focus", positionMiniCards)
 closeCartBtn.addEventListener("click", () => {
     miniMealCart.classList.add("close")
 })
@@ -149,16 +150,16 @@ mcShoppingBagBtn.addEventListener("click", () => {
 
 //closing the cart automatically when necessary for a better experience and for privacy reasons
 let timeout
-miniMealCart.addEventListener("mouseover", clearTimeout(timeout))
+miniMealCart.addEventListener("mouseover", () => {if(timeout) clearTimeout(timeout)})
 cartContainer.addEventListener("mouseleave", handleCartView)
 document.body.addEventListener("mouseleave", handleCartView)
 
 function handleCartView() {
-    const itv = 25000
+    const itv = 45000
     timeout = setTimeout(() => {
-        if((!cartContainer.matches(":hover") && !cartContainer.matches(":focus-within"))) {
+        if((!cartContainer.matches(":hover") && !cartContainer.matches(":focus-within"))) 
             miniMealCart.classList.add("close")
-        }
+
     }, itv);
 }
 
@@ -168,7 +169,7 @@ document.addEventListener("visibilitychange", () => {
 })
 
 const mcScrollThrottler = new tasteyThrottler
-mcOrderReviewSection.addEventListener("scroll", adjustMiniCards)
+mcOrderReviewSection.addEventListener("scroll", mcScrollThrottler.throttle(adjustMiniCards, 10))
 window.addEventListener("resize", positionMiniCards)
 
 
@@ -176,7 +177,7 @@ window.addEventListener("resize", positionMiniCards)
 panning(document.querySelectorAll('.mini-cart-tastey-order-image'))
 
 miniMealCart.onpointermove = e => {
-    positionGradient(e,document.querySelector(".mini-meal-cart"))
+    positionGradient(e, document.querySelector(".mini-meal-cart"))
 }
 
 mcCheckoutBtn.addEventListener("click", handleCheckout)

@@ -1278,13 +1278,6 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 }
 
 @media only screen and (max-width: 55rem) {
-    .tastey-meal-order {
-        transition: transform 400ms ease;
-        transform: translate(0px, 0%);
-        @starting-style {
-            transform: translate(-25px,-100%);
-        }
-    }
     .tastey-meal-order-content {
         height: fit-content;
         flex-flow: row wrap;
@@ -1311,6 +1304,13 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 
 @media only screen and (min-width: 55rem) and (min-height: 32.55rem) {
     @supports(position: sticky) {
+        .tastey-meal-order {
+            transition: transform 400ms ease;
+            transform: translate(0px, 0%);
+            @starting-style {
+                transform: translate(-25px,-100%);
+            }
+        }
         .tastey-meal-order, .order-number-wrapper {
             position: sticky;
         }
