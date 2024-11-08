@@ -24,13 +24,13 @@ const miniBagQuery = () => {
 }
 
 // the code below fills up the cart immediately for development purposes
-// allMeals.forEach(({ id }) => {
-//     Tastey.addMeal(id)
-// })
+allMeals.forEach(({ id }) => {
+    Tastey.addMeal(id)
+})
 
-// allMeals.forEach(({ id }) => {
-//     Tastey.handleLikes(id,true)
-// })
+allMeals.forEach(({ id }) => {
+    Tastey.handleLikes(id,true)
+})
 
 // the one-liner below clears the cart immediately for development purposes
 // localStorage.clear()
@@ -99,9 +99,10 @@ if (getCardsQuery() && !weakTastey.getEmpty()) {
         //adding pointer over event listener to all cards
         tasteyMealOrders[i].onpointerover = () => {
             setTimeout(() => {
-                if(tasteyMealOrders[i].matches(":hover"))
-                    liftCard()
-            }, 200)
+                if (tasteyMealOrders[i])
+                    if(tasteyMealOrders[i].matches(":hover"))
+                        liftCard()
+            }, 500)
         }
         function liftCard() {
             const currTop = Math.round(pxToRem(tasteyMealOrders[i].getBoundingClientRect()?.top))
@@ -179,8 +180,8 @@ function removeCard(id) {
             removeStall = 200
             let stall = 195
             const order = document.querySelector(`.tastey-meal-order[data-id="${id}"]`)        
-            order.classList.remove("lift")
-            order.animate({transform: `translate(${rand(-20,20)}%, ${pxToRem(window.innerHeight) - (parseFloat(order.dataset?.top))}rem)`},{duration: stall, fill: "forwards"})
+            order?.classList.remove("lift")
+            order?.animate({transform: `translate(${rand(-20,20)}%, ${pxToRem(window.innerHeight) - (parseFloat(order.dataset?.top))}rem)`},{duration: stall, fill: "forwards"})
         }
     }
 }
@@ -197,8 +198,8 @@ function removeAllCards() {
         removeExtras()
         allTasteyMealOrders.forEach((order,i) => {
             const stall = (((allTasteyMealOrders.length - i)/allTasteyMealOrders.length * 200) + 1000)
-            order.classList.remove("lift")
-            order.animate({transform: `translate(${rand(-15,15)}%, ${pxToRem(window.innerHeight) - (parseFloat(order.dataset?.top))}rem)`},{duration: stall, fill: "forwards"})                
+            order?.classList.remove("lift")
+            order?.animate({transform: `translate(${rand(-15,15)}%, ${pxToRem(window.innerHeight) - (parseFloat(order.dataset?.top))}rem)`},{duration: stall, fill: "forwards"})                
         })   
     }
 }
@@ -263,7 +264,17 @@ function removeMiniCard(id) {
             stall = 195            
         }
         const order = document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"]`)        
-        order?.animate({transform: `translate(${rand(-10,10)}%, 14rem)`},{duration: stall, fill: "forwards"})
+        order?.animate({transform: `translate(${rand(-10,10)}%, 15rem)`},{duration: stall, fill: "forwards"})
+    }
+}
+
+function removeAllMiniCards() {
+    if (!weakTastey.getEmpty()) {
+        const allTasteyMealOrders = document.querySelectorAll(".mini-cart-tastey-meal-order")
+        allTasteyMealOrders.forEach((order,i) => {
+            const stall = (((allTasteyMealOrders.length - i)/allTasteyMealOrders.length*200) + 1000)
+            order?.animate({transform: `translate(${rand(-15,15)}%, 15rem)`},{duration: stall, fill: "forwards"})
+        })
     }
 }
 
@@ -447,23 +458,6 @@ function removeMeal(id) {
     }
 }
 
-//a function for deleting orders
-function deleteMeal(id,n) {
-    if (bagQuery()) {
-        tasteyMealOrders[n]?.remove()
-        positionCards()
-        setTimeout(autoRemoveScroller,100)
-    }
-    if (miniBagQuery()) {
-        mcTasteyMealOrders[n]?.remove()
-        positionMiniCards()
-    }
-    // #TASTEY CRUD - D
-    Tastey.deleteMeal(id)
-    updateStates(id)
-    resetBagEventListeners()
-}
-
 //a function for updating the checkout state
 function setCheckoutState() {
     // #TASTEY CRUD - R
@@ -584,15 +578,15 @@ function handleRemoveMeal(id,i) {
 }
 
 //The delete function is different due to its async nature
+let deleteTimeout
 function handleDelete(id,n) {
     try {
         if (!getCardsQuery() && document.body.classList.contains("cart")) {
             deleteMeal(id,n)
             return
         }
-        let timeout
-        clearTimeout(timeout)
-        timeout = setTimeout(() => {
+        if (deleteTimeout) {clearTimeout(deleteTimeout)}
+        deleteTimeout = setTimeout(() => {
             if (bagQuery() && getCardsQuery()) 
                 removeCard(id)    
             if (miniBagQuery())
@@ -602,28 +596,26 @@ function handleDelete(id,n) {
             }, removeStall)                        
         }, removeStall);
     } catch(err) {
-        alert("Error removing meal from bag :)")
+        alert("Error removing meal from bag :)") 
         console.error(err)
     }
 }
 
-//a function to clear the tastey bag
-function clearCart() {
+//a function for deleting orders
+function deleteMeal(id,n) {
     if (bagQuery()) {
-        const allTasteyMealOrders = document.querySelectorAll(".tastey-meal-order")   
-        allTasteyMealOrders.forEach(order => order.remove())
+        tasteyMealOrders[n]?.remove()
+        positionCards()
         setTimeout(autoRemoveScroller,100)
     }
     if (miniBagQuery()) {
-        const mcAllTasteyMealOrders = document.querySelectorAll(".mini-cart-tastey-meal-order")
-        mcAllTasteyMealOrders.forEach(order => order.remove())
+        mcTasteyMealOrders[n]?.remove()
+        positionMiniCards()
     }
     // #TASTEY CRUD - D
-    Tastey.clearCart()
-    weakTastey.calculateCheckoutDetails(allMeals, currency)
-    setCheckoutState()
-    setCartStates()
-    allMeals.forEach(({ id }) => setOrderStates(id))
+    Tastey.deleteMeal(id)
+    updateStates(id)
+    resetBagEventListeners()
 }
 
 //The clear cart function is a bit different due to its async nature
@@ -636,21 +628,43 @@ function handleClearCart() {
         }
         const isCartCleared = confirm(`You are about to remove ${Tastey.ordersInTotal} ${Tastey.ordersInTotal > 1 ? "orders" : "order"} from your Shopping Bag!`)
         if (isCartCleared) {
-            if (bagQuery()) {
-                if (getCardsQuery()) {
-                    removeAllCards()
-                    setTimeout(() => {
-                        clearCart()
-                    }, emptyStall);
-                    return
-                }
+            if (!getCardsQuery() && document.body.classList.contains("cart")) {
+                clearCart()
+                return
             }
-            clearCart()
+            if (bagQuery()) 
+                if (getCardsQuery()) 
+                    removeAllCards()
+            if (miniBagQuery()) 
+                if (!document.querySelector(".mini-meal-cart").classList.contains("close"))
+                    removeAllMiniCards()
+            setTimeout(() => {
+                clearCart()
+            }, emptyStall)
         }        
     } catch(err) {
         alert("Error occured while clearing bag :)")
         console.error(err)
     }
+}
+
+//a function to clear the tastey bag
+function clearCart() {
+    if (bagQuery()) {
+        const allTasteyMealOrders = document.querySelectorAll(".tastey-meal-order")   
+        allTasteyMealOrders.forEach(order => order.remove())
+        setTimeout(autoRemoveScroller,500)
+    }
+    if (miniBagQuery()) {
+        const mcAllTasteyMealOrders = document.querySelectorAll(".mini-cart-tastey-meal-order")
+        mcAllTasteyMealOrders.forEach(order => order.remove())
+    }
+    // #TASTEY CRUD - D
+    Tastey.clearCart()
+    weakTastey.calculateCheckoutDetails(allMeals, currency)
+    setCheckoutState()
+    setCartStates()
+    allMeals.forEach(({ id }) => setOrderStates(id))
 }
 
 //a function to handle likes

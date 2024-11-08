@@ -46,7 +46,9 @@ html, *::after, *::before, aside, button {
 }
 
 body {
+    width: 100dvw;
     margin: 0;
+    overflow-x: hidden;
     background: fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
     overflow-x: hidden;
 }
@@ -137,7 +139,6 @@ nav {
     nav {
         transform: translateY(.5rem);
     }
-
     nav.top {
         transform: translateY(0);
         border-radius: 0 0 .5rem .5rem;
@@ -437,7 +438,8 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     justify-content: space-between;
     align-items: center;
     height: 1rem;
-    margin-inline: 1.25rem;
+    margin-inline-start: 1.25rem;
+    margin-inline-end: 2rem;
 }
 
 .mini-cart-title-wrapper h5 {
@@ -537,7 +539,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     flex: 0 0 14.5rem;
     width: 100%;
     padding-inline: 1.25rem;
-    padding-block-end: .25rem;
+    padding-block-end: .5rem;
     display: flex;
     flex-direction: column;
     gap: .5rem;
@@ -545,10 +547,10 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     overflow-x: hidden;
 }
 
-@media only screen and (max-height: 35rem) {
+@media only screen and (max-height: 32.5rem) and (min-width: 25rem) {
     .mini-meal-cart {
-        width: clamp(15rem,90dvw,36rem);
-        height: clamp(15rem,calc(100dvh - 4rem),17rem);
+        width: clamp(25rem, 90dvw, 36rem);
+        height: clamp(15rem, calc(100dvh - 4rem), 17rem);
     }
     .mini-empty-cart-section {
         height: 11rem;
@@ -572,13 +574,31 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
         padding-inline: .75rem;
     }
     .mini-meal-cart .mini-cart-checkout-preview {
-        height: 32.5%;
+        height: 35%;
     }
     .mini-meal-cart .mini-cart-buttons-wrapper {
-        gap: .65rem;
+        gap: 0;
+    }
+    .mini-meal-cart .mini-cart-buttons-wrapper a {
+        margin-bottom: 2.75dvh;
     }
     .mini-meal-cart .mini-cart-checkout .mini-cart-checkout-button {
-        margin-block-end: 7.5%;
+        margin-block-end: 6dvh;
+    }
+}
+
+@media only screen and (max-width: 30rem), only screen and (max-height: 32.5rem) and (max-width: 40rem) {
+    .mini-cart-order-review-section {
+        padding-inline: 1.5vw;
+    }
+    .mini-meal-cart .mini-cart-checkout .mini-cart-checkout-button::after {
+        display: none;
+    }
+    .mini-meal-cart .mini-cart-tastey-order-text h5:not([data-serving="NG"])::after {
+        display: none;
+    }
+    .mini-meal-cart .mini-cart-actual-meal-price {
+        display: none;    
     }
 }
 
@@ -599,6 +619,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 }
 
 .mini-cart-tastey-meal-order {
+    will-change: transform;
     flex: 0 0 6.5rem;
     border-radius: .35rem;
     width: inherit;
@@ -608,7 +629,17 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     padding: .5rem;
     display: flex;
     flex-flow: row nowrap;
-    will-change: transform;
+}
+
+@supports (position: sticky) {
+    .mini-cart-tastey-meal-order {
+        position: sticky;
+        top: var(--mini-sticky-top);
+        scale: var(--mini-sticky-scale);
+    }
+    .mini-cart-order-review-section {
+        padding-block-end: var(--mini-bottom);
+    }
 }
 
 .mini-cart-tastey-order-image-wrapper {
@@ -681,8 +712,12 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     display: block;
 }
 
-.mini-cart-meal-price, .mini-cart-actual-meal-price {
-    display: inline;
+.mini-cart-tastey-order-text > span {
+    display: flex;
+    row-gap: 0;
+    column-gap: .5rem;
+    align-items: center;
+    flex-flow: row wrap;
 }
 
 .mini-cart-meal-price {
@@ -936,18 +971,6 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 .mini-cart-icon svg, .mini-cart-menu-icon svg {
     height: 1.285rem;
     fill: var(--current-theme-inverse-accent-color);
-}
-
-@supports (position: sticky) {
-    .mini-cart-tastey-meal-order {
-        position: sticky;
-        top: var(--mini-sticky-top);
-        scale: var(--mini-sticky-scale);
-        transition: translate 150ms ease;
-    }
-    .mini-cart-order-review-section {
-        padding-block-end: var(--mini-bottom);
-    }
 }
 
 #scroller-circle {
@@ -1226,10 +1249,15 @@ footer {
     transition: 300ms ease;
 }
 
-.footer-arrow-container > svg:hover {
+.footer-arrow-container:not(.disabled) > svg:hover {
     cursor: pointer;
     scale: 1.1;
     opacity: 1;
+}
+
+.footer-arrow-container.disabled > svg:hover {
+    cursor: not-allowed;
+    animation: none;
 }
 
 .left-arrow:hover {

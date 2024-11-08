@@ -6,9 +6,7 @@
 }
 
 body {
-    width: 100%;
     background: fixed radial-gradient(var(--global-light-width) circle at var(--global-mouse-x) var(--global-mouse-y), var(--global-light-color), var(--global-light-complement-color) 40%), fixed center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
-    overflow-x: hidden;
 }
 
 body.cart {
@@ -144,7 +142,7 @@ body.cart .cart-toggler, body:not(.cart) .menu-toggler, .switcher.active {
 }
 
 .switcher-icon {
-    height: clamp(1.5rem,calc(1.75dvh + 1.25dvw),2rem);
+    height: clamp(1.5rem, calc(1.75dvh + 1.25dvw), 2rem);
 }
 
 .toggler div p, .switcher div p {
@@ -666,7 +664,9 @@ main.meal-cart {
     padding-inline-end: 1rem;
     padding-block: 5rem;
 }
-
+main.meal-cart:not([data-cart = '0']) {
+    position: absolute;
+}
 main.meal-cart[data-cart='0'] {
     background: fixed no-repeat radial-gradient(
         clamp(5rem,80dvw,32.5rem) circle at var(--mouse-x) var(--mouse-y),
@@ -1177,8 +1177,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 
 .checkout-btn {
     width: 100%;
-    aspect-ratio: 7 / 1;
-    max-height: 2.5rem;
+    height: 2.5rem;
     font-size: .9rem;
     background-color: var(--tastey-brand-color);
     color: var(--current-theme-sub-color);
@@ -1188,7 +1187,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 .clear-cart-btn {
     width: 75%;
     aspect-ratio: 6 / 1;
-    max-height: 2.25rem;
+    height: 2.25rem;
     color: var(--main-text-color);
     background-color: var(--darker-black);
     border: 0;
@@ -1303,9 +1302,6 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 
 @media only screen and (min-width: 55rem) and (min-height: 32.55rem) {
     @supports(position: sticky) {
-        main.meal-cart:not([data-cart = '0']) {
-            position: absolute;
-        }
         .tastey-meal-order, .order-number-wrapper {
             position: sticky;
         }
@@ -1322,12 +1318,13 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
             position: relative;
         }
         .tastey-meal-order {
+            will-change: transform;
             top: var(--sticky-top);
             scale: var(--sticky-scale) 1;
             padding: .035rem;
             background-color: var(--alt-sub-text-color);
-            transition: translate 500ms ease-out;
-            will-change: transform;
+            transition: translate 500ms ease-in-out;
+            translate: 0 0;
         }
         .tastey-meal-order:not(:last-child).lift:hover, .tastey-meal-order:not(:last-child):has(:focus-visible) {
             translate: 13.5rem -5.25rem;
@@ -1543,33 +1540,9 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
 }
 
-@media only screen and (max-width: 20rem) {
-    .cart-title-wrapper h3 {
-        translate: 0;
-        width: 100%;
-        font-size: 1.5rem;
-        text-align: center;
-    }
-    .cart-title-wrapper h3::after {
-        display: none;
-    }
-    .tastey-menu-title-wrapper::after, .tastey-menu-title-wrapper::before {
-        display: none;
-    }
-    .tastey-meal {
-        max-width: 100%;
-    }
-}
-
 @media only screen and (min-height: 34rem) {
     main.meal-cart[data-cart='0'] {
         touch-action: none;
-    }
-}
-
-@media only screen and (max-height: 32.5rem) {
-    .order-preview:last-child {
-        display: none;
     }
 }
 
@@ -1593,7 +1566,13 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
 }
 
-@media only screen and (max-height: 26.5rem) {
+@media only screen and (max-height: 32.5rem) and (min-width: 46.25rem) {
+    .order-preview:last-child {
+        display: none;
+    }
+}
+
+@media only screen and (max-height: 26.5rem) and (min-width: 46.25rem) {
     .order-preview:first-child {
         display: none;
     }
@@ -1602,7 +1581,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
 }
 
-@media only screen and (max-height: 21.5rem) {
+@media only screen and (max-height: 21.5rem) and (min-width: 46.25rem) {
     .order-summary {
         display: none;
     }
@@ -1616,6 +1595,47 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         display: none;
     }
     aside.category-switcher-container {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 20rem) {
+    .cart-title-wrapper h3 {
+        translate: 0;
+        width: 100%;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    .cart-title-wrapper h3::after {
+        display: none;
+    }
+    .tastey-menu-title-wrapper::after, .tastey-menu-title-wrapper::before {
+        display: none;
+    }
+    .tastey-meal {
+        max-width: 100%;
+    }
+    .checkout-btn::after {
+        display: none;
+    }
+    .order-preview span {
+        flex-wrap: wrap;
+    }
+    .checkout-preview {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: .25rem;
+        text-align: center;
+    }
+    .order-price {
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 0;
+    }
+}
+
+@media only screen and (max-width: 18.4rem) {
+    .product-price:not([data-discount="0"])::after {
         display: none;
     }
 }

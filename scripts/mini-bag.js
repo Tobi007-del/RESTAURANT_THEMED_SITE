@@ -168,7 +168,7 @@ document.addEventListener("visibilitychange", () => {
 })
 
 const mcScrollThrottler = new tasteyThrottler
-mcOrderReviewSection.addEventListener("scroll", mcScrollThrottler.throttle(adjustMiniCards,10))
+mcOrderReviewSection.addEventListener("scroll", adjustMiniCards)
 window.addEventListener("resize", positionMiniCards)
 
 

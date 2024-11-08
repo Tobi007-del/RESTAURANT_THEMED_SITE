@@ -112,7 +112,6 @@ body {
 }
 
 .tastey-timeline::after, .tastey-timeline-seeker {
-    content: '';
     border-radius: .2rem;
     position: absolute;
     left: 50%;
@@ -122,6 +121,7 @@ body {
 }
 
 .tastey-timeline::after {
+    content: '';
     padding-block: 1rem;
     height: 100%;
     background-color: var(--sub-text-color);
@@ -572,6 +572,7 @@ main.about-section {
 }
 
 .review-answers {
+    display: grid;
     transition: 200ms ease;
 }
 
@@ -683,4 +684,13 @@ main.about-section {
     .about-title-wrapper h2::before, .about-title-wrapper h2::after {
         display: none;
     }
+}
+
+@media only screen and (max-width: 20rem) {
+    .archive-img-wrapper {
+        display: none;
+    }
+    .archive-text-wrapper {
+        flex: 0 1 100%;
+    } 
 }

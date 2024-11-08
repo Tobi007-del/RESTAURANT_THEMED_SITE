@@ -35,7 +35,7 @@ window.addEventListener('scroll', scrollThrottler.throttle(archiveUI))
 
 function archiveUI() {
     archives.forEach(archive => {
-        if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(10))) && (archive.getBoundingClientRect().top > remToPx(1.5))) {
+        if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(10))) && (archive.getBoundingClientRect().top > remToPx(1))) {
             setTimelinePosition(archive.querySelector(".archive-time-wrapper h4"))
             archive.classList.add("visible")
         } else {

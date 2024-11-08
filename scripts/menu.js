@@ -121,7 +121,7 @@ function tasteyMenu(meals){
                                 </span>
                             </div>
                             <div class="checkout-btn-wrapper">
-                                <button type="button" title="Go to Checkout" class="checkout-btn Tastey-blur" data-cart="0" tabindex="1">GO TO CHECKOUT</button>
+                                <button type="button" title="Go to Checkout" class="checkout-btn Tastey-blur" data-cart="0">GO TO CHECKOUT</button>
                             </div>
                         </div>
                     </div>
