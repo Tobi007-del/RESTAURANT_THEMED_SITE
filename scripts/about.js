@@ -3,8 +3,8 @@ import Archives from './fetch-archives.js'
 import { panning, remToPx, tasteyThrottler } from './utility-functions.js'
 
 window.addEventListener('load', () => {
-    setTimeout(timelineLength, 100)
-    setTimeout(archiveUI, 100)
+    setTimeout(timelineLength)
+    setTimeout(archiveUI)
 })
 
 const archiveContentWrapper = document.querySelector(".archives-content-wrapper")
@@ -37,7 +37,10 @@ function archiveUI() {
     archives.forEach(archive => {
         if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(10))) && (archive.getBoundingClientRect().top > remToPx(1))) {
             setTimelinePosition(archive.querySelector(".archive-time-wrapper h4"))
-            archive.classList.add("visible")
+            setTimeout(() => {
+                if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(10))) && (archive.getBoundingClientRect().top > remToPx(1)))
+                    archive.classList.add("visible")
+            }, 400)
         } else {
             archive.classList.remove("visible")
         }
@@ -61,8 +64,8 @@ function timelineLength() {
 }
 
 window.addEventListener('resize', () => {
-    setTimeout(timelineLength, 10)
-    setTimeout(archiveUI, 10)
+    setTimeout(timelineLength)
+    setTimeout(archiveUI)
 })
 
 // Panning effect for images

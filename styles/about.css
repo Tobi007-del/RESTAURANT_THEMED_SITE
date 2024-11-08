@@ -172,24 +172,39 @@ body {
     border-color: transparent;
 }
 
-.archive-content.visible, .archive-content.visible > *, .archive-content.visible .archive-time-wrapper h4::before, .archive-content.visible .archive-time-wrapper h4::after, .archive-content.visible h4, .archive-content.visible h2, .archive-content.visible p, .archive-img-wrapper > img {
-    transition: 1600ms ease;
-}
-
 .archive-content.visible {
     border-color: var(--tastey-brand-light-accent-color);
+    transition: border-color 800ms ease;
 }
 
 .archive-content.visible h4 {
-    color: var(--current-theme-sub-color)!important;
+    color: var(--current-theme-sub-color);
+    transition: color 800ms ease;
 }
 
 .archive-content.visible h2 {
-    color: var(--tastey-brand-accent-color)!important;
+    color: var(--tastey-brand-accent-color);
+    transition: color 800ms ease;
 }
 
 .archive-content.visible p {
-    color: var(--main-text-color)!important;
+    color: var(--main-text-color);
+    transition: color 800ms ease;
+}
+
+.archive-content.visible .archive-time-wrapper h4::before {
+    background-color: var(--tastey-brand-light-accent-color);
+    transition: background-color 400ms ease;
+} 
+
+.archive-content.visible .archive-time-wrapper h4::after {
+    border-color: var(--tastey-brand-light-accent-color);
+    transition: border-color 400ms ease;
+}
+
+.archive-content.visible .archive-img-wrapper img {
+    filter: brightness(100%);
+    transition: filter 400ms ease;
 }
 
 .archive:nth-child(odd) .archive-content {
@@ -247,18 +262,6 @@ body {
     border-style: solid;
     border-color: var(--sub-text-color);
     background-color: var(--current-shade);
-}
-
-.archive-content.visible .archive-time-wrapper h4::before {
-    background-color: var(--tastey-brand-light-accent-color);
-} 
-
-.archive-content.visible .archive-time-wrapper h4::after {
-    border-color: var(--tastey-brand-light-accent-color);
-}
-
-.archive-content.visible .archive-img-wrapper img {
-    filter: brightness(100%);
 }
 
 .archive-img-wrapper {
