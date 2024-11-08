@@ -24,13 +24,13 @@ const miniBagQuery = () => {
 }
 
 // the code below fills up the cart immediately for development purposes
-allMeals.forEach(({ id }) => {
-    Tastey.addMeal(id)
-})
+// allMeals.forEach(({ id }) => {
+//     Tastey.addMeal(id)
+// })
 
-allMeals.forEach(({ id }) => {
-    Tastey.handleLikes(id,true)
-})
+// allMeals.forEach(({ id }) => {
+//     Tastey.handleLikes(id,true)
+// })
 
 // the one-liner below clears the cart immediately for development purposes
 // localStorage.clear()
