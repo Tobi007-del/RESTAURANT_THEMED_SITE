@@ -340,7 +340,7 @@ function toggleMenu() {
     syncScrollToTop("instant")
     controlActiveSwitcher(window.scrollY,[...menuHeaders])
     quickScrolls.classList.remove('show')
-    autoRemoveScroller()
+    setTimeout(autoRemoveScroller, 200)
     setTimeout(() => {
         tasteyOffSetTop = tastey.getBoundingClientRect().y;
         toggleMenuHeader(true)
@@ -351,7 +351,7 @@ function toggleCart() {
     document.body.classList.add("cart")
     syncScrollToTop("instant")
     quickScrolls.classList.remove('show')
-    autoRemoveScroller()
+    setTimeout(autoRemoveScroller, 200)
     setTimeout(positionCards)
 }
 
@@ -431,7 +431,7 @@ function controlActiveSwitcher(ordinate,arr) {
     markSwitcher(clamp(0, index, arr.length - 1))
 }
 
-switchers.forEach((switcher,i) => {
+switchers.forEach((switcher, i) => {
     switcher.addEventListener('click', () => { 
         let scrollPosition = Math.round((menuHeaders[i].getBoundingClientRect().top + window.scrollY) - tasteyOffSetTop)
         scrollContentTo(scrollPosition)

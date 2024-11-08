@@ -1,4 +1,4 @@
-import { allMeals, currency, getDOMElements, handleAddMeal, handleCheckout, positionMiniCards, adjustMiniCards } from "./CRUD.js"
+import { allMeals, currency, getDOMElements, handleCheckout, positionMiniCards, adjustMiniCards } from "./CRUD.js"
 import { weakTastey } from "./TasteyManager.js"
 import { tasteyThrottler, check, formatValue, panning, positionGradient } from "./utility-functions.js"
 
