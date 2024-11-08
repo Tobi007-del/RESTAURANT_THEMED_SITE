@@ -7,13 +7,13 @@ self.addEventListener('notificationclick', e => {
     let sitePageUrl
     switch(e.action) {
         case 'open-reservation': 
-            sitePageUrl = url('RESTATURANT_THEMED_SITE/reservation.html')
+            sitePageUrl = url('RESTAURANT_THEMED_SITE/reservation.html')
             break
         case 'open-menu':
-            sitePageUrl = url('RESTATURANT_THEMED_SITE/menu.html')
+            sitePageUrl = url('RESTAURANT_THEMED_SITE/menu.html')
             break
         default:
-            sitePageUrl = url('RESTATURANT_THEMED_SITE/index.html')
+            sitePageUrl = url('RESTAURANT_THEMED_SITE/index.html')
     }
     
     const promiseChain = clients
