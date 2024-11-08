@@ -329,9 +329,14 @@ function addMeal(id, meals, curr) {
         if (currentProductCount > 1) { 
             currentProductCountElement.textContent = currentProductCount
         } else {
-             orderReviewSectionContent.innerHTML += 
+            const newProduct = document.createElement('div')
+            newProduct.classList.add('tastey-meal-order')
+            newProduct.dataset.id = id
+            newProduct.dataset.like = weakTastey.getLikeValue(Number(id)) ?? false
+            newProduct.dataset.orders = weakTastey.getOrdersValue(Number(id)) ?? 0
+            newProduct.dataset.position = weakTastey.tasteyRecord.tasteyOrders.length ?? 1
+            newProduct.innerHTML = 
             `
-                <div class="tastey-meal-order" data-id="${id}" data-like="${weakTastey.getLikeValue(Number(id)) ?? false}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}" data-position = "${weakTastey.tasteyRecord.tasteyOrders.length ?? 1}">
                     <div class="tastey-meal-order-content">
                     <div class="tastey-order-image-wrapper">
                             <img class="tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
@@ -382,11 +387,11 @@ function addMeal(id, meals, curr) {
                         </div>
                     </div>
                     </div>
-                </div>
             `
+            orderReviewSectionContent.appendChild(newProduct)
+            panning(document.querySelector(`.tastey-meal-order[data-id="${id}"] .tastey-order-image`))
+            positionCards()
         }    
-        panning(document.querySelectorAll(".tastey-order-image"))
-        positionCards()
     } 
     if (miniBagQuery()) {
         const mcCurrentProductCountElement = document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"] .mini-cart-number`)
@@ -394,9 +399,14 @@ function addMeal(id, meals, curr) {
         if (currentProductCount > 1) { 
             mcCurrentProductCountElement.textContent = currentProductCount
         } else {
-            mcOrderReviewSection.innerHTML += 
-            `
-                            <div class="mini-cart-tastey-meal-order" data-id="${id}" id="tastey-meal-order-${id}" data-like="${weakTastey.getLikeValue(Number(id)) ?? false}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}" data-discount="${price.discount ?? 0}">               
+            const mcNewProduct = document.createElement('div')
+            mcNewProduct.classList.add('mini-cart-tastey-meal-order')
+            mcNewProduct.dataset.id = id
+            mcNewProduct.dataset.like = weakTastey.getLikeValue(Number(id)) ?? false
+            mcNewProduct.dataset.orders = weakTastey.getOrdersValue(Number(id)) ?? 0
+            mcNewProduct.dataset.discount = price.discount ?? 0
+            mcNewProduct.innerHTML = 
+            `   
                                     <div class="mini-cart-tastey-order-image-wrapper">
                                             <img class="mini-cart-tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
                                         </div>
@@ -436,11 +446,11 @@ function addMeal(id, meals, curr) {
                                                 </span>      
                                             </div>
                                         </div>
-                                    </div>  
-            `            
+            `        
+            mcOrderReviewSection.appendChild(mcNewProduct)    
+            panning(document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"] .mini-cart-tastey-order-image`))
+            positionMiniCards()
         }
-        panning(document.querySelectorAll(".mini-cart-tastey-order-image"))
-        positionMiniCards()
     }
 }
 

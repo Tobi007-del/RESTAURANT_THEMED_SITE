@@ -629,6 +629,11 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     padding: .5rem;
     display: flex;
     flex-flow: row nowrap;
+    transition: transform 400ms ease;
+    transform: translate(0px, 0%);
+    @starting-style {
+        transform: translate(-15px,-100%);
+    }
 }
 
 @supports (position: sticky) {
@@ -1249,13 +1254,13 @@ footer {
     transition: 300ms ease;
 }
 
-.footer-arrow-container:not(.disabled) > svg:hover {
+.footer-arrow-container:not(.disabled):hover > svg {
     cursor: pointer;
     scale: 1.1;
     opacity: 1;
 }
 
-.footer-arrow-container.disabled > svg:hover {
+.footer-arrow-container.disabled:hover > svg {
     cursor: not-allowed;
     animation: none;
 }

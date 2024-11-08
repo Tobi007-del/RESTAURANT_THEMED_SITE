@@ -1,4 +1,4 @@
-export { tasteyThrottler, tasteyDebouncer, round, check, formatValue, clamp, panning, scrollContentTo, asyncScrollToBottom, asyncScrollToTop, syncScrollToBottom, syncScrollToTop, remToPx, pxToRem, rand, positionGradient, stars, write, erase }
+export { tasteyThrottler, tasteyDebouncer, round, check, formatValue, clamp, isIterable, panning, scrollContentTo, asyncScrollToBottom, asyncScrollToTop, syncScrollToBottom, syncScrollToTop, remToPx, pxToRem, rand, positionGradient, stars, write, erase }
 
 //Some utility functions for general use
 class tasteyDebouncer {
@@ -134,9 +134,20 @@ function syncScrollToBottom(behavior = "smooth", parent = document.documentEleme
     })
 }
 
+function isIterable(obj) {  
+    return obj != null && obj != undefined && typeof obj[Symbol.iterator] === 'function';  
+}
+
 //A function to handle panning of images
 function panning(elements) {
-    for (const element of elements) {
+    if (isIterable(elements)) {
+        for (const element of elements) {
+            pan(element)
+        }
+    } else {
+        pan(elements)
+    }
+    function pan(element) {
         element.style.cursor = "move"
         element.style.objectFit = "cover"
         element.style.objectPosition = "0% 0%"

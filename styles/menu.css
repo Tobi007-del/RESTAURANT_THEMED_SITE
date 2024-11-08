@@ -302,7 +302,7 @@ main.menu .main-menu-title-wrapper h3 {
 
 .menu-sections {
     width: 100%;
-    padding: 7.5rem 4.5em 4rem 4.5rem;
+    padding: 7.5rem 5em 4rem 4rem;
 }
 
 .tastey-menu {
@@ -523,7 +523,7 @@ main.menu .main-menu-title-wrapper h3 {
 
 .attention-grabber {
     top: 7rem;
-    right: 4rem;
+    right: 5rem;
     rotate: -10deg;
     height: 25rem;
 }
@@ -664,9 +664,11 @@ main.meal-cart {
     padding-inline-end: 1rem;
     padding-block: 5rem;
 }
+
 main.meal-cart:not([data-cart = '0']) {
     position: absolute;
 }
+
 main.meal-cart[data-cart='0'] {
     background: fixed no-repeat radial-gradient(
         clamp(5rem,80dvw,32.5rem) circle at var(--mouse-x) var(--mouse-y),
@@ -1276,6 +1278,13 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 }
 
 @media only screen and (max-width: 55rem) {
+    .tastey-meal-order {
+        transition: transform 400ms ease;
+        transform: translate(0px, 0%);
+        @starting-style {
+            transform: translate(-25px,-100%);
+        }
+    }
     .tastey-meal-order-content {
         height: fit-content;
         flex-flow: row wrap;
