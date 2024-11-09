@@ -1171,6 +1171,10 @@ footer {
     color: var(--sub-text-color);
 }
 
+.see-more, .view-bag {
+    white-space: nowrap;
+}
+
 .footer-top-section .see-more, .footer-top-section .view-bag {
     color: var(--tastey-brand-light-accent-color);
     position: relative;
