@@ -1147,9 +1147,9 @@ footer {
 }
 
 .footer-top-section > div {
-    width: 25rem;
-    max-width: 100dvw;
     flex: 1 1 20rem;
+    max-width: 100dvw;
+    min-width: 5rem;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -1172,7 +1172,8 @@ footer {
 }
 
 .see-more, .view-bag {
-    white-space: nowrap;
+    white-space: nowrap!important;
+    min-width: 6.5rem;
 }
 
 .footer-top-section .see-more, .footer-top-section .view-bag {
