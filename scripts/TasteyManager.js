@@ -127,7 +127,7 @@ console.log(`%cOrders in total: %c${standardize(this.ordersInTotal)}
 %cTotal Discount: %c-${weakTastey.totalDiscountPercentage}%
 %cSaved: %c${formatValue(curr, this.savedAmount)}
 %cTotal Amount: %c${formatValue(curr, this.totalAmount)}
-%cVAT: %c+${this.VAT}
+%cVAT: %c+${this.VAT}%
 %cTotal Cost: %c${formatValue(curr, this.totalCost)}`,
 "color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
 "color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",

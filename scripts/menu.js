@@ -107,7 +107,7 @@ function tasteyMenu(meals){
                                 </span>
                                 <span>
                                     <p>VAT</p>
-                                    <p class="VAT">+${weakTastey.VAT}</p>
+                                    <p class="VAT">+${weakTastey.VAT}%</p>
                                 </span>
                             </div>
                         </div>
