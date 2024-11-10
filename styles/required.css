@@ -823,6 +823,15 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     opacity: .85;
 }
 
+.mini-cart-sign.disabled {
+    cursor: not-allowed!important;
+    opacity: .5!important;
+}
+
+.mini-cart-sign.disabled svg {
+    fill: var(--sub-text-color)!important;
+}
+
 .mini-cart-sign:hover {
     cursor: not-allowed;
 }
@@ -1386,6 +1395,14 @@ footer {
     font-size: .75rem;
     font-weight: bold;
     position: relative;
+}
+
+.footer-add-to-cart-button.disabled {
+    background-color: var(--sub-text-color)!important;
+    cursor: not-allowed!important;
+    color: var(--current-theme-fade-color)!important;
+    font-size: .75rem!important;
+    opacity: .75!important;
 }
 
 .footer-add-to-cart-button:hover {

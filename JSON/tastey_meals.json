@@ -1,5 +1,6 @@
 {
     "currency": "NGN",
+    "maxOrders": 1000,
     "tasteyMeals": {
         "starters": [
             {

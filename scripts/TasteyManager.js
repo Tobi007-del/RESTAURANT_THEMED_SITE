@@ -65,13 +65,13 @@ class TasteyManager {
         this.totalCost = 0 
     }
 
-    addMeal(id,n = 1) {
+    addMeal(id,n=1) {
     try {
-        const index = this.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
+        const index = this.tasteyRecord.tasteyOrders.findIndex(meal => Number(meal.id) === Number(id))
         if (index === -1) {
             const meal = {}
             meal.id = Number(id)
-            meal.orders = 1
+            meal.orders = n
             this.tasteyRecord.tasteyOrders.push(meal)
         } else {
             this.tasteyRecord.tasteyOrders[index].orders += n
@@ -81,9 +81,9 @@ class TasteyManager {
     }
     }
 
-    removeMeal(id,n = 1) {
+    removeMeal(id,n=1) {
         try {
-            const index = this.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
+            const index = this.tasteyRecord.tasteyOrders.findIndex(meal => Number(meal.id) === Number(id))
             this.tasteyRecord.tasteyOrders[index].orders -= n
         } catch (error) {
             console.error(`Error occured while removing meal from bag ${error}`)
@@ -91,12 +91,12 @@ class TasteyManager {
     }    
 
     deleteMeal(id) {
-        const mealIndex = this.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
+        const mealIndex = this.tasteyRecord.tasteyOrders.findIndex(meal => Number(meal.id) === Number(id))
         this.tasteyRecord.tasteyOrders.splice(mealIndex,1)
     }
 
     handleLikes(id,bool) {
-        const likeIndex = this.tasteyRecord.likes.findIndex(meal => meal.id === id)
+        const likeIndex = this.tasteyRecord.likes.findIndex(meal => Number(meal.id) === Number(id))
         if (likeIndex === -1) {
             const meal = {}
             meal.id = id
@@ -153,8 +153,9 @@ class TasteyManager {
     }
 
     getOrdersValue(id) {
-        const meal = this.tasteyRecord.tasteyOrders.find(meal => meal.id === id)
-        return meal?.orders
+        const meal = this.tasteyRecord.tasteyOrders.find(meal => Number(meal.id) === Number(id))
+        const value = Number(meal?.orders ?? 0)
+        return value
     }
  
     getEmpty() {
@@ -162,10 +163,10 @@ class TasteyManager {
     }
 
     getPositionValue(id) {
-        return this.tasteyRecord.tasteyOrders.findIndex(meal => meal.id === id)
+        return this.tasteyRecord.tasteyOrders.findIndex(meal => Number(meal.id) === Number(id))
     }
     getLikeValue(id) {
-        const like = this.tasteyRecord.likes.find(meal => meal.id === id) 
+        const like = this.tasteyRecord.likes.find(meal => Number(meal.id) === Number(id)) 
         return like?.like
     }    
 }

@@ -604,6 +604,13 @@ main.menu .main-menu-title-wrapper h3 {
     transition: 200ms ease;
 }
 
+.add-to-cart-button.disabled {
+    background-color: var(--sub-text-color)!important;
+    cursor: not-allowed!important;
+    transform: scale(1)!important;
+    opacity: .75!important;
+}
+
 .add-to-cart-button:hover {
     cursor: pointer;
     transform: scale(1.02);
@@ -1029,6 +1036,15 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     border: none;
 }
 
+.sign.disabled {
+    cursor: not-allowed!important;
+    opacity: .5!important;
+}
+
+.sign.disabled svg {
+    fill: var(--sub-text-color)!important;
+}
+
 .sign:hover {
     cursor: not-allowed;
 }
@@ -1271,7 +1287,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         transform: translateY(25%);
         transition: transform 250ms ease-in, opacity 150ms ease-out;
     }
-    .tastey-meal-image-wrapper:hover .heart-icon-wrapper, .tastey-meal:has(:focus-visible) .heart-icon-wrapper, .tastey-meal[data-like="true"] .heart-icon-wrapper {
+    .tastey-meal:hover .heart-icon-wrapper, .tastey-meal:has(:focus-visible) .heart-icon-wrapper, .tastey-meal[data-like="true"] .heart-icon-wrapper {
         opacity: 1;
         transform: translateY(0);
     }

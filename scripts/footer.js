@@ -1,4 +1,4 @@
-import { allMeals, currency, handleAddMeal } from "./CRUD.js"
+import { allMeals, currency, getOrderIndex, handleAddMeal, getDOMElements } from "./CRUD.js"
 import { weakTastey } from "./TasteyManager.js"
 import { tasteyThrottler, check, formatValue, panning, scrollContentTo, remToPx, tasteyDebouncer } from "./utility-functions.js"
 
@@ -27,7 +27,7 @@ function tasteyFooterMenu() {
                         <img src="${picSrc}" alt="Image of ${label}" title="${label}" class="offer-image">
                     </a>
                     <p>${formatValue(currency,check(price.currentValue,price.discount))}</p>
-                    <button type="button" title="Add ${label} to Bag" class="footer-add-to-cart-button" data-id="${id}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}">Add to Bag</button>
+                    <button type="button" title="Add ${label} to Bag" class="footer-add-to-cart-button" data-id="${id}" data-orders="${weakTastey.getOrdersValue(Number(id))}">Add to Bag</button>
                 </div>
             `
         }
@@ -42,27 +42,16 @@ offersImgsWrapper = document.querySelector(".offers-imgs-wrapper"),
 offerPrevArrow = document.querySelector(".offer-previous-arrow"),
 offerNextArrow = document.querySelector(".offer-next-arrow")
 
+getDOMElements()
+
 panning(document.querySelectorAll('.offer-image'))
 
 document.querySelector(".view-bag").addEventListener("click", () => {
     sessionStorage.open_cart = true
 })
 
-
-function getMiniOrderIndex(id){
-    let i;
-    const mealOrders = document.querySelectorAll(".mini-cart-tastey-meal-order")
-    const childrenArray = Array.from(document.querySelector('.mini-cart-order-review-section').children)
-    childrenArray.shift()
-    mealOrders?.forEach(order => {
-    if (Number(order.dataset.id) === id) 
-        i = childrenArray.indexOf(order) ?? 0
-    })
-    return i;
-}
-
 footerAddToCartBtns.forEach(btn => {
-    btn.onclick = e => handleAddMeal(Number(e.target.dataset.id), getMiniOrderIndex(Number(e.target.dataset.id)))
+    btn.onclick = e => handleAddMeal(e.target.dataset.id, getOrderIndex(e.target.dataset.id))
 })
 
 let footerItv, footerInView = false, footerInterval = 2000

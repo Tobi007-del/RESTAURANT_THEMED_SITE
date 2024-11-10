@@ -1,5 +1,5 @@
 //module imports
-import { meals, allMeals, currency, getDOMElements, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards } from "./CRUD.js"
+import { meals, allMeals, currency, getDOMElements, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards, getOrderIndex } from "./CRUD.js"
 import { weakTastey } from "./TasteyManager.js"
 import { tasteyThrottler, tasteyDebouncer, check, formatValue, clamp , panning, scrollContentTo, remToPx, syncScrollToTop, positionGradient, stars } from "./utility-functions.js"
 import { autoRemoveScroller, quickScrollShow, removeScrolls, quickScrolls } from "./build-scroller.js"
@@ -27,8 +27,9 @@ function tasteyMenu(meals){
 
         meal[1].forEach(({ id, label, description, price, like, picSrc}) => {
             like = like ?? false 
-            menuContainer.innerHTML += `
-            <div class="tastey-meal" data-id='${id}' data-like="${weakTastey.getLikeValue(Number(id)) ?? like}" data-discount="${price.discount ?? 0}">
+            menuContainer.innerHTML += 
+            `
+            <div class="tastey-meal" data-id='${id}' data-like="${weakTastey.getLikeValue(id) ?? like}" data-discount="${price.discount ?? 0}">
                     <div class="tastey-meal-content">
                         <div class="tastey-meal-image-wrapper">
                             <img class="tastey-meal-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
@@ -45,7 +46,7 @@ function tasteyMenu(meals){
                                 <p class="food-description">${description}</p>
                             </div>
                             <div class="price-container">
-                                <button type="button" class="add-to-cart-button" title="Add ${label} to Bag" data-id="${id}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}">Add to Bag</button>
+                                <button type="button" class="add-to-cart-button" title="Add ${label} to Bag" data-id="${id}" data-orders="${weakTastey.getOrdersValue(id)}">Add to Bag</button>
                                 <span class="product-price" data-discount="${price.discount ?? 0}">${formatValue(currency,check(price.currentValue,price.discount))}</span>
                             </div>
                         </div>
@@ -144,7 +145,7 @@ function tasteyMenu(meals){
             const { label, category, price, serving, picSrc } = meal
             orderReviewSectionContent.innerHTML += 
             `
-                    <div class="tastey-meal-order" data-id="${id}" id="tastey-meal-order-${id}" data-like="${weakTastey.getLikeValue(Number(id)) ?? false}" data-orders="${weakTastey.getOrdersValue(Number(id)) ?? 0}" data-discount="${price.discount ?? 0}" data-position = "${(weakTastey.getPositionValue(id)??0) + 1}">
+                    <div class="tastey-meal-order" data-id="${id}" data-like="${weakTastey.getLikeValue(id) ?? false}" data-orders="${weakTastey.getOrdersValue(id)}" data-discount="${price.discount ?? 0}" data-position = "${(weakTastey.getPositionValue(id) ?? 0) + 1}">
                         <div class="tastey-meal-order-content">
                         <div class="tastey-order-image-wrapper">
                             <img class="tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
@@ -164,7 +165,7 @@ function tasteyMenu(meals){
                                         </span>
                                         <p>REMOVE MEAL</p>
                                     </button>
-                                    <button type="button" title="${(weakTastey.getLikeValue(Number(id)) ?? false) ? `Remove ${label} from Wishlist` : `Add ${label} to Wishlist`}" class="wishlist">
+                                    <button type="button" title="${(weakTastey.getLikeValue(id) ?? false) ? `Remove ${label} from Wishlist` : `Add ${label} to Wishlist`}" class="wishlist">
                                         <span>
                                             <svg class="unliked-heart-icon" viewBox="0 -960 960 960"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/></svg>
                                             <svg class="liked-heart-icon" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
@@ -208,7 +209,6 @@ const tastey = document.getElementById("tastey"),
 attentionGrabber = document.querySelector(".attention-grabber"),
 attentionGrabberTwo = document.querySelector(".attention-grabber-two"),
 likeIconWrappers = document.querySelectorAll(".heart-icon-wrapper"),
-orderReviewSectionContent = document.querySelector(".order-review-section-content"),
 tasteyMealsImages = document.querySelectorAll(".tastey-meal-image"),
 categorySwitcherContainer = document.querySelector("aside.category-switcher-container"),
 switchers = document.querySelectorAll(".switcher"),
@@ -229,20 +229,8 @@ getDOMElements()
 positionCards()
 setTimeout(autoRemoveScroller)
 
-function getOrderIndex(id){
-        let i;
-        const mealOrders = document.querySelectorAll(".tastey-meal-order")
-        const childrenArray = Array.from(orderReviewSectionContent.children)
-        childrenArray.shift()
-        mealOrders?.forEach(order => {
-        if (Number(order.dataset.id) === id) 
-            i = childrenArray.indexOf(order) ?? 0
-        })
-        return i;
-}
-
 addToCartBtns.forEach(btn => {
-    btn.onclick = e => handleAddMeal(Number(e.target.dataset.id),getOrderIndex(Number(e.target.dataset.id)))
+    btn.onclick = e => handleAddMeal(e.target.dataset.id, getOrderIndex(e.target.dataset.id))
 })
 
 clearCartBtn.addEventListener('click', handleClearCart)
