@@ -1,6 +1,6 @@
 import { allMeals, currency, getOrderIndex, handleAddMeal, getDOMElements } from "./CRUD.js"
 import { weakTastey } from "./TasteyManager.js"
-import { tasteyThrottler, check, formatValue, panning, scrollContentTo, remToPx, tasteyDebouncer } from "./utility-functions.js"
+import { tasteyThrottler, check, formatValue, standardize, panning, scrollContentTo, remToPx, tasteyDebouncer } from "./utility-functions.js"
 
 tasteyFooterMenu()
 
@@ -27,7 +27,7 @@ function tasteyFooterMenu() {
                         <img src="${picSrc}" alt="Image of ${label}" title="${label}" class="offer-image">
                     </a>
                     <p>${formatValue(currency,check(price.currentValue,price.discount))}</p>
-                    <button type="button" title="Add ${label} to Bag" class="footer-add-to-cart-button" data-id="${id}" data-orders="${weakTastey.getOrdersValue(Number(id))}">Add to Bag</button>
+                    <button type="button" title="Add ${label} to Bag" class="footer-add-to-cart-button" data-id="${id}" data-orders="${standardize(weakTastey.getOrdersValue(id))}">Add to Bag</button>
                 </div>
             `
         }

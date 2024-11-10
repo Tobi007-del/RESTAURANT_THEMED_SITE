@@ -1,6 +1,6 @@
 import { allMeals, currency, getDOMElements, handleCheckout, positionMiniCards, adjustMiniCards } from "./CRUD.js"
 import { weakTastey } from "./TasteyManager.js"
-import { tasteyThrottler, check, formatValue, panning, positionGradient } from "./utility-functions.js"
+import { tasteyThrottler, check, formatValue, standardize, panning, positionGradient } from "./utility-functions.js"
 
 tasteyMiniBag()
 
@@ -49,7 +49,7 @@ function tasteyMiniBag() {
                                         <div class="mini-cart-buttons-wrapper">
                                             <button type="button" title="Go to Checkout" class="mini-cart-checkout-button Tastey-blur" data-cart="0">GO TO CHECKOUT</button>
                                             <a href="menu.html" title="Open Shopping Bag" class="mini-cart-shopping-bag-button">Open Shopping Bag
-                                                <span class="mini-cart-icon Cart" data-cart="0" >
+                                                <span class="mini-cart-icon Cart" data-cart="0">
                                                     <svg viewBox="0 -960 960 960">
                                                         <path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"/>
                                                     </svg>
@@ -73,7 +73,7 @@ function tasteyMiniBag() {
             const { label, price, serving, picSrc } = meal
             mcOrderReviewSection.innerHTML += 
             `
-                                <div class="mini-cart-tastey-meal-order" data-id="${id}" data-like="${weakTastey.getLikeValue(id) ?? false}" data-orders="${weakTastey.getOrdersValue(id) ?? 0}" data-discount="${price.discount ?? 0}">               
+                                <div class="mini-cart-tastey-meal-order" data-id="${id}" data-like="${weakTastey.getLikeValue(id) ?? false}" data-orders="${standardize(weakTastey.getOrdersValue(id))}" data-discount="${price.discount ?? 0}">               
                                     <div class="mini-cart-tastey-order-image-wrapper">
                                             <img class="mini-cart-tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
                                         </div>
@@ -106,7 +106,7 @@ function tasteyMiniBag() {
                                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                                         <svg width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill-rule="nonzero" xlink:href="#a"/></svg>
                                                     </button>
-                                                        <p class="mini-cart-number">${orders}</p>
+                                                        <p class="mini-cart-number">${standardize(orders)}</p>
                                                     <button type="button" title="Add 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="mini-cart-sign mini-cart-add">
                                                         <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z" id="b"/></defs><use fill-rule="nonzero" xlink:href="#b"/></svg>
                                                     </button>

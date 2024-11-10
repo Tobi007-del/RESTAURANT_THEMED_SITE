@@ -29,6 +29,10 @@ body.cart main.meal-cart, body:not(.cart) main.menu{
     display: block;
 }
 
+.Cart.main-cart::after {
+    display: none;   
+}
+
 aside.menu-cart-toggler-container, aside.category-switcher-container {
     position: fixed;
     background-color: var(--current-theme-main-color);
@@ -134,6 +138,11 @@ body.cart .cart-toggler, body:not(.cart) .menu-toggler, .switcher.active {
     fill: var(--current-theme-inverse-color);
     opacity: 0.8;
     transition: 200ms ease;
+}
+
+.main-cart {
+    display: flex;
+    align-items: center;
 }
 
 .icon {
@@ -620,6 +629,7 @@ main.menu .main-menu-title-wrapper h3 {
 .add-to-cart-button:not([data-orders="0"])::after {
     position: absolute;
     content: attr(data-orders) ' in Shopping Bag';
+    white-space: nowrap;
     width: 100%;
     text-align: center;
     left: 0;
@@ -1165,6 +1175,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     padding-block-end: .5rem;
     align-items: center;
     justify-content: space-between;
+    gap: .5rem;
 }
 
 .checkout-preview .total-amount-description p {
@@ -1462,26 +1473,33 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     .tooltip-text::after {
         display: none;
     }
-    aside.menu-cart-toggler-container {
+    body aside.menu-cart-toggler-container {
         top: 3.5rem;
-        width: 95%!important;
-        height: 2.5rem!important;
-        scale: 1!important;
-        transform: translateY(0)!important;
+        width: 95%;
+        height: 2.5rem;
+        scale: 1;
+        transform: translateY(0);
         left: 2.5%;
         flex-flow: row nowrap;
     }
-    aside.menu-cart-toggler-container::before {
-        display: none;
+    body aside.menu-cart-toggler-container::before {
+        top: 100%;
+        width: calc(100% - .7rem);
+        left: .35rem;
+        height: .375rem;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: inherit;
+        border-bottom-right-radius: inherit;
     }
-    aside.category-switcher-container {
-        width: 3rem!important;
+    body aside.category-switcher-container {
+        width: 3rem;
     }
-    aside.category-switcher-container, #quick-scroll-wrapper {
+    body aside.category-switcher-container, #quick-scroll-wrapper {
         right: .25rem;
     }
-    aside::after {
-        display: none!important;
+    body aside::after {
+        display: none;
     }
     aside.category-switcher-container {
         opacity: 0;

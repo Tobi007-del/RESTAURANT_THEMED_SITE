@@ -1,7 +1,7 @@
 export { Tastey, weakTastey }
 
 import { notificationQuery } from "./service-worker-helper.js"
-import { round, check, formatValue, rand} from "./utility-functions.js"
+import { round, check, formatValue, standardize, rand} from "./utility-functions.js"
 
 //a loading page implementation
 window.addEventListener('load', () => {
@@ -121,16 +121,22 @@ class TasteyManager {
             this.savedAmount = this.actualAmount - this.totalAmount
             this.totalDiscountPercentage = round(((this.savedAmount / this.actualAmount) * 100) || 0)
             this.totalCost = ((this.VAT / 100) * this.totalAmount) + this.totalAmount
-            console.log(`%c
-            Orders in total: ${this.ordersInTotal}\n 
-            Tastey meals: ${this.tasteyMeals}\n
-            Actual Amount: ${formatValue(curr, this.actualAmount)}\n
-            Total Discount: -${weakTastey.totalDiscountPercentage}%\n
-            Saved: ${formatValue(curr, this.savedAmount)}\n
-            Total Amount: ${formatValue(curr, this.totalAmount)}\n
-            VAT: +${this.VAT}\n
-            Total Cost: ${formatValue(curr, this.totalCost)}
-            `,"color: green; font-weight: bold; font-size: large;")            
+console.log(`%cOrders in total: %c${standardize(this.ordersInTotal)}
+%cTastey meals: %c${standardize(this.tasteyMeals)}
+%cActual Amount: %c${formatValue(curr, this.actualAmount)}
+%cTotal Discount: %c-${weakTastey.totalDiscountPercentage}%
+%cSaved: %c${formatValue(curr, this.savedAmount)}
+%cTotal Amount: %c${formatValue(curr, this.totalAmount)}
+%cVAT: %c+${this.VAT}
+%cTotal Cost: %c${formatValue(curr, this.totalCost)}`,
+"color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
+"color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
+"color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
+"color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
+"color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
+"color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
+"color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
+"color: lightgrey; font-size: large; font-weight: bold;", "color: green; font-size: large; font-weight: bold;")           
         } catch (error) {
             console.error(`Error calculating checkout details: ${error}`)
         }
@@ -186,7 +192,7 @@ const storingHandler = {
             store()
             console.log("%c Data stored " + res + ", all operations functional", "color: green; font-weight: bold;")
         }).catch(rej => {
-            console.error("%cAttempt to store data returned " + rej,"color: red;")
+            console.error("%cAttempt to store data was " + rej, "color: red;")
         })
     }
 }

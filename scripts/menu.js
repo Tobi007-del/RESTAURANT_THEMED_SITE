@@ -1,7 +1,7 @@
 //module imports
 import { meals, allMeals, currency, getDOMElements, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards, getOrderIndex } from "./CRUD.js"
 import { weakTastey } from "./TasteyManager.js"
-import { tasteyThrottler, tasteyDebouncer, check, formatValue, clamp , panning, scrollContentTo, remToPx, syncScrollToTop, positionGradient, stars } from "./utility-functions.js"
+import { tasteyThrottler, tasteyDebouncer, check, formatValue, standardize, clamp, panning, scrollContentTo, remToPx, syncScrollToTop, positionGradient, stars } from "./utility-functions.js"
 import { autoRemoveScroller, quickScrollShow, removeScrolls, quickScrolls } from "./build-scroller.js"
 
 
@@ -46,7 +46,7 @@ function tasteyMenu(meals){
                                 <p class="food-description">${description}</p>
                             </div>
                             <div class="price-container">
-                                <button type="button" class="add-to-cart-button" title="Add ${label} to Bag" data-id="${id}" data-orders="${weakTastey.getOrdersValue(id)}">Add to Bag</button>
+                                <button type="button" class="add-to-cart-button" title="Add ${label} to Bag" data-id="${id}" data-orders="${standardize(weakTastey.getOrdersValue(id))}">Add to Bag</button>
                                 <span class="product-price" data-discount="${price.discount ?? 0}">${formatValue(currency,check(price.currentValue,price.discount))}</span>
                             </div>
                         </div>
@@ -80,11 +80,11 @@ function tasteyMenu(meals){
                                 <h2>Order Summary</h2>
                                 <span>
                                     <p> Orders in total :</p>
-                                    <p class="cart-number">${weakTastey.ordersInTotal ?? 0}</p>
+                                    <p class="cart-number">${standardize(weakTastey.ordersInTotal ?? 0)}</p>
                                 </span>
                                 <span>
                                     <p>Tastey meals :</p>
-                                    <p class="meals-number">${weakTastey.tasteyMeals ?? 0}</p>
+                                    <p class="meals-number">${standardize(weakTastey.tasteyMeals) ?? 0}</p>
                                 </span>
                                 <span>
                                     <p>Actual Amount :</p>
@@ -145,7 +145,7 @@ function tasteyMenu(meals){
             const { label, category, price, serving, picSrc } = meal
             orderReviewSectionContent.innerHTML += 
             `
-                    <div class="tastey-meal-order" data-id="${id}" data-like="${weakTastey.getLikeValue(id) ?? false}" data-orders="${weakTastey.getOrdersValue(id)}" data-discount="${price.discount ?? 0}" data-position = "${(weakTastey.getPositionValue(id) ?? 0) + 1}">
+                    <div class="tastey-meal-order" data-id="${id}" data-like="${weakTastey.getLikeValue(id) ?? false}" data-orders="${standardize(weakTastey.getOrdersValue(id))}" data-discount="${price.discount ?? 0}" data-position = "${(weakTastey.getPositionValue(id) ?? 0) + 1}">
                         <div class="tastey-meal-order-content">
                         <div class="tastey-order-image-wrapper">
                             <img class="tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
@@ -182,7 +182,7 @@ function tasteyMenu(meals){
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                         <svg width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill-rule="nonzero" xlink:href="#a"/></svg>
                                     </button>
-                                        <p class="cart-number">${orders}</p>
+                                        <p class="cart-number">${standardize(orders)}</p>
                                     <button type="button" title="Add 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="sign add">
                                         <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z" id="b"/></defs><use fill-rule="nonzero" xlink:href="#b"/></svg>
                                     </button>

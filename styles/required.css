@@ -107,7 +107,6 @@ a:hover {
     width: calc(100% - .7rem);
     left: .35rem;
     height: .375rem;
-    border-radius: 0 0 .25rem .25rem;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-left-radius: inherit;
@@ -248,7 +247,7 @@ nav {
 
 .cart-container {
     position: relative;
-    padding: 1rem 0 1rem 1rem;
+    padding: 1rem 0rem 1rem 1vw;
 }
 
 .cart-container .mini-meal-cart.close {
@@ -333,15 +332,6 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 
 .Cart.navbar-cart::after {
     font-weight: bold;
-}
-
-.Cart.main-cart::after {
-    top: 40%;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    color: var(--current-theme-sub-color);
-    background-color: var(--current-theme-inverse-color);
 }
 
 .mini-meal-cart {
@@ -891,16 +881,17 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 .mini-cart-checkout-preview {
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
+    gap: .5rem;
     height: 3.5rem; 
     align-items: center;
     color: var(--main-text-color);
-    font-size: .7rem;
+    font-size: .725rem;
     font-weight: bolder;
 }
 
 .mini-cart-checkout-preview p {
     margin: 0;
+    display: inline-flex;
 }
 
 .mini-cart-total-amount-values {
@@ -959,12 +950,12 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 }
 
 .mini-cart-buttons-wrapper .mini-cart-checkout-button {
-    font-size: .95rem;
+    font-size: .925rem;
     height: 2.15rem;
     color: var(--current-theme-fade-color);
     font-weight: bolder;
     background-color: var(--tastey-brand-color);
-    margin-block-end: .75rem;
+    margin-block-end: .775rem;
     transition: 150ms ease;
 }
 
@@ -987,8 +978,13 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 }
 
 .mini-cart-icon svg, .mini-cart-menu-icon svg {
-    height: 1.285rem;
+    height: 1.175rem;
+    margin-top: .125rem;
     fill: var(--current-theme-inverse-accent-color);
+}
+
+.mini-cart-shopping-bag-button .Cart::after {
+    display: none;
 }
 
 #scroller-circle {
@@ -1180,18 +1176,18 @@ footer {
     color: var(--sub-text-color);
 }
 
-.see-more, .view-bag {
+.see-more, .view-bag, .reserve {
     white-space: nowrap!important;
     min-width: 6.5rem;
 }
 
-.footer-top-section .see-more, .footer-top-section .view-bag {
+.footer-top-section .see-more, .footer-top-section .view-bag, .footer-top-section .reserve {
     color: var(--tastey-brand-light-accent-color);
     position: relative;
     width: fit-content;
 }
 
-.view-bag::after {
+.view-bag::after, .reserve::after {
     content: '\00BB';
     position: absolute; 
     font-size: 1.5rem;
@@ -1200,16 +1196,16 @@ footer {
     transition: transform 0s ease;
 }
 
-.view-bag:hover::after {
+.view-bag:hover::after, .reserve:hover::after {
     transform: scale(1.25);
     transition: transform 0.25s ease;
 }
 
-.footer-top-section .see-more:hover, .view-bag:hover {
+.footer-top-section .see-more:hover, .view-bag:hover, .reserve:hover {
     color: var(--tastey-brand-accent-color);
 }
 
-.footer-top-section .see-more:hover, .view-bag:hover {
+.footer-top-section .see-more:hover, .view-bag:hover, .reserve:hover {
     text-decoration: underline;
 }
 
@@ -1225,6 +1221,10 @@ footer {
 .footer-top-section .see-more:hover::after {
     rotate: 135deg;
     transition: rotate 500ms ease;
+}
+
+.view-bag, .reserve {
+    margin-left: 2rem;
 }
 
 .footer-contact-section div {
@@ -1424,10 +1424,6 @@ footer {
     top: 100%;
     font-size: .6rem;
     color: var(--sub-text-color);
-}
-
-.view-bag {
-    margin-left: 2rem;
 }
 
 .footer-bottom-section {

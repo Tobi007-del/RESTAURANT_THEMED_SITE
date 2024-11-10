@@ -2,7 +2,7 @@
 
 import data from "./fetch-meals.js"
 import { Tastey, weakTastey } from "./TasteyManager.js"
-import { check, formatValue, panning, scrollContentTo, remToPx, pxToRem, rand } from "./utility-functions.js"
+import { check, formatValue, standardize, panning, scrollContentTo, remToPx, pxToRem, rand } from "./utility-functions.js"
 import { autoRemoveScroller } from "./build-scroller.js"
 import { notificationQuery } from "./service-worker-helper.js"
 
@@ -27,7 +27,7 @@ const miniBagQuery = () => {
 
 // // the code below fills up the cart immediately for development purposes
 // allMeals.forEach(({ id }) => {
-//     Tastey.addMeal(id, 500)
+//     Tastey.addMeal(id, 1000)
 // })
 
 // allMeals.forEach(({ id }) => {
@@ -35,7 +35,7 @@ const miniBagQuery = () => {
 // })
 
 // the one-liner below clears the cart immediately for development purposes
-// localStorage.clear()
+// window.localStorage.clear()
 
 //Calculating checkout details
 weakTastey.calculateCheckoutDetails(allMeals, currency)
@@ -283,29 +283,31 @@ function removeAllMiniCards() {
 function setCartStates() {
     const dataCartStates = document.querySelectorAll("[data-cart]")
     const dataMealsState = document.querySelectorAll("[data-meals]")
-    dataCartStates.forEach((dataCartState,i) => {
-        dataCartState.dataset.cart = weakTastey.ordersInTotal
+    dataCartStates.forEach(dataCartState => {
+        if (dataCartState.classList.contains("navbar-cart")) {
+            dataCartState.dataset.cart = standardize(weakTastey.ordersInTotal, "use strict")
+            return
+        }
+        dataCartState.dataset.cart = standardize(weakTastey.ordersInTotal)
     })
     dataMealsState.forEach(mealsState => {
-        mealsState.dataset.meals = weakTastey.tasteyMeals
+        mealsState.dataset.meals = standardize(weakTastey.tasteyMeals)
     })
 }
 
 function setOrderStates(id) {
     const dataOrderStates = document.querySelectorAll("[data-orders]")
     dataOrderStates.forEach(dataOrderState => {
-        if(Number(dataOrderState.dataset.id) === Number(id)) {
-            dataOrderState.dataset.orders = weakTastey.getOrdersValue(id)
-        }
-    }) 
+        if(Number(dataOrderState.dataset.id) === Number(id)) 
+            dataOrderState.dataset.orders = standardize(weakTastey.getOrdersValue(id))
+    })
 }
 
 function setLikeState(id) {
     const dataLikeStates = document.querySelectorAll("[data-like]")
     dataLikeStates.forEach(dataLikeState => {
-        if(Number(dataLikeState.dataset.id) === Number(id)) {
+        if(Number(dataLikeState.dataset.id) === Number(id)) 
             dataLikeState.dataset.like = weakTastey.getLikeValue(id) ?? !dataLikeState.dataset.like
-        }
     })
 }        
 
@@ -328,7 +330,7 @@ function addMeal(id, meals, curr) {
         const currentProductCountElement = document.querySelector(`.tastey-meal-order[data-id="${id}"] .cart-number`)
         const orderReviewSectionContent = document.querySelector(".order-review-section-content")
         if (currentProductCount > 1) { 
-            currentProductCountElement.textContent = currentProductCount
+            currentProductCountElement.textContent = standardize(currentProductCount)
         } else {
             const newProduct = document.createElement('div')
             newProduct.classList.add('tastey-meal-order')
@@ -398,7 +400,7 @@ function addMeal(id, meals, curr) {
         const mcCurrentProductCountElement = document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"] .mini-cart-number`)
         const mcOrderReviewSection = document.querySelector(".mini-cart-order-review-section")
         if (currentProductCount > 1) { 
-            mcCurrentProductCountElement.textContent = currentProductCount
+            mcCurrentProductCountElement.textContent = standardize(currentProductCount)
         } else {
             const mcNewProduct = document.createElement('div')
             mcNewProduct.classList.add('mini-cart-tastey-meal-order')
@@ -461,11 +463,11 @@ function removeMeal(id) {
     const currentProductCount = weakTastey.tasteyRecord.tasteyOrders[index].orders
     if (bagQuery()) {
         const currentProductCountElement = document.querySelector(`.tastey-meal-order[data-id="${id}"] .cart-number`)
-        currentProductCountElement.textContent = currentProductCount
+        currentProductCountElement.textContent = standardize(currentProductCount)
     }
     if (miniBagQuery()) {
         const mcCurrentProductCountElement = document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"] .mini-cart-number`)
-        mcCurrentProductCountElement.textContent = currentProductCount
+        mcCurrentProductCountElement.textContent = standardize(currentProductCount)
     }
 }
 
@@ -473,10 +475,10 @@ function removeMeal(id) {
 function setCheckoutState() {
     // #TASTEY CRUD - R
     if (bagQuery()) {
-        cartNumberElement.textContent = weakTastey.ordersInTotal
-        mealsNumberElement.textContent = weakTastey.tasteyMeals
+        cartNumberElement.textContent = standardize(weakTastey.ordersInTotal)
+        mealsNumberElement.textContent = standardize(weakTastey.tasteyMeals)
         actualPriceElement.textContent = formatValue(currency, weakTastey.actualAmount)
-        totalDiscountElement.textContent = '-' + weakTastey.totalDiscountPercentage + '%'
+        totalDiscountElement.textContent = '-' + weakTastey.totalDiscountPercentage + ' %'
         savedElement.textContent = formatValue(currency, weakTastey.savedAmount)
         totalPriceElement.textContent = formatValue(currency, weakTastey.totalAmount)
         TOTALCOSTElement.textContent = formatValue(currency, weakTastey.totalCost)
@@ -664,7 +666,7 @@ function handleClearCart() {
             alert("Your Shopping Bag is already empty")
             return
         }
-        const isCartCleared = confirm(`You are about to remove ${Tastey.ordersInTotal} ${Tastey.ordersInTotal > 1 ? "orders" : "order"} from your Shopping Bag!`)
+        const isCartCleared = confirm(`You are about to remove ${standardize(Tastey.ordersInTotal)} ${Tastey.ordersInTotal > 1 ? "orders" : "order"} from your Shopping Bag!`)
         if (isCartCleared) {
             if (!getCardsQuery() && document.body.classList.contains("cart")) {
                 clearCart()
@@ -752,7 +754,7 @@ function handleCheckout() {
     const { picSrc: lastOrderPicSrc } = meal 
     const title = "Tastey";
     const options = {
-        body: `We are sorry :) but checkout is currently unavailable!!! We see you are trying to check out ${weakTastey.ordersInTotal} Tastey orders with a total cost of ${formatValue(currency, weakTastey.totalCost)}`,
+        body: `We are sorry :) but checkout is currently unavailable!!! We see you are trying to check out ${standardize(weakTastey.ordersInTotal)} Tastey orders with a total cost of ${formatValue(currency, weakTastey.totalCost)}`,
         image: `${lastOrderPicSrc}`,
         vibrate: [200, 100, 200, 100, 200, 100, 200],
         tag: "tastey-checkout-notification",

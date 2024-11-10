@@ -1,4 +1,4 @@
-export { tasteyThrottler, tasteyDebouncer, round, check, formatValue, clamp, isIterable, panning, scrollContentTo, asyncScrollToBottom, asyncScrollToTop, syncScrollToBottom, syncScrollToTop, remToPx, pxToRem, rand, positionGradient, stars, write, erase }
+export { tasteyThrottler, tasteyDebouncer, round, check, formatValue, standardize, clamp, isIterable, panning, scrollContentTo, asyncScrollToBottom, asyncScrollToTop, syncScrollToBottom, syncScrollToTop, remToPx, pxToRem, rand, positionGradient, stars, write, erase }
 
 //Some utility functions for general use
 class tasteyDebouncer {
@@ -82,6 +82,48 @@ const formatValue = (currency, price) => {
         return formatter(currency).format(price).replace('NGN',"\u20A6")            
 }
 
+function standardize(C, manner = "use ease"){
+    //using number format API to format the number values
+    const WN = new Intl.NumberFormat('en',{
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    })
+    const FO = new Intl.NumberFormat('en',{
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 1,
+    })
+    if (manner === "use ease") {
+        return `${WN.format(C)}`
+    } else {
+        const th = C/1000,
+        m = C/1000000,
+        b = C/1000000000,
+        tr = C/1000000000000
+        if(th < 1) 
+            return `${WN.format(C)}`;
+        else if((th >= 1) && (m < 1)) 
+            if((th - Math.floor(th)) !== 0) 
+                return `${FO.format(th)}K`
+            else 
+                return `${WN.format(th)}K`
+        else if((m >= 1) && (b < 1)) 
+            if((m - Math.floor(m)) !== 0)
+                return `${FO.format(m)}M`
+            else 
+                return `${WN.format(m)}M`
+        else if((b >= 1) && (tr < 1)) 
+            if((b - Math.floor(b)) !== 0)
+                return `${FO.format(b)}B`
+            else
+                return `${WN.format(b)}B`     
+        else if(tr >= 1)
+            if((tr - Math.floor(tr)) !== 0)
+                return `${FO.format(tr)}T`
+            else 
+                return `${WN.format(tr)}T`
+    }
+}
+
 const clamp = (min, amount, max) => {
     return Math.min(Math.max(amount, min), max)
 }
@@ -135,7 +177,7 @@ function syncScrollToBottom(behavior = "smooth", parent = document.documentEleme
 }
 
 function isIterable(obj) {  
-    return obj != null && obj != undefined && typeof obj[Symbol.iterator] === 'function';  
+    return obj !== null && obj !== undefined && typeof obj[Symbol.iterator] === 'function';  
 }
 
 //A function to handle panning of images
