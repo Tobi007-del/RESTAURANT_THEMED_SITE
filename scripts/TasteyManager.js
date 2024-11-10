@@ -41,7 +41,7 @@ function displayWelcomeNotification() {
     const welcomeMssg = !sessionStorage.tastey_friendship_log && localStorage.tastey_friendship_log ? "Hello, Old Friend!, Welcome back to Tastey" : "Hello, New Friend!, Welcome to Tastey"
     const title = "Tastey"
     const options = {
-        body: `${welcomeMssg}. Wanna tease your taste buds?, try a Tastey meal now!`,
+        body: `${welcomeMssg}. Wanna tease your taste buds? try a Tastey meal now!`,
         image: randomImgSrc,
         tag: "tastey-welcome-notification",
         renotify: true
