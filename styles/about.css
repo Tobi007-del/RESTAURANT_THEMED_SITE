@@ -21,7 +21,7 @@ body {
     flex-direction: column;
     height: 9rem;
     gap: .65rem;
-    background-image: linear-gradient(transparent, #ed8f2335, transparent);
+    background-image: linear-gradient(transparent, #ed8f2325, transparent);
 }
 
 .archive-content-header-wrapper h2 {
@@ -155,15 +155,12 @@ body {
 }
 
 .archive-content {
+    position: relative;
     flex: 0 1 25rem;
     min-width: 17.5rem;
     padding-block-start: 3rem;
     padding-block-end: 1.5rem;
     display: flex;
-    z-index: 1;
-    background-color: var(--current-theme-inverse-transparent-color);
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
     border-radius: .5rem;
     gap: 1dvw;
     padding-inline: 1.6rem;
@@ -349,10 +346,6 @@ main.about-section {
 }
 
 .accreditation-sections-content, .review-panel-content {
-    background-color: var(--current-theme-inverse-transparent-color);
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
-    z-index: 1;
     margin-inline: auto;
     border-radius: .5rem;
     display: flex;
@@ -409,10 +402,6 @@ main.about-section {
     flex-flow: row wrap;
     justify-content: center;
     gap: 2dvw;
-    z-index: 1;
-    background-color: var(--current-theme-inverse-transparent-color);
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
 }
 
 .reservation-content-wrapper-content > div:first-child {

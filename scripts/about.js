@@ -12,7 +12,7 @@ Archives.forEach(({ year, imgSrc, event, description }) => {
 archiveContentWrapper.innerHTML += 
 `
                 <div class="archive">
-                    <div class="archive-content">
+                    <div class="archive-content Tastey-blur-bc">
                         <div class="archive-time-wrapper">
                             <h4>${year}</h4>
                         </div>

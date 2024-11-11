@@ -287,7 +287,7 @@ function onPageScroll() {
 const scrollThrottler = new tasteyThrottler
 const scrollDebouncer = new tasteyDebouncer
 //window event listeners
-window.addEventListener("resize",positionCards)
+window.addEventListener("resize", positionCards)
 window.addEventListener("scroll", scrollThrottler.throttle(onPageScroll,10))   
 window.addEventListener("scroll", scrollDebouncer.debounce(onPageScroll,250))
 

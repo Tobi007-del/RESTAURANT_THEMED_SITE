@@ -101,7 +101,7 @@ a:hover {
     position: relative;
 }
 
-.Tastey-blur::before {
+:where(.Tastey-blur)::before {
     content: '';
     position: absolute;
     width: calc(100% - .7rem);
@@ -115,6 +115,13 @@ a:hover {
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     top: 100%;
+}
+
+:where(.Tastey-blur-bc) {
+    z-index: 1;
+    background-color: var(--current-theme-inverse-transparent-color);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
 }
 
 nav {
@@ -1131,15 +1138,11 @@ footer {
 }
 
 .footer-content {
-    -webkit-backdrop-filter: 5px;
-    backdrop-filter: blur(5px);
-    background: var(--current-theme-inverse-transparent-color);
     display: flex;
     flex-direction: column;
     padding-block-start: 3.5rem;
     padding-block-end: 1rem;
     padding-inline: 2dvw;
-    z-index: 1;
     gap: 2rem;
 }
 
@@ -1467,29 +1470,29 @@ footer {
     height: 100%;
 }
 
-.facebook:hover {
+.facebook:hover, .facebook:focus {
     background: white;
 }
 
-.facebook:hover > svg {
+.facebook:hover > svg, .facebook:focus > svg {
     fill: #4267B2;
 }
 
-.twitter:hover {
+.twitter:hover, .twitter:focus {
     background: #00acee;
 }
 
-.instagram:hover {
+.instagram:hover, .instagram:focus {
     background-image: linear-gradient(to right, #f9ce34, #ee2a7b,#6228d7);
     -webkit-transition: background-image 0.2s ease-in-out;
     transition: background-image 0.2s ease-in-out;
 }
 
-.youtube:hover {
+.youtube:hover, .youtube:focus {
     background: white;
 }
 
-.youtube:hover > svg {
+.youtube:hover > svg, .youtube:focus > svg {
     fill: #f12020;
 }
 

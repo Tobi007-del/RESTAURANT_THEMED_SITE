@@ -30,6 +30,7 @@ scrollCarouselTo = index => {
 
 markToggler = index => {
     togglers[index].classList.add('active')
+    togglers[index].tabIndex = -1
     togglers[index].setAttribute('aria-disabled', 'true')
 },
 
@@ -48,10 +49,11 @@ tasteyMealsCarousel.addEventListener('scroll', e => {
     // reset togglers
     togglers.forEach(toggler => {
         toggler.classList.remove('active')
+        toggler.tabIndex = 0
         toggler.setAttribute('aria-disabled','false')
     })
-    //handle infinite scrolling
-    //debouncing to prevent the scroll event from glitching carousel
+    // handle infinite scrolling
+    // debouncing to prevent the scroll event from glitching carousel
     if (scrollTimer) clearTimeout(scrollTimer)
     scrollTimer = setTimeout(() => {
         if (e.target.scrollLeft < offsetWidth * (nClonedSlides - 1/2)) 
@@ -59,11 +61,11 @@ tasteyMealsCarousel.addEventListener('scroll', e => {
         if (e.target.scrollLeft > offsetWidth * ((nSlides - 1 + nClonedSlides) + 1/2)) 
             rewind()
     }, 100)
-    //update the toggler
+    // update the toggler
     updateToggler()
 })
 
-//Infinite scrolling
+// Infinite scrolling
 const firstSlideClone = tasteyMeals[0].cloneNode(true)
 firstSlideClone.setAttribute('aria-hidden','true')
 tasteyMealsCarousel.append(firstSlideClone)
