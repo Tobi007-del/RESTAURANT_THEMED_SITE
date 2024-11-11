@@ -6,7 +6,7 @@ import { check, formatValue, standardize, panning, scrollContentTo, remToPx, pxT
 import { autoRemoveScroller } from "./build-scroller.js"
 import { notificationQuery } from "./service-worker-helper.js"
 
-export { meals, allMeals, currency, getDOMElements, getOrderIndex, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards, positionMiniCards, adjustMiniCards } 
+export { meals, allMeals, currency, maxOrders, getDOMElements, getOrderIndex, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards, positionMiniCards, adjustMiniCards } 
 
 //Getting necessary data
 const meals = data.tasteyMeals,
@@ -562,12 +562,15 @@ function setButtonState({i,id}) {
         minusCartBtns[i]?.classList.toggle('hover', number > 1)
         document.querySelector(`.add-to-cart-button[data-id="${id}"]`)?.classList.toggle('disabled', weakTastey.getOrdersValue(id) >= maxOrders)
         plusCartBtns[i]?.classList.toggle('disabled', weakTastey.getOrdersValue(id) >= maxOrders)
+        if (plusCartBtns[i]) plusCartBtns[i].tabIndex = weakTastey.getOrdersValue(id) >= maxOrders ? -1 : 0
     }
     if (miniBagQuery()) {
         const number = weakTastey.getOrdersValue(mcTasteyMealOrders[i]?.dataset.id)
         mcMinusCartBtns[i]?.classList.toggle('hover', number > 1)
         mcPlusCartBtns[i]?.classList.toggle('disabled', weakTastey.getOrdersValue(id) >= maxOrders)
+        if (mcPlusCartBtns[i]) mcPlusCartBtns[i].tabIndex = weakTastey.getOrdersValue(id) >= maxOrders ? -1 : 0
         document.querySelector(`.footer-add-to-cart-button[data-id="${id}"]`)?.classList.toggle('disabled', weakTastey.getOrdersValue(id) >= maxOrders)
+        if (document.querySelector(`.footer-add-to-cart-button[data-id="${id}"]`)) document.querySelector(`.footer-add-to-cart-button[data-id="${id}"]`).tabIndex = weakTastey.getOrdersValue(id) >= maxOrders ? -1 : 0
     }
 }
 

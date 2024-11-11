@@ -1,4 +1,4 @@
-import { allMeals, currency, getDOMElements, handleCheckout, positionMiniCards, adjustMiniCards } from "./CRUD.js"
+import { allMeals, currency, maxOrders, getDOMElements, handleCheckout, positionMiniCards, adjustMiniCards } from "./CRUD.js"
 import { weakTastey } from "./TasteyManager.js"
 import { tasteyThrottler, check, formatValue, standardize, panning, positionGradient } from "./utility-functions.js"
 
@@ -107,7 +107,7 @@ function tasteyMiniBag() {
                                                         <svg width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill-rule="nonzero" xlink:href="#a"/></svg>
                                                     </button>
                                                         <p class="mini-cart-number">${standardize(orders)}</p>
-                                                    <button type="button" title="Add 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="mini-cart-sign mini-cart-add">
+                                                    <button type="button" title="Add 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="mini-cart-sign mini-cart-add" tabindex="${weakTastey.getOrdersValue(id) >= maxOrders ? -1 : 0}">
                                                         <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z" id="b"/></defs><use fill-rule="nonzero" xlink:href="#b"/></svg>
                                                     </button>
                                                 </span>      
