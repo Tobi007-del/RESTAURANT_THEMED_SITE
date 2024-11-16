@@ -36,9 +36,8 @@ html {
     overflow-x: hidden;
 }
 
-html, *::after, *::before, aside, button {
+html, *::after, *::before, aside, button, input, textarea {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    scroll-behavior: smooth;
 }
 
 .smooth-scroll {
