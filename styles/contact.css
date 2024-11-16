@@ -1,0 +1,162 @@
+h1,h2,h3,h4,h5,h6,p {
+    margin: 0;
+}
+
+.contact-banner-section-wrapper {
+    margin-top: 3.5rem;
+    height: 20rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background: url('../assets/tastey-meal-images/tastey_meal_four.jpg') center/cover;
+    box-shadow: inset 5rem 5rem 10rem var(--current-theme-inverse-color), inset -5rem -5rem 10rem var(--current-theme-inverse-color);
+    text-align: center;
+}
+
+.contact-banner-section-wrapper h1 {
+    color: var(--current-theme-sub-color);
+    font-size: 3rem;
+}
+
+.contact-banner-section-wrapper h3 {
+    color: var(--current-theme-accent-color);
+    font-size: .9rem;
+}
+
+.contact-section-wrapper  {
+    padding-inline: 5vw;
+}
+
+.contact-section {
+    display: flex;
+    flex-flow: row wrap;
+    padding-inline: 2vw;
+    padding-block: 5rem;
+    column-gap: 1.5rem;
+    row-gap: 5rem;
+    border-radius: .5rem;
+    background: linear-gradient(to left, var(--current-theme-main-color), var(--tastey-brand-light-accent-color), var(--tastey-brand-light-accent-color));
+}
+
+.contact-section > div {
+    flex: 1 1 20rem;
+    max-width: 100%;
+    min-width: 5rem;
+    height: 30rem;
+}
+
+.contact-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding-inline: 1vw;
+}
+
+.contact-form-title-wrapper {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+    text-align: center;
+}
+
+.contact-form-title-wrapper em {
+    color: var(--attractive-color);
+    font-size: 1.35rem;
+    font-weight: bold;
+}
+
+.contact-form-title-wrapper h1 {
+    color: var(--current-theme-inverse-color);
+    font-size: 2.75rem;
+    font-weight: bolder;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+form input:not([type="submit"]), form textarea {
+    padding: .85rem;
+    border-radius: .35rem;
+    border: none;
+    background-color: var(--current-theme-fade-color);
+}
+
+form input:not([type="submit"]):hover, form textarea:hover {
+    background-color: var(--current-theme-sub-color);
+}
+
+form input:not([type="submit"])::placeholder, form textarea::placeholder {
+    color: var(--current-theme-inverse-accent-color);
+}
+
+form textarea {
+    min-height: 10rem;
+    resize: none;
+}
+
+form input[type="submit"] {
+    background-color: var(--darker-black);
+    color: var(--current-theme-sub-color);
+    padding-block: .85rem;
+    border-radius: .35rem;
+    font-size: .75rem;
+    font-weight: bold;
+    border: none;
+    transition: 200ms ease;
+}
+
+form input[type="submit"]:hover {
+    font-size: .8rem;
+}
+
+.reserve-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    height: 100%;
+    background: url('../assets/tastey-meal-images/tastey_meal_two.jpg') no-repeat center/cover, var(--darker-black);
+    border-radius: .5rem;
+    box-shadow: inset 10rem -10rem 15rem var(--current-theme-inverse-accent-color);
+    gap: 1rem;
+    padding-block-end: 2rem;
+    padding-inline-start: 2rem;
+}
+
+.reserve-section > div {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.reserve-section > div h1 {
+    color: var(--current-theme-sub-color);
+    font-size: 2.3rem;
+}
+
+.reserve-section > div h2 {
+    color: var(--current-theme-accent-color);
+    font-size: .9rem;
+}
+
+.reserve-section .reservation-btn {
+    padding-inline: 1rem;
+    padding-block: .8rem;
+    color: var(--current-theme-sub-color);
+    transition: transform 250ms ease;
+}
+
+.reserve-section .reservation-btn:hover {
+    transform: scale(1.1);
+}
+
+@media only screen and (max-width: 48.325rem) {
+.contact-section {
+    background: linear-gradient(to top, var(--current-theme-main-color), var(--tastey-brand-light-accent-color), var(--tastey-brand-light-accent-color));
+    padding-inline: 3vw;
+}
+}

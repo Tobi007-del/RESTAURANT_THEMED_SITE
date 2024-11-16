@@ -99,6 +99,7 @@ It is a personal project and I would really like to describe it as just practice
   - utility-functions.js
 - styles
   - about.css
+  - contact.css
   - index.css
   - menu.css
   - required.css
@@ -109,6 +110,8 @@ It is a personal project and I would really like to describe it as just practice
 - contact.html
 - index.html
 - menu.html
+- README.md
+- success.html
 - reservation.html
 - Tastey_service_worker.js
 

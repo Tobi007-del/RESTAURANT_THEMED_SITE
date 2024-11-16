@@ -24,7 +24,7 @@
     <link rel="preload" href="assets/tastey-meal-images/tastey_preloader.gif" as="image" type="image/jpg">
     <link rel="preload" href="assets/tastey-meal-icons/tastey-icon.png" as="image" type="image/jpg">
     <link rel="stylesheet" href="styles/required.css">
-    <!-- <link rel="stylesheet" href="styles/contact.css"> -->
+    <link rel="stylesheet" href="styles/contact.css">
     <link rel="stylesheet" href="styles/scroll-bar.css">
 </head>
 <body class="loading" data-cart="0" data-mini-bag="true">
@@ -83,7 +83,39 @@
     </nav>
 
    
-    <main class="dev">This page is still in the development phase!</main>
+    <div class="contact-banner-section-wrapper">
+          <h1>CONTACT US</h1>  
+          <h3>CONTACT THE TASTEY RESTAURANT</h3>
+    </div>
+   
+    <main class="contact-section-wrapper">
+        <div class="contact-section Tastey-blur-bc">
+            <div class="contact-form-wrapper">
+                <div class="contact-form-title-wrapper">
+                    <em class="Tastey-text">Have a question?</em>
+                    <h1>EMAIL US</h1>
+                </div>
+                <form method="get" action="success.html" class="contact-form">
+                    <input placeholder="Enter your name" type="text" id="name" name="name" required autocomplete="on">
+                    <input placeholder="Phone number" type="tel" id="phone" name="phone" required autocomplete="on">
+                    <input placeholder="Email address" type="email" id="email" name="email" required autocomplete="on">
+                    <textarea placeholder="Enter message..." id="message" name="message" required autocomplete="on" class="Tastey-blur"></textarea>
+                    <input type="submit" value="SUBMIT">
+                </form>
+            </div>
+            <div class="reserve-section">
+                <div>
+                    <h1>NEED A DELIVERY</h1>
+                    <h2>RESERVE YOUR DELIVERY ONLINE!</h2>
+                </div>
+                <a type="button" href="reservation.html" title="Reserve now" class="Tastey-blur reservation-btn">
+                    <div>
+                        RESERVE NOW
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
     
     <footer>
         <div class="footer-content Tastey-blur-bc">

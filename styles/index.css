@@ -166,7 +166,7 @@ main {
     justify-content: center;
     align-items: center;
     gap: 2.5rem;
-    bottom: 2.5rem;
+    bottom: 7.5dvh;
     margin-left: 7.5%;
 }
 
@@ -255,7 +255,6 @@ main {
         margin-left: .25rem;
     }
     .tastey-meals-carousel-controls {
-        bottom: 5dvh;
         gap: 4rem;
     }
     .tastey-meals-switcher {
