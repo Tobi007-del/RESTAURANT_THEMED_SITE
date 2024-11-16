@@ -335,6 +335,7 @@ function addMeal(id, meals, curr) {
             const newProduct = document.createElement('div')
             newProduct.classList.add('tastey-meal-order')
             newProduct.dataset.id = id
+            newProduct.dataset.discount = price.discount ?? 0
             newProduct.dataset.like = weakTastey.getLikeValue(id) ?? false
             newProduct.dataset.orders = weakTastey.getOrdersValue(id)
             newProduct.dataset.position = weakTastey.tasteyRecord.tasteyOrders.length ?? 1
