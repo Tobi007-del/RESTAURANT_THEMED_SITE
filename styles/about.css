@@ -306,6 +306,9 @@ main.about-section {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-block: .5rem;
+    margin-block: .5rem;
+    background-image: linear-gradient(transparent, #ed8f2325, transparent);
 }
 
 .about-title-wrapper h2 {
@@ -441,7 +444,7 @@ main.about-section {
 
 .reservation-content-wrapper-content > div > div {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     align-items: center;
 }
 
@@ -520,7 +523,6 @@ main.about-section {
     height: 3rem;
     width: 3rem;
     object-fit: cover;
-    object-position: 0% 0%;
 }
 
 .reviews > div > img, .toggle-audio-content {
@@ -563,20 +565,29 @@ main.about-section {
 }
 
 .review-answers {
-    display: grid;
-    transition: 200ms ease;
+    height: 6rem;
+    overflow: hidden;
+    transition: height 200ms ease;
+}
+
+.review-answers.hide {
+    height: 0;
+}
+
+.review-answers.show {
+    height: 6rem;
 }
 
 .audio-content-wrapper {
     width: 100%;
 }
 
-.none {
+.hide:not(.review-answers) {
     display: none;
 }
 
-.inline {
-    display: inline;
+.show:not(.review-answers) {
+    display: block;
 }
 
 #review-top:hover, .reviews:hover, .review-answers:hover, .minus:hover, .plus:hover{

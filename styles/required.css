@@ -114,6 +114,11 @@ a:hover {
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     top: 100%;
+    transition: height 200ms ease;
+}
+
+:where(.Tastey-blur):where(button, a):hover::before {
+    height: .275rem;
 }
 
 :where(.Tastey-blur-bc) {

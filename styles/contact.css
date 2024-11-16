@@ -4,7 +4,7 @@ h1,h2,h3,h4,h5,h6,p {
 
 .contact-banner-section-wrapper {
     margin-top: 3.5rem;
-    height: 20rem;
+    height: 12.5rem;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -16,12 +16,12 @@ h1,h2,h3,h4,h5,h6,p {
 
 .contact-banner-section-wrapper h1 {
     color: var(--current-theme-sub-color);
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 .contact-banner-section-wrapper h3 {
     color: var(--current-theme-accent-color);
-    font-size: .9rem;
+    font-size: .75rem;
 }
 
 .contact-section-wrapper  {
@@ -31,26 +31,40 @@ h1,h2,h3,h4,h5,h6,p {
 .contact-section {
     display: flex;
     flex-flow: row wrap;
-    padding-inline: 2vw;
-    padding-block: 5rem;
-    column-gap: 1.5rem;
-    row-gap: 5rem;
+    padding-inline: 2.5vw;
+    padding-block: 2.5rem;
+    column-gap: 2.5vw;
+    row-gap: 2.5rem;
     border-radius: .5rem;
     background: linear-gradient(to left, var(--current-theme-main-color), var(--tastey-brand-light-accent-color), var(--tastey-brand-light-accent-color));
 }
 
 .contact-section > div {
-    flex: 1 1 20rem;
     max-width: 100%;
     min-width: 5rem;
-    height: 30rem;
+    height: 31rem;
+    border-radius: .5rem;
+    overflow: hidden;
+}
+
+.contact-form-wrapper-container {
+    flex: 1 1 17.5rem;
+    background: radial-gradient(
+        200px circle at center 20%,
+        rgba(255,255,255,0.15),
+        transparent 40%
+    ), url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-2.png') no-repeat top/cover;
 }
 
 .contact-form-wrapper {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
-    padding-inline: 1vw;
+    justify-content: space-between;
+    padding-inline: 2vw;
+    padding-block: 1.75rem;
+    background-color: var(--current-theme-inverse-transparent-color);
 }
 
 .contact-form-title-wrapper {
@@ -63,14 +77,25 @@ h1,h2,h3,h4,h5,h6,p {
 
 .contact-form-title-wrapper em {
     color: var(--attractive-color);
-    font-size: 1.35rem;
+    font-size: 1.1rem;
     font-weight: bold;
 }
 
 .contact-form-title-wrapper h1 {
     color: var(--current-theme-inverse-color);
-    font-size: 2.75rem;
+    font-size: 1.95rem;
     font-weight: bolder;
+    position: relative;
+}
+
+.contact-form-title-wrapper h1::after {
+    content: '';
+    position: absolute;
+    top: calc(100% + .25rem);
+    left: -10%;
+    width: 120%;
+    height: 1.15rem;
+    background: url('../assets/tastey-meal-icons/line-1.png') no-repeat center/cover;
 }
 
 form {
@@ -79,18 +104,18 @@ form {
     gap: .25rem;
 }
 
-form input:not([type="submit"]), form textarea {
-    padding: .85rem;
+form input, form textarea {
+    padding: .75rem;
     border-radius: .35rem;
     border: none;
     background-color: var(--current-theme-fade-color);
 }
 
-form input:not([type="submit"]):hover, form textarea:hover {
+form input:hover, form textarea:hover {
     background-color: var(--current-theme-sub-color);
 }
 
-form input:not([type="submit"])::placeholder, form textarea::placeholder {
+form input::placeholder, form textarea::placeholder {
     color: var(--current-theme-inverse-accent-color);
 }
 
@@ -99,9 +124,9 @@ form textarea {
     resize: none;
 }
 
-form input[type="submit"] {
-    background-color: var(--darker-black);
-    color: var(--current-theme-sub-color);
+form .submit-btn {
+    background-color: var(--tastey-brand-accent-color);
+    color: var(--current-theme-inverse-accent-color);
     padding-block: .85rem;
     border-radius: .35rem;
     font-size: .75rem;
@@ -110,21 +135,24 @@ form input[type="submit"] {
     transition: 200ms ease;
 }
 
-form input[type="submit"]:hover {
-    font-size: .8rem;
+form .submit-btn:hover {
+    transform: scale(1.01);
+    background-color: var(--tastey-brand-color);
+    color: var(--current-theme-inverse-color);
+    cursor: pointer;
 }
 
 .reserve-section {
+    flex: 1 1 10rem;
     display: flex;
     flex-direction: column;
     justify-content: end;
     height: 100%;
     background: url('../assets/tastey-meal-images/tastey_meal_two.jpg') no-repeat center/cover, var(--darker-black);
-    border-radius: .5rem;
     box-shadow: inset 10rem -10rem 15rem var(--current-theme-inverse-accent-color);
-    gap: 1rem;
+    gap: 1.1rem;
     padding-block-end: 2rem;
-    padding-inline-start: 2rem;
+    padding-inline: 2.5vw;
 }
 
 .reserve-section > div {
@@ -135,26 +163,27 @@ form input[type="submit"]:hover {
 
 .reserve-section > div h1 {
     color: var(--current-theme-sub-color);
-    font-size: 2.3rem;
+    font-size: 1.65rem;
 }
 
 .reserve-section > div h2 {
     color: var(--current-theme-accent-color);
-    font-size: .9rem;
+    font-size: .75rem;
 }
 
 .reserve-section .reservation-btn {
     padding-inline: 1rem;
-    padding-block: .8rem;
-    color: var(--current-theme-sub-color);
+    padding-block: .75rem;
+    color: var(--current-theme-inverse-accent-color);
     transition: transform 250ms ease;
 }
 
 .reserve-section .reservation-btn:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
+    color: var(--current-theme-inverse-color);
 }
 
-@media only screen and (max-width: 48.325rem) {
+@media only screen and (max-width: 33.75rem) {
 .contact-section {
     background: linear-gradient(to top, var(--current-theme-main-color), var(--tastey-brand-light-accent-color), var(--tastey-brand-light-accent-color));
     padding-inline: 3vw;

@@ -178,24 +178,24 @@ faqs.forEach((faq,i) => {
     faq.addEventListener('click',() => {
         faqans.forEach((faqan,n) => {
             if(n === i){
-                faqan.classList.toggle('none');
-                if(faqan.classList.contains('none')){
-                    info[n].classList.remove('none');
-                    hide[n].classList.remove('inline');
-                    info[n].classList.add('inline');
-                    hide[n].classList.add('none');
+                faqan.classList.toggle('hide');
+                if(faqan.classList.contains('hide')){
+                    info[n].classList.remove('hide');
+                    hide[n].classList.remove('show');
+                    info[n].classList.add('show');
+                    hide[n].classList.add('hide');
                 } else {
-                    info[n].classList.remove('inline');
-                    hide[n].classList.remove('none');
-                    info[n].classList.add('none');
-                    hide[n].classList.add('inline');
+                    info[n].classList.remove('show');
+                    hide[n].classList.remove('hide');
+                    info[n].classList.add('hide');
+                    hide[n].classList.add('show');
                 }
             } else {
-                faqan.classList.add('none');
-                info[n].classList.remove('none');
-                hide[n].classList.remove('inline');
-                info[n].classList.add('inline');
-                hide[n].classList.add('none');
+                faqan.classList.add('hide');
+                info[n].classList.remove('hide');
+                hide[n].classList.remove('show');
+                info[n].classList.add('show');
+                hide[n].classList.add('hide');
             }
         })
     })

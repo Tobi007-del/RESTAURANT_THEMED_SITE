@@ -743,7 +743,7 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
     max-width: fit-content;
     position: relative;
     translate: 1.25rem;
-    font-size: 1.625rem;
+    font-size: 1.75rem;
 }
 
 .cart-title-wrapper h3::after {
