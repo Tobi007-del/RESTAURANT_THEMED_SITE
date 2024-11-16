@@ -155,18 +155,10 @@ accrediationSectionObserver.observe(document.querySelector('#accreditation-secti
 //COUNTER FUNCTIONS
 const t = 50
 function accreditationCounter(){    
-        o = setInterval(()=>{
-            firstValueCount()
-        },t);
-        p = setInterval(()=>{
-            secondValueCount()
-        },t);
-        q = setInterval(()=>{
-            thirdValueCount()
-        },t);
-        r = setInterval(()=>{
-            fourthValueCount()
-        },(t*2));
+        o = setInterval(firstValueCount,t)
+        p = setInterval(secondValueCount,t)
+        q = setInterval(thirdValueCount,t)
+        r = setInterval(fourthValueCount,t*2)
 }
 
 const faqs = document.querySelectorAll(".reviews"),
@@ -178,24 +170,27 @@ faqs.forEach((faq,i) => {
     faq.addEventListener('click',() => {
         faqans.forEach((faqan,n) => {
             if(n === i){
-                faqan.classList.toggle('hide');
+                faqan.classList.toggle('hide')
                 if(faqan.classList.contains('hide')){
-                    info[n].classList.remove('hide');
-                    hide[n].classList.remove('show');
-                    info[n].classList.add('show');
-                    hide[n].classList.add('hide');
-                } else {
-                    info[n].classList.remove('show');
-                    hide[n].classList.remove('hide');
-                    info[n].classList.add('hide');
-                    hide[n].classList.add('show');
+                    faqan.querySelector('audio').pause()
+                    info[n].classList.remove('hide')
+                    hide[n].classList.remove('show')
+                    info[n].classList.add('show')
+                    hide[n].classList.add('hide')
+                } else { 
+                    faqan.querySelector('audio').play()
+                    info[n].classList.remove('show')
+                    hide[n].classList.remove('hide')
+                    info[n].classList.add('hide')
+                    hide[n].classList.add('show')
                 }
             } else {
-                faqan.classList.add('hide');
-                info[n].classList.remove('hide');
-                hide[n].classList.remove('show');
-                info[n].classList.add('show');
-                hide[n].classList.add('hide');
+                faqan.classList.add('hide')
+                faqan.querySelector('audio').pause()
+                info[n].classList.remove('hide')
+                hide[n].classList.remove('show')
+                info[n].classList.add('show')
+                hide[n].classList.add('hide')
             }
         })
     })
