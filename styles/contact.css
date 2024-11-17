@@ -41,8 +41,8 @@ h1,h2,h3,h4,h5,h6,p {
 
 .contact-section > div {
     max-width: 100%;
-    min-width: 5rem;
     height: 31rem;
+    min-width: 10rem;
     border-radius: .5rem;
     overflow: hidden;
 }
@@ -141,7 +141,7 @@ form .submit-btn:hover {
 }
 
 .reserve-section {
-    flex: 1 1 10rem;
+    flex: 1 0 12rem;
     display: flex;
     flex-direction: column;
     justify-content: end;
@@ -181,7 +181,7 @@ form .submit-btn:hover {
     color: var(--current-theme-inverse-color);
 }
 
-@media only screen and (max-width: 33.75rem) {
+@media only screen and (max-width: 36rem) {
 .contact-section {
     background: linear-gradient(to top, var(--current-theme-main-color), var(--tastey-brand-light-accent-color), var(--tastey-brand-light-accent-color));
     padding-inline: 3vw;
