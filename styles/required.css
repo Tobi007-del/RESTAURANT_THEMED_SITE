@@ -1438,7 +1438,8 @@ footer {
     flex-flow: row wrap;
     justify-content: space-between;
     padding-inline-end: 5dvw;
-    gap: 1rem;
+    row-gap: 1rem;
+    column-gap: 7.5rem;
 }
 
 .footer-rights-section {
@@ -1684,6 +1685,7 @@ footer {
     }
     .footer-bottom-section {
         justify-content: center;
+        padding-inline: 2.5rem;
     }
     .footer-social-section .facebook {
         background: white;
