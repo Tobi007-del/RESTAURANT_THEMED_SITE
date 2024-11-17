@@ -52,9 +52,9 @@ removeScrolls.addEventListener('click', () => {
     categorySwitcherContainer.classList.remove('show')
 })
  
-toTop.addEventListener('click', syncScrollToTop)
+toTop.addEventListener('click', ()=>{syncScrollToTop()})
  
-toBottom.addEventListener('click', syncScrollToBottom)
+toBottom.addEventListener('click', ()=>{syncScrollToBottom()})
  
 quickScrollShow.addEventListener('click', () => {
     quickScrolls.classList.toggle('show')
