@@ -1,7 +1,8 @@
 import { syncScrollToTop, syncScrollToBottom, tasteyThrottler, tasteyDebouncer, remToPx } from "./utility-functions.js"
 export { autoRemoveScroller, quickScrollShow, quickScrolls, removeScrolls }
 
-(function buildScroller() {
+buildScroller()
+function buildScroller() {
     const scroller = document.createElement('div')
     scroller.id = "quick-scroll-wrapper"
     scroller.innerHTML += 
@@ -35,7 +36,7 @@ export { autoRemoveScroller, quickScrollShow, quickScrolls, removeScrolls }
         </div>
     `
     document.body.appendChild(scroller)
-})()
+}
 
 const toTop = document.getElementById("to-top"),
 toBottom = document.getElementById("to-bottom"),
@@ -46,52 +47,43 @@ quickScrolls = document.getElementById("quick-scrolls")
 
 
 //Quick scrolls implementation
-removeScrolls.addEventListener('click', ()=>{
-    quickScroll.style.display = "none";
+removeScrolls.addEventListener('click', () => {
+    quickScroll.style.display = "none"
     categorySwitcherContainer.classList.remove('show')
 })
  
-toTop.addEventListener('click', ()=>{
-    syncScrollToTop()
-})
+toTop.addEventListener('click', syncScrollToTop)
  
-toBottom.addEventListener('click', ()=>{
-    syncScrollToBottom()
-})
+toBottom.addEventListener('click', syncScrollToBottom)
  
-quickScrollShow.addEventListener('click', ()=>{
-    quickScrolls.classList.toggle('show');
+quickScrollShow.addEventListener('click', () => {
+    quickScrolls.classList.toggle('show')
     quickScrollShow.title = quickScrolls.classList.contains("show") ? "Close scroller" : "Open scroller"
     autoRemoveScroller()
 })
 
-var circle = document.getElementById("circle");
-var length = circle.getTotalLength();
+var circle = document.getElementById("circle")
+var length = circle.getTotalLength()
 
 // The start position of the drawing
-circle.style.strokeDasharray = length;
-circle.style.strokeDashoffset = length;
+circle.style.strokeDasharray = length
+circle.style.strokeDashoffset = length
 
 
 function drawOnScroll() {
-    let scrollpercent = (document.body.scrollTop + document.documentElement.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
-  
-    let draw = length * scrollpercent;
-    let angle = 180 * scrollpercent;
-  
-    quickScrollShow.style.transform = `rotate(${angle}deg)`;
-    circle.style.strokeDashoffset = length - draw;
+    const scrollpercent = (document.body.scrollTop + document.documentElement.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+    quickScrollShow.style.transform = `rotate(${(180 * scrollpercent)}deg)`
+    circle.style.strokeDashoffset = length - (length * scrollpercent)
 }
 
 function onscroll() {
-    quickScrolls.classList.remove('show');
-    const scrolledTo = window.scrollY + window.innerHeight;
-    const threshold = 0;
-    const isReachBottom = document.documentElement.scrollHeight - threshold <= scrolledTo;
-    const isReachTop = window.scrollY === 0;
-    if (isReachBottom || isReachTop) {
+    quickScrolls.classList.remove('show')
+    const scrolledTo = window.scrollY + window.innerHeight
+    const threshold = 0
+    const isReachBottom = document.documentElement.scrollHeight - threshold <= scrolledTo
+    const isReachTop = window.scrollY === 0
+    if (isReachBottom || isReachTop) 
         quickScroll.style.display = "flex"
-    }
     if ((window.innerWidth >= remToPx(36)) && (window.innerHeight >= remToPx(30))) {
         if (isReachTop) 
             document.querySelector('nav').classList.remove('top')

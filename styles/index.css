@@ -7,7 +7,7 @@ body {
 
 main {
     width: 100%;
-    height: 100dvh;
+    height: 100svh;
     display: flex;
     align-items: end;
 }
@@ -26,7 +26,7 @@ hero-content-wrapper, .tastey-meals-carousel {
     width: 30rem;
     color: var(--current-theme-fade-color);
     display: flex;
-    height: 100dvh;
+    height: 100svh;
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
@@ -64,15 +64,15 @@ hero-content-wrapper, .tastey-meals-carousel {
 }
 
 .welcome-text-wrapper h1 {
-    font-size: clamp(2rem, 13dvh, 5.15rem); 
+    font-size: clamp(2rem, 13svh, 5.15rem); 
 }
 
 .welcome-text-wrapper.old-taker h1 {
-    font-size: clamp(2rem, 11dvh, 4.75rem);
+    font-size: clamp(2rem, 11svh, 4.75rem);
 }
 
 .welcome-message-wrapper {
-    font-size: clamp(.65rem, 3.5dvh,.8rem);
+    font-size: clamp(.65rem, 3.5svh,.8rem);
     word-spacing: .05rem;
     letter-spacing: .05rem;
     line-height: 1.25rem;
@@ -115,7 +115,7 @@ hero-content-wrapper, .tastey-meals-carousel {
 .tastey-meals-carousel {
     position: absolute;
     width: 100%;
-    height: 100dvh;
+    height: 100svh;
     display: flex;
     scroll-snap-type: x mandatory;
     overflow-x: scroll;
@@ -169,7 +169,7 @@ hero-content-wrapper, .tastey-meals-carousel {
     gap: 2.5rem;
     z-index: 1;
     margin-left: 7.5dvw;
-    margin-bottom: 7.5dvh;
+    margin-bottom: 7.5svh;
 }
 
 .tastey-meals-toggler, .tastey-meals-switcher {
@@ -242,7 +242,7 @@ hero-content-wrapper, .tastey-meals-carousel {
 @media only screen and (orientation:landscape) and (max-height: 30rem) {
     .hero-content-wrapper {
         width: max-content;
-        gap: 2dvh;
+        gap: 2svh;
     }
     .welcome-text-wrapper h1 {
         width: 100%;
@@ -282,10 +282,10 @@ hero-content-wrapper, .tastey-meals-carousel {
         padding-inline-start: 2.5dvw;
     }
     .welcome-text-wrapper h1 {
-        font-size: clamp(2rem, 12dvh, 4rem);
+        font-size: clamp(2rem, 12svh, 4rem);
     }
     .welcome-text-wrapper.old-taker h1 {
-        font-size: clamp(2rem, 9dvh, 3.85rem);
+        font-size: clamp(2rem, 9svh, 3.85rem);
     }
     .tastey-meal_one {
         background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.5)), url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center center, black;
@@ -321,9 +321,9 @@ hero-content-wrapper, .tastey-meals-carousel {
 
 @media only screen and (max-width: 18.4rem) {
     .welcome-text-wrapper h1 {
-        font-size: clamp(1.5rem, 12dvh, 3rem);
+        font-size: clamp(1.5rem, 12svh, 3rem);
     }
     .welcome-text-wrapper.old-taker h1 {
-        font-size: clamp(1.5rem, 9dvh, 2.85rem);
+        font-size: clamp(1.5rem, 9svh, 2.85rem);
     }
 }
