@@ -4,7 +4,7 @@ h1,h2,h3,h4,h5,h6,p {
 
 .contact-banner-section-wrapper {
     margin-top: 3.5rem;
-    height: 12.5rem;
+    height: 11.5rem;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -49,16 +49,14 @@ h1,h2,h3,h4,h5,h6,p {
 
 .contact-form-wrapper-container {
     flex: 1 1 17.5rem;
-    background: radial-gradient(
-        200px circle at center 20%,
-        rgba(255,255,255,0.15),
-        transparent 40%
-    ), url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-2.png') no-repeat top/cover;
+    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-3.png') no-repeat top/cover;
+    padding: .75rem;
 }
 
 .contact-form-wrapper {
     width: 100%;
     height: 100%;
+    border-radius: inherit;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -120,7 +118,7 @@ form input::placeholder, form textarea::placeholder {
 }
 
 form textarea {
-    min-height: 10rem;
+    min-height: 8rem;
     resize: none;
 }
 
