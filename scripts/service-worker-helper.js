@@ -15,13 +15,13 @@ export function notificationQuery(title, options, type = "") {
     options.actions = [
         {
             action: "open-reservation",
-            title: "Make a Reservation",
+            title: "Reservation",
             type: "button",
             icon: "assets/tastey-meal-icons/reservation-icon.png"
         },
         {
             action: "open-menu",
-            title: "Open Tastey Menu",
+            title: "Open Menu",
             type: "button",
             icon: "assets/tastey-meal-icons/menu-icon.svg"
         }
