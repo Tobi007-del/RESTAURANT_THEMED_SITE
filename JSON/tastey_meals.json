@@ -98,8 +98,8 @@
                 "category": "Starters",
                 "label": "Beef kebab",
                 "description": "Another famous appetizer that is boiled and stirfried in pepper sauce with vegetable varietes served on skewers",
-                "price": {"currentValue": 3100, "discount": 6},
-                "serving": "4 sticks per order",
+                "price": {"currentValue": 3850, "discount": 6},
+                "serving": "5 sticks per order",
                 "like": null,
                 "picSrc": "assets/tastey-starters-images/beef-kebab.jpg"
             },
