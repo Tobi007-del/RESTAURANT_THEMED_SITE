@@ -233,10 +233,6 @@ hero-content-wrapper, .tastey-meals-carousel {
     transition: transform 250ms ease;
 }
 
-#quick-scroll-wrapper {
-    display: none!important;
-}
-
 @media only screen and (max-height: 20rem) {
     .tastey-meals-carousel-controls {
         display: none;
