@@ -516,12 +516,14 @@ main.about-section {
     display: flex;
     height: 100%;
     align-items: center;
-    gap: 1rem;
+    gap: .75rem;
 }
 
 .reviews > div > img {
-    height: 3rem;
+    flex: 0 0 3rem;
     width: 3rem;
+    height: 3rem;
+    background-color: var(--tastey-brand-color);
     object-fit: cover;
 }
 
@@ -530,8 +532,8 @@ main.about-section {
 }
 
 .reviews p {
+    flex-grow: 1;
     font-size: clamp(.85rem, calc(1.25dvw + 1.25dvh), 1.15rem);
-    display: inline-block;
     color: var(--main-text-color);
     margin: 0 0 0 .2rem;
     transition: 300ms ease;
@@ -546,10 +548,10 @@ main.about-section {
 }
 
 .toggle-audio-content {
-    border: none;
-    background-color: transparent;
     width: 2.5rem;
     height: 2.5rem;
+    border: none;
+    background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -663,6 +665,7 @@ main.about-section {
 
 @media only screen and (max-width: 36rem) {
     .reviews > div > img {
+        flex: 0 0 2.5rem;
         height: 2.5rem;
         width: 2.5rem;
     }

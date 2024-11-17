@@ -171,26 +171,25 @@ faqs.forEach((faq,i) => {
         faqans.forEach((faqan,n) => {
             if(n === i){
                 faqan.classList.toggle('hide')
-                if(faqan.classList.contains('hide')){
-                    faqan.querySelector('audio').pause()
-                    info[n].classList.remove('hide')
-                    hide[n].classList.remove('show')
-                    info[n].classList.add('show')
-                    hide[n].classList.add('hide')
-                } else { 
-                    faqan.querySelector('audio').play()
-                    info[n].classList.remove('show')
-                    hide[n].classList.remove('hide')
-                    info[n].classList.add('hide')
-                    hide[n].classList.add('show')
+                const bool = faqan.classList.contains('hide')
+                info[n].classList.toggle('hide', !bool)
+                info[n].classList.toggle('show', bool)
+                hide[n].classList.toggle('hide', bool)
+                hide[n].classList.toggle('show', !bool)
+                bool ? faqan.querySelector('audio').pause() : faqan.querySelector('audio').play()
+                for (const item of faqan.querySelectorAll('button, input')) {
+                    item.tabIndex = bool ? '-1' : '0'
                 }
             } else {
                 faqan.classList.add('hide')
-                faqan.querySelector('audio').pause()
                 info[n].classList.remove('hide')
                 hide[n].classList.remove('show')
                 info[n].classList.add('show')
                 hide[n].classList.add('hide')
+                faqan.querySelector('audio').pause()
+                for (const item of faqan.querySelectorAll('*')) {
+                    item.tabIndex = '-1'
+                }
             }
         })
     })
