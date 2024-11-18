@@ -1,6 +1,10 @@
 ::-webkit-scrollbar {
-    width: 1rem;
+    width: .5rem;
     height: 1.15rem;
+}
+
+::-webkit-scrollbar:hover {
+    width: .8rem;
 }
 
 ::-webkit-scrollbar-corner,
@@ -11,7 +15,7 @@
 ::-webkit-scrollbar-thumb {
     background-color: var(--tastey-brand-light-accent-color);
     background-clip: padding-box;
-    border: .075rem solid transparent;
+    border: .085rem solid transparent;
     border-radius: .25rem;
 }
 

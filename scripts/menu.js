@@ -307,46 +307,43 @@ continueShoppingBtn.addEventListener('click', e => {
 mcContinueShoppingBtn.onclick = e => {
     e.preventDefault()
     toggleMenu()
-    document.querySelector(".mini-meal-cart").classList.add('close')
 }
 
 mcShoppingBtn.onclick = e => {
     e.preventDefault()
     toggleMenu()
-    document.querySelector(".mini-meal-cart").classList.add('close')
 }
 
 mcShoppingBagBtn.onclick = e => {
     e.preventDefault()
-    sessionStorage.open_cart = true
     toggleCart()
-    document.querySelector(".mini-meal-cart").classList.add('close')
 }
 
 function toggleMenu() {
+    if(sessionStorage.open_cart) delete sessionStorage.open_cart
     document.body.classList.remove("cart")
+    document.querySelector(".mini-meal-cart").classList.add('close')
     syncScrollToTop("instant")
     controlActiveSwitcher(window.scrollY,[...menuHeaders])
     quickScrolls.classList.remove('show')
     setTimeout(autoRemoveScroller, 200)
     setTimeout(() => {
-        tasteyOffSetTop = tastey.getBoundingClientRect().y;
+        tasteyOffSetTop = tastey.getBoundingClientRect().y
         toggleMenuHeader(true)
     })
 }
 
 function toggleCart() {
+    sessionStorage.open_cart = true
     document.body.classList.add("cart")
+    document.querySelector(".mini-meal-cart").classList.add('close')
     syncScrollToTop("instant")
     quickScrolls.classList.remove('show')
     setTimeout(autoRemoveScroller, 200)
     setTimeout(positionCards)
 }
 
-if (sessionStorage.open_cart) { 
-    toggleCart()
-    delete sessionStorage.open_cart
-} 
+if (sessionStorage.open_cart) toggleCart()
 
 //toggling between menu and cart
 menuToggler.addEventListener('click', toggleMenu)

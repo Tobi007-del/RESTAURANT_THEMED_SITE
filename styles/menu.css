@@ -311,7 +311,7 @@ main.menu .main-menu-title-wrapper h3 {
 
 .menu-sections {
     width: 100%;
-    padding: 7.5rem 5em 4rem 4rem;
+    padding: 7.5rem 4.5rem 4rem 4rem;
 }
 
 .tastey-menu {
@@ -1406,16 +1406,16 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
             margin-left: 1rem;
             transform: translateX(-5rem);
         }
-        .tastey-meal-order[data-position$="1"]::after {
+        .tastey-meal-order[data-position="1"]::after {
             content: attr(data-position) "st";
         }
-        .tastey-meal-order[data-position$="2"]::after {
+        .tastey-meal-order[data-position="2"]::after {
             content: attr(data-position) "nd";
         }
-        .tastey-meal-order[data-position$="3"]::after {
+        .tastey-meal-order[data-position="3"]::after {
             content: attr(data-position) "rd";
         }
-        .tastey-meal-order:not([data-position$="1"],[data-position$="2"],[data-position$="3"]):after {
+        .tastey-meal-order:not([data-position="1"],[data-position="2"],[data-position="3"]):after {
             content: attr(data-position) "th";
         }
         .tastey-order-text div:first-child h2 {
@@ -1604,6 +1604,10 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     aside:hover .switcher .switcher-icon {
         scale: 1;
     }
+    .switcher div {
+        display: flex;
+        align-items: center;
+    }
     .switcher div p {
         display: none;
     }
@@ -1633,6 +1637,10 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 @media(max-height: 15rem) {
     aside:hover .toggler .icon {
         scale: 1;
+    }
+    aside .toggler div {
+        display: flex;
+        align-items: center;
     }
     aside .toggler div p {
         display: none;
