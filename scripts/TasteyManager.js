@@ -5,7 +5,7 @@ import { round, check, formatValue, standardize, rand} from "./utility-functions
 
 //a basic loading page implementation
 document.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.remove("loading")
+    setTimeout(document.body.classList.remove("loading"))
 })
 
 if (!sessionStorage.is_this_first_visit_to_Tastey) {
