@@ -276,12 +276,12 @@ body {
 
 .archive-text-wrapper h2 {
     color: var(--main-text-color);
-    font-size: clamp(1.75rem, calc(1.5dvw + 1.75dvh), 2rem);
+    font-size: clamp(1.75rem, calc(1.5vw + 1.75vh), 2rem);
 }
 
 .archive-text-wrapper p {
     color: var(--sub-text-color);
-    font-size: clamp(.85rem, calc(1dvw + 1.25dvh), 1rem);
+    font-size: clamp(.85rem, calc(1vw + 1.25vh), 1rem);
 }
 
 .archive-img-wrapper > img {
@@ -388,7 +388,7 @@ main.about-section {
 }
 
 .accreditation-text {
-    font-size: clamp(.75rem, calc(1dvh + 1dvw), 1rem);
+    font-size: clamp(.75rem, calc(1vh + 1vw), 1rem);
     font-weight: 400;
     margin: 0;
     line-height: 1.15rem; 
@@ -491,7 +491,7 @@ main.about-section {
 
 .review-header {
     color: var(--current-theme-sub-color);
-    font-size: clamp(1.85rem, 4dvw, 2.15rem);
+    font-size: clamp(1.85rem, 4vw, 2.15rem);
     margin: 0 0 2rem 0;
     font-weight: bold;
 }
@@ -533,7 +533,7 @@ main.about-section {
 
 .reviews p {
     flex-grow: 1;
-    font-size: clamp(.85rem, calc(1.25dvw + 1.25dvh), 1.15rem);
+    font-size: clamp(.85rem, calc(1.25vw + 1.25vh), 1.15rem);
     color: var(--main-text-color);
     margin: 0 0 0 .2rem;
     transition: 300ms ease;

@@ -35,10 +35,12 @@ img, button, a {
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    background-color: var(--darker-black);
 }
 
 html, *::after, *::before, aside, button, input, textarea {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-kerning: normal;
 }
 
 .smooth-scroll {

@@ -25,15 +25,16 @@ h1,h2,h3,h4,h5,h6,p {
 }
 
 .contact-section-wrapper  {
-    padding-inline: 5vw;
+    background-color: var(--current-theme-inverse-color);
+    padding-inline: 5dvw;
 }
 
 .contact-section {
     display: flex;
     flex-flow: row wrap;
-    padding-inline: 2.5vw;
+    padding-inline: 2.5dvw;
     padding-block: 2.5rem;
-    column-gap: 2.5vw;
+    column-gap: 2.5dvw;
     row-gap: 2.5rem;
     border-radius: .5rem;
     background: linear-gradient(to left, var(--current-theme-main-color), var(--tastey-brand-light-accent-color), var(--tastey-brand-light-accent-color));
@@ -49,7 +50,7 @@ h1,h2,h3,h4,h5,h6,p {
 
 .contact-form-wrapper-container {
     flex: 1 1 17.5rem;
-    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-3.png') no-repeat top/cover;
+    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-3.png') no-repeat top/cover, var(--darker-black);
     padding: .75rem;
 }
 
@@ -60,7 +61,7 @@ h1,h2,h3,h4,h5,h6,p {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-inline: 2vw;
+    padding-inline: 2dvw;
     padding-block: 1.75rem;
     background-color: var(--current-theme-inverse-transparent-color);
 }
@@ -150,7 +151,7 @@ form .submit-btn:hover {
     box-shadow: inset 10rem -10rem 15rem var(--current-theme-inverse-accent-color);
     gap: 1.1rem;
     padding-block-end: 2rem;
-    padding-inline: 2.5vw;
+    padding-inline: 2.5dvw;
 }
 
 .reserve-section > div {
@@ -184,6 +185,12 @@ form .submit-btn:hover {
 @media only screen and (max-width: 36rem) {
 .contact-section {
     background: linear-gradient(to top, var(--current-theme-main-color), var(--tastey-brand-light-accent-color), var(--tastey-brand-light-accent-color));
-    padding-inline: 3vw;
+    padding-inline: 3dvw;
 }
+}
+
+@media only screen and (max-width: 28.5rem) {
+    .contact-section-wrapper {
+        padding-inline: 0;
+    }
 }

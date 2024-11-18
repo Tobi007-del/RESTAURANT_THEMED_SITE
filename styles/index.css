@@ -321,9 +321,9 @@ hero-content-wrapper, .tastey-meals-carousel {
 
 @media only screen and (max-width: 18.4rem) {
     .welcome-text-wrapper h1 {
-        font-size: clamp(1.5rem, 12svh, 3rem);
+        font-size: clamp(1.5rem, 12vh, 3rem);
     }
     .welcome-text-wrapper.old-taker h1 {
-        font-size: clamp(1.5rem, 9svh, 2.85rem);
+        font-size: clamp(1.5rem, 9vh, 2.85rem);
     }
 }

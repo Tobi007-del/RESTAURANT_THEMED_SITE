@@ -6,7 +6,7 @@
 }
 
 body::before {
-    background: radial-gradient(var(--global-light-width) circle at var(--global-mouse-x) var(--global-mouse-y), var(--global-light-color), var(--global-light-complement-color) 40%), fixed center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
+    background: radial-gradient(var(--global-light-width) circle at var(--global-mouse-x) var(--global-mouse-y), var(--global-light-color), var(--global-light-complement-color) 40%), center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
 }
 
 body.cart::before {
@@ -786,11 +786,11 @@ main.meal-cart[data-cart = '0'] .cart-title-wrapper h3::after {
 }
 
 .empty-cart-text h2 {
-    font-size: clamp(1rem, calc(.75dvw + 1.25dvh), 1.2rem);
+    font-size: clamp(1rem, calc(.75vw + 1.25vh), 1.2rem);
 }
 
 .empty-cart-section p {
-    font-size: clamp(.85rem, calc(.6dvw + 1.1dvh), .85rem);
+    font-size: clamp(.85rem, calc(.6vw + 1.1vh), .85rem);
 }
 
 .continue-shopping-button {
