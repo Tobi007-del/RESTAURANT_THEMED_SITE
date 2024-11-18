@@ -4,8 +4,8 @@ import { notificationQuery } from "./service-worker-helper.js"
 import { round, check, formatValue, standardize, rand} from "./utility-functions.js"
 
 //a basic loading page implementation
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(document.body.classList.remove("loading"))
+window.addEventListener('load', () => {
+    document.body.classList.remove("loading")
 })
 
 if (!sessionStorage.is_this_first_visit_to_Tastey) {
