@@ -13,6 +13,10 @@ if (!sessionStorage.is_this_first_visit_to_Tastey) {
     window.addEventListener('load', displayWelcomeNotification)
 }
 
+document.querySelector('.nav-link:nth-of-type(3)').addEventListener('click', () => {
+    if(sessionStorage.open_cart) delete sessionStorage.open_cart
+})
+
 function displayWelcomeNotification() {
     let randomImgSrc
     switch(rand(1,6)) {

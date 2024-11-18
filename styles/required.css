@@ -48,13 +48,21 @@ body {
     width: 100dvw;
     margin: 0;
     overflow-x: hidden;
-    background: fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
-    overflow-x: hidden;
 }
 
-body.loading {
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+    background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
+    z-index: -1;
+}
+
+body.loading::before {
     background: fixed radial-gradient(35rem circle at center 14rem, rgba(255,255,255,0.475), transparent 40%), fixed center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), fixed no-repeat center 10.5rem url('../assets/tastey-meal-images/tastey_preloader.gif'), fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black)!important;
-    height: 100dvh!important;
 }
 
 body.loading > *:not(nav) {

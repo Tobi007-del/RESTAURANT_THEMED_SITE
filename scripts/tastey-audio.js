@@ -188,25 +188,25 @@ audios.forEach(audio => {
             audio.paused ? audio.play() : audio.pause()
         }
 
-        audio.addEventListener("play", () => {
+        audio.addEventListener("play", e => {
             audioContainer.classList.remove("paused")
+
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: e.currentTarget.dataset.mediaTitle,
+                    artwork: [
+                        {src: e.currentTarget.dataset.mediaArtwork}
+                    ]
+                })
+    
+                navigator.mediaSession.setActionHandler('play', ()=>{e.currentTarget.play()})
+                navigator.mediaSession.setActionHandler('pause', ()=>{e.currentTarget.pause()})
+            }
         })
 
         audio.addEventListener("pause", () => {
             audioContainer.classList.add("paused")
         })
-
-        if ('mediaSession' in navigator) {
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: audio.dataset.mediaTitle,
-                artwork: [
-                    {src: audio.dataset.mediaArtwork}
-                ]
-            })
-
-            navigator.mediaSession.setActionHandler('play', ()=>{audio.play()})
-            navigator.mediaSession.setActionHandler('pause', ()=>{audio.pause()})
-        }
     } else {
         return
     }

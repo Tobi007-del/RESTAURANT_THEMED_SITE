@@ -5,12 +5,12 @@
     --global-light-color: rgba(255,255,255,0.475);--global-light-complement-color: transparent;
 }
 
-body {
-    background: fixed radial-gradient(var(--global-light-width) circle at var(--global-mouse-x) var(--global-mouse-y), var(--global-light-color), var(--global-light-complement-color) 40%), fixed center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
+body::before {
+    background: radial-gradient(var(--global-light-width) circle at var(--global-mouse-x) var(--global-mouse-y), var(--global-light-color), var(--global-light-complement-color) 40%), fixed center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
 }
 
-body.cart {
-    background: fixed center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-2.png'), var(--darker-black);
+body.cart::before {
+    background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-2.png'), var(--darker-black);
 }
 
 body.cart::after {

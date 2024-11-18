@@ -663,29 +663,29 @@ videos.forEach(video => {
             video.paused ? video.play() : video.pause()
         }
         
-        video.addEventListener("play", ()=> {
+        video.addEventListener("play", e => {
             videoContainer.classList.remove("paused")
             fire("videoplay")
+
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: e.currentTarget.dataset.mediaTitle,
+                    artwork: [
+                        {src: e.currentTarget.dataset.mediaArtwork}
+                    ]
+                })
+    
+                navigator.mediaSession.setActionHandler('play', ()=>{e.currentTarget.play()})
+                navigator.mediaSession.setActionHandler('pause', ()=>{e.currentTarget.pause()})
+                navigator.mediaSession.setActionHandler('seekbackward', ()=>{skip(-10)})
+                navigator.mediaSession.setActionHandler('seekforward', ()=>{skip(10)})
+            }            
         })
         
         video.addEventListener("pause", ()=> {
             videoContainer.classList.add("paused")
             fire("videopause")
         })        
-
-        if ('mediaSession' in navigator) {
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: video.dataset.mediaTitle,
-                artwork: [
-                    {src: video.dataset.mediaArtwork}
-                ]
-            })
-
-            navigator.mediaSession.setActionHandler('play', ()=>{video.play()})
-            navigator.mediaSession.setActionHandler('pause', ()=>{video.pause()})
-            navigator.mediaSession.setActionHandler('seekbackward', ()=>{skip(-10)})
-            navigator.mediaSession.setActionHandler('seekforward', ()=>{skip(10)})
-        }
         
         //custom event function for notifier events
         const fire = (eventName, el = notifiersContainer, detail=null, bubbles=true, cancellable=true) => {
