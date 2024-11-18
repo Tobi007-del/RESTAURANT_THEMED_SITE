@@ -679,12 +679,15 @@ videos.forEach(video => {
                 navigator.mediaSession.setActionHandler('pause', ()=>{video.pause()})
                 navigator.mediaSession.setActionHandler('seekbackward', ()=>{skip(-10)})
                 navigator.mediaSession.setActionHandler('seekforward', ()=>{skip(10)})
+                navigator.mediaSession.playbackState = 'playing'
             }            
         })
         
         video.addEventListener("pause", ()=> {
             videoContainer.classList.add("paused")
             fire("videopause")
+            if ('mediaSession' in navigator) 
+                navigator.mediaSession.playbackState = 'paused'
         })        
         
         //custom event function for notifier events

@@ -201,11 +201,14 @@ audios.forEach(audio => {
     
                 navigator.mediaSession.setActionHandler('play', ()=>{audio.play()})
                 navigator.mediaSession.setActionHandler('pause', ()=>{audio.pause()})
+                navigator.mediaSession.playbackState = 'playing'
             }
         })
 
         audio.addEventListener("pause", () => {
             audioContainer.classList.add("paused")
+            if ('mediaSession' in navigator) 
+                navigator.mediaSession.playbackState = 'paused'
         })
     } else {
         return

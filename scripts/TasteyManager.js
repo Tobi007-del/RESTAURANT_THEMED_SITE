@@ -3,8 +3,8 @@ export { Tastey, weakTastey }
 import { notificationQuery } from "./service-worker-helper.js"
 import { round, check, formatValue, standardize, rand} from "./utility-functions.js"
 
-//a loading page implementation
-window.addEventListener('load', () => {
+//a basic loading page implementation
+document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove("loading")
 })
 
