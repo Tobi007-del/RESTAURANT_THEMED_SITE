@@ -2,9 +2,10 @@
     box-sizing: border-box;
 }
 
-img, button, .navigation-section {
+img, button, a {
     -webkit-user-select: none;
     user-select: none;
+    -webkit-user-drag: none;
 }
 
 :root {
@@ -56,7 +57,8 @@ body::before {
     top: 0;
     left: 0;
     width: 100dvw;
-    height: 100dvh;
+    height: 100lvh;
+    pointer-events: none;
     background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
     z-index: -1;
 }
@@ -1196,7 +1198,7 @@ footer {
 }
 
 .see-more, .view-bag, .reserve {
-    white-space: nowrap!important;
+    white-space: nowrap;
     min-width: 6.5rem;
 }
 
@@ -1209,6 +1211,7 @@ footer {
 .view-bag::after, .reserve::after {
     content: '\00BB';
     position: absolute; 
+    color: inherit;
     font-size: 1.5rem;
     top: -.45rem;
     left: calc(100% + .25rem);
@@ -1230,10 +1233,11 @@ footer {
 
 .footer-top-section .see-more::after {
     content: '\2716';
+    color: inherit;
     position: absolute;
     margin-left: .5rem;
-    scale: .8;
-    bottom: 0;
+    font-size: .775rem;
+    top: 0;
     rotate: 45deg;
 }
 

@@ -675,8 +675,8 @@ videos.forEach(video => {
                     ]
                 })
     
-                navigator.mediaSession.setActionHandler('play', ()=>{e.currentTarget.play()})
-                navigator.mediaSession.setActionHandler('pause', ()=>{e.currentTarget.pause()})
+                navigator.mediaSession.setActionHandler('play', ()=>{video.play()})
+                navigator.mediaSession.setActionHandler('pause', ()=>{video.pause()})
                 navigator.mediaSession.setActionHandler('seekbackward', ()=>{skip(-10)})
                 navigator.mediaSession.setActionHandler('seekforward', ()=>{skip(10)})
             }            

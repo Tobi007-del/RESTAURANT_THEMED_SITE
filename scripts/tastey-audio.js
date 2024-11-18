@@ -199,8 +199,8 @@ audios.forEach(audio => {
                     ]
                 })
     
-                navigator.mediaSession.setActionHandler('play', ()=>{e.currentTarget.play()})
-                navigator.mediaSession.setActionHandler('pause', ()=>{e.currentTarget.pause()})
+                navigator.mediaSession.setActionHandler('play', ()=>{audio.play()})
+                navigator.mediaSession.setActionHandler('pause', ()=>{audio.pause()})
             }
         })
 
