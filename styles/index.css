@@ -72,7 +72,7 @@ hero-content-wrapper, .tastey-meals-carousel {
 }
 
 .welcome-message-wrapper {
-    font-size: clamp(.65rem, 3.5svh,.8rem);
+    font-size: clamp(.75rem, 4svh, .95rem);
     word-spacing: .05rem;
     letter-spacing: .05rem;
     line-height: 1.25rem;
@@ -278,14 +278,11 @@ hero-content-wrapper, .tastey-meals-carousel {
         padding-inline-end: 15.5dvw;
         width: 100%;
     } 
-    .welcome-message-wrapper {
-        padding-inline-start: 2.5dvw;
-    }
     .welcome-text-wrapper h1 {
-        font-size: clamp(2rem, 12svh, 4rem);
+        font-size: clamp(2.25rem, 12svh, 4rem);
     }
     .welcome-text-wrapper.old-taker h1 {
-        font-size: clamp(2rem, 9svh, 3.85rem);
+        font-size: clamp(2rem, 10svh, 3.95rem);
     }
     .tastey-meal_one {
         background: linear-gradient(to right, rgba(0,0,0,0.75) 15%, transparent 80%, rgba(0,0,0,0.5)), url('../assets/tastey-meal-images/tastey_meal_one.jpg') no-repeat center center, black;
@@ -319,11 +316,20 @@ hero-content-wrapper, .tastey-meals-carousel {
     }
 }
 
-@media only screen and (max-width: 18.4rem) {
+@media only screen and (max-width: 31rem) {
     .welcome-text-wrapper h1 {
-        font-size: clamp(1.5rem, 12vh, 3rem);
+        font-size: clamp(2.25rem, 10svh, 3.25rem);
     }
     .welcome-text-wrapper.old-taker h1 {
-        font-size: clamp(1.5rem, 9vh, 2.85rem);
+        font-size: clamp(2rem, 8svh, 3rem);
+    }
+}
+
+@media only screen and (max-width: 18.4rem) {
+    .welcome-text-wrapper h1 {
+        font-size: clamp(2rem, 9svh, 3rem);
+    }
+    .welcome-text-wrapper.old-taker h1 {
+        font-size: clamp(1.75rem, 7svh, 2.85rem);
     }
 }

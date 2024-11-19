@@ -48,7 +48,7 @@ html, *::after, *::before, aside, button, input, textarea {
 }
 
 body {
-    width: 100dvw;
+    width: 100%;
     margin: 0;
     overflow-x: hidden;
 }
@@ -58,7 +58,7 @@ body::before {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100dvw;
+    width: 100%;
     height: 100lvh;
     pointer-events: none;
     background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);

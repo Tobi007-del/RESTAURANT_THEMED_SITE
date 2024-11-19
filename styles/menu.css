@@ -183,6 +183,10 @@ main {
     width: 100%;
 }
 
+main.menu {
+    min-height: 100dvh;
+}
+
 main.menu p, main.menu h1, main.menu h3 {
     text-align: center;
 }
@@ -311,7 +315,7 @@ main.menu .main-menu-title-wrapper h3 {
 
 .menu-sections {
     width: 100%;
-    padding: 7.5rem 4.8rem 4rem 4rem;
+    padding: 7.5rem 4.5rem 4rem 4.5rem;
 }
 
 .tastey-menu {

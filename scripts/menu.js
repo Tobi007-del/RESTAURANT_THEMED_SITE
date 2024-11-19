@@ -52,7 +52,7 @@ function tasteyMenu(meals){
                         </div>
                     </div>
                 </div>
-                `
+            `
         })
         menuSection.append(menuContainer)
         main.append(menuSection)
@@ -291,10 +291,10 @@ window.addEventListener("resize", positionCards)
 window.addEventListener("scroll", scrollThrottler.throttle(onPageScroll,10))   
 window.addEventListener("scroll", scrollDebouncer.debounce(onPageScroll,250))
 
-quickScrollShow.addEventListener('click', ()=>{
+quickScrollShow.addEventListener('click', () => {
     categorySwitcherContainer.classList.toggle('show')
 })
-removeScrolls.addEventListener('click', ()=>{
+removeScrolls.addEventListener('click', () => {
     categorySwitcherContainer.classList.remove('show')
 })
 
@@ -408,9 +408,8 @@ tastey.addEventListener("click", e => {
 function controlActiveSwitcher(ordinate,arr) {
     let index = -1;
     for (const i in arr) {
-        if(Math.floor(ordinate) >= Math.floor(Math.round((menuHeaders[i].getBoundingClientRect().top + window.scrollY) - tasteyOffSetTop) - (window.innerHeight/4))) {
+        if(Math.floor(ordinate) >= Math.floor(Math.round((menuHeaders[i].getBoundingClientRect().top + window.scrollY) - tasteyOffSetTop) - (window.innerHeight/4))) 
             index ++
-        }
     }
     //clamping index incase of any error
     markSwitcher(clamp(0, index, arr.length - 1))
