@@ -279,7 +279,7 @@ hero-content-wrapper, .tastey-meals-carousel {
         width: 100%;
     } 
     .welcome-text-wrapper h1 {
-        font-size: clamp(2.25rem, 12svh, 4rem);
+        font-size: clamp(2.25rem, 12svh, 4.2rem);
     }
     .welcome-text-wrapper.old-taker h1 {
         font-size: clamp(2rem, 10svh, 3.95rem);
@@ -318,10 +318,10 @@ hero-content-wrapper, .tastey-meals-carousel {
 
 @media only screen and (max-width: 31rem) {
     .welcome-text-wrapper h1 {
-        font-size: clamp(2.25rem, 10svh, 3.25rem);
+        font-size: clamp(2.25rem, 11svh, 3.75rem);
     }
     .welcome-text-wrapper.old-taker h1 {
-        font-size: clamp(2rem, 8svh, 3rem);
+        font-size: clamp(2rem, 9svh, 3.5rem);
     }
 }
 
