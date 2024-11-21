@@ -60,6 +60,12 @@ It is a personal project and I would really like to describe it as just practice
 ![Mobile Preview of the about page for Tastey](./assets/Tastey-previews/Tastey-about-mobile-preview.png)
 *Mobile view of the Tastey About Page*
 
+![Desktop Preview of the contact page for Tastey](./assets/Tastey-previews/Tastey-contact-desktop-preview.png)
+*Desktop view of the Tastey Contact Page*
+
+![Mobile Preview of the contact page for Tastey](./assets/Tastey-previews/Tastey-contact-mobile-preview.png)
+*Mobile view of the Tastey Contact Page*
+
 ### More Info! 
 
 #### Folder Contents
