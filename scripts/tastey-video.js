@@ -1,4 +1,3 @@
-
 const videos = document.querySelectorAll("video")
 const mobileThreshold = 600
 
