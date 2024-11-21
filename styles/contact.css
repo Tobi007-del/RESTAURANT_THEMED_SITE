@@ -81,7 +81,7 @@ h1,h2,h3,h4,h5,h6,p {
 }
 
 .contact-form-title-wrapper h1 {
-    color: var(--current-theme-inverse-color);
+    color: var(--current-theme-sub-color);
     font-size: 1.95rem;
     font-weight: bolder;
     position: relative;
@@ -94,7 +94,8 @@ h1,h2,h3,h4,h5,h6,p {
     left: -10%;
     width: 120%;
     height: 1.15rem;
-    background: url('../assets/tastey-meal-icons/line-1.png') no-repeat center/cover;
+    background: url('../assets/tastey-meal-icons/line-2.png') no-repeat center/cover;
+    opacity: .75;
 }
 
 form {
