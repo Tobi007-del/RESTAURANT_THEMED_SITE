@@ -21,12 +21,16 @@ archiveContentWrapper.innerHTML +=
                         </div>
                         <div class="archive-text-wrapper">
                             <h2>${event}</h2>
-                            <p>${description}</p>
+                            <p>${description}${btnCheck(event)}</p>
                         </div>
                     </div>
                 </div>    
 `
 })
+function btnCheck(e) {
+    if (e === 'Still Tastey') return `<a href='menu.html' title='Open Menu' class='open-menu-btn'><span>OPEN OUR MENU</span></a>`
+    else return ''
+}
 
 const archives = document.querySelectorAll(".archive-content")
  
@@ -36,10 +40,10 @@ window.addEventListener('scroll', scrollThrottler.throttle(archiveUI))
 function archiveUI() {
     if (window.innerHeight >= (archives[0].offsetHeight * 1.5)) {
         archives.forEach(archive => {
-            if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(10))) && (archive.getBoundingClientRect().bottom > remToPx(15))) {
+            if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(15))) && (archive.getBoundingClientRect().bottom > remToPx(20))) {
                 setTimelinePosition(archive.querySelector(".archive-time-wrapper > h4"))
                 setTimeout(() => {
-                    if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(10))) && (archive.getBoundingClientRect().bottom > remToPx(15)))
+                    if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(15))) && (archive.getBoundingClientRect().bottom > remToPx(20)))
                         archive.classList.add("visible")
                 }, 400)
             } else {
