@@ -226,6 +226,7 @@ checkoutBtn = document.querySelector(".checkout-btn")
 
 
 //DOM operations
+getDOMElements()
 window.addEventListener('load', positionCards)
 
 addToCartBtns.forEach(btn => {
