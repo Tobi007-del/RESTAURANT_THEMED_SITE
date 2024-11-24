@@ -1,8 +1,7 @@
 import { syncScrollToTop, syncScrollToBottom, tasteyThrottler, tasteyDebouncer, remToPx } from "./utility-functions.js"
 export { autoRemoveScroller, quickScrollShow, quickScrolls, removeScrolls }
 
-buildScroller()
-function buildScroller() {
+(function buildScroller() {
     const scroller = document.createElement('div')
     scroller.id = "quick-scroll-wrapper"
     scroller.innerHTML += 
@@ -36,7 +35,7 @@ function buildScroller() {
         </div>
     `
     document.body.appendChild(scroller)
-}
+})()
 
 const toTop = document.getElementById("to-top"),
 toBottom = document.getElementById("to-bottom"),

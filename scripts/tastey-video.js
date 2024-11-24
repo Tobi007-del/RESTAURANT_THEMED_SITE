@@ -428,14 +428,12 @@ videos.forEach(video => {
             let { min, max, value, offsetWidth } = volumeSlider
             value = video.volume * 100
             let volumeLevel = ""
-            if(video.muted || value === 0) {
-                value = 0;
+            if (video.muted || value === 0) 
                 volumeLevel = "muted"
-            } else if(value > (max/2)) {
+            else if (value > (max/2)) 
                 volumeLevel = "high"
-            } else {
+            else 
                 volumeLevel = "low"
-            }
             let volumePosition = `${((value - min) / (max - min)) * ((offsetWidth - 5) > 0 ? (offsetWidth - 5) : 55) }px`
             let volumePercent = `${((value-min) / (max - min)) * 100}%`
             volumeSlider.value = value

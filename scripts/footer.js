@@ -33,7 +33,7 @@ function tasteyFooterMenu() {
         }
     })
     offersContainer.appendChild(menuContainer)
-    document.querySelector(".footer-special-section > h2").insertAdjacentElement('afterend', offersContainer)
+    document.querySelector(".footer-special-section > a > h2").insertAdjacentElement('afterend', offersContainer)
 }
 
 const footerAddToCartBtns = document.querySelectorAll(".footer-add-to-cart-button"), 
@@ -41,8 +41,6 @@ footerSpecialSection = document.querySelector(".footer-special-section"),
 offersImgsWrapper = document.querySelector(".offers-imgs-wrapper"), 
 offerPrevArrow = document.querySelector(".offer-previous-arrow"),
 offerNextArrow = document.querySelector(".offer-next-arrow")
-
-getDOMElements()
 
 panning(document.querySelectorAll('.offer-image'))
 

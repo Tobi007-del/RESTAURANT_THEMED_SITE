@@ -29,22 +29,36 @@ archiveContentWrapper.innerHTML +=
 })
 
 const archives = document.querySelectorAll(".archive-content")
-
+ 
 const scrollThrottler = new tasteyThrottler
 window.addEventListener('scroll', scrollThrottler.throttle(archiveUI))
 
 function archiveUI() {
-    archives.forEach(archive => {
-        if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(10))) && (archive.getBoundingClientRect().top > remToPx(1))) {
-            setTimelinePosition(archive.querySelector(".archive-time-wrapper h4"))
-            setTimeout(() => {
-                if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(10))) && (archive.getBoundingClientRect().top > remToPx(1)))
-                    archive.classList.add("visible")
-            }, 400)
-        } else {
-            archive.classList.remove("visible")
-        }
-    }) 
+    if (window.innerHeight >= (archives[0].offsetHeight * 1.5)) {
+        archives.forEach(archive => {
+            if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(10))) && (archive.getBoundingClientRect().bottom > remToPx(15))) {
+                setTimelinePosition(archive.querySelector(".archive-time-wrapper > h4"))
+                setTimeout(() => {
+                    if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(10))) && (archive.getBoundingClientRect().bottom > remToPx(15)))
+                        archive.classList.add("visible")
+                }, 400)
+            } else {
+                archive.classList.remove("visible")
+            }
+        }) 
+    } else {
+        archives.forEach(archive => {
+            if ((archive.getBoundingClientRect().top < (window.innerHeight * .8)) && (archive.getBoundingClientRect().bottom > (remToPx(3) + window.innerHeight * .2))) {
+                setTimelinePosition(archive.querySelector(".archive-time-wrapper > h4"))
+                setTimeout(() => {
+                    if ((archive.getBoundingClientRect().top < (window.innerHeight * .8)) && (archive.getBoundingClientRect().bottom > (remToPx(3) + window.innerHeight * .2)))
+                        archive.classList.add("visible")
+                }, 400)
+            } else {
+                archive.classList.remove("visible")
+            }
+        })         
+    }
 }
 
 const timeline = document.querySelector(".tastey-timeline")
@@ -56,10 +70,9 @@ function setTimelinePosition(header) {
 }
 
 function timelineLength() {
+    const firstArchive = [...document.querySelectorAll(".archive-content")][0]
     const lastArchive = [...document.querySelectorAll(".archive-content")][Archives.length - 1]
-    let totalHeight = archiveContentWrapper.getBoundingClientRect().height
-    const lastArchiveHeight = lastArchive.getBoundingClientRect().height
-    totalHeight = totalHeight - lastArchiveHeight - remToPx(4.25)
+    let totalHeight = lastArchive.querySelector(".archive-time-wrapper > h4").getBoundingClientRect().top - firstArchive.querySelector(".archive-time-wrapper > h4").getBoundingClientRect().top
     archiveContentWrapper.style.setProperty('--timeline-length', `${totalHeight}px`)
 }
 

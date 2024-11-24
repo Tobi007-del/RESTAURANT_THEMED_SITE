@@ -1,11 +1,15 @@
 export { Tastey, weakTastey }
 
+import { autoRemoveScroller } from "./build-scroller.js"
 import { notificationQuery } from "./service-worker-helper.js"
 import { round, check, formatValue, standardize, rand} from "./utility-functions.js"
+import { getDOMElements } from "./CRUD.js"
 
 //a basic loading page implementation
 window.addEventListener('load', () => {
     document.body.classList.remove("loading")
+    getDOMElements()
+    setTimeout(autoRemoveScroller)
 })
 
 if (!sessionStorage.is_this_first_visit_to_Tastey) {

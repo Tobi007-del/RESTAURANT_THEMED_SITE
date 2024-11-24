@@ -68,7 +68,7 @@ function getDOMElements() {
     if (miniBagQuery()) {
         mcOrderReviewSection = document.querySelector(".mini-cart-order-review-section"),
         mcTasteyMealOrders = document.getElementsByClassName("mini-cart-tastey-meal-order"),
-         mcTasteyOrderImages= document.getElementsByClassName("mini-cart-tastey-order-image"),
+        mcTasteyOrderImages= document.getElementsByClassName("mini-cart-tastey-order-image"),
         mcWishlistTogglers = document.getElementsByClassName("mini-cart-wishlist"),
         mcDeleteOrderBtns = document.getElementsByClassName("mini-cart-delete-order"),
         mcPlusCartBtns = document.getElementsByClassName("mini-cart-add"),

@@ -132,8 +132,7 @@ mcOrderReviewSection = document.querySelector(".mini-cart-order-review-section")
 mcCheckoutBtn = document.querySelector(".mini-cart-checkout-button")
 
 //DOM Operations
-getDOMElements()
-positionMiniCards()
+window.addEventListener('load', positionMiniCards)
 
 navbarCart.addEventListener("click", () => {
     miniMealCart.classList.toggle("close")

@@ -275,7 +275,7 @@ hero-content-wrapper, .tastey-meals-carousel {
 @media only screen and (max-width: 36rem) {
     .hero-content-wrapper {
         padding-inline-start: 5.5dvw;
-        padding-inline-end: 15.5dvw;
+        padding-inline-end: 12.5dvw;
         width: 100%;
     } 
     .welcome-text-wrapper h1 {

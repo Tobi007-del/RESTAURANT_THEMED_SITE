@@ -1199,30 +1199,31 @@ footer {
     color: var(--sub-text-color);
 }
 
-.see-more, .view-bag, .reserve {
-    white-space: nowrap;
-    min-width: 6.5rem;
+.footer-top-section > div > div:has(.see-more) {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: .5rem;
+    column-gap: 2rem;
 }
 
 .footer-top-section .see-more, .footer-top-section .view-bag, .footer-top-section .reserve {
     color: var(--tastey-brand-light-accent-color);
     position: relative;
-    width: fit-content;
+    white-space: nowrap;
 }
 
 .view-bag::after, .reserve::after {
     content: '\00BB';
     position: absolute; 
-    color: inherit;
+    color: var(--tastey-brand-light-accent-color);
     font-size: 1.5rem;
     top: -.45rem;
     left: calc(100% + .25rem);
-    transition: transform 0s ease;
 }
 
 .view-bag:hover::after, .reserve:hover::after {
     transform: scale(1.25);
-    transition: transform 0.25s ease;
+    transition: transform 250ms ease;
 }
 
 .footer-top-section .see-more:hover, .view-bag:hover, .reserve:hover {
@@ -1235,21 +1236,17 @@ footer {
 
 .footer-top-section .see-more::after {
     content: '\2716';
-    color: inherit;
+    color: var(--tastey-brand-light-accent-color);
     position: absolute;
-    margin-left: .5rem;
-    font-size: .775rem;
-    top: 0;
+    margin-left: .4rem;
+    font-size: .7rem;
+    top: .1rem;
     rotate: 45deg;
 }
 
 .footer-top-section .see-more:hover::after {
     rotate: 135deg;
     transition: rotate 500ms ease;
-}
-
-.view-bag, .reserve {
-    margin-left: 2rem;
 }
 
 .footer-contact-section div {
@@ -1292,7 +1289,7 @@ footer {
 .footer-arrow-container > svg {
     height: 100%;
     width: 2rem;
-    fill: var(--current-theme-inverse-accent-colorcolor);
+    fill: var(--current-theme-inverse-accent-color);
     opacity: .75;
     transition: 300ms ease;
 }
@@ -1463,6 +1460,7 @@ footer {
 .footer-rights-section {
     font-size: .85rem;
     color: var(--current-theme-accent-color);
+    white-space: nowrap;
 }
 
 .footer-rights-section p span {
@@ -1574,7 +1572,7 @@ footer {
         --burger-margin: 1dvw;
         --foreground: var(--current-theme-inverse-accent-color);
         --background-color: var(--foreground);
-        --animation-timing: 200ms ease-in-out; 
+        --animation-timing: 250ms ease-in-out; 
         --hamburger-height: calc(var(--bar-height) * 3 + var(--bar-gap) * 2);
     }
     nav {
@@ -1606,13 +1604,15 @@ footer {
     .navigation-section:after {
         content: '';
         position: absolute;
-        width: 40dvw;
+        width: 60dvw;
         left: 60dvw;
         height: 100dvh;
-        background-color: rgba(255, 255, 255, 0.1);
+        z-index: -1;
+        background-color: var(--current-theme-inverse-transparent-color);
         -webkit-backdrop-filter: blur(5px);
         backdrop-filter: blur(5px);
         top: 0;
+        translate: -100%;
     }
     .navigation-section ul {
         background-color: var(--current-theme-main-color);
@@ -1650,7 +1650,7 @@ footer {
     }
     .hamburger {
         display: flex;
-        flex-direction: column;
+        flex-direction: column; 
         gap: var(--bar-gap);
         width: max-content;
         cursor: pointer;
@@ -1659,13 +1659,16 @@ footer {
     .hamburger::before,
     .hamburger::after,
     .hamburger input {
-        content: '';
         width: var(--bar-width);
         height: var(--bar-height);
         background-color: var(--foreground);
         border-radius: 999rem;
         transform-origin: left center;
         transition: opacity var(--animation-timing), width var(--animation-timing), rotate var(--animation-timing), translate var(--animation-timing);
+    }
+    .hamburger::before,
+    .hamburger::after {
+        content: '';
     }
     .hamburger input {
         appearance: none;
@@ -1689,8 +1692,15 @@ footer {
         opacity: 0;
         width: 0;
     }
+    .hamburger-icon:has(input:checked) + .navigation-section, .hamburger-icon:has(input:checked) + .navigation-section::after {
+        translate: 0;
+    }
     .hamburger-icon:has(input:checked) + .navigation-section {
-        translate: 0dvw;
+        transition: translate 250ms ease;
+    }
+    .hamburger-icon:has(input:checked) + .navigation-section::after {
+        z-index: inherit;
+        transition: translate 1000ms ease;
     }
     #quick-scroll-show svg, #to-top svg, #to-bottom svg {
         fill: var(--current-theme-inverse-color);
@@ -1743,5 +1753,11 @@ footer {
     } 
     #quick-scrolls {
         justify-content: center;
+    }
+}
+
+@media only screen and (max-width: 13.5rem) {
+    .company-name-section span h3, .company-name-section span h6 {
+        opacity: 0;
     }
 }

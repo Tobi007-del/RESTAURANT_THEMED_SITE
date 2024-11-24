@@ -134,7 +134,18 @@
 }
 
 .video-container.mini-player .replay-btn {
-    top: 30%;
+    top: 35%;
+    left: calc(var(--controls-size)*7);
+    width: calc(var(--controls-size)*2.5);
+    height: calc(var(--controls-size)*2.5);
+}
+
+.video-container.mini-player .notifiers {
+    scale: .5;
+}
+
+.video-container.mini-player .replay-btn svg {
+    transform: scale(1.75);
 }
 
 .mini-player .play-pause-btn svg {
@@ -461,7 +472,7 @@ input[type="range"]::-webkit-slider-thumb {
     bottom: calc(var(--controls-size)/-7.5);
 }
 
-video::cue,video::-webkit-media-text-track-display-backdrop, video::-webkit-media-text-track-display {
+video::cue, video::-webkit-media-text-track-display-backdrop, video::-webkit-media-text-track-display {
     background-color: black / .75!important;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: clamp(1.1rem, calc(var(--controls-size)/1.75), 2rem)!important;

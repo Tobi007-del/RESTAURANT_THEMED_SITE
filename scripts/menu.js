@@ -5,7 +5,8 @@ import { tasteyThrottler, tasteyDebouncer, check, formatValue, standardize, clam
 import { autoRemoveScroller, quickScrollShow, removeScrolls, quickScrolls } from "./build-scroller.js"
 
 
-const mobileThreshold = remToPx(36)
+const mobileThreshold = remToPx(36), 
+    tasteyOffSetTop = remToPx(13.26)
 
 tasteyMenu(meals)
 tasteyBag()
@@ -60,7 +61,7 @@ function tasteyMenu(meals){
 }
 
 
- function tasteyBag() {
+function tasteyBag() {
     try {
         const main = document.querySelector('main.meal-cart')
         main.classList.add("meal-cart")
@@ -225,9 +226,7 @@ checkoutBtn = document.querySelector(".checkout-btn")
 
 
 //DOM operations
-getDOMElements()
-positionCards()
-setTimeout(autoRemoveScroller)
+window.addEventListener('load', positionCards)
 
 addToCartBtns.forEach(btn => {
     btn.onclick = e => handleAddMeal(e.target.dataset.id, getOrderIndex(e.target.dataset.id))
@@ -251,9 +250,6 @@ tasteyMealsImages.forEach((tasteyMealsImage,i) => {
 
 //handling the panning of the food images
 panning(document.querySelectorAll(".tastey-meal-image, .tastey-order-image"))
-
-
-let tasteyOffSetTop = tastey.getBoundingClientRect().y;
 
 function toggleMenuHeader(bool = null) {
     const menuTitle = document.querySelector('#magic')
@@ -326,9 +322,9 @@ function toggleMenu() {
     syncScrollToTop("instant")
     controlActiveSwitcher(window.scrollY,[...menuHeaders])
     quickScrolls.classList.remove('show')
+    categorySwitcherContainer.classList.remove('show')
     setTimeout(autoRemoveScroller, 200)
     setTimeout(() => {
-        tasteyOffSetTop = tastey.getBoundingClientRect().y
         toggleMenuHeader(true)
     })
 }
@@ -339,6 +335,7 @@ function toggleCart() {
     document.querySelector(".mini-meal-cart").classList.add('close')
     syncScrollToTop("instant")
     quickScrolls.classList.remove('show')
+    categorySwitcherContainer.classList.remove('show')
     setTimeout(autoRemoveScroller, 200)
     setTimeout(positionCards)
 }
@@ -360,7 +357,7 @@ const tasteyObserver = new IntersectionObserver((entries) => {
             document.body.style.setProperty("--global-light-complement-color", "var(--darker-black)")
         }
     })
-},{root:null,rootMargin:'0px',threshold:[0,.5,1]})
+},{root:null,rootMargin:`-${remToPx(3.5)}px`,threshold:[0,.5,1]})
 menuHeaders.forEach(worthy => {
     tasteyObserver.observe(worthy)
 })
@@ -375,21 +372,19 @@ document.querySelectorAll("main").forEach(main => {
     if (document.body.classList.contains("cart")) 
         positionGradient(e,document.querySelector("main.meal-cart"))
     if (window.innerWidth > mobileThreshold) {
-        if(!document.body.classList.contains("cart")) {
+        if(!document.body.classList.contains("cart")) 
             for(const card of document.getElementsByClassName("tastey-meal")){
                 positionGradient(e,card)
             }
-        } else {
-            if (getCardsQuery()) {
+        else 
+            if (getCardsQuery()) 
                 for(const card of document.querySelectorAll(".checkout-section, .order-number-wrapper")){
                     positionGradient(e,card)
                 }
-            } else {
+            else 
                 for(const card of document.querySelectorAll(".checkout-section, .order-number-wrapper, .tastey-meal-order")){
                     positionGradient(e,card)
                 }
-            }
-        }
     }
     }
 }) 
@@ -405,7 +400,7 @@ tastey.addEventListener("click", e => {
     }
 })
 
-function controlActiveSwitcher(ordinate,arr) {
+function controlActiveSwitcher(ordinate, arr) {
     let index = -1;
     for (const i in arr) {
         if(Math.floor(ordinate) >= Math.floor(Math.round((menuHeaders[i].getBoundingClientRect().top + window.scrollY) - tasteyOffSetTop) - (window.innerHeight/4))) 
@@ -418,7 +413,11 @@ function controlActiveSwitcher(ordinate,arr) {
 switchers.forEach((switcher, i) => {
     switcher.addEventListener('click', () => { 
         let scrollPosition = Math.round((menuHeaders[i].getBoundingClientRect().top + window.scrollY) - tasteyOffSetTop)
-        scrollContentTo(scrollPosition)
+        scrollContentTo(scrollPosition, "instant")
+        setTimeout(() => {
+            document.body.style.setProperty("--global-light-color", "rgba(255,255,255,0.475)")
+            document.body.style.setProperty("--global-light-complement-color", "transparent")
+        }, 25)
     })
 })
 

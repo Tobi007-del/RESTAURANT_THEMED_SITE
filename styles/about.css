@@ -137,6 +137,37 @@ body {
 .archive {
     flex: 0 0 50%;
     display: flex;
+    position: relative;
+}
+
+.archive:last-of-type .archive-content p {
+    margin-bottom: 4rem;
+}
+
+.archive .open-menu-btn {
+    position: absolute;
+    display: block;
+    left: 50%;
+    bottom: 2rem;
+    color: inherit;
+    height: 1rem;
+    width: 6rem;
+    opacity: 0;
+}
+
+.archive .open-menu-btn > span {
+    position: absolute;
+    white-space: nowrap;
+}
+
+.archive .open-menu-btn::before {
+    content: '';
+    width: 100%;
+    height: .5rem;
+    position: absolute;
+    top: 100%;
+    background-color: var(--sub-text-color);
+    border-radius: 0 0 9rem 9rem;
 }
 
 .archive:nth-child(odd) {
@@ -148,9 +179,8 @@ body {
 
 .archive:nth-child(even) {
     margin-block-start: 7.5rem;
-    text-align: left;
     padding-left: 3rem;
-    padding-right: 0;
+    text-align: left;
     justify-content: start;
 }
 
@@ -160,9 +190,10 @@ body {
     min-width: 17.5rem;
     padding-block-start: 3rem;
     padding-block-end: 1.5rem;
+    height: fit-content;
     display: flex;
     border-radius: .5rem;
-    gap: 1dvw;
+    gap: .5rem;
     padding-inline: 1.6rem;
     border-width: .05rem;
     border-style: solid;
@@ -187,6 +218,43 @@ body {
 .archive-content.visible p {
     color: var(--main-text-color);
     transition: color 800ms ease;
+}
+
+.archive-content.visible .open-menu-btn {
+    opacity: 1;
+}
+
+.archive-content.visible .open-menu-btn > span {
+    animation: shift_two 2s ease;
+}
+
+@keyframes shift_two {
+    from {
+        transform: translateY(-2rem);
+    } to {
+        transform: translateY(0);
+    }
+}
+
+.archive-content.visible .open-menu-btn::before {
+    background-color: var(--tastey-brand-color);
+    transition: 800ms ease;
+    animation: shift 1.5s ease;
+}
+
+@keyframes shift {
+    0% {
+        translate: 0;
+    }
+    25% {
+        translate: 50%;
+    }
+    75% {
+        translate: -50%;
+    }
+    100% {
+        translate: 0;
+    }
 }
 
 .archive-content.visible .archive-time-wrapper h4::before {
@@ -222,7 +290,7 @@ body {
     position: absolute;
 }
 
-@media only screen and (min-width: 45rem) {
+@media only screen and (min-width: 45.01rem) {
     .archive:nth-child(odd) .archive-time-wrapper h4::before {
         left: 3.2rem;
     }   
@@ -272,6 +340,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    max-height: min-content;
 }
 
 .archive-text-wrapper h2 {
@@ -281,7 +350,7 @@ body {
 
 .archive-text-wrapper p {
     color: var(--sub-text-color);
-    font-size: clamp(.85rem, calc(1vw + 1.25vh), 1rem);
+    font-size: clamp(.9rem, calc(1vw + 1.25vh), 1rem);
 }
 
 .archive-img-wrapper > img {
@@ -356,7 +425,7 @@ main.about-section {
 }
 
 .accreditation-sections-content {
-    width: 90%;
+    width: clamp(5rem, 90%, 75rem);
     height: 10rem;
     justify-content: space-between;
 }
@@ -404,23 +473,26 @@ main.about-section {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    gap: 2dvw;
+    padding-inline: 3.5rem;
+    height: 30rem;
 }
 
-.reservation-content-wrapper-content > div:first-child {
-    flex: 0 1 clamp(10rem, 32.5%, 25rem);
+.reservation-content-wrapper-content > div:first-of-type {
+    flex: 0 1 clamp(5rem, 32.5%, 25rem);
+    row-gap: 1.5rem;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.reservation-content-wrapper-content > div:last-child {
+.reservation-content-wrapper-content > div:last-of-type {
     flex: 0 1 35rem;
+    background: no-repeat url('../assets/tastey-meal-images/reserved.png');
 }
 
 .reservation-content-wrapper-content > div {
-    height: 30rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    justify-content: center;
+    height: 100%;
 }
 
 .reservation-content-wrapper-content > div h2 {
@@ -432,14 +504,6 @@ main.about-section {
     font-size: clamp(.9rem, 2dvw, 1rem);
     line-height: 1.5rem;
     margin: 0;
-}
-
-.reservation-content-wrapper-content > div:first-of-type {
-    font-size: 1rem;
-}
-
-.reservation-content-wrapper-content > div:last-of-type {
-    background: no-repeat url('../assets/tastey-meal-images/reserved.png');
 }
 
 .reservation-content-wrapper-content > div > div {
@@ -459,6 +523,7 @@ main.about-section {
 .reservation-content-wrapper-content .reservation-btn {
     padding: 1rem;
     padding-inline: 2rem;
+    white-space: nowrap;
     transition: transform 300ms ease-in-out;
 }
 
@@ -533,7 +598,7 @@ main.about-section {
 
 .reviews p {
     flex-grow: 1;
-    font-size: clamp(.85rem, calc(1.25vw + 1.25vh), 1.15rem);
+    font-size: clamp(1rem, calc(1.25vw + 1.25vh), 1.15rem);
     color: var(--main-text-color);
     margin: 0 0 0 .2rem;
     transition: 300ms ease;
@@ -544,7 +609,7 @@ main.about-section {
 }
 
 .qa:hover .reviews > div > img {
-    border: .1rem solid var(--tastey-brand-light-accent-color);
+    outline: .1rem solid var(--tastey-brand-light-accent-color);
 }
 
 .toggle-audio-content {
@@ -597,10 +662,24 @@ main.about-section {
 }
 
 @media only screen and (max-width: 60rem) {
-    .reservation-content-wrapper-content > div:first-child {
+    .reservation-content-wrapper-content {
+        position: relative;
+        padding-inline: 0;
+    }
+    .reservation-content-wrapper-content > div:first-of-type {
         flex: 0 1 30rem;
-        height: fit-content;
-        padding: 5rem 2rem 2rem 2rem;
+        padding-inline: 3.5rem;
+        text-align: center;
+    }
+    .reservation-content-wrapper-content > div > div {
+        justify-content: center;
+    }
+    .reservation-content-wrapper-content > div:last-of-type {
+        position: absolute;
+        width: 100%;
+        background-position: center;
+        z-index: -1;
+        box-shadow: inset 35vmax 35vmax 50vmax var(--current-theme-inverse-accent-color), inset -35vmax -35vmax 50vmax var(--current-theme-inverse-accent-color);
     }
 }
 
@@ -623,6 +702,9 @@ main.about-section {
         border-right: 0;
         border-bottom: .1rem solid var(--tastey-brand-light-accent-color);
     }
+}
+
+@media only screen and (max-width: 45rem) {
     .archive-content-container .archives-content-wrapper {
         padding-block-start: 0;
     }
@@ -632,8 +714,8 @@ main.about-section {
     .archives-content-wrapper .archive {
         margin-block-start: 0;
         margin-block-end: 4rem;
-        padding-left: 4rem;
-        padding-right: 7.5%;
+        padding-left: 7.5rem;
+        padding-right: 7.5rem;
         flex: 0 0 100%;
         justify-content: center;
     }
@@ -645,10 +727,10 @@ main.about-section {
         padding-inline: 1rem;
     }
     .archive-img-wrapper {
-        min-height: 15rem;
+        min-height: 17.5rem;
     }
     .tastey-timeline, .tastey-timeline-seeker {
-        left: 2.5rem;
+        left: 4.5rem;
     }
     .tastey-timeline {
         transform: translateX(-50%);
@@ -656,10 +738,10 @@ main.about-section {
     }
     .archive-content .archive-time-wrapper h4::before {
         right: 3rem;
-        width: 3rem;
+        width: 4.5rem;
     }
     .archive-content .archive-time-wrapper h4::after {
-        right: 5.75rem;
+        right: 7.25rem;
     } 
 }
 
@@ -670,7 +752,23 @@ main.about-section {
         width: 2.5rem;
     }
     .tastey-timeline, .tastey-timeline-seeker {
-        left: 1.25rem;
+        left: 3rem;
+    }
+    .archives-content-wrapper .archive {
+        padding-left: 4.5rem;
+        padding-right: 4.5rem;
+    }
+    .archive-content .archive-time-wrapper h4::before {
+        width: 3.5rem;
+    }
+    .archive-content .archive-time-wrapper h4::after {
+        right: 5.75rem;
+    } 
+}
+
+@media only screen and (max-width: 30rem) {
+    .tastey-timeline, .tastey-timeline-seeker {
+        left: 1.5rem;
     }
     .archives-content-wrapper .archive {
         padding-left: 1.5rem;
@@ -680,14 +778,26 @@ main.about-section {
         width: 2rem;
     }
     .archive-content .archive-time-wrapper h4::after {
-        right: 4.5rem;
+        right: 4.25rem;
     } 
+    .archive-img-wrapper {
+        min-height: 15rem;
+    }
 }
 
 @media only screen and (max-width: 25rem) {
     .archive-content-header-wrapper h2::after, .archive-content-header-wrapper h2::before, 
     .about-title-wrapper h2::before, .about-title-wrapper h2::after {
         display: none;
+    }
+    .reservation-content-wrapper-content {
+        height: 35rem;
+    }
+    .reservation-content-wrapper-content > div:last-of-type {
+        background: center/cover no-repeat url('../assets/tastey-meal-images/reserved.png');
+    }
+    .accreditation-sections {
+        background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') 0 0/cover no-repeat, var(--darker-black);
     }
 }
 
@@ -698,4 +808,13 @@ main.about-section {
     .archive-text-wrapper {
         flex: 0 1 100%;
     } 
+    .archive .open-menu-btn {
+        left: calc(50% - 3rem);
+    }
+}
+
+@media only screen and (max-width: 16rem) {
+    .archive {
+        word-break: break-all;
+    }
 }
