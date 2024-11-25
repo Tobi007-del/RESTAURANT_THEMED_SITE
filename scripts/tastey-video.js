@@ -461,9 +461,7 @@ videos.forEach(video => {
         theaterBtn.addEventListener("click", toggleTheaterMode)
         fullScreenBtn.addEventListener("click", toggleFullScreenMode)
         pictureInPictureBtn.addEventListener("click", togglePictureInPictureMode)
-        miniPlayerExpandBtn.addEventListener("click", () => {
-            expandMiniPlayer()
-        })
+        miniPlayerExpandBtn.addEventListener("click", expandMiniPlayer)
         const doubletapToSkip = e => {
             const rect = video.getBoundingClientRect()
             if (((e.clientX-rect.left) > (video.offsetWidth*0.65))) {
@@ -517,7 +515,7 @@ videos.forEach(video => {
                 }  
                 videoContainer.requestFullscreen()
             } else {
-                if (screen.orientation && screen.orientation.lock && screen.orientation.type.startsWith('portrait')) {  
+                if (screen.orientation && screen.orientation.lock) {  
                     screen.orientation.unlock()
                 }
                 document.exitFullscreen()
@@ -535,6 +533,7 @@ videos.forEach(video => {
         //a variable to check if the user is concerned in the current video while in mini-player mode
         let concerned = false
         function toggleMiniPlayerMode(bool = true) {
+        const mobileThreshold = 0
         if(!document.fullscreenElement) {
             if (!bool) {
                 videoContainer.classList.remove("mini-player")

@@ -1215,7 +1215,6 @@ footer {
 .view-bag::after, .reserve::after {
     content: '\00BB';
     position: absolute; 
-    color: var(--tastey-brand-light-accent-color);
     font-size: 1.5rem;
     top: -.45rem;
     left: calc(100% + .25rem);
@@ -1236,7 +1235,6 @@ footer {
 
 .footer-top-section .see-more::after {
     content: '\2716';
-    color: var(--tastey-brand-light-accent-color);
     position: absolute;
     margin-left: .4rem;
     font-size: .7rem;

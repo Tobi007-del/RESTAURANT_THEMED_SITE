@@ -57,7 +57,7 @@
     bottom: 0;
     right: 10px;
     z-index: 5;
-    width: 400px!important;
+    width: clamp(5rem, 90dvw, 400px)!important;
     border-radius: calc(var(--controls-size)/1.5)!important;
     transform: translateX(100%);
     opacity: 0;
