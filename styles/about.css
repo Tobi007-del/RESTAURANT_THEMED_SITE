@@ -494,12 +494,12 @@ main.about-section {
 }
 
 .reservation-content-wrapper-content > div h2 {
-    font-size: clamp(2.75rem, 4dvw, 3.25rem);
+    font-size: clamp(2.75rem, 4vw, 3.25rem);
     margin: 0;
 }
 
 .reservation-content-wrapper-content > div p {
-    font-size: clamp(.9rem, 2dvw, 1rem);
+    font-size: clamp(.9rem, 2vw, 1rem);
     line-height: 1.5rem;
     margin: 0;
 }
@@ -554,7 +554,7 @@ main.about-section {
 
 .review-header {
     color: var(--current-theme-sub-color);
-    font-size: clamp(1.85rem, 4vw, 2.15rem);
+    font-size: clamp(1.8rem, 4vw, 2.15rem);
     margin: 0 0 2rem 0;
     font-weight: bold;
 }
@@ -596,7 +596,7 @@ main.about-section {
 
 .reviews p {
     flex-grow: 1;
-    font-size: clamp(1rem, calc(1.25vw + 1.25vh), 1.15rem);
+    font-size: clamp(1rem, calc(1.2vw + 1.2vh), 1.15rem);
     color: var(--main-text-color);
     margin: 0 0 0 .2rem;
     transition: 300ms ease;

@@ -1194,7 +1194,7 @@ footer {
     color: var(--main-text-color);
 }
 
-.footer-top-section p, .footer-top-section a {
+.footer-top-section p, .footer-top-section a:not(.see-more, .view-bag, .reserve) {
     font-size: .95rem;
     color: var(--sub-text-color);
 }
