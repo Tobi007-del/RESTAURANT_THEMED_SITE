@@ -33,7 +33,7 @@ function tasteyFooterMenu() {
         }
     })
     offersContainer.appendChild(menuContainer)
-    document.querySelector(".footer-special-section > a > h2").insertAdjacentElement('afterend', offersContainer)
+    document.querySelector(".footer-special-section > a").insertAdjacentElement('afterend', offersContainer)
 }
 
 const footerAddToCartBtns = document.querySelectorAll(".footer-add-to-cart-button"), 

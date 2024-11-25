@@ -39,17 +39,18 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    width: calc(var(--controls-size)*4);
-    height: calc(var(--controls-size)*4);
+    width: calc(var(--controls-size)*3.75);
+    height: calc(var(--controls-size)*3.75);
     color: var(--current-theme-sub-color);
-    top: 40%;
+    top: 50%;
+    transform: translateY(-50%);
     border-radius: 50%;
     background-color: var(--controls-background);
     z-index: 1;
 }
 
 .replay-btn svg {
-    transform: scale(3);
+    transform: scale(2);
 }
 
 .video-container.mini-player {
@@ -203,14 +204,14 @@
     top: 0;
     pointer-events: none;
     opacity: .85;
-    background: url('/TMG.com/SPARE-PICS/two-balls-white.gif') no-repeat center center/calc(6lvh + 6dvw); 
+    background: url('../assets/tastey-meal-icons/two-balls-white.gif') no-repeat center center/calc(6lvh + 6dvw); 
     animation: ball_one 1s infinite ease-in-out;
 }
 .ground-buffer {
     position: absolute;
     width: calc(3lvh + 3dvw);
     height: calc(3lvh + 3dvw);
-    background: url('/TMG.com/SPARE-PICS/two-balls-white.gif') no-repeat center center;
+    background: url('../assets/tastey-meal-icons/two-balls-white.gif') no-repeat center center;
     animation: balls_two 1s infinite ease-in-out;
     background-size: 100%;
 }
@@ -219,7 +220,7 @@
     width: calc(3lvh + 3dvw);
     height: calc(3lvh + 3dvw);
     transform: rotate(90deg);
-    background: url('/TMG.com/SPARE-PICS/two-balls-white.gif') no-repeat center center;
+    background: url('../assets/tastey-meal-icons/two-balls-white.gif') no-repeat center center;
     animation: balls_two 1s infinite ease-in-out;
     background-size: 100%;
 }
@@ -228,7 +229,7 @@
     width: calc(6lvh + 6dvw);
     height: calc(6lvh + 6dvw);
     transform: rotate(90deg);
-    background: url('/TMG.com/SPARE-PICS/two-balls-white.gif') no-repeat center center;
+    background: url('../assets/tastey-meal-icons/two-balls-white.gif') no-repeat center center;
     animation: ball_three 1s infinite ease-in-out;
     background-size: 100%;
 }

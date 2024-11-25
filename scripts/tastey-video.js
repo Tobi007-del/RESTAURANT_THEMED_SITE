@@ -461,7 +461,9 @@ videos.forEach(video => {
         theaterBtn.addEventListener("click", toggleTheaterMode)
         fullScreenBtn.addEventListener("click", toggleFullScreenMode)
         pictureInPictureBtn.addEventListener("click", togglePictureInPictureMode)
-        miniPlayerExpandBtn.addEventListener("click", expandMiniPlayer)
+        miniPlayerExpandBtn.addEventListener("click", () => {
+            expandMiniPlayer()
+        })
         const doubletapToSkip = e => {
             const rect = video.getBoundingClientRect()
             if (((e.clientX-rect.left) > (video.offsetWidth*0.65))) {
@@ -511,7 +513,7 @@ videos.forEach(video => {
                         console.log('Video was changed to fullscreen so orientation was locked to landscape.');  
                     }).catch(function(error) {  
                         console.error('Failed to lock orientation:', error);  
-                    });  
+                    })
                 }  
                 videoContainer.requestFullscreen()
             } else {
@@ -533,7 +535,7 @@ videos.forEach(video => {
         //a variable to check if the user is concerned in the current video while in mini-player mode
         let concerned = false
         function toggleMiniPlayerMode(bool = true) {
-        const mobileThreshold = 0
+        const mobileThreshold = 0;
         if(!document.fullscreenElement) {
             if (!bool) {
                 videoContainer.classList.remove("mini-player")
