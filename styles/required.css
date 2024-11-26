@@ -1446,6 +1446,10 @@ footer {
     color: var(--sub-text-color);
 }
 
+.view-bag {
+    margin-left: 2rem;
+}
+
 .footer-bottom-section {
     display: flex;
     flex-flow: row wrap;
@@ -1601,16 +1605,16 @@ footer {
     }
     .navigation-section:after {
         content: '';
-        position: absolute;
-        width: 60dvw;
+        top: 0;
         left: 60dvw;
+        width: 40vw;
         height: 100dvh;
+        translate: -100%;
         z-index: -1;
         background-color: var(--current-theme-inverse-transparent-color);
         -webkit-backdrop-filter: blur(5px);
         backdrop-filter: blur(5px);
-        top: 0;
-        translate: -100%;
+        pointer-events: none;
     }
     .navigation-section ul {
         background-color: var(--current-theme-main-color);
@@ -1693,11 +1697,14 @@ footer {
     .hamburger-icon:has(input:checked) + .navigation-section, .hamburger-icon:has(input:checked) + .navigation-section::after {
         translate: 0;
     }
-    .hamburger-icon:has(input:checked) + .navigation-section {
+    .hamburger-icon:has(input:checked) + .navigation-section::after {
+        width: 60vw;
+        z-index: inherit;
+    }
+    .hamburger-icon:has(input:checked) + .navigation-section.smooth, .navigation-section.smooth::after {
         transition: translate 250ms ease;
     }
-    .hamburger-icon:has(input:checked) + .navigation-section::after {
-        z-index: inherit;
+    .hamburger-icon:has(input:checked) + .navigation-section.smooth::after, .navigation-section.smooth {
         transition: translate 1000ms ease;
     }
     #quick-scroll-show svg, #to-top svg, #to-bottom svg {

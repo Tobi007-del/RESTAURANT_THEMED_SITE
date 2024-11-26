@@ -677,7 +677,7 @@ main.about-section {
         width: 100%;
         background-position: center;
         z-index: -1;
-        box-shadow: inset 35vmax 35vmax 50vmax var(--current-theme-inverse-accent-color), inset -35vmax -35vmax 50vmax var(--current-theme-inverse-accent-color);
+        box-shadow: inset 35dvw 35dvw 50dvw var(--current-theme-inverse-accent-color), inset -35dvw -35dvw 50dvw var(--current-theme-inverse-accent-color);
     }
 }
 

@@ -1,12 +1,11 @@
 //module imports
 import { meals, allMeals, currency, maxOrders, getDOMElements, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards, getOrderIndex } from "./CRUD.js"
-import { weakTastey } from "./TasteyManager.js"
+import { weakTastey, mobileThreshold } from "./TasteyManager.js"
 import { tasteyThrottler, tasteyDebouncer, check, formatValue, standardize, clamp, panning, scrollContentTo, remToPx, syncScrollToTop, positionGradient, stars } from "./utility-functions.js"
 import { autoRemoveScroller, quickScrollShow, removeScrolls, quickScrolls } from "./build-scroller.js"
 
 
-const mobileThreshold = remToPx(36), 
-    tasteyOffSetTop = remToPx(13.26)
+const tasteyOffSetTop = remToPx(13.26)
 
 tasteyMenu(meals)
 tasteyBag()

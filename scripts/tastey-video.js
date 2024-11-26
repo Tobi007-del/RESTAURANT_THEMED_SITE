@@ -162,6 +162,24 @@ videos.forEach(video => {
         svgs = videoContainer.querySelectorAll("svg"),
         notifiersContainer = videoContainer.querySelector(".notifiers-container")
 
+        //putting a big play button on the video only on page startup
+        document.querySelector(".video-controls-container").style.opacity = 0
+        const playNotifier = document.querySelector(".play-notifier")
+        playNotifier.style.animation = "beat 1s infinite ease-out"
+        playNotifier.style.display = "flex"
+        
+        video.addEventListener("play", () => {
+            document.querySelector(".video-controls-container").style.opacity = ""
+            document.querySelector(".video-controls-container").style.pointerEvents = "all"
+            const playNotifier = document.querySelector(".play-notifier")
+            if (window.innerWidth > mobileThreshold) {
+                playNotifier.style.animation = ""
+                playNotifier.style.display = ""
+            } else {
+                setTimeout(playbtnPosition,100)
+                playNotifier.style.setProperty('display', 'none', 'important')
+            }
+        }, { once: true })
 
         //resizing controls
         function controlsResize() {           
@@ -290,7 +308,7 @@ videos.forEach(video => {
         )
 
         //Disabling right click
-        video.addEventListener("contextmenu", (e) => {
+        video.addEventListener("contextmenu", e => {
             e.preventDefault()
         })
         
@@ -413,14 +431,15 @@ videos.forEach(video => {
         //Volume
         muteBtn.addEventListener("click", toggleMute)
         
+
+        function toggleMute() {
+            video.muted = !video.muted
+        }
+
         volumeSlider.addEventListener("input", e => {
             video.volume = (e.target.value / 100)
             video.muted = e.target.value === 0
         })
-        
-        function toggleMute() {
-            video.muted = !video.muted
-        }
         
         video.addEventListener("volumechange", volumeState)
             
@@ -434,7 +453,7 @@ videos.forEach(video => {
                 volumeLevel = "high"
             else 
                 volumeLevel = "low"
-            let volumePosition = `${((value - min) / (max - min)) * ((offsetWidth - 5) > 0 ? (offsetWidth - 5) : 55) }px`
+            let volumePosition = `${((value - min) / (max - min)) * ((offsetWidth - 5) > 0 ? (offsetWidth - 5) : 40.5) }px`
             let volumePercent = `${((value-min) / (max - min)) * 100}%`
             volumeSlider.value = value
             volumeSlider.dataset.volume = `${value.toFixed()}`
@@ -461,9 +480,7 @@ videos.forEach(video => {
         theaterBtn.addEventListener("click", toggleTheaterMode)
         fullScreenBtn.addEventListener("click", toggleFullScreenMode)
         pictureInPictureBtn.addEventListener("click", togglePictureInPictureMode)
-        miniPlayerExpandBtn.addEventListener("click", () => {
-            expandMiniPlayer()
-        })
+        miniPlayerExpandBtn.addEventListener("click", expandMiniPlayer)
         const doubletapToSkip = e => {
             const rect = video.getBoundingClientRect()
             if (((e.clientX-rect.left) > (video.offsetWidth*0.65))) {
@@ -535,21 +552,22 @@ videos.forEach(video => {
         //a variable to check if the user is concerned in the current video while in mini-player mode
         let concerned = false
         function toggleMiniPlayerMode(bool = true) {
-        const mobileThreshold = 0;
+        const threshold = 0;
         if(!document.fullscreenElement) {
             if (!bool) {
                 videoContainer.classList.remove("mini-player")
+                setTimeout(playbtnPosition,100)
                 if(!video.paused && !concerned) {
                     video.pause() 
                 }
                 concerned = false
-                volumeState()
                 return
             }
-            if (!video.paused && window.innerWidth > mobileThreshold && !document.pictureInPictureElement && !intersect) {
+            if (!video.paused && window.innerWidth > threshold && !document.pictureInPictureElement && !intersect) {
                 videoContainer.classList.add("mini-player")
+                setTimeout(miniPlayerBtnPosition,100)
             } 
-            if ((videoContainer.classList.contains("mini-player") && intersect) || (videoContainer.classList.contains("mini-player") && window.innerWidth < mobileThreshold)) {
+            if ((videoContainer.classList.contains("mini-player") && intersect) || (videoContainer.classList.contains("mini-player") && window.innerWidth < threshold)) {
                 videoContainer.classList.remove("mini-player")
                 if(!video.paused) {video.pause()}
             }
@@ -603,39 +621,23 @@ videos.forEach(video => {
         window.addEventListener('resize', () => {
             toggleMiniPlayerMode()
             playbtnPosition()
+            miniPlayerBtnPosition()
             tapHandler()
         })
         
         //For the mobile play btn since the video height is not fixed value
-        const playbtnPosition = () => {
+        function playbtnPosition() {
             if (window.innerWidth <= mobileThreshold) {
-                let btnOffset = (videoContainer.offsetHeight/2) - 25
-                if (btnOffset < 50) {
-                    btnOffset = 100
-                }
-                playPauseBtn.style.setProperty("--mobile-btn-position", `${btnOffset}px`)
+                playPauseBtn.style.setProperty("--mobile-btn-position", `${(videoContainer.offsetHeight/2) - playPauseBtn.offsetHeight/2}px`)
             }   
         }
         setTimeout(playbtnPosition,100)
-
-        //putting a big play button on the video only on page startup
-        document.querySelector(".video-controls-container").style.opacity = 0
-        const playNotifier = document.querySelector(".play-notifier")
-        playNotifier.style.animation = "beat 1s infinite ease-out"
-        playNotifier.style.display = "flex"
-
-        video.addEventListener("play", () => {
-            document.querySelector(".video-controls-container").style.opacity = ""
-            const playNotifier = document.querySelector(".play-notifier")
-            if (window.innerWidth > mobileThreshold) {
-                playNotifier.style.animation = ""
-                playNotifier.style.display = ""
-            } else {
-                setTimeout(playbtnPosition,100)
-                playNotifier.style.setProperty('display', 'none', 'important')
+        function miniPlayerBtnPosition() {
+            if(videoContainer.classList.contains("mini-player")) {
+                videoContainer.style.setProperty("--mini-player-btn-position", `${videoContainer.offsetHeight/2 - playPauseBtn.offsetHeight/2}px`)
             }
-        }, { once: true })
-        
+        }
+
         video.addEventListener("enterpictureinpicture", () => {
             videoContainer.classList.add("picture-in-picture")
             toggleMiniPlayerMode(false)
@@ -688,6 +690,34 @@ videos.forEach(video => {
                 navigator.mediaSession.playbackState = 'paused'
         })        
         
+        const restraintTime = 3000
+        let restraintId
+        videoContainer.addEventListener("mousemove", e => {
+            videoContainer.classList.add("hover")
+            if (restraintId) clearTimeout(restraintId)
+            restraintId = setTimeout(() => {
+                videoContainer.classList.remove("hover")
+            }, restraintTime)
+        })
+
+        let restraintIdTwo,
+            hoverId
+        volumeSlider.parentElement.addEventListener("mousemove", e => {
+            hoverId = setTimeout(() => {
+                if (volumeSlider.parentElement.matches(':hover')) {
+                    volumeSlider.parentElement.classList.add("hover")
+                    if (restraintIdTwo) clearTimeout(restraintIdTwo)
+                    restraintIdTwo = setTimeout(() => {
+                        volumeSlider.parentElement.classList.remove("hover")
+                    }, restraintTime)                    
+                }
+            }, 250)
+        })
+
+        volumeSlider.parentElement.addEventListener("mouseup", () => {
+            if (hoverId) clearTimeout(hoverId)
+        })
+
         //custom event function for notifier events
         const fire = (eventName, el = notifiersContainer, detail=null, bubbles=true, cancellable=true) => {
             let evt = new CustomEvent(eventName, {

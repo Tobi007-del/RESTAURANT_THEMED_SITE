@@ -1,8 +1,10 @@
-export { Tastey, weakTastey }
+export { Tastey, weakTastey, mobileThreshold }
 
 import { autoRemoveScroller } from "./build-scroller.js"
 import { notificationQuery } from "./service-worker-helper.js"
-import { round, check, formatValue, standardize, rand} from "./utility-functions.js"
+import { round, check, formatValue, standardize, rand, remToPx} from "./utility-functions.js"
+
+const mobileThreshold = remToPx(36)
 
 //a basic loading page implementation
 window.addEventListener('load', () => {
@@ -17,6 +19,28 @@ if (!sessionStorage.is_this_first_visit_to_Tastey) {
 
 document.querySelector('.nav-link:nth-of-type(3)').addEventListener('click', () => {
     if(sessionStorage.open_cart) delete sessionStorage.open_cart
+})
+
+const burger = document.querySelector('.hamburger input')
+burger.addEventListener('change', e => {
+    if (e.target.checked)
+        window.addEventListener('click', handleClick)
+    function handleClick(e) {
+        if(e.clientX > (window.innerWidth * .6)) {
+            burger.checked = false
+            window.removeEventListener('click', handleClick)
+        }
+    }
+})
+
+const nav = document.querySelector(".navigation-section")
+nav.classList.add("smooth")
+window.addEventListener('resize', () => {
+    if (window.innerWidth > mobileThreshold)
+        nav.classList.remove("smooth")
+    else
+        nav.classList.add("smooth")
+        
 })
 
 function displayWelcomeNotification() {
