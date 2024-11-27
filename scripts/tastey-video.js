@@ -564,8 +564,8 @@ videos.forEach(video => {
             }
             if (!video.paused && window.innerWidth > threshold && !document.pictureInPictureElement && !intersect) {
                 videoContainer.classList.add("mini-player")
-                videoContainer.addEventListener("mousedown", moveMiniPlayer, true)
-                videoContainer.addEventListener("touchstart", moveMiniPlayer, true)
+                videoContainer.addEventListener("mousedown", moveMiniPlayer)
+                videoContainer.addEventListener("touchstart", moveMiniPlayer)
                 miniPlayerBtnPosition()
             } 
             if ((videoContainer.classList.contains("mini-player") && intersect) || (videoContainer.classList.contains("mini-player") && window.innerWidth < threshold)) {
@@ -574,8 +574,8 @@ videos.forEach(video => {
             }
             function cleanUpMiniPlayer() {
                 videoContainer.classList.remove("mini-player")
-                videoContainer.removeEventListener("mousedown", moveMiniPlayer, true)
-                videoContainer.removeEventListener("touchstart", moveMiniPlayer, true)
+                videoContainer.removeEventListener("mousedown", moveMiniPlayer)
+                videoContainer.removeEventListener("touchstart", moveMiniPlayer)
                 videoContainer.setProperty("--mouse-x", 0)
                 videoContainer.setProperty("--mouse-y", 0)
                 playbtnPosition()
@@ -726,19 +726,18 @@ videos.forEach(video => {
         })
         
         function moveMiniPlayer(e){
-            console.log(e.target)
             if (!e.target.classList.contains(".timeline-container") && !e.target.classList.contains("timeline") && e.target.tagName !== "button") {
                 if (videoContainer.classList.contains("mini-player")) {
-                    videoContainer.addEventListener("mousemove", handleMiniPlayerPosition, true)
-                    videoContainer.addEventListener("touchmove", handleMiniPlayerPosition, true)
+                    videoContainer.addEventListener("mousemove", handleMiniPlayerPosition)
+                    videoContainer.addEventListener("touchmove", handleMiniPlayerPosition)
                     videoContainer.addEventListener("touchend",emptyListeners, {once: true})
                     videoContainer.addEventListener("mouseup",emptyListeners, {once: true})
                 }
             }
 
             function emptyListeners() {
-                videoContainer.removeEventListener("mousemove", handleMiniPlayerPosition, true)
-                videoContainer.removeEventListener("touchmove", handleMiniPlayerPosition, true)
+                videoContainer.removeEventListener("mousemove", handleMiniPlayerPosition)
+                videoContainer.removeEventListener("touchmove", handleMiniPlayerPosition)
                 videoContainer.removeEventListener("touchend",emptyListeners, {once: true})
                 videoContainer.removeEventListener("mouseup",emptyListeners, {once: true})
             }
