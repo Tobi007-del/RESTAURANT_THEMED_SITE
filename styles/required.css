@@ -1333,7 +1333,8 @@ footer {
     display: flex;
     gap: .6rem;
     overflow-y: hidden;
-    overflow-x: auto;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
 }
 
 .offers-imgs-wrapper::-webkit-scrollbar {
@@ -1341,6 +1342,7 @@ footer {
 }
 
 .footer-tastey-meal {
+    scroll-snap-align: start;
     flex: 0 0 5rem;
     width: 5rem;
     height: 10rem;
@@ -1349,7 +1351,7 @@ footer {
     flex-direction: column;
 }
 
-.footer-tastey-meal a {
+.footer-tastey-meal > a {
     background: var(--tastey-brand-color);
     width: inherit;
     height: 4.65rem;
@@ -1357,7 +1359,7 @@ footer {
     border-radius: .25rem;
 }
 
-.footer-tastey-meal a:not([data-discount="0"])::after {
+.footer-tastey-meal > a:not([data-discount="0"])::after {
     content: '-'attr(data-discount) '%';
     position: absolute;
     top: 0;
@@ -1376,12 +1378,12 @@ footer {
     transition: 250ms ease-in-out;
 }
 
-.footer-tastey-meal:hover a:not([data-discount="0"])::after {
+.footer-tastey-meal:hover > a:not([data-discount="0"])::after {
     scale: 1;
     color: var(--current-theme-sub-color);
 }
 
-.footer-tastey-meal a img {
+.footer-tastey-meal > a img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1444,10 +1446,6 @@ footer {
     top: 100%;
     font-size: .6rem;
     color: var(--sub-text-color);
-}
-
-.view-bag {
-    margin-left: 2rem;
 }
 
 .footer-bottom-section {

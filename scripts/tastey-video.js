@@ -176,7 +176,7 @@ videos.forEach(video => {
                 playNotifier.style.animation = ""
                 playNotifier.style.display = ""
             } else {
-                setTimeout(playbtnPosition,100)
+                playbtnPosition()
                 playNotifier.style.setProperty('display', 'none', 'important')
             }
         }, { once: true })
@@ -308,9 +308,7 @@ videos.forEach(video => {
         )
 
         //Disabling right click
-        video.addEventListener("contextmenu", e => {
-            e.preventDefault()
-        })
+        video.addEventListener("contextmenu", e => e.preventDefault())
         
         //Loading 
         video.addEventListener("waiting", () => {
@@ -446,10 +444,14 @@ videos.forEach(video => {
         function volumeState() {
             let { min, max, value, offsetWidth } = volumeSlider
             value = video.volume * 100
+            videoContainer.querySelectorAll(".volume-up-notifier,.volume-down-notifier,.volume-muted-notifier").forEach((elem) => {
+                elem.dataset.volume = `${value}%`
+            })
             let volumeLevel = ""
-            if (video.muted || value === 0) 
+            if (video.muted || value === 0) {
+                value = 0
                 volumeLevel = "muted"
-            else if (value > (max/2)) 
+            } else if (value > (max/2)) 
                 volumeLevel = "high"
             else 
                 volumeLevel = "low"
@@ -457,9 +459,6 @@ videos.forEach(video => {
             let volumePercent = `${((value-min) / (max - min)) * 100}%`
             volumeSlider.value = value
             volumeSlider.dataset.volume = `${value.toFixed()}`
-            videoContainer.querySelectorAll(".volume-up-notifier,.volume-down-notifier,.volume-muted-notifier").forEach((elem) => {
-                elem.dataset.volume = `${value.toFixed()}%`
-            })
             volumeSlider.style.setProperty("--volume-position", volumePosition)
             volumeSlider.style.setProperty("--volume-percent", volumePercent)
             videoContainer.dataset.volumeLevel = volumeLevel
@@ -481,7 +480,7 @@ videos.forEach(video => {
         fullScreenBtn.addEventListener("click", toggleFullScreenMode)
         pictureInPictureBtn.addEventListener("click", togglePictureInPictureMode)
         miniPlayerExpandBtn.addEventListener("click", expandMiniPlayer)
-        const doubletapToSkip = e => {
+        function doubletapToSkip(e) {
             const rect = video.getBoundingClientRect()
             if (((e.clientX-rect.left) > (video.offsetWidth*0.65))) {
                 skip(10)
@@ -494,7 +493,7 @@ videos.forEach(video => {
             }
         }
 
-        const tapHandler = () => {
+        function tapHandler() {
         if ((navigator.maxTouchPoints > 0) && (window.innerWidth < (mobileThreshold+300))) {
             video.removeEventListener("dblclick", toggleFullScreenMode)
             video.addEventListener("dblclick", doubletapToSkip)
@@ -552,23 +551,22 @@ videos.forEach(video => {
         //a variable to check if the user is concerned in the current video while in mini-player mode
         let concerned = false
         function toggleMiniPlayerMode(bool = true) {
-        const threshold = 0;
+        const threshold = 0
         if(!document.fullscreenElement) {
             if (!bool) {
                 videoContainer.classList.remove("mini-player")
-                setTimeout(playbtnPosition,100)
-                if(!video.paused && !concerned) {
-                    video.pause() 
-                }
+                playbtnPosition()
+                if(!video.paused && !concerned) video.pause() 
                 concerned = false
                 return
             }
             if (!video.paused && window.innerWidth > threshold && !document.pictureInPictureElement && !intersect) {
                 videoContainer.classList.add("mini-player")
-                setTimeout(miniPlayerBtnPosition,100)
+                miniPlayerBtnPosition()
             } 
             if ((videoContainer.classList.contains("mini-player") && intersect) || (videoContainer.classList.contains("mini-player") && window.innerWidth < threshold)) {
                 videoContainer.classList.remove("mini-player")
+                playbtnPosition()
                 if(!video.paused) {video.pause()}
             }
             volumeState()
@@ -627,15 +625,14 @@ videos.forEach(video => {
         
         //For the mobile play btn since the video height is not fixed value
         function playbtnPosition() {
-            if (window.innerWidth <= mobileThreshold) {
+            if (window.innerWidth <= mobileThreshold) 
                 playPauseBtn.style.setProperty("--mobile-btn-position", `${(videoContainer.offsetHeight/2) - playPauseBtn.offsetHeight/2}px`)
-            }   
         }
-        setTimeout(playbtnPosition,100)
+        window.addEventListener('load', playbtnPosition)
+        
         function miniPlayerBtnPosition() {
-            if(videoContainer.classList.contains("mini-player")) {
+            if(videoContainer.classList.contains("mini-player")) 
                 videoContainer.style.setProperty("--mini-player-btn-position", `${videoContainer.offsetHeight/2 - playPauseBtn.offsetHeight/2}px`)
-            }
         }
 
         video.addEventListener("enterpictureinpicture", () => {
@@ -652,11 +649,8 @@ videos.forEach(video => {
         playPauseBtn.addEventListener("click", togglePlay)
         video.addEventListener("click", e => {
             const rect = video.getBoundingClientRect()
-            if (((e.clientX-rect.left) > (video.offsetWidth*0.35)) && ((e.clientX-rect.left) < (video.offsetWidth*0.75))) {
-                togglePlay()
-            } else if(window.innerWidth > (mobileThreshold+300)) {
-                togglePlay()
-            }
+            if (((e.clientX-rect.left) > (video.offsetWidth*0.35)) && ((e.clientX-rect.left) < (video.offsetWidth*0.75))) togglePlay()
+            else if(window.innerWidth > (mobileThreshold+300)) togglePlay()
         })
         
         function togglePlay() {
@@ -686,23 +680,27 @@ videos.forEach(video => {
         video.addEventListener("pause", ()=> {
             videoContainer.classList.add("paused")
             fire("videopause")
-            if ('mediaSession' in navigator) 
-                navigator.mediaSession.playbackState = 'paused'
+            if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused'
         })        
         
         const restraintTime = 3000
         let restraintId
-        videoContainer.addEventListener("mousemove", e => {
+        videoContainer.addEventListener("mousemove", () => {
             videoContainer.classList.add("hover")
+            restraint()
+        })
+
+        // videoContainer.addEventListener("click", restraint, true)
+
+        function restraint() {
             if (restraintId) clearTimeout(restraintId)
             restraintId = setTimeout(() => {
                 videoContainer.classList.remove("hover")
             }, restraintTime)
-        })
+        }
 
-        let restraintIdTwo,
-            hoverId
-        volumeSlider.parentElement.addEventListener("mousemove", e => {
+        let restraintIdTwo, hoverId
+        volumeSlider.parentElement.addEventListener("mousemove", () => {
             hoverId = setTimeout(() => {
                 if (volumeSlider.parentElement.matches(':hover')) {
                     volumeSlider.parentElement.classList.add("hover")
@@ -719,7 +717,7 @@ videos.forEach(video => {
         })
 
         //custom event function for notifier events
-        const fire = (eventName, el = notifiersContainer, detail=null, bubbles=true, cancellable=true) => {
+        function fire(eventName, el = notifiersContainer, detail=null, bubbles=true, cancellable=true) {
             let evt = new CustomEvent(eventName, {
                 detail, bubbles, cancellable
             })
@@ -761,7 +759,7 @@ videos.forEach(video => {
             notifiersContainer.dataset.currentNotifier = "bwd"
             emptyDataset()
         })
-        const emptyDataset = () => {
+        function emptyDataset() {
             setTimeout(()=>{notifiersContainer.dataset.currentNotifier = ''}, notifierDelay)
         }
     } else {

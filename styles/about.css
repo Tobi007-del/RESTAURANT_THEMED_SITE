@@ -596,7 +596,7 @@ main.about-section {
 
 .reviews p {
     flex-grow: 1;
-    font-size: clamp(1rem, calc(1.2vw + 1.2vh), 1.15rem);
+    font-size: clamp(.95rem, calc(1.2vw + 1.2vh), 1.15rem);
     color: var(--main-text-color);
     margin: 0 0 0 .2rem;
     transition: 300ms ease;
@@ -677,7 +677,7 @@ main.about-section {
         width: 100%;
         background-position: center;
         z-index: -1;
-        box-shadow: inset 35dvw 35dvw 50dvw var(--current-theme-inverse-accent-color), inset -35dvw -35dvw 50dvw var(--current-theme-inverse-accent-color);
+        box-shadow: inset 45dvw 45dvw 50dvw var(--current-theme-inverse-accent-color), inset -45dvw -45dvw 50dvw var(--current-theme-inverse-accent-color);
     }
 }
 

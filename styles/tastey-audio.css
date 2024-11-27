@@ -113,42 +113,43 @@
     width: 0;
     transform-origin: left;
     transform: scaleX(0);
-    max-width: calc(var(--controls-size)*2.4);
+    max-width: calc(var(--controls-size)*2);
     position: relative;
     transition: width 150ms ease-in-out, transform 150ms ease-in-out;
     -moz-appearance: none; 
     -ms-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    background: linear-gradient(to right, var(--current-theme-sub-color) var(--audio-volume-percent), rgba(100, 100, 100, 0.75) 1%);
-    cursor:grabbing;
-    border-radius: calc(var(--controls-size)/8.3);
+    background: linear-gradient(to right, var(--current-theme-fade-color) var(--audio-volume-percent), rgba(100, 100, 100, 0.75) 1%);
+    cursor: grabbing;
     box-shadow: 1px 1px 10px black;
 }
 
-.audio-volume-slider:focus {
+.audio-volume-slider:focus-visible {
     outline-offset: calc(var(--controls-size)/3.57);
 }
 
 /* input[type="range"]::-moz-range-track,  */
-input[type="range"]::-webkit-slider-runnable-track {
+.audio-volume-slider[type="range"]::-webkit-slider-runnable-track {
     -moz-appearance: none;
     -ms-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    height: calc(var(--controls-size)/5);
+    height: calc(var(--controls-size)/7);
 }
 
 /* input[type="range"]::-moz-range-thumb, */
-input[type="range"]::-webkit-slider-thumb {
+.audio-volume-slider[type="range"]::-webkit-slider-thumb {
     -moz-appearance: none;
     -ms-appearance: none;
     -webkit-appearance: none;
     appearance: none;
     background: var(--current-theme-sub-color);
-    height: calc(var(--controls-size)/1.67);
-    width: calc(var(--controls-size)/5);
-    margin-top: calc(var(--controls-size)/-5);
+    height: calc(var(--controls-size)/2.15);
+    width: calc(var(--controls-size)/2.15);
+    position: relative;
+    top: -3.5px;
+    border-radius: 50%;
 }
 
 .audio-volume-slider::after {
@@ -164,16 +165,12 @@ input[type="range"]::-webkit-slider-thumb {
     display: none;
 }
 
-.audio-volume-slider:hover::after {
+.audio-volume-slider:hover::after, .audio-volume-slider:focus-visible::after {
     display: block;
 }
 
-.audio-volume-slider:focus-within::after{
-    display: block;
-}
-
-.audio-volume-container:hover .audio-volume-slider,
-.audio-volume-slider:focus-within {
+.audio-volume-container.hover:hover .audio-volume-slider,
+.audio-volume-slider:focus-visible {
     width: calc(var(--controls-size)*2.4);
     transform: scaleX(1);
 }

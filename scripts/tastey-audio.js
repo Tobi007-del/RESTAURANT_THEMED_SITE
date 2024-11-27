@@ -210,6 +210,24 @@ audios.forEach(audio => {
             if ('mediaSession' in navigator) 
                 navigator.mediaSession.playbackState = 'paused'
         })
+
+        const restraintTime = 3000
+        let restraintIdTwo, hoverId
+        volumeSlider.parentElement.addEventListener("mousemove", () => {
+            hoverId = setTimeout(() => {
+                if (volumeSlider.parentElement.matches(':hover')) {
+                    volumeSlider.parentElement.classList.add("hover")
+                    if (restraintIdTwo) clearTimeout(restraintIdTwo)
+                    restraintIdTwo = setTimeout(() => {
+                        volumeSlider.parentElement.classList.remove("hover")
+                    }, restraintTime)                    
+                }
+            }, 250)
+        })
+
+        volumeSlider.parentElement.addEventListener("mouseup", () => {
+            if (hoverId) clearTimeout(hoverId)
+        })
     } else {
         return
     }

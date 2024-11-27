@@ -123,13 +123,13 @@ let touchTimer;
 offersImgsWrapper.parentElement.addEventListener("touchstart", () => {
     stopOffers()
     if (touchTimer) clearTimeout(touchTimer)
-}, true)
+}, {useCapture: true, passive: true})
 offersImgsWrapper.parentElement.addEventListener("touchend", () => {
     touchTimer = setTimeout(() => {
         if (offersImgsWrapper.matches(':hover')) return
             playOffers()
     }, 2000)
-}, true)
+}, {useCapture: true, passive: true})
 
 //adding the arrows functionality to the carousel
 const keyThrottler = new tasteyThrottler

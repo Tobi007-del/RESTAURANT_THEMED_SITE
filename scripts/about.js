@@ -81,12 +81,11 @@ function timelineLength() {
 }
 
 window.addEventListener('resize', () => {
-    setTimeout(timelineLength)
-    setTimeout(archiveUI)
+    timelineLength()
+    archiveUI()
 })
 
 // Panning effect for images
-
 panning(document.querySelectorAll('.archive-img-wrapper img'))
 
 //INITIALIZATION OF VARIABLES
@@ -204,11 +203,17 @@ faqs.forEach((faq,i) => {
                 info[n].classList.add('show')
                 hide[n].classList.add('hide')
                 faqan.querySelector('audio').pause()
-                for (const item of faqan.querySelectorAll('*')) {
+                for (const item of faqan.querySelectorAll('button, input')) {
                     item.tabIndex = '-1'
                 }
             }
         })
     })
 })
+
+for(const faqan of faqans) {
+    for (const item of faqan.querySelectorAll('button, input')) {
+        item.tabIndex = faqan.classList.contains('hide') ? '-1' : '0'
+    }
+}
 
