@@ -407,12 +407,8 @@ main.about-section {
     padding-block: 1rem;
 }
 
-.accreditation-sections {
-    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') 0 0/200% no-repeat, var(--darker-black);
-}
-
-.review-panel-container {
-    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') 100% bottom/cover no-repeat, var(--darker-black);
+.review-panel-container, .accreditation-sections {
+    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') 100% bottom/cover no-repeat fixed, var(--darker-black);
 }
 
 .accreditation-sections-content, .review-panel-content {
@@ -522,7 +518,7 @@ main.about-section {
     padding: 1rem;
     padding-inline: 2rem;
     white-space: nowrap;
-    transition: transform 300ms ease-in-out;
+    transition: transform 500ms ease-in-out;
 }
 
 .reservation-content-wrapper-content .reservation-btn:hover {
@@ -797,9 +793,6 @@ main.about-section {
     }
     .reservation-content-wrapper-content > div:last-of-type {
         background: center/cover no-repeat url('../assets/tastey-meal-images/reserved.png');
-    }
-    .accreditation-sections {
-        background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') 0 0/cover no-repeat, var(--darker-black);
     }
 }
 

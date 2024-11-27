@@ -669,6 +669,9 @@ videos.forEach(video => {
         }
         
         video.addEventListener("play", e => {
+            for (const media of document.querySelectorAll('video, audio')) {
+                if (media !== e.target) media.pause()
+            }
             videoContainer.classList.remove("paused")
             fire("videoplay")
 
@@ -738,8 +741,8 @@ videos.forEach(video => {
             function emptyListeners() {
                 videoContainer.removeEventListener("mousemove", handleMiniPlayerPosition)
                 videoContainer.removeEventListener("touchmove", handleMiniPlayerPosition)
-                videoContainer.removeEventListener("touchend",emptyListeners, {once: true})
-                videoContainer.removeEventListener("mouseup",emptyListeners, {once: true})
+                videoContainer.removeEventListener("touchend", emptyListeners, {once: true})
+                videoContainer.removeEventListener("mouseup", emptyListeners, {once: true})
             }
 
             function handleMiniPlayerPosition(e) {

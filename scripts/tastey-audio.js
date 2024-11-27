@@ -189,6 +189,9 @@ audios.forEach(audio => {
         }
 
         audio.addEventListener("play", e => {
+            for (const media of document.querySelectorAll('video, audio')) {
+                if (media !== e.target) media.pause()
+            }
             audioContainer.classList.remove("paused")
 
             if ('mediaSession' in navigator) {
