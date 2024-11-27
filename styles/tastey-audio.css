@@ -73,15 +73,11 @@
     scale: 1.05;
 }
 
-.audio-container.paused .audio-pause-icon, .audio-container:not(.paused):not(.replay) .audio-play-icon, .audio-container.replay .audio-pause-icon, .audio-container:not(.replay) .audio-replay-icon  {
+.audio-container:not(.paused,.replay) .audio-play-icon, .audio-container.replay .audio-pause-icon, .audio-container.paused .audio-pause-icon, .audio-container:not(.replay) .audio-replay-icon  {
     display: none;
 }
 
-.audio-container.paused:not(.replay) .audio-play-icon {
-    display: block;
-}
-
-.audio-container.replay .audio-replay-icon {
+.audio-container.paused:not(.replay) .audio-play-icon, .audio-container.replay.paused .audio-replay-icon {
     display: block;
 }
 
