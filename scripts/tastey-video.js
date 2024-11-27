@@ -1,5 +1,5 @@
 const videos = document.querySelectorAll("video")
-const mobileThreshold = 600
+const mobileThreshold = 480
 
 videos.forEach(video => {
     if (video.dataset.controls === "tastey-video-controls") {
@@ -321,7 +321,7 @@ videos.forEach(video => {
         //Timeline
         timelineContainer.addEventListener("mousemove", handleTimelineUpdate)
         
-        timelineContainer.addEventListener('pointerdown', e => {
+        timelineContainer.addEventListener("pointerdown", e => {
             timelineContainer.setPointerCapture(e.pointerId)
             isScrubbing = true
             toggleScrubbing(e)
@@ -690,8 +690,6 @@ videos.forEach(video => {
             restraint()
         })
 
-        // videoContainer.addEventListener("click", restraint, true)
-
         function restraint() {
             if (restraintId) clearTimeout(restraintId)
             restraintId = setTimeout(() => {
@@ -715,6 +713,14 @@ videos.forEach(video => {
         volumeSlider.parentElement.addEventListener("mouseup", () => {
             if (hoverId) clearTimeout(hoverId)
         })
+
+        videoContainer.addEventListener("pointerdown", moveMiniPlayer, true)
+        
+        function moveMiniPlayer(){
+            if (videoContainer.classList.contains(".mini-player")) {
+
+            }
+        }
 
         //custom event function for notifier events
         function fire(eventName, el = notifiersContainer, detail=null, bubbles=true, cancellable=true) {
