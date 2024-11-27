@@ -68,7 +68,7 @@ function displayWelcomeNotification() {
             randomImgSrc = "assets/tastey-meal-images/tastey_meal_one.jpg" 
     }
     // FT for "First Timer" & OT for "Old Taker"
-    const welcomeMssg = !sessionStorage.tastey_friendship_log && localStorage.tastey_friendship_log ? "Hello, Old Friend!, Welcome back to Tastey" : "Hello, New Friend!, Welcome to Tastey"
+    const welcomeMssg = !sessionStorage.tastey_friendship_log && localStorage.tastey_friendship_log ? "Hello, Old Friend! Welcome back to Tastey" : "Hello, New Friend! Welcome to Tastey"
     const title = "Tastey"
     const options = {
         body: `${welcomeMssg}. Wanna tease your taste buds? try a Tastey meal now!`,

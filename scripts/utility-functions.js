@@ -43,14 +43,20 @@ class tasteyThrottler {
     }
 }
 
-const rand = (min,max) => Math.floor(Math.random() * (max - min)) + min;
+function rand(min,max) {
+    return (Math.floor(Math.random() * (max - min)) + min)
+}
 
-const remToPx = (value) => {return (parseFloat(getComputedStyle(document.documentElement).fontSize) * value)}
+function remToPx(value) {
+    return (parseFloat(getComputedStyle(document.documentElement).fontSize) * value)
+}
 
-const pxToRem = value => {return (value / parseFloat(getComputedStyle(document.documentElement).fontSize))}
+function pxToRem(value) {
+    return (value / parseFloat(getComputedStyle(document.documentElement).fontSize))
+}
 
 //function to round data off to a fixed decimal point depending on the number for the discount
-const round = (d) => {
+function round(d) {
     if((d - Math.floor(d)) !== 0){
         return d.toFixed(2)
     } else {
@@ -59,7 +65,7 @@ const round = (d) => {
 }
 
 //function to check and apply discount to prices
-const check = (price, discount) => {
+function check(price, discount) {
     if(!discount) {
         return price 
     } else {
@@ -69,7 +75,7 @@ const check = (price, discount) => {
 }
 
 //using number format API to format the price values for standardization of currency and to prevent loss
-const formatter = (curr) => {
+function formatter(curr) {
     return new Intl.NumberFormat('en', {
         style: "currency",
         currency: curr,
@@ -78,7 +84,7 @@ const formatter = (curr) => {
     })
 }
 
-const formatValue = (currency, price) => {
+function formatValue(currency, price) {
         return formatter(currency).format(price).replace('NGN',"\u20A6")            
 }
 
@@ -124,7 +130,7 @@ function standardize(C, manner = "use ease"){
     }
 }
 
-const clamp = (min, amount, max) => {
+function clamp(min, amount, max) {
     return Math.min(Math.max(amount, min), max)
 }
 
@@ -270,7 +276,6 @@ function write(text, parent, stall = 100) {
 }
 
 function erase(parent, stall = 100) {
-    console.log(parent)
     let n = parent.textContent.length
     cancel()
     function cancel() {

@@ -100,10 +100,9 @@ if (getCardsQuery() && !weakTastey.getEmpty()) {
         //adding pointer over event listener to all cards
         tasteyMealOrders[i].onpointerover = () => {
             setTimeout(() => {
-                if (tasteyMealOrders[i])
-                    if(tasteyMealOrders[i].matches(":hover"))
+                    if(tasteyMealOrders[i]?.matches(":hover"))
                         liftCard()
-            }, 500)
+            }, 1000)
         }
         function liftCard() {
             const currTop = Math.round(pxToRem(tasteyMealOrders[i].getBoundingClientRect()?.top))

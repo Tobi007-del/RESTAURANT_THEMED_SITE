@@ -54,9 +54,11 @@
 }
 
 .video-container.mini-player {
+    --mouse-x: 10px;
+    --mouse-y:  10px;
     position: fixed;
-    bottom: 0;
-    right: 10px;
+    right: var(--mouse-x);
+    bottom: var(--mouse-y);
     z-index: 5;
     min-height: 150px;
     width: clamp(5rem, 40dvw, 400px)!important;
@@ -572,6 +574,7 @@ video::-webkit-media-text-track-container {
     overflow: hidden;
     border: calc(var(--controls-size)/12.5) solid var(--current-theme-sub-color);
     display: none;
+    background-color: black;
 }
 
 .timeline .preview-img {
