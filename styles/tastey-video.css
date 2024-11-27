@@ -826,13 +826,7 @@ video::-webkit-media-text-track-container {
     .play-pause-btn svg {
         transform: scale(2)!important;
     }
-    .video-container.buffer .play-pause-btn {
-        display: none!important;
-    }
-    .video-container .play-notifier {
-        display: none;
-    }
-    .video-container .pause-notifier, .video-container.replay .play-pause-btn {
+    .video-container .play-notifier, .video-container .pause-notifier, .video-container.replay .play-pause-btn, .video-container.buffer .play-pause-btn {
         display: none!important;
     }       
     .timeline-container {
