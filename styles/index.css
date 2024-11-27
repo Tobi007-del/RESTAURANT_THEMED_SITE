@@ -317,11 +317,32 @@ hero-content-wrapper, .tastey-meals-carousel {
 }
 
 @media only screen and (max-width: 31rem) {
+    .hero-content-wrapper {
+        align-items: center;
+        text-align: center;
+        padding-inline: 5vw;
+    }
     .welcome-text-wrapper h1 {
-        font-size: clamp(2.25rem, 11svh, 3.75rem);
+        font-size: clamp(2rem, 10svh, 3.5rem);
     }
     .welcome-text-wrapper.old-taker h1 {
-        font-size: clamp(2rem, 9svh, 3.5rem);
+        font-size: clamp(1.75rem, 8svh, 3.25rem);
+    }
+    .quick-links-wrapper {
+        gap: 7.5dvw;
+    }
+    .greeting-wrapper p {
+        left: unset;
+    }
+    .greeting-wrapper p::after {
+        content: '';
+        background-size: 100% .285rem;
+        background-image: linear-gradient(transparent .15rem, var(--tastey-brand-color) .135rem);
+        width: 2rem;
+        position: absolute;
+        top: .1rem;
+        height: .575rem;
+        right: -2.75rem;        
     }
 }
 
