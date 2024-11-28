@@ -318,8 +318,8 @@ hero-content-wrapper, .tastey-meals-carousel {
         right: -2.75rem;        
     }
     .tastey-meals-carousel {
-        --gradient-dark-color: rgb(0, 0, 0, .6);
-        --gradient-percent: 25%;
+        --gradient-dark-color: rgb(0, 0, 0, .65);
+        --gradient-percent: 28%;
     }
     .tastey-meals-carousel-controls {
         display: none;
