@@ -409,7 +409,7 @@ main.about-section {
 }
 
 .review-panel-container, .accreditation-sections {
-    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') center/100lvh no-repeat fixed, var(--darker-black);
+    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') center/cover no-repeat fixed, var(--darker-black);
 }
 
 .accreditation-sections-content, .review-panel-content {
