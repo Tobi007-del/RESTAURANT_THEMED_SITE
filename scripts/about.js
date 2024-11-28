@@ -17,7 +17,7 @@ archiveContentWrapper.innerHTML +=
                             <h4>${year}</h4>
                         </div>
                         <div class="archive-img-wrapper">
-                            <img src="${imgSrc}">
+                            <img src="${imgSrc}" alt="Image of ${event}" title="${event}">
                         </div>
                         <div class="archive-text-wrapper">
                             <h2>${event}</h2>

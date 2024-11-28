@@ -394,11 +394,11 @@ main.menu .main-menu-title-wrapper h3 {
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
-    background: var(--tastey-brand-accent-color);
     position: relative;
 }
 
 .tastey-meal-image {
+    --tastey-icon-size: 50%;
     position: absolute;
     top: 0;
     left: 0;
@@ -892,7 +892,6 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 
 .tastey-order-image-wrapper {
     flex: 0 0 25%;
-    background: var(--tastey-brand-accent-color);
     border-radius: .4rem;
     position: relative;
 }

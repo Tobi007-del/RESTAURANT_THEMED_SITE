@@ -108,6 +108,15 @@ a:hover {
     cursor: pointer;
 }
 
+img {
+    color: transparent;
+    min-width: 100%;
+    min-height: 100%;
+    --gradient-circle-size: 5rem;
+    --tastey-icon-size: 80%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.475), transparent 50%), center/var(--tastey-icon-size) no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
+}
+
 .Tastey-text {
     font-family: 'Times New Roman', Times, serif!important;
 }
@@ -672,7 +681,6 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     display: flex;
     align-items: center;
     position: relative;
-    background: var(--tastey-brand-accent-color);
     border-radius: .25rem;
 }
 
@@ -1352,7 +1360,6 @@ footer {
 }
 
 .footer-tastey-meal > a {
-    background: var(--tastey-brand-color);
     width: inherit;
     height: 4.65rem;
     position: relative;
@@ -1383,14 +1390,13 @@ footer {
     color: var(--current-theme-sub-color);
 }
 
-.footer-tastey-meal > a img {
+.footer-tastey-meal > a > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: 0% 0%;
     text-align: center;
     border-radius: inherit;
-    cursor: move;
 } 
 
 .footer-tastey-meal > p {

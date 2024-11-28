@@ -36,6 +36,9 @@ function tasteyFooterMenu() {
     document.querySelector(".footer-special-section > a").insertAdjacentElement('afterend', offersContainer)
 }
 
+//DOM operations
+getDOMElements()
+
 const footerAddToCartBtns = document.querySelectorAll(".footer-add-to-cart-button"), 
 footerSpecialSection = document.querySelector(".footer-special-section"),
 offersImgsWrapper = document.querySelector(".offers-imgs-wrapper"), 

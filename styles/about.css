@@ -409,7 +409,7 @@ main.about-section {
 }
 
 .review-panel-container, .accreditation-sections {
-    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') center/cover no-repeat fixed, var(--darker-black);
+    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') center/100lvh no-repeat fixed, var(--darker-black);
 }
 
 .accreditation-sections-content, .review-panel-content {
@@ -580,6 +580,8 @@ main.about-section {
 }
 
 .reviews > div > img {
+    min-width: unset;
+    min-height: unset;
     flex: 0 0 3rem;
     width: 3rem;
     height: 3rem;

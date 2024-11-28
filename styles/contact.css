@@ -50,7 +50,7 @@ h1,h2,h3,h4,h5,h6,p {
 
 .contact-form-wrapper-container {
     flex: 1 1 17.5rem;
-    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-3.png') no-repeat top/cover, var(--darker-black);
+    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-3.png') no-repeat top/cover, radial-gradient(35rem circle at center, rgba(255,255,255,0.475), transparent 40%), center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
     padding: .75rem;
 }
 
@@ -148,7 +148,7 @@ form .submit-btn:hover {
     flex-direction: column;
     justify-content: end;
     height: 100%;
-    background: url('../assets/tastey-meal-images/tastey_meal_two.jpg') no-repeat center/cover, var(--darker-black);
+    background: url('../assets/tastey-meal-images/tastey_meal_two.jpg') no-repeat center/cover, radial-gradient(35rem circle at center, rgba(255,255,255,0.475), transparent 40%), center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'),center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
     box-shadow: inset 10rem -10rem 15rem var(--current-theme-inverse-accent-color);
     gap: 1.1rem;
     padding-block-end: 2rem;
