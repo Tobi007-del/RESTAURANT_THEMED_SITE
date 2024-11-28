@@ -289,7 +289,7 @@ videos.forEach(video => {
                         break
                 case "arrowup":
                     e.preventDefault()
-                    if(video.volume < 1) {video.volume += (video.volume*100)%5 ? (0.05 - video.volume%0.05) : 0.05}
+                    if(video.volume < 1) video.volume += ((video.volume*100).toFixed()%5) ? (0.05 - video.volume%0.05) : 0.05
                     fire("volumeup")
                     break
                 case "arrowdown":
@@ -303,7 +303,7 @@ videos.forEach(video => {
                         video.volume = 0;
                         break
                     }
-                    if(video.volume) {video.volume -= ((video.volume*100).toFixed()%5) ? (video.volume%0.05) : 0.05}
+                    if(video.volume) video.volume -= ((video.volume*100).toFixed()%5) ? (video.volume%0.05) : 0.05
                     fire("volumedown")
             }
         }
@@ -446,7 +446,7 @@ videos.forEach(video => {
             
         function volumeState() {
             let { min, max, value, offsetWidth } = volumeSlider
-            value = video.volume * 100
+            value = (video.volume * 100).toFixed()
             videoContainer.querySelectorAll(".volume-up-notifier,.volume-down-notifier,.volume-muted-notifier").forEach((elem) => {
                 elem.dataset.volume = `${value}%`
             })
@@ -461,7 +461,7 @@ videos.forEach(video => {
             let volumePosition = `${((value - min) / (max - min)) * ((offsetWidth - 5) > 0 ? (offsetWidth - 5) : 40.5) }px`
             let volumePercent = `${((value-min) / (max - min)) * 100}%`
             volumeSlider.value = value
-            volumeSlider.dataset.volume = `${value.toFixed()}`
+            volumeSlider.dataset.volume = `${value}`
             volumeSlider.style.setProperty("--volume-position", volumePosition)
             volumeSlider.style.setProperty("--volume-percent", volumePercent)
             videoContainer.dataset.volumeLevel = volumeLevel

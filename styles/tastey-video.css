@@ -598,6 +598,7 @@ video::-webkit-media-text-track-display,video::-webkit-media-text-track-display-
 }
 
 .timeline .preview-img {
+    --tastey-icon-size: 40%;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -621,6 +622,7 @@ video::-webkit-media-text-track-display,video::-webkit-media-text-track-display-
 }
 
 .thumbnail-img {
+    --tastey-icon-size: 40%;
     position: absolute;
     top: 50%;
     left: 0;
