@@ -22,6 +22,35 @@ videos.forEach(video => {
                     <path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" />
                 </svg>
             </div>
+            <div class="notifiers captions-notifier">
+                <svg data-tooltip-text="Closed Captions(c)" data-tooltip-position="top">
+                    <path fill="currentColor" d="M18,11H16.5V10.5H14.5V13.5H16.5V13H18V14A1,1 0 0,1 17,15H14A1,1 0 0,1 13,14V10A1,1 0 0,1 14,9H17A1,1 0 0,1 18,10M11,11H9.5V10.5H7.5V13.5H9.5V13H11V14A1,1 0 0,1 10,15H7A1,1 0 0,1 6,14V10A1,1 0 0,1 7,9H10A1,1 0 0,1 11,10M19,4H5C3.89,4 3,4.89 3,6V18A2,2 0 0,0 5,20H19A2,2 0 0,0 21,18V6C21,4.89 20.1,4 19,4Z" />
+                </svg>
+            </div>
+            <div class="notifiers speed-notifier">
+                <p></p>
+            </div>
+            <div class="notifiers theatre-notifier">
+                <svg class="tall" data-tooltip-text="Theater Mode(t)" data-tooltip-position="top">
+                    <path fill="currentColor" d="M19 6H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 10H5V8h14v8z"/>
+                </svg>
+                <svg class="wide" data-tooltip-text="Normal Mode(t)" data-tooltip-position="top">
+                    <path fill="currentColor" d="M19 7H5c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 8H5V9h14v6z"/>
+                </svg>
+            </div>
+            <div class="notifiers full-screen-notifier">
+                <svg class="open" data-tooltip-text="Enter Full Screen(f)" data-tooltip-position="top">
+                    <path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                </svg>
+                <svg class="close" data-tooltip-text="Leave Full Screen(f)" data-tooltip-position="top">
+                    <path fill="currentColor" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+                </svg>
+            </div>            
+            <div class="notifiers volume-down-notifier">
+                <svg class="volume-down-notifier-icon">
+                    <path fill="currentColor" d="M5,9V15H9L14,20V4L9,9M18.5,12C18.5,10.23 17.5,8.71 16,7.97V16C17.5,15.29 18.5,13.76 18.5,12Z" />
+                </svg>
+            </div>
             <div class="notifiers volume-up-notifier">
                 <svg class="volume-up-notifier-icon" >
                     <path fill="currentColor" d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z" />
@@ -225,90 +254,94 @@ videos.forEach(video => {
         }        
 
         document.addEventListener("keydown", throttleKeyPresses(function(e) {
-        if(videoInView) {
-            const tagName = document.activeElement.tagName.toLowerCase()
-        
-            if(tagName === "input") return
-        
-            switch (e.key.toLowerCase()) {
-                case " ":
-                    if(tagName === "button") return
-                e.preventDefault()
-                case "p":
-                case "l":
-                case "a":
-                case "y":
-                case "k":
-                    togglePlay()
-                    break
-                case "f":
-                    toggleFullScreenMode()
-                    break
-                case "t":
-                    toggleTheaterMode()
-                    break
-                case "e":
-                    expandMiniPlayer()
-                    break
-                case "r":
-                    toggleMiniPlayerMode(false)
-                    break
-                case "i":
-                    if(!e.shiftKey)
-                        togglePictureInPictureMode()
-                        break
-                case "m":
-                    toggleMute()
-                    if(video.muted) fire("volumemuted") 
-                    else fire("volumeup")
-                    break
-                case "s": 
-                    changePlaybackSpeed()
-                    break
-                case "c":
-                    toggleCaptions()
-                    break
-                case "arrowleft":
-                        skip(-5)
-                        skipped = 5
-                        if(e.shiftKey) {
-                            skip(-10)
-                            skipped = 10
-                        }
-                        fire("bwd")
-                        break
-                case "arrowright":
-                    case "":
-                        skip(5)
-                        skipped = 5
-                        if(e.shiftKey) { 
-                            skip(10)
-                            skipped = 10
-                        }
-                        fire("fwd")
-                        break
-                case "arrowup":
+            if(videoInView) {
+                const tagName = document.activeElement.tagName.toLowerCase()
+            
+                if(tagName === "input") return
+            
+                switch (e.key.toLowerCase()) {
+                    case " ":
+                        if(tagName === "button") return
                     e.preventDefault()
-                    if(video.volume < 1) video.volume += ((video.volume*100).toFixed()%5) ? (0.05 - video.volume%0.05) : 0.05
-                    fire("volumeup")
-                    break
-                case "arrowdown":
-                    e.preventDefault()
-                    if(video.volume == 0) {
-                        fire("volumemuted")
+                    case "p":
+                    case "l":
+                    case "a":
+                    case "y":
+                    case "k":
+                        togglePlay()
                         break
-                    }
-                    if((video.volume*100).toFixed() == 5) {
-                        fire("volumemuted")
-                        video.volume = 0;
+                    case "f":
+                        toggleFullScreenMode()
+                        fire("fullScreen")
                         break
-                    }
-                    if(video.volume) video.volume -= ((video.volume*100).toFixed()%5) ? (video.volume%0.05) : 0.05
-                    fire("volumedown")
+                    case "t":
+                        toggleTheaterMode()
+                        fire("theatre")
+                        break
+                    case "e":
+                        expandMiniPlayer()
+                        break
+                    case "r":
+                        toggleMiniPlayerMode(false)
+                        break
+                    case "i":
+                        if(!e.shiftKey)
+                            togglePictureInPictureMode()
+                            break
+                    case "m":
+                        toggleMute()
+                        video.muted ? fire("volumemuted") : fire("volumeup")
+                        break
+                    case "s": 
+                        changePlaybackSpeed()
+                        fire("speed")
+                        break
+                    case "c":
+                        toggleCaptions()
+                        fire("captions")
+                        break
+                    case "arrowleft":
+                            skip(-5)
+                            skipped = 5
+                            if(e.shiftKey) {
+                                skip(-10)
+                                skipped = 10
+                            }
+                            fire("bwd")
+                            break
+                    case "arrowright":
+                        case "":
+                            skip(5)
+                            skipped = 5
+                            if(e.shiftKey) { 
+                                skip(10)
+                                skipped = 10
+                            }
+                            fire("fwd")
+                            break
+                    case "arrowup":
+                        e.preventDefault()
+                        if(video.volume < 1) video.volume += ((video.volume*100).toFixed()%5) ? (0.05 - video.volume%0.05) : 0.05
+                        fire("volumeup")
+                        break
+                    case "arrowdown":
+                        e.preventDefault()
+                        if(video.volume == 0) {
+                            fire("volumemuted")
+                            break
+                        }
+                        if((video.volume*100).toFixed() == 5) {
+                            fire("volumemuted")
+                            video.volume = 0;
+                            break
+                        }
+                        if(video.volume) video.volume -= ((video.volume*100).toFixed()%5) ? (video.volume%0.05) : 0.05
+                        fire("volumedown")
+                }
             }
-        }
-        })
+            })
         )
+    
 
         //Disabling right click
         video.addEventListener("contextmenu", e => e.preventDefault())
@@ -332,7 +365,7 @@ videos.forEach(video => {
             timelineContainer.addEventListener("pointerup", e => {
                 isScrubbing = false
                 toggleScrubbing(e)
-                timelineContainer.removeEventListener("pointermove",handleTimelineUpdate)
+                timelineContainer.removeEventListener("pointermove", handleTimelineUpdate)
                 timelineContainer.releasePointerCapture(e.pointerId)
             }, { once: true })
         })
@@ -378,6 +411,7 @@ videos.forEach(video => {
         function changePlaybackSpeed() {
             let newPlaybackRate = video.playbackRate + .25
             if (newPlaybackRate > 2) newPlaybackRate = .25
+            videoContainer.querySelector(".speed-notifier > p").textContent = `${newPlaybackRate}x`
             video.playbackRate = newPlaybackRate
         }
         
@@ -739,6 +773,7 @@ videos.forEach(video => {
             }
 
             function emptyListeners() {
+                videoContainer.classList.remove("movement")
                 videoContainer.classList.add("hover")
                 restraint()
                 videoContainer.removeEventListener("mousemove", handleMiniPlayerPosition)
@@ -749,7 +784,7 @@ videos.forEach(video => {
 
             function handleMiniPlayerPosition(e) {
                 e.preventDefault()
-                videoContainer.classList.remove("hover")
+                videoContainer.classList.add("movement")
                 const x = e.clientX ?? e.changedTouches[0].clientX,
                 y = e.clientY ?? e.changedTouches[0].clientY,
                 {innerWidth: ww, innerHeight: wh} = window,
@@ -758,8 +793,8 @@ videos.forEach(video => {
                 yR = 0,
                 posX = clamp(xR, ww - x - w/2, ww - w - xR),
                 posY = clamp(yR, wh - y - h/2, wh - h - yR)
-                videoContainer.style.setProperty("--mouse-x", `${posX/ww * 100}%`)
-                videoContainer.style.setProperty("--mouse-y", `${posY/wh * 100}%`)
+                videoContainer.style.setProperty("--mouse-x", `${(posX/ww * 100).toFixed()}%`)
+                videoContainer.style.setProperty("--mouse-y", `${(posY/wh * 100).toFixed()}%`)
             }            
         }
 
@@ -790,6 +825,22 @@ videos.forEach(video => {
         })
         notifiersContainer.addEventListener("volumemuted", () => {
             notifiersContainer.dataset.currentNotifier = "volumemuted"
+            emptyDataset()
+        })
+        notifiersContainer.addEventListener("captions", () => {
+            notifiersContainer.dataset.currentNotifier = "captions"
+            emptyDataset()
+        })
+        notifiersContainer.addEventListener("speed", () => {
+            notifiersContainer.dataset.currentNotifier = "speed"
+            emptyDataset()
+        })
+        notifiersContainer.addEventListener("theatre", () => {
+            notifiersContainer.dataset.currentNotifier = "theatre"
+            emptyDataset()
+        })
+        notifiersContainer.addEventListener("fullScreen", () => {
+            notifiersContainer.dataset.currentNotifier = "full-screen"
             emptyDataset()
         })
         notifiersContainer.addEventListener("fwd", () => {

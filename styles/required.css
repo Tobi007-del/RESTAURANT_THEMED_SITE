@@ -88,10 +88,6 @@ main.dev > div.dev-content > p {
     font-size: clamp(1.5rem,5vmin,2rem);
 }
 
-footer.delay {
-    display: none!important;
-}
-
 *:focus-visible {
     outline: .15rem solid var(--sub-text-color);
     outline-offset: .1rem;
@@ -113,7 +109,8 @@ img {
     min-width: 100%;
     min-height: 100%;
     --tastey-icon-size: 80%;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.475), transparent 50%), center/var(--tastey-icon-size) no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
+    --tastey-background-url: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png');
+    background: radial-gradient(circle at center, rgba(255,255,255,0.475), transparent 50%), center/var(--tastey-icon-size) no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), center/cover no-repeat var(--tastey-background-url), var(--darker-black);
 }
 
 .Tastey-text {
