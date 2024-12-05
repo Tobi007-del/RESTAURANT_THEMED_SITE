@@ -1,12 +1,8 @@
 export async function registerTasteyServiceWorker() {
-    if("serviceWorker" in navigator){
-        await navigator.serviceWorker.register('Tastey_service_worker.js')
-        .catch(function(error) {
-            console.log('Registration failed with ' + error);
-        })
-    } else {
+    if("serviceWorker" in navigator)
+        await navigator.serviceWorker.register('Tastey_service_worker.js').catch(error => console.log('Registration failed with ' + error))
+    else 
         console.error("Service workers are not supported.")
-    }
 }
 
 export function notificationQuery(title, options, type = "") {
@@ -28,16 +24,12 @@ export function notificationQuery(title, options, type = "") {
     ]
     if (Notification?.permission === "granted") {
         registerTasteyServiceWorker()
-        navigator.serviceWorker.ready.then(function(registration) {
-            registration.showNotification(title, options)
-        })
-    } else if (Notification && Notification.permission !== "denied") {
+        navigator.serviceWorker.ready.then(registration => registration.showNotification(title, options))
+    } else if (Notification && Notification?.permission !== "denied") {
         Notification.requestPermission().then(status => {
             if (status === "granted") {
                 registerTasteyServiceWorker()
-                navigator.serviceWorker.ready.then(function(registration) {
-                    registration.showNotification(title, options)
-                })
+                navigator.serviceWorker.ready.then(registration => registration.showNotification(title, options))
             } else {
                 alert(`You have to give notifiction permission to get the Tastey ${type} Notification`)
             }

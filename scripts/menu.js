@@ -236,17 +236,10 @@ clearCartBtn.addEventListener('click', handleClearCart)
 
 checkoutBtn.addEventListener('click', handleCheckout)
 
-likeIconWrappers.forEach((likeIconWrapper,i) => {
-    likeIconWrapper.addEventListener('click', () => {
-        handleLikes(i)
-    })
-})
+likeIconWrappers.forEach((likeIconWrapper,i) => likeIconWrapper.addEventListener('click', () => handleLikes(i))
+)
 
-tasteyMealsImages.forEach((tasteyMealsImage,i) => {
-    tasteyMealsImage.addEventListener('dblclick', () => {
-        handleLikes(i)
-    })
-})
+tasteyMealsImages.forEach((tasteyMealsImage,i) => tasteyMealsImage.addEventListener('dblclick', () => handleLikes(i)))
 
 //handling the panning of the food images
 panning(document.querySelectorAll(".tastey-meal-image, .tastey-order-image"))
@@ -287,12 +280,8 @@ window.addEventListener("resize", positionCards)
 window.addEventListener("scroll", scrollThrottler.throttle(onPageScroll,10))   
 window.addEventListener("scroll", scrollDebouncer.debounce(onPageScroll,250))
 
-quickScrollShow.addEventListener('click', () => {
-    categorySwitcherContainer.classList.toggle('show')
-})
-removeScrolls.addEventListener('click', () => {
-    categorySwitcherContainer.classList.remove('show')
-})
+quickScrollShow.addEventListener('click', () => categorySwitcherContainer.classList.toggle('show'))
+removeScrolls.addEventListener('click', () => categorySwitcherContainer.classList.remove('show'))
 
 continueShoppingBtn.addEventListener('click', e => {
     e.preventDefault()
@@ -324,9 +313,7 @@ function toggleMenu() {
     quickScrolls.classList.remove('show')
     categorySwitcherContainer.classList.remove('show')
     setTimeout(autoRemoveScroller, 200)
-    setTimeout(() => {
-        toggleMenuHeader(true)
-    })
+    setTimeout(toggleMenuHeader, 0, true)
 }
 
 function toggleCart() {
@@ -358,9 +345,7 @@ const tasteyObserver = new IntersectionObserver((entries) => {
         }
     })
 },{root:null,rootMargin:`-${remToPx(3.5)}px`,threshold:[0,.5,1]})
-menuHeaders.forEach(worthy => {
-    tasteyObserver.observe(worthy)
-})
+menuHeaders.forEach(worthy => tasteyObserver.observe(worthy))
 tasteyObserver.observe(tastey)
 
 //calling the stars maker function page startup

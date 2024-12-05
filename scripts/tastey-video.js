@@ -347,12 +347,8 @@ videos.forEach(video => {
         video.addEventListener("contextmenu", e => e.preventDefault())
         
         //Loading 
-        video.addEventListener("waiting", () => {
-            videoContainer.classList.add("buffer")
-        })
-        video.addEventListener("playing", () => {
-            videoContainer.classList.remove("buffer")
-        })
+        video.addEventListener("waiting", () => videoContainer.classList.add("buffer"))
+        video.addEventListener("playing", () => videoContainer.classList.remove("buffer"))
         
         //Timeline
         timelineContainer.addEventListener("mousemove", handleTimelineUpdate)
@@ -432,9 +428,7 @@ videos.forEach(video => {
         }
         
         //Duration
-        video.addEventListener("loadeddata", () => {
-            totalTimeElem.textContent = formatDuration(video.duration)
-        })
+        video.addEventListener("loadeddata", () => totalTimeElem.textContent = formatDuration(video.duration))
         
         video.addEventListener("timeupdate", () => {
             currentTimeElem.textContent = formatDuration(video.currentTime)
@@ -503,9 +497,8 @@ videos.forEach(video => {
         
         volumeState()
         
-        video.addEventListener("ended", () => {
-            videoContainer.classList.add("replay")
-        })
+        video.addEventListener("ended", () => videoContainer.classList.add("replay"))
+
         replayBtn.addEventListener("click", () => {
             video.currentTime = 0
             video.play()
@@ -551,9 +544,7 @@ videos.forEach(video => {
             })
         }
 
-        miniPlayerCancelBtn.addEventListener("click", () => {
-            toggleMiniPlayerMode(false) 
-        })
+        miniPlayerCancelBtn.addEventListener("click", () => toggleMiniPlayerMode(false))
 
         function toggleTheaterMode() {
             videoContainer.classList.toggle("theater")
@@ -758,9 +749,7 @@ videos.forEach(video => {
             }, 250)
         })
 
-        volumeSlider.parentElement.addEventListener("mouseup", () => {
-            if (hoverId) clearTimeout(hoverId)
-        })
+        volumeSlider.parentElement.addEventListener("mouseup", () => {if (hoverId) clearTimeout(hoverId)})
         
         function moveMiniPlayer(e){
             if (!e.target.classList.contains(".timeline-container") && !e.target.classList.contains("timeline") && e.target.tagName !== "button") {

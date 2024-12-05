@@ -114,9 +114,7 @@ audios.forEach(audio => {
                 timelineContainer.style.setProperty("--audio-progress-position", percent)
         }
 
-        audio.addEventListener("loadeddata", () => {
-            totalTimeElem.textContent = formatDuration(audio.duration)
-        })
+        audio.addEventListener("loadeddata", () => totalTimeElem.textContent = formatDuration(audio.duration))
 
         audio.addEventListener("timeupdate", () => {
             currentTimeElem.textContent = formatDuration(audio.currentTime)
@@ -178,9 +176,7 @@ audios.forEach(audio => {
 
         volumeState()
 
-        audio.addEventListener("ended", () => {
-            audioContainer.classList.add("replay")
-        })
+        audio.addEventListener("ended", () => audioContainer.classList.add("replay"))
 
         playPauseBtn.addEventListener("click", togglePlay)
 

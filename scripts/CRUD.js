@@ -18,12 +18,8 @@ currency = data.currency,
 maxOrders = data.maxOrders
 
 //queries to handle the present bag
-const bagQuery = () => {
-    return (document.body.dataset.bag === "true")
-}
-const miniBagQuery = () => {
-    return (document.body.dataset.miniBag === "true")
-}
+const bagQuery = () => {return (document.body.dataset.bag === "true")}
+const miniBagQuery = () => {return (document.body.dataset.miniBag === "true")}
 
 // // the code below fills up the cart immediately for development purposes
 // allMeals.forEach(({ id }) => {
@@ -102,7 +98,7 @@ if (getCardsQuery() && !weakTastey.getEmpty()) {
             setTimeout(() => {
                     if(tasteyMealOrders[i]?.matches(":hover"))
                         liftCard()
-            }, 1000)
+            }, 500)
         }
         function liftCard() {
             const currTop = Math.round(pxToRem(tasteyMealOrders[i].getBoundingClientRect()?.top))
@@ -222,10 +218,7 @@ function positionMiniCards() {
         for (let i = 0; i < mcTasteyMealOrders.length; i++) {
             mcTasteyMealOrders[i].style.setProperty('--mini-sticky-top', `${.25+(i*gap)}rem`)
             const buttons = mcTasteyMealOrders[i].querySelectorAll("button")
-            mcTasteyMealOrders[i].onclick = e => {
-                if (document.activeElement.tagName.toLowerCase() !== "button") 
-                    moveToCard()
-            }
+            mcTasteyMealOrders[i].onclick = () => {if (document.activeElement.tagName.toLowerCase() !== "button") moveToCard()}
             for (const button of buttons) {
                 button.onfocus = () => {
                     if (button.matches(':focus-visible')) 
@@ -493,43 +486,23 @@ function setCheckoutState() {
 function resetBagEventListeners() {
     if (bagQuery()) {
         for(let i = 0; i < tasteyMealOrders.length; i++) {
-            wishlistTogglers[i].onclick = () => {
-                handleWishlist(tasteyMealOrders[i]?.dataset.id,i)      
-            }
-            tasteyOrderImages[i].ondblclick = () => {
-                handleWishlist(tasteyMealOrders[i]?.dataset.id,i)  
-            }
-            deleteOrderBtns[i].onclick = () => {
-                handleDelete(tasteyMealOrders[i]?.dataset.id,i)
-            }
-            plusCartBtns[i].onclick = () => {
-                handleAddMeal(tasteyMealOrders[i].dataset.id,i)
-            }
+            wishlistTogglers[i].onclick = () => handleWishlist(tasteyMealOrders[i]?.dataset.id,i)      
+            tasteyOrderImages[i].ondblclick = () => handleWishlist(tasteyMealOrders[i]?.dataset.id,i)  
+            deleteOrderBtns[i].onclick = () => handleDelete(tasteyMealOrders[i]?.dataset.id,i)
+            plusCartBtns[i].onclick = () => handleAddMeal(tasteyMealOrders[i].dataset.id,i)
             plusCartBtns[i].classList.add('hover')
-            minusCartBtns[i].onclick = () => {                        
-                handleRemoveMeal(tasteyMealOrders[i]?.dataset.id,i)
-            }
+            minusCartBtns[i].onclick = () => handleRemoveMeal(tasteyMealOrders[i]?.dataset.id,i)
             setButtonState({i:i})
         }
     }
     if (miniBagQuery()) {
         for(let i = 0; i < mcTasteyMealOrders.length; i++) {
-            mcWishlistTogglers[i].onclick = () => {
-                handleWishlist(mcTasteyMealOrders[i]?.dataset.id,i)      
-            }
-            mcTasteyOrderImages[i].ondblclick =  () => {
-                handleWishlist(mcTasteyMealOrders[i]?.dataset.id,i)  
-            }
-            mcDeleteOrderBtns[i].onclick = () => {
-                handleDelete(mcTasteyMealOrders[i]?.dataset.id,i)
-            }
-            mcPlusCartBtns[i].onclick = () => {
-                handleAddMeal(mcTasteyMealOrders[i].dataset.id,i)
-            }
+            mcWishlistTogglers[i].onclick = () => handleWishlist(mcTasteyMealOrders[i]?.dataset.id,i)      
+            mcTasteyOrderImages[i].ondblclick =  () => handleWishlist(mcTasteyMealOrders[i]?.dataset.id,i)  
+            mcDeleteOrderBtns[i].onclick = () => handleDelete(mcTasteyMealOrders[i]?.dataset.id,i)
+            mcPlusCartBtns[i].onclick = () => handleAddMeal(mcTasteyMealOrders[i].dataset.id,i)
             mcPlusCartBtns[i].classList.add('hover')
-            mcMinusCartBtns[i].onclick = () => {                        
-                handleRemoveMeal(mcTasteyMealOrders[i]?.dataset.id,i)
-            }
+            mcMinusCartBtns[i].onclick = () => handleRemoveMeal(mcTasteyMealOrders[i]?.dataset.id,i)
             setButtonState({i:i})
         }        
     }
@@ -633,9 +606,7 @@ function handleDelete(id,i) {
                 removeCard(id)    
             if (miniBagQuery())
                 removeMiniCard(id)
-            setTimeout(() => {
-                deleteMeal(id,i)
-            }, removeStall)                        
+            setTimeout(deleteMeal, removeStall, id, i)                  
         }, removeStall);
     } catch(err) {
         alert("Error removing meal from bag :)") 
@@ -681,9 +652,7 @@ function handleClearCart() {
             if (miniBagQuery()) 
                 if (!document.querySelector(".mini-meal-cart").classList.contains("close"))
                     removeAllMiniCards()
-            setTimeout(() => {
-                clearCart()
-            }, emptyStall)
+            setTimeout(clearCart, emptyStall)
         }        
     } catch(err) {
         alert("Error occured while clearing bag :)")
@@ -696,7 +665,7 @@ function clearCart() {
     if (bagQuery()) {
         const allTasteyMealOrders = document.querySelectorAll(".tastey-meal-order")   
         allTasteyMealOrders.forEach(order => order.remove())
-        setTimeout(autoRemoveScroller,500)
+        setTimeout(autoRemoveScroller, 500)
     }
     if (miniBagQuery()) {
         const mcAllTasteyMealOrders = document.querySelectorAll(".mini-cart-tastey-meal-order")

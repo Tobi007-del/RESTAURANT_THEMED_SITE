@@ -1,8 +1,7 @@
 //fetch request for Tastey Meals data
 const data = fetch('./JSON/tastey_meals.json')
 .then(response => {
-    if(!response.ok) 
-        throw new Error(`HTTP error!. Status: ${response.status}`)
+    if(!response.ok) throw new Error(`HTTP error!. Status: ${response.status}`)
     return response.json()
 })
 .catch(error => {

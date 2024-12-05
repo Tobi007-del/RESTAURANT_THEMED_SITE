@@ -1,4 +1,4 @@
-export { tasteyThrottler, tasteyDebouncer, round, check, formatValue, standardize, clamp, isIterable, panning, scrollContentTo, asyncScrollToBottom, asyncScrollToTop, syncScrollToBottom, syncScrollToTop, remToPx, pxToRem, rand, positionGradient, stars, write, erase }
+export { tasteyThrottler, tasteyDebouncer, round, check, formatValue, standardize, clamp, isIterable, panning, scrollContentTo, syncScrollToBottom, syncScrollToTop, remToPx, pxToRem, rand, positionGradient, stars, write, erase }
 
 //Some utility functions for general use
 class tasteyDebouncer {
@@ -35,25 +35,17 @@ class tasteyThrottler {
         this.delay = delay
             
         return (...args) => {
-            if (this.timerFlag === null) {
-                mainFunction(...args)
-            }
+            if (this.timerFlag === null) mainFunction(...args)
             this.timerFlag = setTimeout(() => this.timerFlag = null, this.delay)
         }                    
     }
 }
 
-function rand(min,max) {
-    return (Math.floor(Math.random() * (max - min)) + min)
-}
+function rand(min,max) {return (Math.floor(Math.random() * (max - min)) + min)}
 
-function remToPx(value) {
-    return (parseFloat(getComputedStyle(document.documentElement).fontSize) * value)
-}
+function remToPx(value) {return (parseFloat(getComputedStyle(document.documentElement).fontSize) * value)}
 
-function pxToRem(value) {
-    return (value / parseFloat(getComputedStyle(document.documentElement).fontSize))
-}
+function pxToRem(value) {return (value / parseFloat(getComputedStyle(document.documentElement).fontSize))}
 
 //function to round data off to a fixed decimal point depending on the number for the discount
 function round(d) {
@@ -84,9 +76,7 @@ function formatter(curr) {
     })
 }
 
-function formatValue(currency, price) {
-        return formatter(currency).format(price).replace('NGN',"\u20A6")            
-}
+function formatValue(currency, price) {return formatter(currency).format(price).replace('NGN',"\u20A6")}
 
 function standardize(C, manner = "use ease"){
     //using number format API to format the number values
@@ -131,8 +121,7 @@ function standardize(C, manner = "use ease"){
 }
 
 function clamp(min, amount, max) {
-    return Math.min(Math.max(amount, min), max)
-}
+return Math.min(Math.max(amount, min), max)}
 
 function scrollContentTo(value, behavior="smooth", parent = document.documentElement, orientation = "vertical") {
     switch(orientation) {
@@ -148,24 +137,6 @@ function scrollContentTo(value, behavior="smooth", parent = document.documentEle
                 behavior: behavior
             })
     }
-}
-
-function asyncScrollToTop(behavior = "smooth", delay = 0, parent = document.documentElement) {        
-    setTimeout(function () {
-        parent.scrollTo({
-            top: 0,
-            behavior: behavior
-        })
-    }, delay);
-};
-
-function asyncScrollToBottom(behavior = "smooth", delay = 0, parent = document.documentElement) {
-    setTimeout(function () {
-        parent.scrollTo({
-            top: parent.scrollHeight,
-            behavior: behavior
-        })
-    }, delay);
 }
 
 function syncScrollToTop(behavior = "smooth", parent = document.documentElement) { 
@@ -245,19 +216,19 @@ function stars(stars) {
     let index = 0, interval = 1000;
 
     const animate = star => {
-        star.style.setProperty("--star-left", `${rand(-20,120)}%`);
-        star.style.setProperty("--star-top", `${rand(-20,120)}%`);
+        star.style.setProperty("--star-left", `${rand(-20,120)}%`)
+        star.style.setProperty("--star-top", `${rand(-20,120)}%`)
     
-        star.style.animation = "none";
-        star.offsetHeight;
-        star.style.animation = "";
+        star.style.animation = "none"
+        star.offsetHeight
+        star.style.animation = ""
     }
 
     for(const star of stars) {
         setTimeout(() => {
-            animate(star);
+            animate(star)
             setInterval(() => {
-                animate(star);
+                animate(star)
             }, 1000);
         }, index++ * (interval / 3))
     }

@@ -47,13 +47,9 @@ offerNextArrow = document.querySelector(".offer-next-arrow")
 
 panning(document.querySelectorAll('.offer-image'))
 
-document.querySelector(".view-bag").addEventListener("click", () => {
-    sessionStorage.open_cart = true
-})
+document.querySelector(".view-bag").addEventListener("click", () => sessionStorage.open_cart = true)
 
-footerAddToCartBtns.forEach(btn => {
-    btn.onclick = e => handleAddMeal(e.target.dataset.id, getOrderIndex(e.target.dataset.id))
-})
+footerAddToCartBtns.forEach(btn => btn.onclick = e => handleAddMeal(e.target.dataset.id, getOrderIndex(e.target.dataset.id)))
 
 let footerItv, footerInView = false, footerInterval = 2000
 const offerGap = remToPx(.6)

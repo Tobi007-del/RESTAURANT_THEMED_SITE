@@ -1,9 +1,7 @@
 import { scrollContentTo, tasteyThrottler } from "./utility-functions.js"
 
 
-window.addEventListener("load", function() { 
-    setTimeout(carousel)
-})
+window.addEventListener("load", () => setTimeout(carousel))
 
 function carousel() {
 //The vanilla javascript for the home page sliding carousel, a near perfect implementation
@@ -20,13 +18,9 @@ const interval = 2500,
 nClonedSlides = 1,
 nSlides = tasteyMeals.length,
 
-currentSlideIndex = () => {
-    return Math.round(tasteyMealsCarousel.scrollLeft/offsetWidth - nClonedSlides) 
-},
+currentSlideIndex = () => {return Math.round(tasteyMealsCarousel.scrollLeft/offsetWidth - nClonedSlides)} ,
 
-scrollCarouselTo = index => {
-    scrollContentTo(offsetWidth * (index + nClonedSlides), "smooth", tasteyMealsCarousel, "horizontal")
-},
+scrollCarouselTo = index => scrollContentTo(offsetWidth * (index + nClonedSlides), "smooth", tasteyMealsCarousel, "horizontal"),
 
 markToggler = index => {
     togglers[index].classList.add('active')
@@ -76,15 +70,11 @@ tasteyMealsCarousel.prepend(lastSlideClone)
 
 
 function rewind() {
-    setTimeout(() => {
-        scrollContentTo((offsetWidth * nClonedSlides), "instant", tasteyMealsCarousel, "horizontal")
-    }, 100)
+    setTimeout(scrollContentTo, 100, offsetWidth * nClonedSlides, "instant", tasteyMealsCarousel, "horizontal")
 }
 
 function forward() {
-    setTimeout(() => {
-        scrollContentTo(offsetWidth * (nSlides - 1 + nClonedSlides), "instant", tasteyMealsCarousel, "horizontal")
-    }, 100)
+    setTimeout(scrollContentTo, 100, offsetWidth * (nSlides - 1 + nClonedSlides), "instant", tasteyMealsCarousel, "horizontal")
 }
 
 //Autoplay 

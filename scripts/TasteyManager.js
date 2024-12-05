@@ -17,9 +17,7 @@ if (!sessionStorage.is_this_first_visit_to_Tastey) {
     window.addEventListener('load', displayWelcomeNotification)
 }
 
-document.querySelector('.nav-link:nth-of-type(3)').addEventListener('click', () => {
-    if(sessionStorage.open_cart) delete sessionStorage.open_cart
-})
+document.querySelector('.nav-link:nth-of-type(3)').addEventListener('click', () => {if(sessionStorage.open_cart) delete sessionStorage.open_cart})
 
 const burger = document.querySelector('.hamburger input')
 burger.addEventListener('change', e => {
