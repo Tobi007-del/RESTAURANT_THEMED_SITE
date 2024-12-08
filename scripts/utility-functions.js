@@ -120,8 +120,7 @@ function standardize(C, manner = "use ease"){
     }
 }
 
-function clamp(min, amount, max) {
-return Math.min(Math.max(amount, min), max)}
+function clamp(min, amount, max) {return Math.min(Math.max(amount, min), max)}
 
 function scrollContentTo(value, behavior="smooth", parent = document.documentElement, orientation = "vertical") {
     switch(orientation) {

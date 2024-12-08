@@ -38,7 +38,7 @@ html {
     background-color: var(--darker-black);
 }
 
-html, *::after, *::before, aside, button, input, textarea {
+html, *::after, *::before, aside, button, input, textarea, video::cue {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-kerning: normal;
 }

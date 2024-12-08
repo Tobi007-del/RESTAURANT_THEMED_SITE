@@ -191,18 +191,19 @@ console.log(`%cOrders in total: %c${standardize(this.ordersInTotal)}
         const value = Number(meal?.orders ?? 0)
         return value
     }
- 
-    getEmpty() {
-        return (this.tasteyRecord.tasteyOrders.length == 0)
-    }
 
-    getPositionValue(id) {
-        return this.tasteyRecord.tasteyOrders.findIndex(meal => Number(meal.id) === Number(id))
+    getOrdersPosition(id) {
+        return (this.tasteyRecord.tasteyOrders.findIndex(meal => Number(meal.id) === Number(id)) ?? 0 + 1)
     }
+    
     getLikeValue(id) {
         const like = this.tasteyRecord.likes.find(meal => Number(meal.id) === Number(id)) 
         return like?.like
-    }    
+    } 
+
+    getEmpty() {
+        return (this.tasteyRecord.tasteyOrders.length == 0)
+    }   
 }
 
 function store() {

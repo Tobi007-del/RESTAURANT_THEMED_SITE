@@ -299,13 +299,6 @@ function setLikeState(id) {
     })
 }        
 
-function setPositionStates() {
-    const dataPositionStates = document.querySelectorAll('[data-position]')
-    dataPositionStates.forEach(dataPositionState => {
-        dataPositionState.dataset.position = ((weakTastey.getPositionValue(dataPositionState.dataset.id) ?? 0) + 1)
-    })    
-}    
-
 //functions for specific tastey operations
 
 //a function for adding a meal to the page
@@ -547,7 +540,6 @@ function setButtonState({i,id}) {
 function updateStates(id) {
     weakTastey.calculateCheckoutDetails(allMeals, currency)
     setCartStates()
-    setPositionStates()
     setOrderStates(id)
     setCheckoutState()
 }

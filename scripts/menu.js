@@ -145,7 +145,7 @@ function tasteyBag() {
             const { label, category, price, serving, picSrc } = meal
             orderReviewSectionContent.innerHTML += 
             `
-                    <div class="tastey-meal-order" data-id="${id}" data-like="${weakTastey.getLikeValue(id) ?? false}" data-orders="${standardize(weakTastey.getOrdersValue(id))}" data-discount="${price.discount ?? 0}" data-position = "${(weakTastey.getPositionValue(id) ?? 0) + 1}">
+                    <div class="tastey-meal-order" data-id="${id}" data-like="${weakTastey.getLikeValue(id) ?? false}" data-orders="${standardize(weakTastey.getOrdersValue(id))}" data-discount="${price.discount ?? 0}">
                         <div class="tastey-meal-order-content">
                         <div class="tastey-order-image-wrapper">
                             <img class="tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
@@ -228,9 +228,7 @@ checkoutBtn = document.querySelector(".checkout-btn")
 getDOMElements()
 window.addEventListener('load', positionCards)
 
-addToCartBtns.forEach(btn => {
-    btn.onclick = e => handleAddMeal(e.target.dataset.id, getOrderIndex(e.target.dataset.id))
-})
+addToCartBtns.forEach(btn => btn.onclick = e => handleAddMeal(e.target.dataset.id, getOrderIndex(e.target.dataset.id)))
 
 clearCartBtn.addEventListener('click', handleClearCart)
 
