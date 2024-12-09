@@ -9,6 +9,7 @@ img, button, a {
 }
 
 :root {
+    --font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     --tastey-brand-color: #ed8f23;
     --tastey-brand-transparent-color: #ed8f2385;
     --tastey-brand-accent-color: #eb9634;
@@ -39,7 +40,7 @@ html {
 }
 
 html, *::after, *::before, aside, button, input, textarea, video::cue {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: var(--font-family);
     font-kerning: normal;
 }
 
