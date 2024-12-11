@@ -184,6 +184,7 @@ body {
 }
 
 .archive-content {
+    --archive-transition-time: 800ms;
     position: relative;
     flex: 0 1 25rem;
     min-width: 17.5rem;
@@ -201,22 +202,22 @@ body {
 
 .archive-content.visible {
     border-color: var(--tastey-brand-light-accent-color);
-    transition: border-color 800ms ease;
+    transition: border-color var(--archive-transition-time) ease;
 }
 
 .archive-content.visible h4 {
     color: var(--current-theme-sub-color);
-    transition: color 800ms ease;
+    transition: color var(--archive-transition-time) ease;
 }
 
 .archive-content.visible h2 {
     color: var(--tastey-brand-accent-color);
-    transition: color 800ms ease;
+    transition: color var(--archive-transition-time) ease;
 }
 
 .archive-content.visible p {
     color: var(--main-text-color);
-    transition: color 800ms ease;
+    transition: color var(--archive-transition-time) ease;
 }
 
 .archive-content.visible .open-menu-btn {
@@ -237,7 +238,7 @@ body {
 
 .archive-content.visible .open-menu-btn::before {
     background-color: var(--tastey-brand-color);
-    transition: 800ms ease;
+    transition: var(--archive-transition-time) ease;
     animation: shift 1.5s ease;
 }
 
