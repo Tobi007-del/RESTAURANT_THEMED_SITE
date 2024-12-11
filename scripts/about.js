@@ -41,11 +41,11 @@ function archiveUI() {
     if (window.innerHeight >= (archives[0].offsetHeight * 1.5)) {
         archives.forEach(archive => {
             if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(15))) && (archive.getBoundingClientRect().bottom > remToPx(20))) {
-                setTimelinePosition(archive.querySelector(".archive-time-wrapper > h4"))
-                setTimeout(() => {
+                archiveContentWrapper.addEventListener('transitionend', () => {
                     if ((archive.getBoundingClientRect().top < (window.innerHeight - remToPx(15))) && (archive.getBoundingClientRect().bottom > remToPx(20)))
                         archive.classList.add("visible")
-                }, 400)
+                }, {once: true})
+                setTimelinePosition(archive.querySelector(".archive-time-wrapper > h4"))
             } else {
                 archive.classList.remove("visible")
             }
@@ -54,10 +54,10 @@ function archiveUI() {
         archives.forEach(archive => {
             if ((archive.getBoundingClientRect().top < (window.innerHeight * .8)) && (archive.getBoundingClientRect().bottom > (remToPx(3) + window.innerHeight * .2))) {
                 setTimelinePosition(archive.querySelector(".archive-time-wrapper > h4"))
-                setTimeout(() => {
+                archiveContentWrapper.addEventListener('transitionend', () => {
                     if ((archive.getBoundingClientRect().top < (window.innerHeight * .8)) && (archive.getBoundingClientRect().bottom > (remToPx(3) + window.innerHeight * .2)))
                         archive.classList.add("visible")
-                }, 400)
+                }, {once: true})
             } else {
                 archive.classList.remove("visible")
             }
