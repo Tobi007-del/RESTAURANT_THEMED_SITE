@@ -1,6 +1,4 @@
-self.addEventListener('install', () => {
-  self.skipWaiting()
-})
+self.addEventListener('install', skipWaiting)
 
 self.addEventListener('notificationclick', e => {
     const url = page => {return new URL(page, self.location.origin).href}
