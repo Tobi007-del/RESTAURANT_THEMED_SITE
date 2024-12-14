@@ -39,6 +39,14 @@ video {
     height: var(--controls-size);
 }
 
+.hidden {
+    opacity: unset!important;
+}
+
+.hidden svg path {
+    fill: grey!important;
+}
+
 :where(button) {
     background: none;
     border: none;
