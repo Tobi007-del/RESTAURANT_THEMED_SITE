@@ -17,7 +17,7 @@ class tasteyDebouncer {
                 if(!immediate) mainFunction(...args)
             }
             this.callNow = immediate && !this.timerFlag
-            clearTimeout(this.timerFlag)
+            if(this.timerFlag) clearTimeout(this.timerFlag)
     
             this.timerFlag = setTimeout(this.later, this.delay)
             if(this.callNow) mainFunction(...args)
@@ -153,7 +153,7 @@ function syncScrollToBottom(behavior = "smooth", parent = document.documentEleme
 }
 
 function isIterable(obj) {  
-    return obj !== null && obj !== undefined && typeof obj[Symbol.iterator] === 'function';  
+    return obj !== null && obj !== undefined && typeof obj[Symbol.iterator] === 'function'
 }
 
 //A function to handle panning of images

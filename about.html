@@ -24,7 +24,7 @@
     <link rel="preload" href="assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png" as="image" type="image/jpg">
     <link rel="preload" href="assets/tastey-meal-icons/tastey-icon.png" as="image" type="image/jpg">
     <link rel="stylesheet" href="styles/required.css">
-    <link rel="stylesheet" href="styles/tastey-video.css">
+    <link rel="stylesheet" href="/TMG-video-prototype/prototype-2/prototype-2.css">
     <link rel="stylesheet" href="styles/tastey-audio.css">
     <link rel="stylesheet" href="styles/about.css">
     <link rel="stylesheet" href="styles/scroll-bar.css">
@@ -106,7 +106,7 @@
             <h2>THE TASTEY COMMERCIAL</h2>
         </div>
         <div class="video-content-wrapper">
-            <video data-controls="tastey-video-controls" data-media-title="The Tastey Commerical" data-media-artwork="assets/tastey-meal-images/tastey_bar.jpg" poster="assets/tastey-meal-images/tastey_bar.jpg">
+            <video tmgcontrols data-tmg-initial-mode="theater" poster="assets/tastey-meal-images/tastey_bar.jpg" data-tmg-media-title="The Tastey Commerical" data-tmg-preview-images-address="assets/tastey-dining-video-preview-imgs/preview$.jpg" data-tmg-preview-images-fps="2">
                 <source src="assets/videos/tastey-dining-video.mp4" type="video/mp4">
                 Tastey cannot seem to play the video 
                 <track kind="captions" srclang="en" src="assets/subtitles/tastey-dining-video.vtt" label="English">
@@ -320,8 +320,7 @@
             </div>
         </div>
     </footer>
-    <script src="scripts/tastey-video.js"></script>
-    <script src="scripts/tastey-audio.js"></script>
+    <script src="/TMG-video-prototype/prototype-2/prototype-2.js"></script>
     <script type="module" src="scripts/about.js"></script>
     <script type="module" src="scripts/mini-bag.js"></script>
     <script type="module" src="scripts/footer.js"></script>
