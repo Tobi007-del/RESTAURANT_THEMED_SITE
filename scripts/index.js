@@ -162,7 +162,7 @@ const resizeDebouncer = (delay=400, immediate=false) => {
 
     let resizeTimer
 
-    let later = function(e) {
+    let later = function() {
         resizeTimer = null
         if(!immediate) play()
     }
