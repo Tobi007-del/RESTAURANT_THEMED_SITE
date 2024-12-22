@@ -17,7 +17,7 @@
 ## Brief Description
 
 This project includes html files, css files in a styles folder and js files in a scripts folder and the assets folder containing all the extra materials used in development for the web pages of a restaurant website for The Tastey Restaurant.
-It is a 5 page website but connected to each other by internal links. The Contact and Reservation pages are still in the development phase.
+It is a 5 page website but connected to each other by internal links. The Reservation page is still in the development phase.
 It is a personal project and I would really like to describe it as just practice as I experimented a quite Uncommon user interefaces.
 
 ### Visusal Previews
