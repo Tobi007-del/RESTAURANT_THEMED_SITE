@@ -151,11 +151,7 @@ let accrediationSectionObserver = new IntersectionObserver((entries,observer) =>
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             if (entry.intersectionRatio > 0.2) {
-                    firstValue.textContent = "0";
-                    secondValue.textContent = "0";
-                    thirdValue.textContent = "0";
-                    fourthValue.textContent = "0";
-                    accreditationCounter()
+                accreditationCounter()
                 observer.unobserve(entry.target)
             }
         } 
