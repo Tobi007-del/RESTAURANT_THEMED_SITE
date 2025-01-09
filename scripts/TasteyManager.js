@@ -157,14 +157,14 @@ console.log(`%cOrders in total: %c${standardize(this.ordersInTotal)}
 %cTotal Amount: %c${formatValue(curr, this.totalAmount)}
 %cVAT: %c+${this.VAT}%
 %cTotal Cost: %c${formatValue(curr, this.totalCost)}`,
-"color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
-"color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
-"color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
-"color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
-"color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
-"color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
-"color: lightgrey; font-size: large; font-weight: bold;", "color: grey; font-size: large; font-weight: bold;",
-"color: lightgrey; font-size: large; font-weight: bold;", "color: green; font-size: large; font-weight: bold;")           
+"color: grey; font-size: large; font-weight: bold;", "color: lightgrey; font-size: large; font-weight: bold;",
+"color: grey; font-size: large; font-weight: bold;", "color: lightgrey; font-size: large; font-weight: bold;",
+"color: grey; font-size: large; font-weight: bold;", "color: lightgrey; font-size: large; font-weight: bold;",
+"color: grey; font-size: large; font-weight: bold;", "color: lightgrey; font-size: large; font-weight: bold;",
+"color: grey; font-size: large; font-weight: bold;", "color: lightgrey; font-size: large; font-weight: bold;",
+"color: grey; font-size: large; font-weight: bold;", "color: lightgrey; font-size: large; font-weight: bold;",
+"color: grey; font-size: large; font-weight: bold;", "color: lightgrey; font-size: large; font-weight: bold;",
+"color: grey; font-size: large; font-weight: bold;", "color: green; font-size: large; font-weight: bold;")           
         } catch (error) {
             console.error(`Error calculating checkout details: ${error}`)
         }
