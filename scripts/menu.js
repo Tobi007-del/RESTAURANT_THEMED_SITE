@@ -148,7 +148,7 @@ function tasteyBag() {
                     <div class="tastey-meal-order" data-id="${id}" data-like="${weakTastey.getLikeValue(id) ?? false}" data-orders="${standardize(weakTastey.getOrdersValue(id))}" data-discount="${price.discount ?? 0}">
                         <div class="tastey-meal-order-content">
                         <div class="tastey-order-image-wrapper">
-                            <img class="tastey-order-image" src="${picSrc}c" alt="Image of ${label}" title="${label}">
+                            <img class="tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
                             <span class="tooltip-text like-tooltip">Double tap to like!</span>
                             <span class="tooltip-text unlike-tooltip">Double tap to unlike</span>
                         </div>
