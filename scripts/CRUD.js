@@ -21,10 +21,10 @@ maxOrders = data.maxOrders
 const bagQuery = () => {return (document.body.dataset.bag === "true")}
 const miniBagQuery = () => {return (document.body.dataset.miniBag === "true")}
 
-// // the code below fills up the cart immediately for development purposes
-// allMeals.forEach(({ id }) => Tastey.addMeal(id, 1000))
+// the code below fills up the cart immediately for development purposes
+allMeals.forEach(({ id }) => Tastey.addMeal(id, 1000))
 
-// allMeals.forEach(({ id }) => Tastey.handleLikes(id, true))
+allMeals.forEach(({ id }) => Tastey.handleLikes(id, true))
 
 // the one-liner below clears the cart immediately for development purposes
 // window.localStorage.clear()
@@ -638,7 +638,7 @@ function handleClearCart() {
                 if (getCardsQuery()) 
                     removeAllCards()
             if (miniBagQuery()) 
-                if (!document.querySelector(".mini-meal-cart").classList.contains("close"))
+                if (getMiniCardsQuery())
                     removeAllMiniCards()
             setTimeout(clearCart, emptyStall)
         }        
