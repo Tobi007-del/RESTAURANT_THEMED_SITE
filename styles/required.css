@@ -10,6 +10,7 @@ img, button, a {
 
 :root {
     --font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    --T_M_G-video-font-family: var(--font-family);
     --tastey-brand-color: #ed8f23;
     --tastey-brand-transparent-color: #ed8f2385;
     --tastey-brand-accent-color: #eb9634;
