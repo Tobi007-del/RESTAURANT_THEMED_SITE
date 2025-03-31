@@ -99,10 +99,11 @@ It is a personal project and I would really like to describe it as just practice
   - menu.js
   - mini-bag.js
   - service-worker-helper.js
-  - tastey-audio.js
-  - tastey-video.js
+  - toast.js
+  - audio.js
+  - video.js
   - TasteyManager.js
-  - utility-functions.js
+  - utils.js
 - styles
   - about.css
   - contact.css

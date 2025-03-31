@@ -1,5 +1,6 @@
 *,*::after,*::before {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 img, button, a {
@@ -11,6 +12,7 @@ img, button, a {
 :root {
     --font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     --T_M_G-video-font-family: var(--font-family);
+    --t007-toast-background: rgb(from #eb9634 r g b/.4);
     --tastey-brand-color: #ed8f23;
     --tastey-brand-transparent-color: #ed8f2385;
     --tastey-brand-accent-color: #eb9634;
@@ -32,6 +34,12 @@ img, button, a {
     --attractive-color: greenyellow;
     --attractive-accent-color: rgb(181, 255, 69);
     --soft-red: rgb(255, 35, 35);
+}
+
+@keyframes spin {
+    to {
+        rotate: 360deg;
+    }
 }
 
 html {
@@ -91,9 +99,10 @@ main.dev > div.dev-content > p {
 }
 
 *:focus-visible {
-    outline: .15rem solid var(--sub-text-color);
-    outline-offset: .1rem;
+    outline-width: .15rem;
+    outline-color: var(--sub-text-color);
     outline-style: dashed;
+    outline-offset: .1rem;
 }
 
 a {
@@ -151,6 +160,87 @@ img {
     backdrop-filter: blur(5px);
 }
 
+html:has(.tastey-dialog[open]), body:has(.tastey-dialog[open]) {
+    overflow: hidden;
+}
+
+.tastey-dialog {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    background: var(--lighter-black);
+    max-width: 90%;
+    padding: 18px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    border: .05rem solid rgba(255, 255, 255, .25);
+    border-radius: 15px;
+}
+
+.tastey-dialog::backdrop {
+    background-color: var(--current-theme-inverse-transparent-color);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+.dialog-top-section {
+    padding-block: 12px;
+}
+
+.dialog-question {
+    color: var(--current-theme-fade-color);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.dialog-bottom-section {
+    align-self: flex-end;
+    display: flex;
+    gap: 10px;
+}
+
+.tastey-dialog button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.85rem;
+    height: 38px;
+    width: 80px;
+    border-radius: 20px;
+    border: none;
+    transition: 100ms ease;
+}
+
+.dialog-confirm-button {
+    color: var(--sub-text-color);
+    background-color: var(--attractive-color);
+}
+
+.dialog-cancel-button {
+    color: var(--attractive-accent-color);
+    background-color: var(--sub-text-color);
+    opacity: .9;
+}
+
+.tastey-dialog button:hover {
+    cursor: pointer;
+}
+
+.dialog-confirm-button:hover {
+    opacity: .9;
+}
+
+.dialog-cancel-button:hover {
+    opacity: 1;
+}
+
+.tastey-dialog button:focus-visible {
+    outline-style: solid;
+}
+
+.dialog-cancel-button:focus-visible {
+    outline-color: var(--attractive-color);
+}
+
 nav {
     background-color: var(--current-theme-main-color);
     width: 97.5%;
@@ -187,10 +277,62 @@ nav {
     gap: 1dvw;
 }
 
-.tastey-logo {
+div.tastey-logo {
     min-width: 2rem;
-    background: url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center center;
-    background-size: contain;
+    height: 2rem;
+    background: url('../assets/tastey-meal-icons/tastey-icon.png') no-repeat center center/contain;
+}
+
+.tastey-logo .magic-star {
+    --size: 5px;
+}
+
+.tastey-logo .magic-star > svg > path {
+    fill: black;
+}
+
+.magic {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 10rem;
+    opacity: 1;
+}
+
+.magic-star {
+    --size: clamp(20px,1.5dvw,30px);
+    display: block;
+    height: var(--size);
+    width: var(--size);
+    left: var(--star-left);
+    position: absolute;
+    top: var(--star-top);
+    animation: scale 700ms ease forwards;
+}
+@keyframes scale{
+    from,to {
+        transform: scale(0);
+    } 50% {
+        transform: scale(1);
+    }
+}
+
+.magic-star > svg {
+    display: block;
+    opacity: 0.7;
+    animation: rotate 1000ms linear infinite;
+}
+@keyframes rotate{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(180deg);
+    }
+}
+
+.magic-star > svg > path {
+    fill: var(--attractive-color);
 }
 
 .company-name-section span h3, .company-name-section span h6 {
@@ -772,12 +914,12 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 }
 
 .mini-cart-tastey-order-text-wrapper div:nth-of-type(2) button {
-    background-color: transparent;
     border: none;
     width: fit-content;
     padding: 0;
     margin: 0;
     border-radius: .1rem;
+    background-color: transparent;
     opacity: .95;
     display: flex;
     height: 1.5rem;
@@ -787,6 +929,10 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 .mini-cart-tastey-order-text-wrapper div:nth-of-type(2) button:hover {
     cursor: pointer;
     opacity: 1;
+}
+
+.mini-cart-tastey-order-text-wrapper div:nth-child(2) button span {
+    position: relative;
 }
 
 .mini-cart-tastey-meal-order[data-like="false"] .liked-heart-icon, .mini-cart-tastey-meal-order[data-like="true"] .unliked-heart-icon {
@@ -801,22 +947,47 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     fill: red;
 }
 
-.mini-cart-wishlist span svg.unliked-heart-icon {
-    width: 1.4rem;
-    height: 1.4rem;
-}
-
-.mini-cart-wishlist span svg.liked-heart-icon {
-    width: 1.2rem;
-    height: 1.4rem;
-}
-
 .mini-cart-delete-order span svg {
     fill: var(--main-text-color);
     position: relative;
     top: .11rem;
     width: 1.4rem;
     height: 1.4rem;
+}
+
+.mini-cart-wishlist-toggler span svg.unliked-heart-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+}
+
+.mini-cart-wishlist-toggler span svg.liked-heart-icon {
+    width: 1.2rem;
+    height: 1.4rem;
+}
+
+.mini-cart-tastey-meal-order.del-loading .mini-cart-delete-order,
+.mini-cart-tastey-meal-order.like-loading .mini-cart-wishlist-toggler {
+    pointer-events: none !important;
+}
+
+.mini-cart-tastey-meal-order.del-loading .mini-cart-delete-order span::before,
+.mini-cart-tastey-meal-order.like-loading .mini-cart-wishlist-toggler span::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: .95rem;
+    height: .95rem;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white grey grey grey;
+    animation: spin 1250ms infinite linear;
+}
+
+.mini-cart-tastey-meal-order.del-loading .mini-cart-delete-order svg,
+.mini-cart-tastey-meal-order.like-loading .mini-cart-wishlist-toggler svg {
+    fill: transparent;
 }
 
 .mini-cart-toggle-wrapper {
@@ -836,6 +1007,8 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 }
 
 .mini-cart-sign {
+    position: relative;
+    flex: 1 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -844,6 +1017,27 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     height: 5rem;
     border: none;
     opacity: .85;
+}
+
+.mini-cart-sign:hover {
+    cursor: not-allowed;
+}
+
+.mini-cart-sign svg {
+    fill: var(--current-theme-inverse-color);
+}
+
+.mini-cart-sign.hover {
+    background-color: transparent;
+}
+
+.mini-cart-sign.hover:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.mini-cart-sign.hover svg {
+    fill: var(--current-theme-fade-color);
 }
 
 .mini-cart-sign.disabled {
@@ -855,25 +1049,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     fill: var(--sub-text-color)!important;
 }
 
-.mini-cart-sign:hover {
-    cursor: not-allowed;
-}
-
-.mini-cart-sign svg {
-    fill: var(--current-theme-inverse-color);
-}
-
-.mini-cart-sign.hover svg {
-    fill: var(--current-theme-fade-color);
-}
-
-.mini-cart-sign.hover:hover {
-    cursor: pointer;
-    opacity: 1;
-}
-
 .mini-cart-add {
-    background-color: transparent;
     border-radius: 0 0 .25rem .25rem;
 }
 
@@ -887,8 +1063,25 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 }
 
 .mini-cart-minus.hover {
-    background-color: transparent;
     border-bottom: 1px solid var(--alt-sub-text-color);
+}
+
+.mini-cart-tastey-meal-order.del-loading .mini-cart-minus:not(.hover)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: .75rem;
+    height: .75rem;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white var(--current-theme-inverse-color) var(--current-theme-inverse-color) var(--current-theme-inverse-color);
+    animation: spin 1250ms infinite linear;
+}
+
+.mini-cart-tastey-meal-order.del-loading .mini-cart-minus:not(.hover) svg {
+    fill: transparent;    
 }
 
 .mini-cart-tastey-meal-order[data-orders="1"] .mini-cart-minus svg:first-child, .mini-cart-tastey-meal-order:not([data-orders="1"]) .mini-cart-minus svg:nth-child(2) {
@@ -899,10 +1092,52 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     display: none;
 }
 
-.mini-cart-number {
-    padding-inline: .2rem;
-    font-size: .85rem;
+.mini-cart-order-number {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    margin-inline: .25rem;
     color: var(--current-theme-fade-color);
+    font-size: .85rem;
+    max-width: 5ch;
+    white-space: nowrap;
+    overflow: auto;
+}
+
+.mini-cart-order-number::-webkit-scrollbar {
+    display: none;
+}
+
+.mini-cart-order-number::-moz-scrollbar {
+    display: none;
+}
+
+.mini-cart-order-number::-ms-scrollbar {
+    display: none;
+}
+
+.mini-cart-tastey-meal-order.loading .mini-cart-toggle {
+    pointer-events: none !important;
+}
+
+.mini-cart-tastey-meal-order.loading .mini-cart-order-number {
+    transition: none;
+    color: transparent;
+}
+
+.mini-cart-tastey-meal-order.loading .mini-cart-order-number::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    aspect-ratio: 1 / 1;
+    width: min(.75rem, 100%);
+    height: auto;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white grey grey grey;
+    animation: spin 1250ms infinite linear;
 }
 
 .mini-cart-checkout {
@@ -1450,6 +1685,30 @@ footer {
     top: 100%;
     font-size: .6rem;
     color: var(--sub-text-color);
+}
+
+.footer-tastey-meal.loading .footer-add-to-cart-button {
+    transition: none;
+    color: transparent;
+    pointer-events: none!important;
+}
+
+.footer-tastey-meal.loading .footer-add-to-cart-button:not([data-orders="0"])::after {
+    content: '-- in Shopping Bag';
+}
+
+.footer-tastey-meal.loading .footer-add-to-cart-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: .65rem;
+    height: .65rem;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white grey grey grey;
+    animation: spin 1250ms infinite linear;
 }
 
 .footer-bottom-section {

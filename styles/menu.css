@@ -2,7 +2,13 @@
     --global-light-width: 35rem;
     --global-mouse-x: 50%;
     --global-mouse-y: 14rem;
-    --global-light-color: rgba(255,255,255,0.475);--global-light-complement-color: transparent;
+    --global-light-color: rgba(255,255,255,0.475);
+    --global-light-complement-color: transparent;
+}
+
+body::before, .tastey-meal::before, .checkout-section::before, .order-number-wrapper::before,
+.tastey-meal-order::before, .tastey-meal::after, .checkout-section::after, .order-number-wrapper::after, .tastey-meal-order::after {
+    will-change: background;
 }
 
 body::before {
@@ -264,53 +270,8 @@ main.menu .main-menu-title-wrapper h3 {
     opacity: 0!important;
 }
 
-#magic, .attention-grabber, .attention-grabber-two {
+.attention-grabber, .attention-grabber-two, #magic {
     transition: opacity 500ms ease;
-}
-
-#magic {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: 10rem;
-    opacity: 1;
-}
-
-.magic-star {
-    --size: clamp(20px,1.5dvw,30px);
-    display: block;
-    height: var(--size);
-    width: var(--size);
-    left: var(--star-left);
-    position: absolute;
-    top: var(--star-top);
-    animation: scale 700ms ease forwards;
-}
-@keyframes scale{
-    from,to {
-        transform: scale(0);
-    }
-    50%{
-        transform: scale(1);
-    }
-}
-
-.magic-star > svg {
-    display: block;
-    opacity: 0.7;
-    animation: rotate 1000ms linear infinite;
-}
-@keyframes rotate{
-    from{
-        transform: rotate(0deg);
-    }
-    to{
-        transform: rotate(180deg);
-    }
-}
-
-.magic-star > svg > path {
-    fill: var(--attractive-color);
 }
 
 .menu-sections {
@@ -466,6 +427,7 @@ main.menu .main-menu-title-wrapper h3 {
 }
 
 .heart-icon-wrapper {
+    position: relative;
     display: block;
     border: none;
     padding: 0;
@@ -482,6 +444,28 @@ main.menu .main-menu-title-wrapper h3 {
 
 .heart-icon-wrapper:hover {
     cursor: pointer;
+}
+
+.tastey-meal.like-loading .heart-icon-wrapper {
+    pointer-events: none!important;
+}
+
+.tastey-meal.like-loading .heart-icon-wrapper svg {
+    fill: transparent;
+}
+
+.tastey-meal.like-loading .heart-icon-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: .95rem;
+    height: .95rem;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white grey grey grey;
+    animation: spin 1250ms infinite linear;
 }
 
 .liked-heart-icon {
@@ -624,7 +608,7 @@ main.menu .main-menu-title-wrapper h3 {
     opacity: .75!important;
 }
 
-.add-to-cart-button:hover {
+.add-to-cart-button:is(:hover, :focus-visible) {
     cursor: pointer;
     transform: scale(1.02);
     background-color: var(--tastey-brand-color);
@@ -644,6 +628,32 @@ main.menu .main-menu-title-wrapper h3 {
 
 .add-to-cart-button[data-orders="0"]::after {
     display: none;
+}
+
+body.cart.clear-loading .clear-cart-btn,
+.tastey-meal.loading .add-to-cart-button {
+    color: transparent;
+    transition: none;
+    pointer-events: none!important;
+}
+
+.tastey-meal.loading .add-to-cart-button:not([data-orders="0"])::after {
+    content: '-- in Shopping Bag';
+}
+
+body.cart.clear-loading .clear-cart-btn::before,
+.tastey-meal.loading .add-to-cart-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white grey grey grey;
+    animation: spin 1250ms infinite linear;
 }
 
 .product-price {
@@ -675,7 +685,7 @@ main.menu .main-menu-title-wrapper h3 {
     transition: 250ms ease-in-out;
 }
 
-.tastey-meal:not([data-discount="0"]):hover .product-price::after {
+.tastey-meal:not([data-discount="0"]):is(:hover, :has(:focus-visible)) .product-price::after {
     scale: 1;
     color: var(--current-theme-sub-color);
 }
@@ -906,7 +916,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     padding-block-end: 1.5rem;
 }
 
-.tastey-order-text {
+.tastey-order-text-wrapper {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -926,13 +936,13 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     color: var(--sub-text-color);
 }
 
-.tastey-order-text div:first-child {
+.tastey-order-text-wrapper div:first-child {
     display: flex;
     flex-direction: column;
     gap: 1.15rem;
 }
 
-.tastey-order-text div:nth-child(2) {
+.tastey-order-text-wrapper div:nth-child(2) {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -940,7 +950,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     gap: 1rem;
 }
 
-.tastey-order-text div:nth-child(2) button {
+.tastey-order-text-wrapper div:nth-child(2) button {
     font-size: .9rem;
     font-weight: bold;
     display: inline-flex;
@@ -950,40 +960,64 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     background-color: transparent;
     border: none;
     border-radius: .001rem;
+    opacity: .95;
 }
 
-.tastey-order-text div:nth-child(2) button p {
+.tastey-order-text-wrapper div:nth-child(2) button:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.tastey-order-text-wrapper div:nth-child(2) button span {
+    position: relative;
+}
+
+.tastey-order-text-wrapper div:nth-child(2) button p {
     margin: 0;
     height: min-content;
     font-size: .9rem;
     color: var(--current-theme-fade-color);
 }
 
-.tastey-order-text div:nth-child(2) button {
-    opacity: .95;
-}
-
-.tastey-order-text div:nth-child(2) button:hover {
-    cursor: pointer;
-    opacity: 1;
-}
-
-.delete-order svg {
-    position: relative;
+.delete-order span svg {
     top: .05rem;
     fill: var(--current-theme-fade-color);
     width: 1.3rem;
     height: 1.3rem;                             
 }
 
-.wishlist span svg.unliked-heart-icon {
+.wishlist-toggler span svg.unliked-heart-icon {
     width: 1.3rem;
     height: 1.3rem;
 }
 
-.wishlist span svg.liked-heart-icon {
+.wishlist-toggler span svg.liked-heart-icon {
     width: 1.1rem;
     height: 1.15rem;
+}
+
+.tastey-meal-order.del-loading .delete-order, 
+.tastey-meal-order.like-loading .wishlist-toggler {
+    pointer-events: none!important;
+}
+
+.tastey-meal-order.del-loading .delete-order span::before, 
+.tastey-meal-order.like-loading .wishlist-toggler span::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: .95rem;
+    height: .95rem;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white grey grey grey;
+    animation: spin 1250ms infinite linear;
+}
+
+.tastey-meal-order.del-loading .delete-order svg, .tastey-meal-order.like-loading .wishlist-toggler svg {
+    fill: transparent;
 }
 
 .tastey-order-price-wrapper {
@@ -1034,12 +1068,14 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     display: inline-flex;
     border: 1px solid var(--sub-text-color);
     align-items: center;
-    gap: 1rem;
     border-radius: .25rem;
     width: fit-content;
+    gap: .95rem;
 }
 
 .sign {
+    position: relative;
+    flex: 1 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1047,6 +1083,28 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     height: 2.25rem;
     opacity: .85;
     border: none;
+    background-color: transparent;
+}
+
+.sign:hover {
+    cursor: not-allowed;
+}
+
+.sign svg {
+    fill: var(--current-theme-inverse-color);
+}
+
+.sign.hover {
+    background-color: transparent;
+}
+
+.sign.hover:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.sign.hover svg {
+    fill: var(--current-theme-fade-color);
 }
 
 .sign.disabled {
@@ -1058,26 +1116,8 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     fill: var(--sub-text-color)!important;
 }
 
-.sign:hover {
-    cursor: not-allowed;
-}
-
-.sign svg {
-    fill: var(--current-theme-inverse-color);
-}
-
-.sign.hover svg {
-    fill: var(--current-theme-fade-color);
-}
-
-.sign.hover:hover {
-    cursor: pointer;
-    opacity: 1;
-}
-
 .add {
     border-radius: 0 .25rem .25rem 0;
-    background-color: transparent;
 }
 
 .add.hover {
@@ -1090,8 +1130,25 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 }
 
 .minus.hover {
-    background-color: transparent;
     border-right: 1px solid var(--sub-text-color);
+}
+
+.tastey-meal-order.del-loading .minus:not(.hover)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: .9rem;
+    height: .9rem;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white var(--current-theme-inverse-color) var(--current-theme-inverse-color) var(--current-theme-inverse-color);
+    animation: spin 1250ms infinite linear;
+}
+
+.tastey-meal-order.del-loading .minus:not(.hover) svg {
+    fill: transparent;    
 }
 
 .tastey-meal-order[data-orders="1"] .minus svg:first-child, .tastey-meal-order:not([data-orders="1"]) .minus svg:nth-child(2) {
@@ -1102,9 +1159,50 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     display: none;
 }
 
-.cart-number {
+.cart-order-number {
+    position: relative;
+    display: inline-block;
     margin: 0;
     color: var(--current-theme-fade-color);
+    font-size: 1rem;
+    max-width: 5ch;
+    white-space: nowrap;
+    overflow: auto;
+}
+
+.cart-order-number::-webkit-scrollbar {
+    display: none;
+}
+
+.cart-order-number::-moz-scrollbar {
+    display: none;
+}
+
+.cart-order-number::-ms-scrollbar {
+    display: none;
+}
+
+.tastey-meal-order.loading .cart-toggle {
+    pointer-events: none!important;
+}
+
+.tastey-meal-order.loading .cart-order-number {
+    color: transparent;
+}
+
+.tastey-meal-order.loading .cart-order-number::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    aspect-ratio: 1 / 1;
+    width: min(.9rem, 100%);
+    height: auto;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white grey grey grey;
+    animation: spin 1250ms infinite linear;
 }
 
 .serving-size {
@@ -1217,6 +1315,7 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
 }
 
 .clear-cart-btn {
+    position: relative;
     width: 75%;
     aspect-ratio: 6 / 1;
     height: 2.25rem;
@@ -1270,16 +1369,16 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         height: 14rem;
         margin-block: auto;
     }
-    .tastey-order-text div:first-child {
+    .tastey-order-text-wrapper div:first-child {
         gap: .5rem;
     }
-    .tastey-order-text h1 {
+    .tastey-order-text h2 {
         font-size: 1.3rem;
     }
     .tastey-order-text p {
         font-size: .9rem;
     }
-    .tastey-order-text div:nth-child(2) {
+    .tastey-order-text-wrapper div:nth-child(2) {
         justify-content: center;
         padding-block: 1.5rem;
     }
@@ -1320,14 +1419,14 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     .tastey-order-image-wrapper {
         min-width: 100%;
     }
-    .tastey-order-text {
+    .tastey-order-text-wrapper {
         width: 100%;
         align-items: center;
     }
-    .tastey-order-text div:first-child {
+    .tastey-order-text-wrapper div:first-child {
         text-align: center;
     }
-    .tastey-order-text div:first-child button {
+    .tastey-order-text-wrapper div:first-child button {
         margin-inline: auto;
     }
 }
@@ -1425,11 +1524,11 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
         .tastey-meal-order:not(:nth-child(2),:nth-child(3),:nth-child(4))::after {
             content: counter(cards) "th";
         }
-        .tastey-order-text div:first-child h2 {
+        .tastey-order-text-wrapper div:first-child h2 {
             text-align: left;
             width: 100%;
         }
-        .tastey-order-text h2:hover {
+        .tastey-order-text-wrapper h2:hover {
             text-decoration: underline;
             cursor: pointer;
         }
@@ -1444,9 +1543,6 @@ body.cart:hover .checkout-section::before, body.cart:hover .order-number-wrapper
     }
     .cart-toggle {
         width: 10rem;
-    }
-    .sign {
-        flex: 1 1 5rem;
     }
 }
 

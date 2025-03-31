@@ -1,6 +1,6 @@
-import { allMeals, currency, maxOrders, getOrderIndex, handleAddMeal, getDOMElements } from "./CRUD.js"
-import { weakTastey } from "./TasteyManager.js"
-import { tasteyThrottler, check, formatValue, standardize, panning, scrollContentTo, remToPx, tasteyDebouncer } from "./utility-functions.js"
+import { allMeals, currency, maxOrders, handleAddMeal, getDOMElements } from "./CRUD.js"
+import { Tastey } from "./TasteyManager.js"
+import { tasteyThrottler, check, formatValue, standardize, panning, scrollContentTo, remToPx, tasteyDebouncer } from "./utils.js"
 
 tasteyFooterMenu()
 
@@ -20,14 +20,15 @@ function tasteyFooterMenu() {
     menuContainer.className = "offers-imgs-wrapper"
     allMeals.forEach(({ id, label, price, picSrc }) => {
         if (price.discount !== null) {
+            const orders = Tastey.getOrdersValue(id)
             menuContainer.innerHTML += 
             `
                 <div class="footer-tastey-meal" data-id="${id}">
                     <a href="menu.html" title="Open Menu" data-discount="${price.discount ?? 0}">
-                        <img src="${picSrc}" alt="Image of ${label}" title="${label}" class="offer-image">
+                        <img src="${picSrc}" loading="lazy" alt="Image of ${label}" title="${label}" class="offer-image">
                     </a>
                     <p>${formatValue(currency,check(price.currentValue,price.discount))}</p>
-                    <button type="button" title="Add ${label} to Bag" class="footer-add-to-cart-button" data-id="${id}" data-orders="${standardize(weakTastey.getOrdersValue(id))}" tabindex="${weakTastey.getOrdersValue(id) >= maxOrders ? -1 : 0}">Add to Bag</button>
+                    <button type="button" title="Add ${label} to Bag" class="footer-add-to-cart-button ${orders >= maxOrders ? "disabled" : ""}" data-id="${id}" data-orders="${standardize(orders)}" tabindex="${orders >= maxOrders ? -1 : 0}">Add to Bag</button>
                 </div>
             `
         }
@@ -49,7 +50,7 @@ panning(document.querySelectorAll('.offer-image'))
 
 document.querySelector(".view-bag").addEventListener("click", () => sessionStorage.open_cart = true)
 
-footerAddToCartBtns.forEach(btn => btn.onclick = e => handleAddMeal(e.target.dataset.id, getOrderIndex(e.target.dataset.id)))
+footerAddToCartBtns.forEach(btn => btn.onclick = e => handleAddMeal(e.target.dataset.id))
 
 let footerItv, footerInView = false, footerInterval = 2000
 const offerGap = remToPx(.6)
@@ -72,8 +73,7 @@ const footerObserver = new IntersectionObserver(entries => {
         if (entry.isIntersecting) {
             playOffers()       
             footerInView = true
-        }
-        else {
+        } else {
             stopOffers()
             footerInView = false
         } 
@@ -89,9 +89,7 @@ function playOffers() {
     footerItv = setInterval(() => {
         nextOffer() 
         const value = 0
-        if ((offersImgsWrapper.scrollLeft + offersImgsWrapper.parentElement.getBoundingClientRect().width) > (offersImgsWrapper.scrollWidth - (document.querySelectorAll(".footer-tastey-meal")[0].getBoundingClientRect().width))) {
-            scrollContentTo(value, "instant", offersImgsWrapper, "horizontal")
-        }
+        if ((offersImgsWrapper.scrollLeft + offersImgsWrapper.parentElement.getBoundingClientRect().width) > (offersImgsWrapper.scrollWidth - (document.querySelectorAll(".footer-tastey-meal")[0].getBoundingClientRect().width))) scrollContentTo(value, "instant", offersImgsWrapper, "horizontal")
     }, footerInterval)
 }
 
@@ -126,7 +124,7 @@ offersImgsWrapper.parentElement.addEventListener("touchstart", () => {
 offersImgsWrapper.parentElement.addEventListener("touchend", () => {
     touchTimer = setTimeout(() => {
         if (offersImgsWrapper.matches(':hover')) return
-            playOffers()
+        playOffers()
     }, 2000)
 }, {useCapture: true, passive: true})
 
@@ -138,9 +136,8 @@ document.addEventListener('keydown', keyThrottler.throttle(function(e) {
         const tagName = document.activeElement.tagName.toLowerCase()
         if(tagName  === "input") return
         if (footerKeyTimer) clearTimeout(footerKeyTimer)
-            stopOffers()
+        stopOffers()
         footerKeyTimer = setTimeout(playOffers, 2000)
-
         switch(e.key.toLowerCase()) {
             case "arrowright" :
                 nextOffer()

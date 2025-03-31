@@ -1,4 +1,4 @@
-import { scrollContentTo, tasteyThrottler } from "./utility-functions.js"
+import { scrollContentTo, tasteyThrottler } from "./utils.js"
 
 
 window.addEventListener("load", () => setTimeout(carousel))

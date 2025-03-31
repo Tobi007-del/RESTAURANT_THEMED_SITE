@@ -1,4 +1,4 @@
-export { tasteyThrottler, tasteyDebouncer, round, check, formatValue, standardize, clamp, isIterable, panning, scrollContentTo, syncScrollToBottom, syncScrollToTop, remToPx, pxToRem, rand, positionGradient, stars, write, erase }
+export { tasteyThrottler, tasteyDebouncer, round, check, formatValue, formatLabel, standardize, clamp, isIterable, panning, scrollContentTo, syncScrollToBottom, syncScrollToTop, remToPx, pxToRem, rand, positionGradient, stars, handleContentEditableEnterKeyPress, write, erase }
 
 //Some utility functions for general use
 class tasteyDebouncer {
@@ -78,6 +78,12 @@ function formatter(curr) {
 
 function formatValue(currency, price) {return formatter(currency).format(price).replace('NGN',"\u20A6")}
 
+function formatLabel(label, qty) {
+    if (qty <= 1) 
+        label = label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label
+    return label
+}
+
 function standardize(C, manner = "use ease"){
     //using number format API to format the number values
     const WN = new Intl.NumberFormat('en',{
@@ -156,7 +162,6 @@ function isIterable(obj) {
     return obj !== null && obj !== undefined && typeof obj[Symbol.iterator] === 'function'
 }
 
-//A function to handle panning of images
 function panning(elements) {
     if (isIterable(elements)) {
         for (const element of elements) {
@@ -165,6 +170,7 @@ function panning(elements) {
     } else {
         pan(elements)
     }
+    let panningTicker = false
     function pan(element) {
         element.style.cursor = "move"
         element.style.objectFit = "cover"
@@ -173,33 +179,43 @@ function panning(elements) {
         element.dataset.xPrevPercentage = 0
         element.dataset.yPointerDownAt = 0
         element.dataset.yPrevPercentage = 0
-        element.onpointerenter = e => {
+        element.addEventListener("pointerenter", e => {
+            e.stopImmediatePropagation()
             element.dataset.xPointerDownAt = e.clientX
             element.dataset.yPointerDownAt = e.clientY
-        }
-        element.onpointerleave = () => {
+        })
+        element.addEventListener("pointerleave", e => {
+            e.stopImmediatePropagation()
             element.dataset.xPointerDownAt = 0
             element.dataset.yPointerDownAt = 0
             element.dataset.xPrevPercentage = element.dataset.xPercentage
             element.dataset.yPrevPercentage = element.dataset.yPercentage
-        }
-        element.onpointermove = e => {
-            let xPointerDelta = e.clientX - parseFloat(element.dataset.xPointerDownAt),
-            yPointerDelta = e.clientY - parseFloat(element.dataset.yPointerDownAt),
-            xMaxDelta = element.offsetWidth,
-            yMaxDelta = element.offsetHeight,
-            xp = (xPointerDelta / xMaxDelta) * 100,
-            yp = (yPointerDelta / yMaxDelta) * 100,
-            xNextPercentage = parseFloat(element.dataset.xPrevPercentage) + xp,
-            yNextPercentage = parseFloat(element.dataset.yPrevPercentage) + yp
-            xNextPercentage = clamp(-50,xNextPercentage,0)
-            yNextPercentage = clamp(-50,yNextPercentage,0)
-            element.dataset.xPercentage = xNextPercentage
-            element.dataset.yPercentage = yNextPercentage
-            element.animate({
-                objectPosition: `${xNextPercentage * -2}% ${yNextPercentage * -2}%`
-            },{duration: 100,fill:"forwards"})
-        }
+        })
+        element.addEventListener("pointermove", e => {
+            e.stopImmediatePropagation()
+            if (panningTicker) return
+            requestAnimationFrame(() => {
+                let xPointerDelta = e.clientX - parseFloat(element.dataset.xPointerDownAt),
+                yPointerDelta = e.clientY - parseFloat(element.dataset.yPointerDownAt),
+                xMaxDelta = element.offsetWidth,
+                yMaxDelta = element.offsetHeight,
+                xp = (xPointerDelta / xMaxDelta) * 100,
+                yp = (yPointerDelta / yMaxDelta) * 100,
+                xNextPercentage = parseFloat(element.dataset.xPrevPercentage) + xp,
+                yNextPercentage = parseFloat(element.dataset.yPrevPercentage) + yp
+                xNextPercentage = clamp(-50,xNextPercentage,0)
+                yNextPercentage = clamp(-50,yNextPercentage,0)
+                requestAnimationFrame(() => {
+                    element.dataset.xPercentage = xNextPercentage
+                    element.dataset.yPercentage = yNextPercentage
+                    element.animate({
+                        objectPosition: `${(xNextPercentage * -2) || 0}% ${(yNextPercentage * -2) || 0}%`
+                    },{duration: 100,fill:"forwards"})
+                })
+                panningTicker = false
+            })
+            panningTicker = true
+        })
     }
 }
 
@@ -212,9 +228,10 @@ function positionGradient(event,card) {
 }
 
 function stars(stars) {
-    let index = 0, interval = 1000;
+    let index = 0, interval = 1000
 
     const animate = star => {
+        // return
         star.style.setProperty("--star-left", `${rand(-20,120)}%`)
         star.style.setProperty("--star-top", `${rand(-20,120)}%`)
     
@@ -230,6 +247,13 @@ function stars(stars) {
                 animate(star)
             }, 1000);
         }, index++ * (interval / 3))
+    }
+}
+
+function handleContentEditableEnterKeyPress(e) {
+    if (e.key === "Enter") {
+        e.preventDefault()
+        e.currentTarget.blur()
     }
 }
 

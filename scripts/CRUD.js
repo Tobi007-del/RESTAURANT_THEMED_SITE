@@ -1,54 +1,58 @@
-// TODO: TOAST NOTIFICATIONS AND INDEXED DB
-
 import data from "./fetch-meals.js"
-import { Tastey, weakTastey } from "./TasteyManager.js"
-import { check, formatValue, standardize, panning, scrollContentTo, remToPx, pxToRem, rand } from "./utility-functions.js"
+import { Tastey } from "./TasteyManager.js"
+import Toast from "/T007_TOOLS/T007_toast_library/T007_toast.js"
+import Confirm from "./confirm.js"
+import { check, formatValue, formatLabel, standardize, panning, scrollContentTo, remToPx, pxToRem, rand, handleContentEditableEnterKeyPress } from "./utils.js"
 import { autoRemoveScroller } from "./build-scroller.js"
 import { notificationQuery } from "./service-worker-helper.js"
 
-export { meals, allMeals, currency, maxOrders, getDOMElements, getOrderIndex, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards, positionMiniCards, adjustMiniCards } 
+export { meals, allMeals, currency, maxOrders, getDOMElements, getOrderId, getMealsIndex, getOrderIndex, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards, positionMiniCards, adjustMiniCards } 
 
 //Getting necessary data
 const meals = data.tasteyMeals,
-
 allMeals = Object.values(meals).flat(),
-
 currency = data.currency, 
-
-maxOrders = data.maxOrders
-
+maxOrders = data.maxOrders,
 //queries to handle the present bag
-const bagQuery = () => {return (document.body.dataset.bag === "true")}
-const miniBagQuery = () => {return (document.body.dataset.miniBag === "true")}
-
+mealsQuery = document.body.dataset.meals === "true",
+bagQuery = document.body.dataset.bag === "true",
+miniBagQuery = document.body.dataset.miniBag === "true"
 // the code below fills up the cart immediately for development purposes
-// allMeals.forEach(({ id }) => Tastey.addMeal(id, 1000))
+// for (const { id } of allMeals) {
+//     await Tastey.addMeal(id, 10)
+// }
 
-// allMeals.forEach(({ id }) => Tastey.handleLikes(id, true))
+// for (const { id } of allMeals) {
+//     await Tastey.handleLikes(id, true)
+// }
 
 // the one-liner below clears the cart immediately for development purposes
 // window.localStorage.clear()
 
 //Calculating checkout details
-weakTastey.calculateCheckoutDetails(allMeals, currency)
+Tastey.calculateCheckoutDetails(allMeals, currency)
 
 //DOM Elements
-let likeIconWrappers,orderReviewSectionContent,wishlistTogglers,tasteyMeals,tasteyMealsImages,tasteyMealOrders,tasteyOrderImages,deleteOrderBtns,plusCartBtns,minusCartBtns,checkoutSection,cartNumberElement,mealsNumberElement,actualPriceElement,totalDiscountElement,savedElement,totalPriceElement,TOTALCOSTElement,mcOrderReviewSection,mcTasteyMealOrders,mcTasteyOrderImages,mcWishlistTogglers,mcDeleteOrderBtns,mcPlusCartBtns,mcMinusCartBtns,mcActualPriceElement,mcTOTALCOSTElement
+let heartIconWrappers,orderReviewSectionContent,wishlistTogglers,tasteyMeals,tasteyMealOrders,mealCart, orderNumberWrapper,tasteyOrderImages,deleteOrderBtns,cartOrderNumbers,plusCartBtns,minusCartBtns,checkoutSection,cartNumberElement,mealsNumberElement,actualPriceElement,totalDiscountElement,savedElement,totalPriceElement,TOTALCOSTElement,mcOrderReviewSection,mcTasteyMealOrders,mcTasteyOrderImages,mcWishlistTogglers,mcDeleteOrderBtns,mcCartOrderNumbers,mcPlusCartBtns,mcMinusCartBtns,mcActualPriceElement,mcTOTALCOSTElement
 
 //using a function to get only the necessary DOM Elements so as to avoid errors
 function getDOMElements() {
+    if (mealsQuery) {
+        heartIconWrappers = document.getElementsByClassName("heart-icon-wrapper"),
+        tasteyMeals = document.getElementsByClassName("tastey-meal")
+    }
     if (bagQuery) {
-        likeIconWrappers = document.querySelectorAll(".heart-icon-wrapper"),
-        orderReviewSectionContent = document.querySelector(".order-review-section-content"),
-        wishlistTogglers = document.getElementsByClassName("wishlist"),
-        tasteyMeals = document.querySelectorAll(".tastey-meal"),
-        tasteyMealsImages = document.querySelectorAll(".tastey-meal-image"),
         tasteyMealOrders = document.getElementsByClassName("tastey-meal-order"),
         tasteyOrderImages = document.getElementsByClassName("tastey-order-image"),
+        wishlistTogglers = document.getElementsByClassName("wishlist-toggler"),
         deleteOrderBtns = document.getElementsByClassName("delete-order"),
+        cartOrderNumbers = document.getElementsByClassName("cart-order-number"),
         plusCartBtns = document.getElementsByClassName("add"),
         minusCartBtns = document.getElementsByClassName("minus"),
+        mealCart = document.querySelector("main.meal-cart"),
         checkoutSection = document.querySelector(".checkout-section"),
+        orderNumberWrapper = document.querySelector(".order-number-wrapper"),
+        orderReviewSectionContent = document.querySelector(".order-review-section-content")
         cartNumberElement = document.querySelector(".cart-number"),
         mealsNumberElement = document.querySelector(".meals-number"),
         actualPriceElement = document.querySelector(".actual-price"),
@@ -57,12 +61,13 @@ function getDOMElements() {
         totalPriceElement = document.querySelector(".total-price"),
         TOTALCOSTElement = document.querySelector(".TOTAL-COST")
     }
-    if (miniBagQuery()) {
+    if (miniBagQuery) {
         mcOrderReviewSection = document.querySelector(".mini-cart-order-review-section"),
         mcTasteyMealOrders = document.getElementsByClassName("mini-cart-tastey-meal-order"),
         mcTasteyOrderImages= document.getElementsByClassName("mini-cart-tastey-order-image"),
-        mcWishlistTogglers = document.getElementsByClassName("mini-cart-wishlist"),
+        mcWishlistTogglers = document.getElementsByClassName("mini-cart-wishlist-toggler"),
         mcDeleteOrderBtns = document.getElementsByClassName("mini-cart-delete-order"),
+        mcCartOrderNumbers = document.getElementsByClassName("mini-cart-order-number"),
         mcPlusCartBtns = document.getElementsByClassName("mini-cart-add"),
         mcMinusCartBtns = document.getElementsByClassName("mini-cart-minus"),
         mcActualPriceElement = document.querySelector(".mini-cart-actual-price"),
@@ -80,11 +85,10 @@ function getCardsQuery() {
 const liftOffset = () => {return pxToRem(tasteyMealOrders[0].getBoundingClientRect().height) - 6}
 
 function positionCards() {
-if (getCardsQuery() && !weakTastey.getEmpty()) {
-    const orderNumberWrapper = document.querySelector(".order-number-wrapper")
+if (getCardsQuery() && !Tastey.isEmpty()) {
     const gap = pxToRem((checkoutSection?.getBoundingClientRect().height - (tasteyMealOrders[0]?.getBoundingClientRect().height + orderNumberWrapper?.getBoundingClientRect().height + remToPx(0.75))) / tasteyMealOrders.length)
     const bottom = pxToRem(window.innerHeight - (remToPx(9.1 + (tasteyMealOrders.length * gap)) + tasteyMealOrders[0]?.getBoundingClientRect().height))
-    document.querySelector("main.meal-cart").style.setProperty('--bottom', `${bottom}rem`)
+    mealCart.style.setProperty('--bottom', `${bottom}rem`)
     for (let i = 0; i < tasteyMealOrders.length; i++) {
         const top = 9.25 + (i * gap)
         tasteyMealOrders[i].dataset.top = top
@@ -130,8 +134,7 @@ if (getCardsQuery() && !weakTastey.getEmpty()) {
 }
 
 function adjustCards() {
-    if(getCardsQuery() && !weakTastey.getEmpty()) {
-        const orderNumberWrapper = document.querySelector(".order-number-wrapper")
+    if(getCardsQuery() && !Tastey.isEmpty()) {
         let hCurrTop = Math.round(pxToRem(orderNumberWrapper.getBoundingClientRect()?.top))
         let hPrevTop = Math.round(5.5) 
         let fCurrTop = Math.round(pxToRem(tasteyMealOrders[0]?.getBoundingClientRect()?.top))
@@ -163,30 +166,28 @@ let removeStall = 200
 let emptyStall = 2000
 
 function removeCard(id) {
-    if (getCardsQuery() && !weakTastey.getEmpty()) {
-        if(Tastey.tasteyRecord.tasteyOrders.length == 1) {
+    if (getCardsQuery()) {
+        if(Tastey.tasteyRecord.tasteyOrders.length == 0) {
             removeStall = 2000
             removeAllCards()
             return
         } else {
             removeStall = 200
-            let stall = 195
             const order = document.querySelector(`.tastey-meal-order[data-id="${id}"]`)        
             order?.classList.remove("lift")
-            order?.animate({transform: `translate(${rand(-20,20)}%, ${pxToRem(window.innerHeight) - (parseFloat(order.dataset?.top))}rem)`},{duration: stall, fill: "forwards"})
+            order?.animate({transform: `translate(${rand(-20,20)}%, ${pxToRem(window.innerHeight) - (parseFloat(order.dataset?.top))}rem)`},{duration: removeStall, fill: "forwards"})
         }
     }
 }
 
 function removeExtras() {
-    const orderNumberWrapper = document.querySelector(".order-number-wrapper")
     orderNumberWrapper.animate({transform: `translate(${rand(-20,20)}%, ${pxToRem(window.innerHeight) - 6}rem)`},{duration: emptyStall})                
     checkoutSection.animate({transform: `translate(${rand(-20,20)}%, ${pxToRem(window.innerHeight) - 6}rem)`},{duration: emptyStall})                
 }
 
 function removeAllCards() {
-    if (getCardsQuery() && !weakTastey.getEmpty()) {
-        const allTasteyMealOrders = document.querySelectorAll(".tastey-meal-order")   
+    if (getCardsQuery()) {
+        const allTasteyMealOrders = Array.from(tasteyMealOrders)  
         removeExtras()
         allTasteyMealOrders.forEach((order,i) => {
             const stall = (((allTasteyMealOrders.length - i)/allTasteyMealOrders.length * 200) + 1000)
@@ -207,7 +208,7 @@ const offset = () => {
 
 let gap
 function positionMiniCards() {
-    if (getMiniCardsQuery() && !weakTastey.getEmpty()) {
+    if (getMiniCardsQuery() && !Tastey.isEmpty()) {
         gap = offset() / mcTasteyMealOrders.length    
         const bottom = pxToRem(mcOrderReviewSection?.getBoundingClientRect().height) - (((mcTasteyMealOrders.length * gap)) + pxToRem(mcTasteyMealOrders[mcTasteyMealOrders.length-1]?.getBoundingClientRect().height)) 
         mcOrderReviewSection.style.setProperty('--mini-bottom', `${bottom}rem`)
@@ -230,7 +231,7 @@ function positionMiniCards() {
 }
 
 function adjustMiniCards() {
-    if(getMiniCardsQuery() && !weakTastey.getEmpty()) {
+    if(getMiniCardsQuery() && !Tastey.isEmpty()) {
         for (let i = 0; i < mcTasteyMealOrders.length; i++) {
             if (mcTasteyMealOrders[i].getBoundingClientRect().top < (remToPx(1.075 + (gap * i)) + mcTasteyMealOrders[i].getBoundingClientRect().height)) {
                 mcTasteyMealOrders[i].style.setProperty('--mini-sticky-scale', `${1 - ((allMeals.length * ((mcTasteyMealOrders.length - i)/mcTasteyMealOrders.length))/950)}`)
@@ -243,23 +244,17 @@ function adjustMiniCards() {
 }
 
 function removeMiniCard(id) {
-    if (getMiniCardsQuery() && !weakTastey.getEmpty()) {
-        let stall
-        if (weakTastey.tasteyRecord.tasteyOrders.length == 1 && getCardsQuery() && document.body.classList.contains("cart")) {
-            removeStall = 2000
-            stall = 2000
-        } else {
-            removeStall = 200
-            stall = 195            
-        }
+    if (getMiniCardsQuery()) {
+        if (Tastey.tasteyRecord.tasteyOrders.length == 0 && getCardsQuery() && document.body.classList.contains("cart")) removeStall = 2000
+        else removeStall = 200     
         const order = document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"]`)        
-        order?.animate({transform: `translate(${rand(-10,10)}%, 15rem)`},{duration: stall, fill: "forwards"})
+        order?.animate({transform: `translate(${rand(-10,10)}%, 15rem)`},{duration: removeStall, fill: "forwards"})
     }
 }
 
 function removeAllMiniCards() {
-    if (!weakTastey.getEmpty()) {
-        const allTasteyMealOrders = document.querySelectorAll(".mini-cart-tastey-meal-order")
+    if (getMiniCardsQuery()) {
+        const allTasteyMealOrders = Array.from(mcTasteyMealOrders)
         allTasteyMealOrders.forEach((order,i) => {
             const stall = (((allTasteyMealOrders.length - i)/allTasteyMealOrders.length*200) + 1000)
             order?.animate({transform: `translate(${rand(-15,15)}%, 15rem)`},{duration: stall, fill: "forwards"})
@@ -273,21 +268,20 @@ function setCartStates() {
     const dataMealsState = document.querySelectorAll("[data-meals]")
     dataCartStates.forEach(dataCartState => {
         if (dataCartState.classList.contains("navbar-cart")) {
-            dataCartState.dataset.cart = standardize(weakTastey.ordersInTotal, "use strict")
+            dataCartState.dataset.cart = standardize(Tastey.ordersInTotal, "use strict")
             return
         }
-        dataCartState.dataset.cart = standardize(weakTastey.ordersInTotal)
+        dataCartState.dataset.cart = standardize(Tastey.ordersInTotal)
     })
     dataMealsState.forEach(mealsState => {
-        mealsState.dataset.meals = standardize(weakTastey.tasteyMeals)
+        mealsState.dataset.meals = standardize(Tastey.tasteyMeals)
     })
 }
 
 function setOrderStates(id) {
     const dataOrderStates = document.querySelectorAll("[data-orders]")
     dataOrderStates.forEach(dataOrderState => {
-        if(Number(dataOrderState.dataset.id) === Number(id)) 
-            dataOrderState.dataset.orders = standardize(weakTastey.getOrdersValue(id))
+        if(Number(dataOrderState.dataset.id) === Number(id)) dataOrderState.dataset.orders = standardize(Tastey.getOrdersValue(id))
     })
 }
 
@@ -295,431 +289,542 @@ function setLikeState(id) {
     const dataLikeStates = document.querySelectorAll("[data-like]")
     dataLikeStates.forEach(dataLikeState => {
         if(Number(dataLikeState.dataset.id) === Number(id)) 
-            dataLikeState.dataset.like = weakTastey.getLikeValue(id) ?? !dataLikeState.dataset.like
+            dataLikeState.dataset.like = Tastey.getLikeValue(id) ?? !dataLikeState.dataset.like
     })
 }        
 
 //functions for specific tastey operations
 
+//a function to activate the loader on the page
+function toggleLoader(id, bool) {
+    if (mealsQuery) {
+        document.querySelector(`.tastey-meal[data-id="${id}"]`)?.classList.toggle("loading", bool)
+    }
+    if (bagQuery) {
+        document.querySelector(`.tastey-meal-order[data-id="${id}"]`)?.classList.toggle("loading", bool)
+    }
+    if (miniBagQuery) {
+        document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"]`)?.classList.toggle("loading", bool)
+    }
+    document.querySelector(`.footer-tastey-meal[data-id="${id}"]`)?.classList.toggle("loading", bool)
+}
+
+function toggleDelLoader(id, bool) {
+    if (mealsQuery) {
+        document.querySelector(`.tastey-meal[data-id="${id}"]`)?.classList.toggle("del-loading", bool)
+    }
+    if (bagQuery) {
+        document.querySelector(`.tastey-meal-order[data-id="${id}"]`)?.classList.toggle("del-loading", bool)
+    }
+    if (miniBagQuery) {
+        document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"]`)?.classList.toggle("del-loading", bool)
+    }
+}
+
+function toggleLikeLoader(id, bool) {
+    if (mealsQuery) {
+        document.querySelector(`.tastey-meal[data-id="${id}"]`)?.classList.toggle("like-loading", bool)
+    }
+    if (bagQuery) {
+        document.querySelector(`.tastey-meal-order[data-id="${id}"]`)?.classList.toggle("like-loading", bool)
+    }
+    if (miniBagQuery) {
+        document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"]`)?.classList.toggle("like-loading", bool)
+    }
+}
+
+function toggleClearLoader(bool) {
+    document.body.classList.toggle("clear-loading", bool)
+}
+
+//a function for editing a meal on the page
+function editMeal(id) {
+    let orders = Tastey.getOrdersValue(id)
+    if (bagQuery) document.querySelector(`.tastey-meal-order[data-id="${id}"] .cart-order-number`).textContent = orders
+    if (miniBagQuery) document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"] .mini-cart-order-number`).textContent = orders
+}
+
 //a function for adding a meal to the page
-function addMeal(id, meals, curr) {
-    const meal = meals.find(meal => Number(meal.id) === Number(id))
-    const { label, category, price, serving, picSrc } = meal
-    const index = weakTastey.tasteyRecord.tasteyOrders.findIndex(meal => Number(meal.id) === Number(id))
-    let currentProductCount = weakTastey.tasteyRecord.tasteyOrders[index].orders
-    if (bagQuery()) {
-        const currentProductCountElement = document.querySelector(`.tastey-meal-order[data-id="${id}"] .cart-number`)
-        const orderReviewSectionContent = document.querySelector(".order-review-section-content")
-        if (currentProductCount > 1) { 
-            currentProductCountElement.textContent = standardize(currentProductCount)
+function addMeal(id, meal) {
+    let orders = Tastey.getOrdersValue(id)
+    if (bagQuery) {
+        if (orders > 1) { 
+            document.querySelector(`.tastey-meal-order[data-id="${id}"] .cart-order-number`).textContent = standardize(orders)
         } else {
-            const newProduct = document.createElement('div')
+            const { label, category, price, serving, picSrc } = meal,
+            newProduct = document.createElement('div')
             newProduct.classList.add('tastey-meal-order')
             newProduct.dataset.id = id
             newProduct.dataset.discount = price.discount ?? 0
-            newProduct.dataset.like = weakTastey.getLikeValue(id) ?? false
-            newProduct.dataset.orders = weakTastey.getOrdersValue(id)
-            newProduct.dataset.position = weakTastey.tasteyRecord.tasteyOrders.length ?? 1
+            newProduct.dataset.like = Tastey.getLikeValue(id) ?? false
+            newProduct.dataset.orders = orders
+            newProduct.dataset.position = Tastey.tasteyRecord.tasteyOrders.length ?? 1
             newProduct.innerHTML = 
             `
-                    <div class="tastey-meal-order-content">
-                    <div class="tastey-order-image-wrapper">
-                            <img class="tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
-                            <span class="tooltip-text like-tooltip">Double tap to like!</span>
-                            <span class="tooltip-text unlike-tooltip">Double tap to unlike</span>
-                    </div>
-                    <div class="tastey-order-info">
+                <div class="tastey-meal-order-content">
+                <div class="tastey-order-image-wrapper">
+                        <img class="tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
+                        <span class="tooltip-text like-tooltip">Double tap to like!</span>
+                        <span class="tooltip-text unlike-tooltip">Double tap to unlike</span>
+                </div>
+                <div class="tastey-order-info">
+                    <div class="tastey-order-text-wrapper">
                         <div class="tastey-order-text">
-                            <div>
-                                <h2 title="${label}">${label}</h2>
-                                <p>Category: ${category}</p>
+                            <h2 title="${label}">${label}</h2>
+                            <p>Category: ${category}</p>
+                        </div>
+                        <div>
+                            <button type="button" title="Remove ${label} from Bag" class="delete-order">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                                </span>
+                                <p>REMOVE MEAL</p>
+                            </button>
+                            <button type="button" title="${(Tastey.getLikeValue(id) ?? false) ? `Remove ${label} from Wishlist` : `Add ${label} to Wishlist`}" class="wishlist-toggler">
+                                <span>
+                                    <svg class="unliked-heart-icon" viewBox="0 -960 960 960"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/></svg>
+                                    <svg class="liked-heart-icon" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+                                </span>
+                                <p class="move-to-wishlist">MOVE TO WISHLIST</p>
+                                <p class="remove-from-wishlist">REMOVE FROM WISHLIST</p>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tastey-order-price-wrapper">
+                        <span>
+                            <span class="cart-toggle">
+                            <button type="button" title="Remove 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="sign minus${orders > 1 ? " hover" : ""}"">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                                <svg width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill-rule="nonzero" xlink:href="#a"/></svg>
+                            </button>
+                                <p class="cart-order-number" contenteditable="true">${orders}</p>
+                            <button type="button" title="Add 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="sign add hover${orders >= maxOrders ? " disabled" : ""}">
+                                <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z" id="b"/></defs><use fill-rule="nonzero" xlink:href="#b"/></svg>
+                            </button>
+                        </span>                   
+                            <p class="serving-size" data-serving=${serving ?'"' + serving + '"' : "NG"}>Note: </p>
+                        </span>         
+                        <span class="order-price" data-discount="${price.discount ?? 0}">
+                            <h3 class="meal-price" data-discount="${price.discount ?? 0}">${formatValue(currency, check(price.currentValue,price.discount))}</h3>
+                            <h3 class="actual-meal-price">${formatValue(currency, price.currentValue)}</h3>
+                        </span>
+                    </div>
+                </div>
+                </div>
+            `
+            orderReviewSectionContent.appendChild(newProduct)
+            panning(newProduct.querySelector(".tastey-order-image"))
+            positionCards()                  
+        }    
+    } 
+    if (miniBagQuery) {
+        if (orders > 1) { 
+            document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"] .mini-cart-order-number`).textContent = standardize(orders)
+        } else {
+            const { label, category, price, serving, picSrc } = meal,
+            mcNewProduct = document.createElement('div')
+            mcNewProduct.classList.add('mini-cart-tastey-meal-order')
+            mcNewProduct.dataset.id = id
+            mcNewProduct.dataset.like = Tastey.getLikeValue(id) ?? false
+            mcNewProduct.dataset.orders = orders
+            mcNewProduct.dataset.discount = price.discount ?? 0
+            mcNewProduct.innerHTML = 
+            `   
+                <div class="mini-cart-tastey-order-image-wrapper">
+                        <img class="mini-cart-tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
+                    </div>
+                    <div class="mini-cart-tastey-order-info">
+                        <div class="mini-cart-tastey-order-text-wrapper">
+                            <div class="mini-cart-tastey-order-text">
+                                <h5 data-serving=${serving ?'"' + serving + '"' : "NG"} title="${label}">${label}</h5>
+                                <span>
+                                <p class="mini-cart-meal-price">${formatValue(currency,check(price.currentValue,price.discount))}</p>
+                                <p  class="mini-cart-actual-meal-price">${formatValue(currency,price.currentValue)}</p>
+                                </span>
                             </div>
                             <div>
-                                <button type="button" title="Remove ${label} from Bag" class="delete-order">
+                                <button type="button" title="Remove ${label} from Bag"  class="mini-cart-delete-order">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     </span>
-                                    <p>REMOVE MEAL</p>
                                 </button>
-                                <button type="button" title="${(weakTastey.getLikeValue(id) ?? false) ? `Remove ${label} from Wishlist` : `Add ${label} to Wishlist`}" class="wishlist">
+                                <button type="button" title="${(Tastey.getLikeValue(id) ?? false) ? `Remove ${label} from Wishlist` : `Add ${label} to Wishlist`}" class="mini-cart-wishlist-toggler">
                                     <span>
                                         <svg class="unliked-heart-icon" viewBox="0 -960 960 960"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/></svg>
                                         <svg class="liked-heart-icon" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
                                     </span>
-                                    <p class="move-to-wishlist">MOVE TO WISHLIST</p>
-                                    <p class="remove-from-wishlist">REMOVE FROM WISHLIST</p>
                                 </button>
                             </div>
                         </div>
-                        <div class="tastey-order-price-wrapper">
-                            <span>
-                                <span class="cart-toggle">
-                                <button type="button" title="Remove 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="sign minus">
+                        <div class="mini-cart-toggle-wrapper">
+                            <span class="mini-cart-toggle">
+                                <button type="button" title="Remove 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="mini-cart-sign mini-cart-minus${orders > 1 ? " hover" : ""}">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     <svg width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill-rule="nonzero" xlink:href="#a"/></svg>
                                 </button>
-                                    <p class="cart-number">${currentProductCount}</p>
-                                <button type="button" title="Add 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="sign add">
+                                    <p class="mini-cart-order-number" contenteditable="true">${orders}</p>
+                                <button type="button" title="Add 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="mini-cart-sign mini-cart-add hover${orders >= maxOrders ? " disabled" : ""}">
                                     <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z" id="b"/></defs><use fill-rule="nonzero" xlink:href="#b"/></svg>
                                 </button>
-                            </span>                   
-                                <p class="serving-size" data-serving=${serving ?'"' + serving + '"' : "NG"}>Note: </p>
-                            </span>         
-                            <span class="order-price" data-discount="${price.discount ?? 0}">
-                                <h3 class="meal-price" data-discount="${price.discount ?? 0}">${formatValue(curr,check(price.currentValue,price.discount))}</h3>
-                                <h3 class="actual-meal-price">${formatValue(curr,price.currentValue)}</h3>
-                            </span>
+                            </span>      
                         </div>
                     </div>
-                    </div>
-            `
-            orderReviewSectionContent.appendChild(newProduct)
-            panning(document.querySelector(`.tastey-meal-order[data-id="${id}"] .tastey-order-image`))
-            positionCards()
-        }    
-    } 
-    if (miniBagQuery()) {
-        const mcCurrentProductCountElement = document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"] .mini-cart-number`)
-        const mcOrderReviewSection = document.querySelector(".mini-cart-order-review-section")
-        if (currentProductCount > 1) { 
-            mcCurrentProductCountElement.textContent = standardize(currentProductCount)
-        } else {
-            const mcNewProduct = document.createElement('div')
-            mcNewProduct.classList.add('mini-cart-tastey-meal-order')
-            mcNewProduct.dataset.id = id
-            mcNewProduct.dataset.like = weakTastey.getLikeValue(id) ?? false
-            mcNewProduct.dataset.orders = weakTastey.getOrdersValue(id)
-            mcNewProduct.dataset.discount = price.discount ?? 0
-            mcNewProduct.innerHTML = 
-            `   
-                                    <div class="mini-cart-tastey-order-image-wrapper">
-                                            <img class="mini-cart-tastey-order-image" src="${picSrc}" alt="Image of ${label}" title="${label}">
-                                        </div>
-                                        <div class="mini-cart-tastey-order-info">
-                                            <div class="mini-cart-tastey-order-text-wrapper">
-                                                <div class="mini-cart-tastey-order-text">
-                                                    <h5 data-serving=${serving ?'"' + serving + '"' : "NG"} title="${label}">${label}</h5>
-                                                    <span>
-                                                    <p class="mini-cart-meal-price">${formatValue(curr,check(price.currentValue,price.discount))}</p>
-                                                    <p  class="mini-cart-actual-meal-price">${formatValue(curr,price.currentValue)}</p>
-                                                    </span>
-                                                </div>
-                                                <div>
-                                                    <button type="button" title="Remove ${label} from Bag"  class="mini-cart-delete-order">
-                                                        <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
-                                                        </span>
-                                                    </button>
-                                                    <button type="button" title="${(weakTastey.getLikeValue(id) ?? false) ? `Remove ${label} from Wishlist` : `Add ${label} to Wishlist`}" class="mini-cart-wishlist">
-                                                        <span>
-                                                            <svg class="unliked-heart-icon" viewBox="0 -960 960 960"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/></svg>
-                                                            <svg class="liked-heart-icon" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="mini-cart-toggle-wrapper">
-                                                <span class="mini-cart-toggle">
-                                                    <button type="button" title="Remove 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="mini-cart-sign mini-cart-minus">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
-                                                        <svg width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill-rule="nonzero" xlink:href="#a"/></svg>
-                                                    </button>
-                                                        <p class="mini-cart-number">${weakTastey.getOrdersValue(id)}</p>
-                                                    <button type="button" title="Add 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="mini-cart-sign mini-cart-add">
-                                                        <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z" id="b"/></defs><use fill-rule="nonzero" xlink:href="#b"/></svg>
-                                                    </button>
-                                                </span>      
-                                            </div>
-                                        </div>
             `        
             mcOrderReviewSection.appendChild(mcNewProduct)    
-            panning(document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"] .mini-cart-tastey-order-image`))
+            panning(mcNewProduct.querySelector(".mini-cart-tastey-order-image"))
             positionMiniCards()
         }
     }
+    if (orders <= 1) resetBagEventListeners()                    
 }
 
 //a function for removing a meal from the page
 function removeMeal(id) {
-    const index = weakTastey.tasteyRecord.tasteyOrders.findIndex(meal => Number(meal.id) === Number(id))
-    const currentProductCount = weakTastey.tasteyRecord.tasteyOrders[index].orders
-    if (bagQuery()) {
-        const currentProductCountElement = document.querySelector(`.tastey-meal-order[data-id="${id}"] .cart-number`)
-        currentProductCountElement.textContent = standardize(currentProductCount)
+    const orders = Tastey.getOrdersValue(id)
+    if (bagQuery) {
+        const ordersElement = document.querySelector(`.tastey-meal-order[data-id="${id}"] .cart-order-number`)
+        ordersElement.textContent = standardize(orders)
     }
-    if (miniBagQuery()) {
-        const mcCurrentProductCountElement = document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"] .mini-cart-number`)
-        mcCurrentProductCountElement.textContent = standardize(currentProductCount)
+    if (miniBagQuery) {
+        const mcCurrentProductCountElement = document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"] .mini-cart-order-number`)
+        mcCurrentProductCountElement.textContent = standardize(orders)
+    }
+}
+
+//a function for deleting a meal from the page
+function deleteMeal(id) {
+    if (bagQuery) {
+        document.querySelector(`.tastey-meal-order[data-id="${id}"]`).remove()
+        positionCards()
+        setTimeout(autoRemoveScroller,100)
+    }
+    if (miniBagQuery) {
+        document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"]`).remove()
+        positionMiniCards()
+    }
+    resetBagEventListeners()
+}
+
+//a function to clear the cart from the page 
+function clearCart() {
+    if (bagQuery) {   
+        Array.from(tasteyMealOrders).forEach(order => order.remove())
+        setTimeout(autoRemoveScroller, 500)
+    }
+    if (miniBagQuery) {
+        Array.from(mcTasteyMealOrders).forEach(order => order.remove())
     }
 }
 
 //a function for updating the checkout state
 function setCheckoutState() {
     // #TASTEY CRUD - R
-    if (bagQuery()) {
-        cartNumberElement.textContent = standardize(weakTastey.ordersInTotal)
-        mealsNumberElement.textContent = standardize(weakTastey.tasteyMeals)
-        actualPriceElement.textContent = formatValue(currency, weakTastey.actualAmount)
-        totalDiscountElement.textContent = '-' + weakTastey.totalDiscountPercentage + ' %'
-        savedElement.textContent = formatValue(currency, weakTastey.savedAmount)
-        totalPriceElement.textContent = formatValue(currency, weakTastey.totalAmount)
-        TOTALCOSTElement.textContent = formatValue(currency, weakTastey.totalCost)
+    if (bagQuery) {
+        cartNumberElement.textContent = standardize(Tastey.ordersInTotal)
+        mealsNumberElement.textContent = standardize(Tastey.tasteyMeals)
+        actualPriceElement.textContent = formatValue(currency, Tastey.actualAmount)
+        totalDiscountElement.textContent = '-' + Tastey.totalDiscountPercentage + ' %'
+        savedElement.textContent = formatValue(currency, Tastey.savedAmount)
+        totalPriceElement.textContent = formatValue(currency, Tastey.totalAmount)
+        TOTALCOSTElement.textContent = formatValue(currency, Tastey.totalCost)
     } 
-    if (miniBagQuery()) {
-        mcActualPriceElement.textContent = formatValue(currency, weakTastey.actualAmount)
-        mcTOTALCOSTElement.textContent = formatValue(currency, weakTastey.totalCost)        
+    if (miniBagQuery) {
+        mcActualPriceElement.textContent = formatValue(currency, Tastey.actualAmount)
+        mcTOTALCOSTElement.textContent = formatValue(currency, Tastey.totalCost)        
     }
 }
 
 //a function to assign all necessary event listeners
 function resetBagEventListeners() {
-    if (bagQuery()) {
+    if (bagQuery) {
         for(let i = 0; i < tasteyMealOrders.length; i++) {
-            wishlistTogglers[i].onclick = () => handleWishlist(tasteyMealOrders[i]?.dataset.id,i)      
-            tasteyOrderImages[i].ondblclick = () => handleWishlist(tasteyMealOrders[i]?.dataset.id,i)  
-            deleteOrderBtns[i].onclick = () => handleDelete(tasteyMealOrders[i]?.dataset.id,i)
-            plusCartBtns[i].onclick = () => handleAddMeal(tasteyMealOrders[i].dataset.id,i)
-            plusCartBtns[i].classList.add('hover')
-            minusCartBtns[i].onclick = () => handleRemoveMeal(tasteyMealOrders[i]?.dataset.id,i)
-            setButtonState({i:i})
+            wishlistTogglers[i].onclick = () => handleLikes(tasteyMealOrders[i]?.dataset.id)      
+            tasteyOrderImages[i].ondblclick = () => handleLikes(tasteyMealOrders[i]?.dataset.id)  
+            deleteOrderBtns[i].onclick = () => handleDeleteMeal(tasteyMealOrders[i]?.dataset.id)
+            cartOrderNumbers[i].onkeydown = (e) => handleContentEditableEnterKeyPress(e)
+            cartOrderNumbers[i].onblur = (e) => handleEditMealOrders(tasteyMealOrders[i]?.dataset.id,e)
+            plusCartBtns[i].onclick = () => handleAddMeal(tasteyMealOrders[i]?.dataset.id)
+            minusCartBtns[i].onclick = () => handleRemoveMeal(tasteyMealOrders[i]?.dataset.id)
         }
     }
-    if (miniBagQuery()) {
+    if (miniBagQuery) {
         for(let i = 0; i < mcTasteyMealOrders.length; i++) {
-            mcWishlistTogglers[i].onclick = () => handleWishlist(mcTasteyMealOrders[i]?.dataset.id,i)      
-            mcTasteyOrderImages[i].ondblclick =  () => handleWishlist(mcTasteyMealOrders[i]?.dataset.id,i)  
-            mcDeleteOrderBtns[i].onclick = () => handleDelete(mcTasteyMealOrders[i]?.dataset.id,i)
-            mcPlusCartBtns[i].onclick = () => handleAddMeal(mcTasteyMealOrders[i].dataset.id,i)
-            mcPlusCartBtns[i].classList.add('hover')
-            mcMinusCartBtns[i].onclick = () => handleRemoveMeal(mcTasteyMealOrders[i]?.dataset.id,i)
-            setButtonState({i:i})
+            mcWishlistTogglers[i].onclick = () => handleLikes(mcTasteyMealOrders[i]?.dataset.id)      
+            mcTasteyOrderImages[i].ondblclick =  () => handleLikes(mcTasteyMealOrders[i]?.dataset.id)  
+            mcDeleteOrderBtns[i].onclick = () => handleDeleteMeal(mcTasteyMealOrders[i]?.dataset.id)
+            mcCartOrderNumbers[i].onkeydown = (e) => handleContentEditableEnterKeyPress(e)
+            mcCartOrderNumbers[i].onblur = (e) => handleEditMealOrders(mcTasteyMealOrders[i]?.dataset.id,e)
+            mcPlusCartBtns[i].onclick = () => handleAddMeal(mcTasteyMealOrders[i]?.dataset.id)
+            mcMinusCartBtns[i].onclick = () => handleRemoveMeal(mcTasteyMealOrders[i]?.dataset.id)
         }        
     }
 }
 
+function getMealsIndex(id) {
+    return Array.from(tasteyMeals).findIndex(meal => Number(meal.dataset.id) === Number(id))
+}
+
 function getOrderIndex(id) {
-    let i
-    const mealOrders = document.querySelectorAll(".mini-cart-tastey-meal-order") || document.querySelectorAll(".tastey-meal-order")
-    const childrenArray = Array.from(document.querySelector('.mini-cart-order-review-section').children) || Array.from(document.querySelector('.order-review-section-content').children)
-    childrenArray.shift()
-    mealOrders?.forEach(order => {
-        if (Number(order.dataset.id) === Number(id)) 
-            i = childrenArray.indexOf(order) ?? 0
-    })
-    return i
+    return Array.from(mcTasteyMealOrders || tasteyMealOrders).findIndex(order => Number(order.dataset.id) === Number(id))
 }
 
 function getOrderId(i) {
-    const mealOrders = document.getElementsByClassName("mini-cart-tastey-meal-order") || document.getElementsByClassName("tastey-meal-order")
-    const id = Number(mealOrders[i]?.dataset.id)
-    return id
+    const mealOrders = mcTasteyMealOrders || tasteyMealOrders
+    return Number(mealOrders[i]?.dataset.id)
 }
 
 //a function to control the minus btn hover state
-function setButtonState({i,id}) {
-    id = id || getOrderId(i)
-    i = i || getOrderIndex(id)
-    if (bagQuery()) {
-        const number = weakTastey.getOrdersValue(tasteyMealOrders[i]?.dataset.id)
-        minusCartBtns[i]?.classList.toggle('hover', number > 1)
-        document.querySelector(`.add-to-cart-button[data-id="${id}"]`)?.classList.toggle('disabled', weakTastey.getOrdersValue(id) >= maxOrders)
-        plusCartBtns[i]?.classList.toggle('disabled', weakTastey.getOrdersValue(id) >= maxOrders)
-        if (plusCartBtns[i]) plusCartBtns[i].tabIndex = weakTastey.getOrdersValue(id) >= maxOrders ? -1 : 0
+function setButtonState(id) {
+    const orders = Tastey.getOrdersValue(id),
+    addToCartBtn = document.querySelector(`.add-to-cart-button[data-id="${id}"]`),
+    tasteyMealOrder = document.querySelector(`.tastey-meal-order[data-id="${id}"]`),
+    mcTasteyMealOrder = document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"]`),
+    footerAddToCartBtn = document.querySelector(`.footer-add-to-cart-button[data-id="${id}"]`)
+    if (mealsQuery) {
+        addToCartBtn.classList.toggle('disabled', orders >= maxOrders)
+        addToCartBtn.tabIndex = orders >= maxOrders ? -1 : 0
     }
-    if (miniBagQuery()) {
-        const number = weakTastey.getOrdersValue(mcTasteyMealOrders[i]?.dataset.id)
-        mcMinusCartBtns[i]?.classList.toggle('hover', number > 1)
-        mcPlusCartBtns[i]?.classList.toggle('disabled', weakTastey.getOrdersValue(id) >= maxOrders)
-        if (mcPlusCartBtns[i]) mcPlusCartBtns[i].tabIndex = weakTastey.getOrdersValue(id) >= maxOrders ? -1 : 0
-        document.querySelector(`.footer-add-to-cart-button[data-id="${id}"]`)?.classList.toggle('disabled', weakTastey.getOrdersValue(id) >= maxOrders)
-        if (document.querySelector(`.footer-add-to-cart-button[data-id="${id}"]`)) document.querySelector(`.footer-add-to-cart-button[data-id="${id}"]`).tabIndex = weakTastey.getOrdersValue(id) >= maxOrders ? -1 : 0
+    if (bagQuery && tasteyMealOrder) {
+        const plusCartBtn =  tasteyMealOrder.querySelector(".add"),
+        minusCartBtn = tasteyMealOrder.querySelector(".minus")
+        plusCartBtn.classList.toggle('disabled', orders >= maxOrders)
+        plusCartBtn.tabIndex = orders >= maxOrders ? -1 : 0
+        minusCartBtn.classList.toggle('hover', orders > 1)
+    }
+    if (miniBagQuery && mcTasteyMealOrder) {
+        const plusCartBtn =  mcTasteyMealOrder.querySelector(".mini-cart-add"),
+        minusCartBtn = mcTasteyMealOrder.querySelector(".mini-cart-minus")
+        plusCartBtn.classList.toggle('disabled', orders >= maxOrders)
+        plusCartBtn.tabIndex = orders >= maxOrders ? -1 : 0
+        minusCartBtn.classList.toggle('hover', orders > 1)
+    }
+    if (footerAddToCartBtn) {
+        footerAddToCartBtn.classList.toggle('disabled', orders >= maxOrders)
+        footerAddToCartBtn.tabIndex = orders >= maxOrders ? -1 : 0
     }
 }
 
 //a function to handle updating general states
 function updateStates(id) {
-    weakTastey.calculateCheckoutDetails(allMeals, currency)
+    Tastey.calculateCheckoutDetails(allMeals, currency)
     setCartStates()
     setOrderStates(id)
     setCheckoutState()
 }
 
-//a function to handle the adding of a meal
-function handleAddMeal(id,i,n=1) {
+//a function to handle the editing of meals
+async function handleEditMealOrders(id,{currentTarget: el}) {
     try {
-        if (weakTastey.getOrdersValue(id) < maxOrders) {
-            // #TASTEY CRUD - CU
-            Tastey.addMeal(id,n)
-            addMeal(id, allMeals, currency)
-            updateStates(id)
-            setButtonState({i:i,id:id})
-            resetBagEventListeners()                    
+        const meal = allMeals.find(meal => Number(meal.id) === Number(id))
+        if (!meal) return
+        const { label, picSrc } = meal
+        const c = el.textContent
+        const n = parseInt(c)
+        if (Tastey.getOrdersValue(id) === n) return
+        if (isNaN(n)) {
+            editMeal(id)
+            Toast({ data: { type: "warning", image: picSrc, body: `You cannot update ${label} to "${c}"` }, tag: `${id}${c}NEdi` })
+            return
         }
+        if (n <= 0) {
+            handleDeleteMeal(id)
+            return
+        }
+        if (n > maxOrders) {
+            editMeal(id)
+            Toast({ data: { type: "warning", image: picSrc, body: `You cannot have more than ${maxOrders} ${label} in bag` }, tag: `${id}MEdi` })
+            return
+        }
+        toggleLoader(id, true)
+        // #TASTEY CRUD - CU
+        if (await Tastey.editMeal(id,n)) {
+            editMeal(id)
+            updateStates(id)
+            setButtonState(id)
+            Toast({ data: { type: "success", image: picSrc, body: `You updated ${label} to ${n} in bag` }, tag: `${id}SEdi` })
+        } else {
+            Toast({ data: { type: "error", image: picSrc, body: `Could not update ${label} to ${n} in bag` }, tag: `${id}EEdi` })                
+        }
+        toggleLoader(id, false)
     } catch(err) {
-        alert("Error adding a meal to bag :)")
+        console.error(err)
+    }
+}
+
+//a function to handle the adding of a meal
+async function handleAddMeal(id,n=1) {
+    try {
+        const meal = allMeals.find(meal => Number(meal.id) === Number(id))
+        if (!meal) return
+        const { label, picSrc } = meal
+        if (Tastey.getOrdersValue(id) >= maxOrders) {
+            Toast({ data: { type: "warning", image: picSrc, body: `You cannot add more than ${maxOrders} ${formatLabel(label, n)} to bag` }, tag: `${id}MAdd` })
+            return
+        }
+        toggleLoader(id, true)
+        // #TASTEY CRUD - CU
+        if (await Tastey.addMeal(id,n)) {
+            addMeal(id,meal)
+            updateStates(id)
+            setButtonState(id)
+            Toast({ data: { type: "success", image: picSrc, body: `You added ${n} ${formatLabel(label, n)} to bag` }, tag: `${id}SAdd` })
+        } else {
+            Toast({ data: { type: "error", image: picSrc, body: `Could not add ${n} ${formatLabel(label, n)} to bag` }, tag: `${id}EAdd` })
+        }
+        toggleLoader(id, false)
+    } catch(err) {
         console.error(err)
     }
 }
 
 //a function to handle the removing of a meal
-function handleRemoveMeal(id,i,n=1) {
+async function handleRemoveMeal(id,n=1) {
     try {
-        const number = weakTastey.getOrdersValue(tasteyMealOrders[i]?.dataset.id ?? mcTasteyMealOrders[i]?.dataset.id)
-        if(number > 1) { 
-            // #TASTEY CRUD - UD
-            Tastey.removeMeal(id,n)
-            removeMeal(id)
-            updateStates(id)
-            setButtonState({i:i,id:id})
-        } else if(number === 1) { 
-            handleDelete(id,i)
-        }
-    } catch(err) {
-        alert("Error removing a meal from bag :)")
-        console.error(err)
-    }
-}
-
-//The delete function is different due to its async nature
-let deleteTimeout
-function handleDelete(id,i) {
-    try {
-        if (!getCardsQuery() && document.body.classList.contains("cart")) {
-            deleteMeal(id,i)
+        const meal = allMeals.find(meal => Number(meal.id) === Number(id))        
+        if (!meal) return
+        const { label, picSrc } = meal
+        const orders = Tastey.getOrdersValue(id)
+        if(orders === 1) { 
+            handleDeleteMeal(id)
             return
         }
-        if (deleteTimeout) {clearTimeout(deleteTimeout)}
-        deleteTimeout = setTimeout(() => {
-            if (bagQuery() && getCardsQuery()) 
-                removeCard(id)    
-            if (miniBagQuery())
-                removeMiniCard(id)
-            setTimeout(deleteMeal, removeStall, id, i)                  
-        }, removeStall);
+        toggleLoader(id, true)
+        // #TASTEY CRUD - UD
+        if (await Tastey.removeMeal(id,n)) {
+            removeMeal(id)
+            updateStates(id)
+            setButtonState(id)
+            Toast({ data: { type: "success", image: picSrc, body: `You removed ${n} ${formatLabel(label, n)} from bag` }, tag: `${id}SRem` })                
+        } else {
+            Toast({ data: { type: "error", image: picSrc, body: `Could not remove ${n} ${formatLabel(label, n)} from bag` }, tag: `${id}ERem` })
+        }
+        toggleLoader(id, false)
     } catch(err) {
-        alert("Error removing meal from bag :)") 
         console.error(err)
     }
 }
 
 //a function for deleting orders
-function deleteMeal(id,i) {
-    if (bagQuery()) {
-        tasteyMealOrders[i]?.remove()
-        positionCards()
-        setTimeout(autoRemoveScroller,100)
+async function handleDeleteMeal(id) {
+    try {
+        const meal = allMeals.find(meal => Number(meal.id) === Number(id))
+        if (!meal) return
+        const { label, picSrc } = meal        
+        toggleDelLoader(id, true)
+        // #TASTEY CRUD - D
+        if (await Tastey.deleteMeal(id)) {
+            if (!getCardsQuery() && document.body.classList.contains("cart")) {
+                deleteMeal(id)
+            } else {
+                if (bagQuery) 
+                    removeCard(id)    
+                if (miniBagQuery)
+                    removeMiniCard(id)                 
+                await new Promise(resolve => setTimeout(() => {
+                    deleteMeal(id)
+                    resolve()
+                }, removeStall))
+            } 
+            updateStates(id)
+            setButtonState(id)
+            Toast({ data: { type: "success", image: picSrc, body: `You removed ${label} from bag` }, tag: `${id}SDel` })
+        } else {
+            Toast({ data: { type: "error", image: picSrc, body: `Could not remove ${label} from bag` }, tag: `${id}EDel` })
+        }
+        toggleDelLoader(id, false)
+    } catch(err) {
+        console.error(err)
     }
-    if (miniBagQuery()) {
-        mcTasteyMealOrders[i]?.remove()
-        positionMiniCards()
-    }
-    // #TASTEY CRUD - D
-    Tastey.deleteMeal(id)
-    updateStates(id)
-    setButtonState({i:i,id:id})
-    resetBagEventListeners()
 }
 
 //The clear cart function is a bit different due to its async nature
-function handleClearCart() {   
+async function handleClearCart() {   
     try{
-        if (weakTastey.getEmpty()) {
-            console.warn("You literally have no items in your Shopping Bag :)")
-            alert("Your Shopping Bag is already empty")
+        if (Tastey.isEmpty()) {
+            Toast({ data: {type: "warning", body: "Your Shopping Bag is already empty" }, tag: 'EBag' })
             return
         }
-        const isCartCleared = confirm(`You are about to remove ${standardize(Tastey.ordersInTotal)} ${Tastey.ordersInTotal > 1 ? "orders" : "order"} from your Shopping Bag!`)
-        if (isCartCleared) {
-            if (!getCardsQuery() && document.body.classList.contains("cart")) {
-                clearCart()
-                return
+        const shouldCartClear = await Confirm(`You are about to remove ${standardize(Tastey.ordersInTotal)} ${formatLabel("orders", Tastey.ordersInTotal)} from your Shopping Bag`)
+        if (shouldCartClear) {
+            toggleClearLoader(true)
+            // #TASTEY CRUD - D
+            if (await Tastey.clearCart()) {
+                if (!getCardsQuery() && document.body.classList.contains("cart")) {
+                    clearCart()
+                } else {
+                    if (bagQuery) 
+                        removeAllCards()
+                    if (miniBagQuery)
+                        removeAllMiniCards()
+                    await new Promise(resolve => setTimeout(() => {
+                        clearCart()
+                        resolve()
+                    }, emptyStall))
+                }
+                Tastey.calculateCheckoutDetails(allMeals, currency)
+                setCheckoutState()
+                setCartStates()
+                allMeals.forEach(({id}) => setButtonState(id))
+                allMeals.forEach(({id}) => setOrderStates(id))
+                Toast({ data: { type: "success", body: `You Shopping bag has been emptied` }, tag: 'SCba' })                
+            } else {
+                Toast({ data: { type: "error", body: `Could not empty Shopping bag` } , tag: 'ECba' })
             }
-            if (bagQuery()) 
-                if (getCardsQuery()) 
-                    removeAllCards()
-            if (miniBagQuery()) 
-                if (getMiniCardsQuery())
-                    removeAllMiniCards()
-            setTimeout(clearCart, emptyStall)
+            toggleClearLoader(false)
         }        
     } catch(err) {
-        alert("Error occured while clearing bag :)")
-        console.error(err)
-    }
-}
-
-//a function to clear the tastey bag
-function clearCart() {
-    if (bagQuery()) {
-        const allTasteyMealOrders = document.querySelectorAll(".tastey-meal-order")   
-        allTasteyMealOrders.forEach(order => order.remove())
-        setTimeout(autoRemoveScroller, 500)
-    }
-    if (miniBagQuery()) {
-        const mcAllTasteyMealOrders = document.querySelectorAll(".mini-cart-tastey-meal-order")
-        mcAllTasteyMealOrders.forEach(order => order.remove())
-    }
-    // #TASTEY CRUD - D
-    Tastey.clearCart()
-    weakTastey.calculateCheckoutDetails(allMeals, currency)
-    setCheckoutState()
-    setCartStates()
-    allMeals.forEach(({id}) => setButtonState({id: id}))
-    allMeals.forEach(({id}) => setOrderStates(id))
-}
-
-//a function to handle likes
-function handleLikes(i) {
-    try {
-        if (bagQuery()) {
-            tasteyMeals[i].dataset.like = tasteyMeals[i].dataset.like === "false" ? "true" : "false"
-            likeIconWrappers[i].title = tasteyMeals[i].dataset.like === "false" ? "" : "Tap to like!"
-            //#CRUD - CU
-            Tastey.handleLikes(tasteyMeals[i].dataset.id,tasteyMeals[i].dataset.like === "true")
-            setLikeState(tasteyMeals[i].dataset.id)
-        }
-    } catch(err) {
-        alert("Error while accessing wishlist :)")
         console.error(err)
     }
 }
 
 //a function to handle likes
-function handleWishlist(likeId,i) {
+async function handleLikes(id) {
     try {
-        const meal = allMeals.find(meal => Number(meal.id) === Number(likeId))
-        const { label } = meal
-        const like = tasteyMealOrders[i]?.dataset?.like ?? mcTasteyMealOrders[i]?.dataset?.like
-        const id = tasteyMealOrders[i]?.dataset?.id ?? mcTasteyMealOrders[i]?.dataset?.id
-        if (bagQuery()) {
-            tasteyMealOrders[i].dataset.like = like === "false" ? "true" : "false"
-            wishlistTogglers[i].title = like === "false" ? `Add ${label} to Wishlist` : `Remove ${label} from Wishlist`
-        }
-        if (miniBagQuery()) {
-            mcTasteyMealOrders[i].dataset.like = like === "false" ? "true" : "false"
-            mcWishlistTogglers[i].title = like === "false" ? `Add ${label} to Wishlist` : `Remove ${label} from Wishlist`
-        }
+        const meal = allMeals.find(meal => Number(meal.id) === Number(id))
+        if (!meal) return
+        const { label, picSrc } = meal
+        const tasteyMeal = document.querySelector(`.tastey-meal[data-id="${id}"]`),
+        tasteyMealOrder = document.querySelector(`.tastey-meal-order[data-id="${id}"]`),
+        mcTasteyMealOrder = document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"]`)
+        const like = mealsQuery ? !JSON.parse(tasteyMeal.dataset.like) : !JSON.parse(tasteyMealOrder?.dataset.like ?? mcTasteyMealOrder?.dataset.like)
+        toggleLikeLoader(id, true)
         //#CRUD - CU
-        Tastey.handleLikes(id,!(like === "true"))
-        setLikeState(id)        
+        if (await Tastey.handleLikes(id, like)) {            
+            if (mealsQuery) {
+                tasteyMeal.dataset.like = like
+                tasteyMeal.querySelector(".heart-icon-wrapper").title = like ? "Tap to unlike" : "Tap to like!"
+            }
+            if (bagQuery && tasteyMealOrder) {
+                tasteyMealOrder.dataset.like = like
+                tasteyMealOrder.querySelector(".wishlist-toggler").title = like ? `Remove ${label} from Wishlist` : `Add ${label} to Wishlist`
+            }
+            if (miniBagQuery && mcTasteyMealOrder) {
+                mcTasteyMealOrder.dataset.like = like
+                mcTasteyMealOrder.querySelector(".mini-cart-wishlist-toggler").title = like ? `Remove ${label} from Wishlist` : `Add ${label} to Wishlist`
+            }  
+            Toast({ data: { type: "success", image: picSrc, body: like ? `You added ${label} to Wishlist` : `You removed ${label} from Wishlist` }, tag: `${id}SLik` })
+        } else {
+            Toast({ data: { type: "error", image: picSrc, body: like ? `Could not add ${label} to Wishlist` : `Could not remove ${label} from Wishlist` }, tag: `${id}ELik` })
+        }
+        toggleLikeLoader(id, false)
     } catch(err) {
-        alert("Error while accessing wishlist :)")
         console.error(err)
     }
 }
 
 function handleCheckout() {
-    const id = weakTastey.tasteyRecord.tasteyOrders[weakTastey.tasteyMeals - 1].id
+    const id = Tastey.tasteyRecord.tasteyOrders[Tastey.tasteyMeals - 1].id
     const meal = allMeals.find(meal => meal.id === id)
     const { picSrc: lastOrderPicSrc } = meal 
-    const title = "Tastey";
-    const options = {
-        body: `We are sorry :) but checkout is currently unavailable!!! We see you are trying to check out ${standardize(weakTastey.ordersInTotal)} Tastey orders with a total cost of ${formatValue(currency, weakTastey.totalCost)}`,
+    const title = "Tastey",
+    options = {
+        body: `We are sorry :) but checkout is currently unavailable! We see you are trying to check out ${standardize(Tastey.ordersInTotal)} Tastey orders with a total cost of ${formatValue(currency, Tastey.totalCost)}`,
         image: `${lastOrderPicSrc}`,
         vibrate: [200, 100, 200, 100, 200, 100, 200],
         tag: "tastey-checkout-notification",
         renotify: true
     }
+    Toast( { data: { type: "warning", body: "Checkout is currently unavailable!" }, tag: 'UChe' } )
     notificationQuery(title, options, "Check Out")
 }
 

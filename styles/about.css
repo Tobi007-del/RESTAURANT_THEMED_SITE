@@ -677,7 +677,7 @@ main.about-section {
         width: 100%;
         background-position: center;
         z-index: -1;
-        box-shadow: inset 45dvw 45dvw 50dvw var(--current-theme-inverse-accent-color), inset -45dvw -45dvw 50dvw var(--current-theme-inverse-accent-color);
+        box-shadow: inset 40dvw 40dvw 45dvw var(--current-theme-inverse-accent-color), inset -40dvw -40dvw 45dvw var(--current-theme-inverse-accent-color);
     }
 }
 

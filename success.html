@@ -40,12 +40,8 @@
     <div>
         <img src="assets/tastey-meal-icons/message-success-icon.jpeg" title="Message sent successfully">
         <h3>Hello <span class="friendship"></span> Friend, your message has been submitted successfully!</h3>
-        <script defer="defer">
+        <script>
             (function() {
-                if (!localStorage.tastey_friendship_log) {
-                    sessionStorage.tastey_friendship_log = "FT"
-                } 
-                localStorage.tastey_friendship_log = "OT"
                 if (!sessionStorage.tastey_friendship_log && localStorage.tastey_friendship_log) {
                     document.querySelector(".friendship").textContent = "Old"
                 } else {

@@ -1,6 +1,6 @@
 // archive data import
 import Archives from './fetch-archives.js'
-import { panning, remToPx, tasteyThrottler } from './utility-functions.js'
+import { panning, remToPx, tasteyThrottler } from './utils.js'
 
 window.addEventListener('load', () => {
     setTimeout(timelineLength)
@@ -9,23 +9,23 @@ window.addEventListener('load', () => {
 
 const archiveContentWrapper = document.querySelector(".archives-content-wrapper")
 Archives.forEach(({ year, imgSrc, event, description }) => {
-archiveContentWrapper.innerHTML += 
-`
-                <div class="archive">
-                    <div class="archive-content Tastey-blur-bc">
-                        <div class="archive-time-wrapper">
-                            <h4>${year}</h4>
-                        </div>
-                        <div class="archive-img-wrapper">
-                            <img src="${imgSrc}" alt="Image of ${event}" title="${event}">
-                        </div>
-                        <div class="archive-text-wrapper">
-                            <h2>${event}</h2>
-                            <p>${description}${btnCheck(event)}</p>
-                        </div>
-                    </div>
-                </div>    
-`
+    archiveContentWrapper.innerHTML += 
+    `
+        <div class="archive">
+            <div class="archive-content Tastey-blur-bc">
+                <div class="archive-time-wrapper">
+                    <h4>${year}</h4>
+                </div>
+                <div class="archive-img-wrapper">
+                    <img src="${imgSrc}" alt="Image of ${event}" title="${event}">
+                </div>
+                <div class="archive-text-wrapper">
+                    <h2>${event}</h2>
+                    <p>${description}${btnCheck(event)}</p>
+                </div>
+            </div>
+        </div>    
+    `
 })
 function btnCheck(e) {
     if (e === 'Still Tastey') return `<a href='menu.html' title='Open Menu' class='open-menu-btn'><span>OPEN OUR MENU</span></a>`

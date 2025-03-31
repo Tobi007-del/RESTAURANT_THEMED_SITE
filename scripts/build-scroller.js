@@ -1,4 +1,4 @@
-import { syncScrollToTop, syncScrollToBottom, tasteyThrottler, tasteyDebouncer, remToPx } from "./utility-functions.js"
+import { syncScrollToTop, syncScrollToBottom, tasteyThrottler, tasteyDebouncer, remToPx } from "./utils.js"
 export { autoRemoveScroller, quickScrollShow, quickScrolls, removeScrolls }
 
 (function buildScroller() {
