@@ -310,8 +310,8 @@
             {
                 "id": 3007,
                 "category": "Drinks",
-                "label": "Coca-cola",
-                "description": "A fizzy wonder that's know practically everywhere for it's great taste and feeling served chilled with ice cubes",
+                "label": "Coke",
+                "description": "A fizzy wonder that's known practically everywhere for it's great taste and feeling served chilled with ice cubes",
                 "price": {"currentValue": 900, "discount": 10},
                 "serving": "1 per order",
                 "like": null,

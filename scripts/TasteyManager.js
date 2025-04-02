@@ -78,7 +78,7 @@ document.querySelector('.nav-link:nth-of-type(3)').addEventListener('click', () 
 
 
 //A function to mock queries to the database during development
-const mockWait = () => new Promise(resolve => setTimeout(resolve, 500))
+const mockQuery = () => new Promise(resolve => setTimeout(resolve, 500))
 //A Class to handle all major Tastey operations
 class TasteyManager {
     constructor() {
@@ -104,7 +104,7 @@ class TasteyManager {
 
     async editMeal(id,n=1) {
     try {
-        await mockWait()
+        await mockQuery()
         const index = this.tasteyRecord.tasteyOrders.findIndex(meal => Number(meal.id) === Number(id))
         if (index === -1) {
             const meal = {}
@@ -124,7 +124,7 @@ class TasteyManager {
 
     async addMeal(id,n=1) {
     try {
-        await mockWait()
+        await mockQuery()
         const index = this.tasteyRecord.tasteyOrders.findIndex(meal => Number(meal.id) === Number(id))
         if (index === -1) {
             const meal = {}
@@ -144,7 +144,7 @@ class TasteyManager {
 
     async removeMeal(id,n=1) {
     try {
-        await mockWait()
+        await mockQuery()
         const index = this.tasteyRecord.tasteyOrders.findIndex(meal => Number(meal.id) === Number(id))
         this.tasteyRecord.tasteyOrders[index].orders -= n
         this.#setLocalTasteyRecord()
@@ -157,7 +157,7 @@ class TasteyManager {
 
     async deleteMeal(id) {
     try {
-        await mockWait()
+        await mockQuery()
         const mealIndex = this.tasteyRecord.tasteyOrders.findIndex(meal => Number(meal.id) === Number(id))
         this.tasteyRecord.tasteyOrders.splice(mealIndex,1)
         this.#setLocalTasteyRecord()
@@ -170,7 +170,7 @@ class TasteyManager {
 
     async handleLikes(id,bool) {
     try {
-        await mockWait()
+        await mockQuery()
         const likeIndex = this.tasteyRecord.likes.findIndex(meal => Number(meal.id) === Number(id))
         if (likeIndex === -1) {
             const meal = {}
@@ -190,7 +190,7 @@ class TasteyManager {
 
     async clearCart() {
     try {
-        await mockWait()
+        await mockQuery()
         this.tasteyRecord.tasteyOrders = []
         this.ordersInTotal = 0
         this.tasteyMeals = 0
