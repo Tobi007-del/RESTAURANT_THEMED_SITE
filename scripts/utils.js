@@ -205,9 +205,9 @@ function panning(elements) {
                 yNextPercentage = parseFloat(element.dataset.yPrevPercentage) + yp
                 xNextPercentage = clamp(-50,xNextPercentage,0)
                 yNextPercentage = clamp(-50,yNextPercentage,0)
+                element.dataset.xPercentage = xNextPercentage
+                element.dataset.yPercentage = yNextPercentage
                 requestAnimationFrame(() => {
-                    element.dataset.xPercentage = xNextPercentage
-                    element.dataset.yPercentage = yNextPercentage
                     element.animate({
                         objectPosition: `${(xNextPercentage * -2) || 0}% ${(yNextPercentage * -2) || 0}%`
                     },{duration: 100,fill:"forwards"})

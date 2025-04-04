@@ -44,7 +44,6 @@ img, button, a {
 
 html {
     scroll-behavior: smooth;
-    overflow-x: hidden;
     background-color: var(--darker-black);
 }
 
@@ -98,11 +97,15 @@ main.dev > div.dev-content > p {
     font-size: clamp(1.5rem,5vmin,2rem);
 }
 
-*:focus-visible {
-    outline-width: .15rem;
+*:focus {
     outline-color: var(--sub-text-color);
     outline-style: dashed;
     outline-offset: .1rem;
+    outline-width: 0;
+}
+
+*:focus-visible {
+    outline-width: .15rem;
 }
 
 a {
@@ -158,10 +161,6 @@ img {
     background-color: var(--current-theme-inverse-transparent-color);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
-}
-
-html:has(.tastey-dialog[open]), body:has(.tastey-dialog[open]) {
-    overflow: hidden;
 }
 
 .tastey-dialog {
@@ -233,11 +232,12 @@ html:has(.tastey-dialog[open]), body:has(.tastey-dialog[open]) {
     opacity: 1;
 }
 
-.tastey-dialog button:focus-visible {
+.tastey-dialog button:focus {
     outline-style: solid;
+    outline-width: .15rem;
 }
 
-.dialog-cancel-button:focus-visible {
+.dialog-cancel-button:focus {
     outline-color: var(--attractive-color);
 }
 
@@ -798,8 +798,9 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     padding: .5rem;
     display: flex;
     flex-flow: row nowrap;
+    transform: translate(0, 0);
     transition: transform 400ms ease;
-    transform: translate(0px, 0%);
+    transition-delay: calc((var(--mini-card-position) * 500ms) / var(--mini-card-total));
     @starting-style {
         transform: translate(-15px,-100%);
     }
@@ -1656,6 +1657,9 @@ footer {
     font-size: .75rem;
     font-weight: bold;
     position: relative;
+    transition-property: transform, background-color, opacity;
+    transition-duration: 200ms;
+    transition-timing-function: ease;
 }
 
 .footer-add-to-cart-button.disabled {

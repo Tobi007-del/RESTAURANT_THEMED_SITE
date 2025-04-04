@@ -1,7 +1,7 @@
 //module imports
 import { meals, allMeals, currency, maxOrders, getDOMElements, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards } from "./CRUD.js"
 import { Tastey, mobileThreshold } from "./TasteyManager.js"
-import { tasteyDebouncer, check, formatValue, formatLabel, standardize, clamp, panning, scrollContentTo, remToPx, syncScrollToTop, positionGradient, stars } from "./utils.js"
+import { tasteyDebouncer, check, formatValue, formatLabel, standardize, clamp, panning, scrollContentTo, remToPx, syncScrollToTop, syncScrollToBottom, positionGradient } from "./utils.js"
 import { autoRemoveScroller, quickScrollShow, removeScrolls, quickScrolls } from "./build-scroller.js"
 
 
@@ -229,7 +229,6 @@ checkoutBtn = document.querySelector(".checkout-btn")
 
 //DOM operations
 getDOMElements()
-
 window.addEventListener('load', positionCards)
 
 addToCartBtns.forEach(btn => btn.onclick = e => handleAddMeal(btn.dataset.id))
@@ -273,12 +272,12 @@ removeScrolls.addEventListener('click', () => categorySwitcherContainer.classLis
 
 continueShoppingBtn.onclick = mcContinueShoppingBtn.onclick = mcShoppingBtn.onclick = e => {
     e.preventDefault()
-    toggleMenu()
+    openMenu()
 }
 
 mcShoppingBagBtn.onclick = e => {
     e.preventDefault()
-    toggleCart()
+    openCart()
 }
 
 function toggleMenuHeader(bool = null) {
@@ -300,8 +299,8 @@ function toggleMenuHeader(bool = null) {
     }
 }
 
-function toggleMenu() {
-    if(sessionStorage.open_cart) delete sessionStorage.open_cart
+function openMenu() {
+    delete sessionStorage.open_cart
     document.body.classList.remove("cart")
     document.querySelector(".mini-meal-cart").classList.add('close')
     syncScrollToTop("instant")
@@ -312,32 +311,30 @@ function toggleMenu() {
     setTimeout(toggleMenuHeader, 0, true)
 }
 
-function toggleCart() {
+function openCart() {
     sessionStorage.open_cart = true
     document.body.classList.add("cart")
     document.querySelector(".mini-meal-cart").classList.add('close')
-    syncScrollToTop("instant")
+    positionCards()
+    getCardsQuery() ? syncScrollToBottom("instant") : syncScrollToTop("instant")
     quickScrolls.classList.remove('show')
     categorySwitcherContainer.classList.remove('show')
     setTimeout(autoRemoveScroller, 200)
-    setTimeout(positionCards)
 }
 
-if (sessionStorage.open_cart) toggleCart()
+if (sessionStorage.open_cart) openCart()
 
 //toggling between menu and cart
-menuToggler.addEventListener('click', toggleMenu)
-cartToggler.addEventListener('click', toggleCart)
+menuToggler.addEventListener('click', openMenu)
+cartToggler.addEventListener('click', openCart)
 
 //using the intersection observer to turn the lights off/on
 const tasteyObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             document.body.style.setProperty("--global-light-color", "rgba(255,255,255,0.475)")
-            document.body.style.setProperty("--global-light-complement-color", "transparent")
         } else if ((tastey.getBoundingClientRect().bottom < 0) && (entry.target.id !== "tastey")) {
             document.body.style.setProperty("--global-light-color", "var(--darker-black)")
-            document.body.style.setProperty("--global-light-complement-color", "var(--darker-black)")
         }
     })
 },{root:null,rootMargin:`-${remToPx(3.5)}px`,threshold:[0,.5,1]})
@@ -399,7 +396,6 @@ switchers.forEach((switcher, i) => {
         scrollContentTo(scrollPosition, "instant")
         setTimeout(() => {
             document.body.style.setProperty("--global-light-color", "rgba(255,255,255,0.475)")
-            document.body.style.setProperty("--global-light-complement-color", "transparent")
         }, 25)
     })
 })

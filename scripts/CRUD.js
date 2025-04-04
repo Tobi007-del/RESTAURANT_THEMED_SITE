@@ -2,7 +2,7 @@ import data from "./fetch-meals.js"
 import { Tastey } from "./TasteyManager.js"
 import Toast from "/T007_TOOLS/T007_toast_library/T007_toast.js"
 import Confirm from "./confirm.js"
-import { check, formatValue, formatLabel, standardize, panning, scrollContentTo, remToPx, pxToRem, rand, handleContentEditableEnterKeyPress } from "./utils.js"
+import { check, formatValue, formatLabel, standardize, panning, scrollContentTo, remToPx, pxToRem, rand, clamp, handleContentEditableEnterKeyPress } from "./utils.js"
 import { autoRemoveScroller } from "./build-scroller.js"
 import { notificationQuery } from "./service-worker-helper.js"
 
@@ -33,7 +33,7 @@ miniBagQuery = document.body.dataset.miniBag === "true"
 Tastey.calculateCheckoutDetails(allMeals, currency)
 
 //DOM Elements
-let heartIconWrappers,orderReviewSectionContent,wishlistTogglers,tasteyMeals,tasteyMealOrders,mealCart, orderNumberWrapper,tasteyOrderImages,deleteOrderBtns,cartOrderNumbers,plusCartBtns,minusCartBtns,checkoutSection,cartNumberElement,mealsNumberElement,actualPriceElement,totalDiscountElement,savedElement,totalPriceElement,TOTALCOSTElement,mcOrderReviewSection,mcTasteyMealOrders,mcTasteyOrderImages,mcWishlistTogglers,mcDeleteOrderBtns,mcCartOrderNumbers,mcPlusCartBtns,mcMinusCartBtns,mcActualPriceElement,mcTOTALCOSTElement
+let heartIconWrappers,orderReviewSectionContent,wishlistTogglers,tasteyMeals,tasteyMealOrders,mealCart, orderNumberWrapper,tasteyOrderImages,deleteOrderBtns,cartOrderNumbers,plusCartBtns,minusCartBtns,checkoutSection,cartNumberElement,mealsNumberElement,actualPriceElement,totalDiscountElement,savedElement,totalPriceElement,TOTALCOSTElement,miniMealCart,mcOrderReviewSection,mcTasteyMealOrders,mcTasteyOrderImages,mcWishlistTogglers,mcDeleteOrderBtns,mcCartOrderNumbers,mcPlusCartBtns,mcMinusCartBtns,mcActualPriceElement,mcTOTALCOSTElement
 
 //using a function to get only the necessary DOM Elements so as to avoid errors
 function getDOMElements() {
@@ -62,6 +62,7 @@ function getDOMElements() {
         TOTALCOSTElement = document.querySelector(".TOTAL-COST")
     }
     if (miniBagQuery) {
+        miniMealCart = document.querySelector(".mini-meal-cart"),
         mcOrderReviewSection = document.querySelector(".mini-cart-order-review-section"),
         mcTasteyMealOrders = document.getElementsByClassName("mini-cart-tastey-meal-order"),
         mcTasteyOrderImages= document.getElementsByClassName("mini-cart-tastey-order-image"),
@@ -78,11 +79,75 @@ function getDOMElements() {
 }
 
 //functions for the Card User Interface that activates on certain conditions
+//time stalling values for removing from and emptying the bag
+let removeStall = 200,
+emptyStall = 2000
+
+function handleCardPointerStart(e, currentCard) {
+    if (e.touches?.length > 1) return
+    e.stopImmediatePropagation()
+    currentCard.dataset.pointerStartX = e.clientX ?? e.targetTouches[0]?.clientX
+    currentCard.dataset.pointerStartY = e.clientY ?? e.targetTouches[0]?.clientY
+    currentCard.dataset.pointerTicker = false
+    currentCard.addEventListener('touchmove', currentCard.cpi = e => handleCardPointerInit(e, currentCard), {passive: true, once: true})
+}
+
+function handleCardPointerInit(e, currentCard) {
+    e.stopImmediatePropagation()
+    let x = e.clientX ?? e.targetTouches[0]?.clientX,
+    y = e.clientY ?? e.targetTouches[0]?.clientY,
+    deltaX = Math.abs(x - parseFloat(currentCard.dataset.pointerStartX)),
+    deltaY = Math.abs(y - parseFloat(currentCard.dataset.pointerStartY))
+    if (deltaY > deltaX * 2) return
+    currentCard.addEventListener('touchmove', currentCard.cpm = e => handleCardPointerMove(e, currentCard), {passive: false})
+}
+
+function handleCardPointerMove(e, currentCard) {
+    e.preventDefault()
+    e.stopImmediatePropagation()
+    let x = e.clientX ?? e.targetTouches[0]?.clientX,
+    deltaX = x - parseFloat(currentCard.dataset.pointerStartX)
+    currentCard.dataset.pointerDeltaX = deltaX
+    if (JSON.parse(currentCard.dataset.pointerTicker)) return
+    currentCard.cpRAF = requestAnimationFrame(() => {
+        currentCard.style.setProperty("transition", "none")
+        currentCard.style.setProperty("transform", `translateX(${deltaX}px)`)
+        currentCard.style.setProperty("opacity", clamp(0, 1 - (Math.abs(deltaX) / currentCard.offsetWidth), 1))
+        currentCard.dataset.pointerTicker = false
+    })
+    currentCard.dataset.pointerTicker = true
+}    
+
+function handleCardPointerEnd(currentCard) {
+    cancelAnimationFrame(currentCard.cpRAF)
+    if (Math.abs(parseFloat(currentCard.dataset.pointerDeltaX)) > (currentCard.offsetWidth*0.4)) {
+        const dir = parseFloat(currentCard.dataset.pointerDeltaX) > 0 ? "right" : "left"
+        handleDeleteMeal(currentCard.dataset.id, dir)
+        return
+    } 
+    currentCard.dataset.pointerTicker = false
+    currentCard.removeEventListener('touchmove', currentCard.cpi, {passive: true, once: true})
+    currentCard.removeEventListener('touchmove', currentCard.cpm, {passive: false})
+    currentCard.style.removeProperty("transition")
+    currentCard.style.removeProperty("transform")
+    currentCard.style.removeProperty("opacity")
+}  
+
 function getCardsQuery() {
     return (document.body.classList.contains("cart") && (document.body.dataset.cart != 0) && (window.innerWidth >= remToPx(55)) && (window.innerHeight >= remToPx(32.55)) && (CSS && CSS.supports('position', 'sticky')))
 }
 
 const liftOffset = () => {return pxToRem(tasteyMealOrders[0].getBoundingClientRect().height) - 6}
+
+function isCardStacked(i) {
+    const currTop = Math.round(pxToRem(tasteyMealOrders[i].getBoundingClientRect()?.top))
+    const prevTop = Math.round(parseFloat(tasteyMealOrders[i].dataset?.top)) 
+    const nCurrTop = Math.round(pxToRem(tasteyMealOrders[i].nextElementSibling?.getBoundingClientRect()?.top))
+    const nPrevTop = Math.round(parseFloat(tasteyMealOrders[i].nextElementSibling?.dataset?.top))
+    if ((currTop > prevTop) || (nCurrTop >= (nPrevTop + liftOffset()))) 
+        return false
+    else return true
+}
 
 function positionCards() {
 if (getCardsQuery() && !Tastey.isEmpty()) {
@@ -93,42 +158,40 @@ if (getCardsQuery() && !Tastey.isEmpty()) {
         const top = 9.25 + (i * gap)
         tasteyMealOrders[i].dataset.top = top
         tasteyMealOrders[i].style.setProperty('--sticky-top', `${top}rem`)
-        //adding pointer over event listener to all cards
         tasteyMealOrders[i].onpointerover = () => {
             setTimeout(() => {
-                    if(tasteyMealOrders[i]?.matches(":hover"))
-                        liftCard()
+                if(tasteyMealOrders[i]?.matches(":hover")) 
+                    liftCard()
             }, 500)
         }
-        function liftCard() {
-            const currTop = Math.round(pxToRem(tasteyMealOrders[i].getBoundingClientRect()?.top))
-            const prevTop = Math.round(parseFloat(tasteyMealOrders[i].dataset?.top)) 
-            const nCurrTop = Math.round(pxToRem(tasteyMealOrders[i].nextElementSibling?.getBoundingClientRect()?.top))
-            const nPrevTop = Math.round(parseFloat(tasteyMealOrders[i].nextElementSibling?.dataset?.top))
-            if ((currTop == prevTop) && (nCurrTop < (nPrevTop + liftOffset()))) 
-                tasteyMealOrders[i].classList.add("lift")
-            if ((currTop > prevTop) || (nCurrTop >= (nPrevTop + liftOffset()))) 
-                tasteyMealOrders[i].classList.remove("lift")
-        }
         tasteyMealOrders[i].onmouseleave = () => tasteyMealOrders[i].classList.remove("lift")
-        const buttons = tasteyMealOrders[i].querySelectorAll("button")
         tasteyMealOrders[i].onclick = () => {
             if (getCardsQuery())
                 if (document.activeElement.tagName.toLowerCase() !== "button") 
                     moveToCard()
         }
-        for (const button of buttons) {
+        for (const button of tasteyMealOrders[i].querySelectorAll("button")) {
             button.onfocus = () => {
                 if (getCardsQuery())
                     if (button.matches(':focus-visible')) 
                         moveToCard()
             }
         }
+        tasteyMealOrders[i].removeEventListener("touchstart", tasteyMealOrders[i].cps)
+        tasteyMealOrders[i].removeEventListener("touchend", tasteyMealOrders[i].cpe)
+        tasteyMealOrders[i].addEventListener("touchstart", tasteyMealOrders[i].cps = e => {
+            // if (isCardStacked(i)) return
+            handleCardPointerStart(e, tasteyMealOrders[i])
+        }, {passive: false})
+        tasteyMealOrders[i].addEventListener("touchend", tasteyMealOrders[i].cpe = e => handleCardPointerEnd(tasteyMealOrders[i]))
+        function liftCard() {
+            tasteyMealOrders[i].classList.toggle("lift", isCardStacked(i))
+        }
         function moveToCard() {
             let pos = orderReviewSectionContent.getBoundingClientRect().height - (orderReviewSectionContent.getBoundingClientRect().height - (((tasteyMealOrders[i].getBoundingClientRect().height - remToPx(gap) + remToPx(1.25)) * (i+1)) + orderNumberWrapper.getBoundingClientRect().height + remToPx(2.5))) - tasteyMealOrders[i].getBoundingClientRect().height
             scrollContentTo(pos)
             tasteyMealOrders[i].classList.remove("lift")
-        }
+        }        
     }
 }
 }
@@ -146,14 +209,9 @@ function adjustCards() {
             orderNumberWrapper.style.setProperty('--sticky-scale', '1')
         }
         for (let i = 0; i < tasteyMealOrders.length; i++) {
-            let currTop = Math.round(pxToRem(tasteyMealOrders[i]?.getBoundingClientRect()?.top))
-            let prevTop = Math.round(parseFloat(tasteyMealOrders[i]?.dataset?.top)) 
-            let nCurrTop = Math.round(pxToRem(tasteyMealOrders[i]?.nextElementSibling?.getBoundingClientRect()?.top))
-            let nPrevTop = Math.round(parseFloat(tasteyMealOrders[i]?.nextElementSibling?.dataset?.top))
-            if ((currTop == prevTop) && (nCurrTop < (nPrevTop + liftOffset()))) {
+            if (isCardStacked(i)) {
                 tasteyMealOrders[i].style.setProperty('--sticky-scale', `${1 - ((allMeals.length * ((tasteyMealOrders.length - i)/tasteyMealOrders.length))/950)}`)
-            } 
-            if ((currTop > prevTop) || (nCurrTop >= (nPrevTop + liftOffset()))) {
+            } else {
                 tasteyMealOrders[i].style.setProperty('--sticky-scale', '1')
                 tasteyMealOrders[i].classList.remove("lift")
             }   
@@ -161,21 +219,17 @@ function adjustCards() {
     }
 }
 
-//time stalling values for removing from and emptying the bag
-let removeStall = 200
-let emptyStall = 2000
-
-function removeCard(id) {
+function removeCard(id, dir = "auto") {
     if (getCardsQuery()) {
-        if(Tastey.tasteyRecord.tasteyOrders.length == 0) {
-            removeStall = 2000
+        if(Tastey.ordersInTotal === 0) {
+            removeStall = emptyStall
             removeAllCards()
             return
         } else {
             removeStall = 200
             const order = document.querySelector(`.tastey-meal-order[data-id="${id}"]`)        
             order?.classList.remove("lift")
-            order?.animate({transform: `translate(${rand(-20,20)}%, ${pxToRem(window.innerHeight) - (parseFloat(order.dataset?.top))}rem)`},{duration: removeStall, fill: "forwards"})
+            order?.animate({transform: `translate(${dir === "auto" ? rand(-20,20) : dir === "right" ? 100 : -100}%, ${pxToRem(window.innerHeight) - (parseFloat(order.dataset?.top))}rem)`},{duration: removeStall, fill: "forwards"})
         }
     }
 }
@@ -190,7 +244,7 @@ function removeAllCards() {
         const allTasteyMealOrders = Array.from(tasteyMealOrders)  
         removeExtras()
         allTasteyMealOrders.forEach((order,i) => {
-            const stall = (((allTasteyMealOrders.length - i)/allTasteyMealOrders.length * 200) + 1000)
+            const stall = (((allTasteyMealOrders.length - i)/allTasteyMealOrders.length * 200) + (emptyStall - 1000))
             order?.classList.remove("lift")
             order?.animate({transform: `translate(${rand(-15,15)}%, ${pxToRem(window.innerHeight) - (parseFloat(order.dataset?.top))}rem)`},{duration: stall, fill: "forwards"})                
         })   
@@ -198,6 +252,7 @@ function removeAllCards() {
 }
 
 //functions for the Mini Card User Interface that activates on certain conditions
+let gap
 function getMiniCardsQuery() {
     return (CSS && CSS.supports('position', 'sticky'))
 }
@@ -206,7 +261,12 @@ const offset = () => {
     return pxToRem(mcOrderReviewSection?.getBoundingClientRect().height - mcTasteyMealOrders[0]?.getBoundingClientRect().height) - 4
 }
 
-let gap
+function isMCardStacked(i) {
+    if (mcTasteyMealOrders[i].getBoundingClientRect().top >= (remToPx(1.05 + (gap * i)) + mcTasteyMealOrders[i].getBoundingClientRect().height))
+        return false
+    else return true
+}
+
 function positionMiniCards() {
     if (getMiniCardsQuery() && !Tastey.isEmpty()) {
         gap = offset() / mcTasteyMealOrders.length    
@@ -214,14 +274,20 @@ function positionMiniCards() {
         mcOrderReviewSection.style.setProperty('--mini-bottom', `${bottom}rem`)
         for (let i = 0; i < mcTasteyMealOrders.length; i++) {
             mcTasteyMealOrders[i].style.setProperty('--mini-sticky-top', `${.25+(i*gap)}rem`)
-            const buttons = mcTasteyMealOrders[i].querySelectorAll("button")
             mcTasteyMealOrders[i].onclick = () => {if (document.activeElement.tagName.toLowerCase() !== "button") moveToCard()}
-            for (const button of buttons) {
+            for (const button of mcTasteyMealOrders[i].querySelectorAll("button")) {
                 button.onfocus = () => {
                     if (button.matches(':focus-visible')) 
                         moveToCard()
                 }
             }
+            mcTasteyMealOrders[i].removeEventListener("touchstart", mcTasteyMealOrders[i].cps)
+            mcTasteyMealOrders[i].removeEventListener("touchend", mcTasteyMealOrders[i].cpe)
+            mcTasteyMealOrders[i].addEventListener("touchstart", mcTasteyMealOrders[i].cps = e => {
+                // if (isCardStacked()) return
+                handleCardPointerStart(e, mcTasteyMealOrders[i])
+            }, {passive: false})
+            mcTasteyMealOrders[i].addEventListener("touchend", mcTasteyMealOrders[i].cpe = () => handleCardPointerEnd(mcTasteyMealOrders[i]))
             function moveToCard() {
                 let pos = mcOrderReviewSection.getBoundingClientRect().height - (mcOrderReviewSection.getBoundingClientRect().height - (((mcTasteyMealOrders[mcTasteyMealOrders.length-1].getBoundingClientRect().height - remToPx(gap) + remToPx(.5)) * (i+1)))) - mcTasteyMealOrders[mcTasteyMealOrders.length-1].getBoundingClientRect().height
                 scrollContentTo(pos,"smooth",mcOrderReviewSection)
@@ -233,22 +299,24 @@ function positionMiniCards() {
 function adjustMiniCards() {
     if(getMiniCardsQuery() && !Tastey.isEmpty()) {
         for (let i = 0; i < mcTasteyMealOrders.length; i++) {
-            if (mcTasteyMealOrders[i].getBoundingClientRect().top < (remToPx(1.075 + (gap * i)) + mcTasteyMealOrders[i].getBoundingClientRect().height)) {
+            if (isMCardStacked(i)) {
                 mcTasteyMealOrders[i].style.setProperty('--mini-sticky-scale', `${1 - ((allMeals.length * ((mcTasteyMealOrders.length - i)/mcTasteyMealOrders.length))/950)}`)
-            } 
-            if (mcTasteyMealOrders[i].getBoundingClientRect().top > (remToPx(1.075 + (gap * i)) + mcTasteyMealOrders[i].getBoundingClientRect().height)) {
-                    mcTasteyMealOrders[i].style.setProperty('--mini-sticky-scale', '1')
+            } else {
+                mcTasteyMealOrders[i].style.setProperty('--mini-sticky-scale', '1')
             }               
         }
     }
 }
 
-function removeMiniCard(id) {
+function removeMiniCard(id, dir = "auto") {
     if (getMiniCardsQuery()) {
-        if (Tastey.tasteyRecord.tasteyOrders.length == 0 && getCardsQuery() && document.body.classList.contains("cart")) removeStall = 2000
+        if (Tastey.ordersInTotal === 0 && getCardsQuery() && document.body.classList.contains("cart")) removeStall = emptyStall
         else removeStall = 200     
         const order = document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"]`)        
-        order?.animate({transform: `translate(${rand(-10,10)}%, 15rem)`},{duration: removeStall, fill: "forwards"})
+        if (dir === "auto") 
+            order?.animate({transform: `translate(${rand(-10,10)}%, 15rem)`},{duration: removeStall, fill: "forwards"})
+        else 
+            order?.animate({transform: `translate(${dir === "right" ? 100 : -100}%, ${rand(10, 40)}%)`},{duration: removeStall, fill: "forwards"})
     }
 }
 
@@ -256,7 +324,7 @@ function removeAllMiniCards() {
     if (getMiniCardsQuery()) {
         const allTasteyMealOrders = Array.from(mcTasteyMealOrders)
         allTasteyMealOrders.forEach((order,i) => {
-            const stall = (((allTasteyMealOrders.length - i)/allTasteyMealOrders.length*200) + 1000)
+            const stall = (((allTasteyMealOrders.length - i)/allTasteyMealOrders.length*200) + (emptyStall - 1000))
             order?.animate({transform: `translate(${rand(-15,15)}%, 15rem)`},{duration: stall, fill: "forwards"})
         })
     }
@@ -346,19 +414,19 @@ function editMeal(id) {
 
 //a function for adding a meal to the page
 function addMeal(id, meal) {
-    let orders = Tastey.getOrdersValue(id)
+    const { label, category, price, serving, picSrc } = meal,
+    orders = Tastey.getOrdersValue(id),
+    like = Tastey.getLikeValue(id) ?? false
     if (bagQuery) {
         if (orders > 1) { 
             document.querySelector(`.tastey-meal-order[data-id="${id}"] .cart-order-number`).textContent = standardize(orders)
         } else {
-            const { label, category, price, serving, picSrc } = meal,
-            newProduct = document.createElement('div')
+            const newProduct = document.createElement('div')
             newProduct.classList.add('tastey-meal-order')
             newProduct.dataset.id = id
             newProduct.dataset.discount = price.discount ?? 0
-            newProduct.dataset.like = Tastey.getLikeValue(id) ?? false
+            newProduct.dataset.like = like
             newProduct.dataset.orders = orders
-            newProduct.dataset.position = Tastey.tasteyRecord.tasteyOrders.length ?? 1
             newProduct.innerHTML = 
             `
                 <div class="tastey-meal-order-content">
@@ -421,11 +489,10 @@ function addMeal(id, meal) {
         if (orders > 1) { 
             document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"] .mini-cart-order-number`).textContent = standardize(orders)
         } else {
-            const { label, category, price, serving, picSrc } = meal,
-            mcNewProduct = document.createElement('div')
+            const mcNewProduct = document.createElement('div')
             mcNewProduct.classList.add('mini-cart-tastey-meal-order')
             mcNewProduct.dataset.id = id
-            mcNewProduct.dataset.like = Tastey.getLikeValue(id) ?? false
+            mcNewProduct.dataset.like = like
             mcNewProduct.dataset.orders = orders
             mcNewProduct.dataset.discount = price.discount ?? 0
             mcNewProduct.innerHTML = 
@@ -494,12 +561,12 @@ function removeMeal(id) {
 //a function for deleting a meal from the page
 function deleteMeal(id) {
     if (bagQuery) {
-        document.querySelector(`.tastey-meal-order[data-id="${id}"]`).remove()
+        document.querySelector(`.tastey-meal-order[data-id="${id}"]`)?.remove()
         positionCards()
         setTimeout(autoRemoveScroller,100)
     }
     if (miniBagQuery) {
-        document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"]`).remove()
+        document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"]`)?.remove()
         positionMiniCards()
     }
     resetBagEventListeners()
@@ -537,18 +604,22 @@ function setCheckoutState() {
 //a function to assign all necessary event listeners
 function resetBagEventListeners() {
     if (bagQuery) {
+        mealCart.style.setProperty("--card-total", Tastey.ordersInTotal)
         for(let i = 0; i < tasteyMealOrders.length; i++) {
+            tasteyMealOrders[i].style.setProperty("--card-position", Tastey.getOrdersPosition(tasteyMealOrders[i].dataset.id))
             wishlistTogglers[i].onclick = () => handleLikes(tasteyMealOrders[i]?.dataset.id)      
             tasteyOrderImages[i].ondblclick = () => handleLikes(tasteyMealOrders[i]?.dataset.id)  
             deleteOrderBtns[i].onclick = () => handleDeleteMeal(tasteyMealOrders[i]?.dataset.id)
             cartOrderNumbers[i].onkeydown = (e) => handleContentEditableEnterKeyPress(e)
-            cartOrderNumbers[i].onblur = (e) => handleEditMealOrders(tasteyMealOrders[i]?.dataset.id,e)
+            cartOrderNumbers[i].onblur = (e) => handleEditMealOrders(tasteyMealOrders[i].dataset.id,e)
             plusCartBtns[i].onclick = () => handleAddMeal(tasteyMealOrders[i]?.dataset.id)
             minusCartBtns[i].onclick = () => handleRemoveMeal(tasteyMealOrders[i]?.dataset.id)
         }
     }
     if (miniBagQuery) {
+        miniMealCart.style.setProperty("--mini-card-total", Tastey.ordersInTotal)
         for(let i = 0; i < mcTasteyMealOrders.length; i++) {
+            mcTasteyMealOrders[i].style.setProperty("--mini-card-position", Tastey.getOrdersPosition(mcTasteyMealOrders[i].dataset.id))
             mcWishlistTogglers[i].onclick = () => handleLikes(mcTasteyMealOrders[i]?.dataset.id)      
             mcTasteyOrderImages[i].ondblclick =  () => handleLikes(mcTasteyMealOrders[i]?.dataset.id)  
             mcDeleteOrderBtns[i].onclick = () => handleDeleteMeal(mcTasteyMealOrders[i]?.dataset.id)
@@ -606,7 +677,6 @@ function setButtonState(id) {
 
 //a function to handle updating general states
 function updateStates(id) {
-    Tastey.calculateCheckoutDetails(allMeals, currency)
     setCartStates()
     setOrderStates(id)
     setCheckoutState()
@@ -638,6 +708,7 @@ async function handleEditMealOrders(id,{currentTarget: el}) {
         toggleLoader(id, true)
         // #TASTEY CRUD - CU
         if (await Tastey.editMeal(id,n)) {
+            Tastey.calculateCheckoutDetails(allMeals, currency)
             editMeal(id)
             updateStates(id)
             setButtonState(id)
@@ -664,6 +735,7 @@ async function handleAddMeal(id,n=1) {
         toggleLoader(id, true)
         // #TASTEY CRUD - CU
         if (await Tastey.addMeal(id,n)) {
+            Tastey.calculateCheckoutDetails(allMeals, currency)
             addMeal(id,meal)
             updateStates(id)
             setButtonState(id)
@@ -691,6 +763,7 @@ async function handleRemoveMeal(id,n=1) {
         toggleLoader(id, true)
         // #TASTEY CRUD - UD
         if (await Tastey.removeMeal(id,n)) {
+            Tastey.calculateCheckoutDetails(allMeals, currency)
             removeMeal(id)
             updateStates(id)
             setButtonState(id)
@@ -705,7 +778,7 @@ async function handleRemoveMeal(id,n=1) {
 }
 
 //a function for deleting orders
-async function handleDeleteMeal(id) {
+async function handleDeleteMeal(id, dir = "auto") {
     try {
         const meal = allMeals.find(meal => Number(meal.id) === Number(id))
         if (!meal) return
@@ -713,13 +786,14 @@ async function handleDeleteMeal(id) {
         toggleDelLoader(id, true)
         // #TASTEY CRUD - D
         if (await Tastey.deleteMeal(id)) {
+            Tastey.calculateCheckoutDetails(allMeals, currency)
             if (!getCardsQuery() && document.body.classList.contains("cart")) {
                 deleteMeal(id)
             } else {
                 if (bagQuery) 
-                    removeCard(id)    
+                    removeCard(id, dir)    
                 if (miniBagQuery)
-                    removeMiniCard(id)                 
+                    removeMiniCard(id, dir)         
                 await new Promise(resolve => setTimeout(() => {
                     deleteMeal(id)
                     resolve()

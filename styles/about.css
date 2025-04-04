@@ -2,9 +2,17 @@ body {
     color: var(--current-theme-sub-color);
 }
 
+body:not(.loading)::before {
+    background: none;
+}
+
 .archive-content-container {
     --timeline-position: 0;
     --timeline-length: 100%;
+    --archive-transition-time: 200ms;
+    --archive-content-transition-time: 800ms;
+    width: 100%;
+    overflow: hidden;
     margin-top: 4rem;
     margin-bottom: 2rem;
 }
@@ -36,17 +44,17 @@ body {
     position: absolute;
     width: 2rem;
     height: 250%;
-    background-color: #ed8f2381;
+    background-color: #ed8f235b;
 }
 
 .archive-content-header-wrapper h2::after {
     left: calc(100% - 0.475rem);
-    transform: skewY(-55deg) translateY(-1rem) translateX(1rem);
+    transform: skewY(-45deg) translateY(-1rem) translateX(1rem);
 }
 
 .archive-content-header-wrapper h2::before {
     right: calc(100% + 2.525rem);
-    transform: skewY(-55deg) translateY(-1rem) translateX(1rem);
+    transform: skewY(-45deg) translateY(-1rem) translateX(1rem);
 }
 
 .archive-content-header-wrapper h5 {
@@ -72,7 +80,8 @@ body {
 }
 
 .archive-content-sub-header-wrapper {
-    padding: 2rem;
+    padding-block: 2rem;
+    padding-inline: 1.5rem;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -103,6 +112,7 @@ body {
 .tastey-timeline {
     position: absolute;
     height: var(--timeline-length);
+    border-radius: .6rem;
     background-color: var(--lighter-black);
     width: 1rem;
     display: flex;
@@ -122,14 +132,13 @@ body {
 .tastey-timeline::after {
     content: '';
     height: 100%;
-    background-color: var(--sub-text-color);
+    background-color: rgb(from var(--tastey-brand-color) r g b/.1);
 }
 
 .tastey-timeline-seeker {
     height: var(--timeline-length);
     max-height: var(--timeline-position);
     background-color: var(--tastey-brand-light-accent-color);
-    z-index: 1;
     margin-block: 1rem;
 }
 
@@ -137,6 +146,23 @@ body {
     flex: 0 0 50%;
     display: flex;
     position: relative;
+    transition-property: opacity, transform;
+    transition-duration: var(--archive-transition-time);
+    transition-timing-function: ease;
+    opacity: 0;
+}
+
+.archive:nth-child(even) {
+    transform: translateX(50%);
+}
+
+.archive:nth-child(odd) {
+    transform: translateX(-50%);
+}
+
+.archive:has(.archive-content.visible) {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .archive:last-of-type .archive-content p {
@@ -184,7 +210,6 @@ body {
 }
 
 .archive-content {
-    --archive-transition-time: 800ms;
     position: relative;
     flex: 0 1 25rem;
     min-width: 17.5rem;
@@ -202,22 +227,30 @@ body {
 
 .archive-content.visible {
     border-color: var(--tastey-brand-light-accent-color);
-    transition: border-color var(--archive-transition-time) ease;
+    transition: border-color var(--archive-content-transition-time) ease var(--archive-transition-time);
+}
+
+.archive:nth-child(even) .archive-content.visible {
+    background-image: linear-gradient(to right, rgb(from var(--tastey-brand-color) r g b/.05) 50%, rgb(from var(--tastey-brand-accent-color) r g b/.15));
+}
+
+.archive:nth-child(odd) .archive-content.visible {
+    background-image: linear-gradient(to left, rgb(from var(--tastey-brand-color) r g b/.05) 50%, rgb(from var(--tastey-brand-accent-color) r g b/.15));
 }
 
 .archive-content.visible h4 {
-    color: var(--current-theme-sub-color);
-    transition: color var(--archive-transition-time) ease;
+    color: var(--current-theme-fade-color);
+    transition: color var(--archive-content-transition-time) ease var(--archive-transition-time);
 }
 
 .archive-content.visible h2 {
     color: var(--tastey-brand-accent-color);
-    transition: color var(--archive-transition-time) ease;
+    transition: color var(--archive-content-transition-time) ease var(--archive-transition-time);
 }
 
 .archive-content.visible p {
     color: var(--main-text-color);
-    transition: color var(--archive-transition-time) ease;
+    transition: color var(--archive-content-transition-time) ease var(--archive-transition-time);
 }
 
 .archive-content.visible .open-menu-btn {
@@ -229,47 +262,35 @@ body {
 }
 
 @keyframes shift_two {
-    from {
-        transform: translateY(-2rem);
-    } to {
-        transform: translateY(0);
-    }
+    from { transform: translateY(-2rem); } 
+    to { transform: translateY(0); }
 }
 
 .archive-content.visible .open-menu-btn::before {
     background-color: var(--tastey-brand-color);
-    transition: var(--archive-transition-time) ease;
+    transition: var(--archive-content-transition-time) ease var(--archive-transition-time);
     animation: shift 1.5s ease;
 }
 
 @keyframes shift {
-    0% {
-        translate: 0;
-    }
-    25% {
-        translate: 50%;
-    }
-    75% {
-        translate: -50%;
-    }
-    100% {
-        translate: 0;
-    }
+    from, to { translate: 0; } 
+    25% { translate: 50%; } 
+    75% { translate: -50%; } 
 }
 
 .archive-content.visible .archive-time-wrapper h4::before {
     background-color: var(--tastey-brand-light-accent-color);
-    transition: background-color 400ms ease;
+    transition: background-color 400ms ease var(--archive-transition-time);
 } 
 
 .archive-content.visible .archive-time-wrapper h4::after {
     border-color: var(--tastey-brand-light-accent-color);
-    transition: border-color 400ms ease;
+    transition: border-color 400ms ease var(--archive-transition-time);
 }
 
 .archive-content.visible .archive-img-wrapper img {
     filter: brightness(100%);
-    transition: filter 400ms ease;
+    transition: filter 400ms ease var(--archive-transition-time);
 }
 
 .archive:nth-child(odd) .archive-content {
@@ -311,7 +332,7 @@ body {
     height: .25rem;
     width: 3rem;
     border-radius: .1rem;
-    background-color: var(--sub-text-color);
+    background-color: rgb(from var(--tastey-brand-color) r g b/.1);
 }
 
 .archive-time-wrapper h4::after {
@@ -325,7 +346,7 @@ body {
     box-shadow: 0 0 0 .4rem var(--current-shade);
     border-width: .25rem;
     border-style: solid;
-    border-color: var(--sub-text-color);
+    border-color: rgb(from var(--tastey-brand-color) r g b/.1);
     background-color: var(--current-shade);
 }
 
@@ -366,10 +387,6 @@ main.about-section {
     gap: 0;
 }
 
-.video-content-wrapper {
-    margin-block-end: 2rem;
-}
-
 .about-title-wrapper {
     padding: .5rem;
     display: flex;
@@ -405,12 +422,13 @@ main.about-section {
 }
 
 .accreditation-sections, .review-panel-container {
+    position: relative;
     width: 100%;
-    padding-block: 1rem;
+    padding-block: 5rem;
 }
 
 .review-panel-container, .accreditation-sections {
-    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') center/cover no-repeat fixed, var(--darker-black);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2) 65%, rgba(0, 0, 0, 0.75)) top/100% 50% no-repeat, linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 65%, rgba(0, 0, 0, 0.75)) bottom/100% 50% no-repeat, url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') center/cover no-repeat fixed, var(--darker-black);
 }
 
 .accreditation-sections-content, .review-panel-content {
@@ -706,23 +724,27 @@ main.about-section {
     .archive-content-container .archives-content-wrapper {
         padding-block-start: 0;
     }
-    .archives-content-wrapper .archive:nth-child(1) {
+    .archive-content-container .archive:nth-child(1) {
         margin-top: 0;
     }
-    .archives-content-wrapper .archive {
+    .archive-content-container .archive {
         margin-block-start: 0;
         margin-block-end: 4rem;
         padding-left: 7.5rem;
         padding-right: 7.5rem;
         flex: 0 0 100%;
         justify-content: center;
+        transform: translateX(50%);
     }
-    .archives-content-wrapper .archive .archive-content {
+    .archive-content-container .archive .archive-content {
         min-width: 100%;
         flex-direction: row;
         gap: .75rem;
         text-align: left;
         padding-inline: 1rem;
+    }
+    .archive-content-container .archive .archive-content.visible {
+        background-image: linear-gradient(to right, rgb(from var(--tastey-brand-color) r g b/.05) 50%, rgb(from var(--tastey-brand-accent-color) r g b/.15));
     }
     .archive-img-wrapper {
         min-height: 17.5rem;
@@ -788,9 +810,11 @@ main.about-section {
 }
 
 @media only screen and (max-width: 25rem) {
-    .archive-content-header-wrapper h2::after, .archive-content-header-wrapper h2::before, 
+    /* .archive-content-header-wrapper h2::after, .archive-content-header-wrapper h2::before {
+        
+    } */
     .about-title-wrapper h2::before, .about-title-wrapper h2::after {
-        display: none;
+        display: none;   
     }
     .reservation-content-wrapper-content {
         height: 35rem;

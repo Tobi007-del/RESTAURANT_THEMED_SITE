@@ -42,13 +42,14 @@ function displayWelcomeNotification() {
     // FT for "First Timer" & OT for "Old Taker"
     const welcomeMssg = !sessionStorage.tastey_friendship_log && localStorage.tastey_friendship_log ? "Hello, Old Friend! Welcome back to Tastey" : "Hello, New Friend! Welcome to Tastey",
     title = "Tastey",
+    infoMssg = "Wanna tease your taste buds? try a Tastey meal now!",
     options = {
-        body: `${welcomeMssg}. Wanna tease your taste buds? try a Tastey meal now!`,
+        body: `${welcomeMssg}. ${infoMssg}`,
         image: randomImgSrc,
         tag: "tastey-welcome-notification",
         renotify: true
     }
-    Toast({ data: { type: "info", body: "Wanna tease your taste buds? try a Tastey meal now!", tag: "tastey-welcome-notification" } })
+    Toast({ data: { type: "info", body: infoMssg, tag: "tastey-welcome-notification" } })
     notificationQuery(title, options, "Welcome")
 }
 if (!sessionStorage.is_this_first_visit_to_Tastey) {
@@ -78,7 +79,7 @@ document.querySelector('.nav-link:nth-of-type(3)').addEventListener('click', () 
 
 
 //A function to mock queries to the database during development
-const mockQuery = () => new Promise(resolve => setTimeout(resolve, 500))
+const mockQuery = () => new Promise(resolve => setTimeout(resolve, 250))
 //A Class to handle all major Tastey operations
 class TasteyManager {
     constructor() {
@@ -239,7 +240,7 @@ class TasteyManager {
     }
 
     getOrdersPosition(id) {
-        return (this.tasteyRecord.tasteyOrders.findIndex(meal => Number(meal.id) === Number(id)) ?? 0 + 1)
+        return ((this.tasteyRecord.tasteyOrders.findIndex(meal => Number(meal.id) === Number(id)) ?? 0) + 1)
     }
     
     getLikeValue(id) {

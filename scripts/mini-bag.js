@@ -1,6 +1,6 @@
 import { allMeals, currency, maxOrders, getDOMElements, handleCheckout, positionMiniCards, adjustMiniCards } from "./CRUD.js"
 import { Tastey } from "./TasteyManager.js"
-import { tasteyDebouncer, check, formatValue, standardize, panning, positionGradient } from "./utils.js"
+import { tasteyDebouncer, check, formatValue, standardize, panning, positionGradient, syncScrollToTop, syncScrollToBottom } from "./utils.js"
 
 tasteyMiniBag()
 
@@ -134,10 +134,15 @@ mcCheckoutBtn = document.querySelector(".mini-cart-checkout-button")
 getDOMElements()
 window.addEventListener('load', positionMiniCards)
 
+function openMiniCart() {
+    positionMiniCards()
+    syncScrollToBottom("instant", mcOrderReviewSection)
+}
+
 navbarCart.addEventListener("click", () => miniMealCart.classList.toggle("close"))
-navbarCart.addEventListener("click", positionMiniCards)
-navbarCart.addEventListener("pointerover", positionMiniCards)
-navbarCart.addEventListener("focus", positionMiniCards)
+navbarCart.addEventListener("click", openMiniCart)
+navbarCart.addEventListener("pointerover", openMiniCart)
+navbarCart.addEventListener("focus", openMiniCart)
 closeCartBtn.addEventListener("click", () => miniMealCart.classList.add("close"))
 mcShoppingBagBtn.addEventListener("click", () => sessionStorage.open_cart = true)
 

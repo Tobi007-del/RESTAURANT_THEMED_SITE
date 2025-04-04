@@ -61,8 +61,8 @@ quickScrollShow.addEventListener('click', () => {
     autoRemoveScroller()
 })
 
-var circle = document.getElementById("circle")
-var length = circle.getTotalLength()
+const circle = document.getElementById("circle"),
+length = circle.getTotalLength()
 
 // The start position of the drawing
 circle.style.strokeDasharray = length
@@ -83,12 +83,8 @@ function onscroll() {
     const isReachTop = window.scrollY === 0
     if (isReachBottom || isReachTop) 
         quickScroll.style.display = "flex"
-    if ((window.innerWidth >= remToPx(36)) && (window.innerHeight >= remToPx(30))) {
-        if (isReachTop) 
-            document.querySelector('nav').classList.remove('top')
-        else 
-            document.querySelector('nav').classList.add('top')
-    }
+    if ((window.innerWidth >= remToPx(36)) && (window.innerHeight >= remToPx(30))) 
+        document.querySelector('nav').classList.toggle('top', !isReachTop)
     drawOnScroll()
 }
 

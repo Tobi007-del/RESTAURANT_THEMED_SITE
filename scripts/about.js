@@ -32,6 +32,8 @@ function btnCheck(e) {
     else return ''
 }
 
+document.querySelector(".open-menu-btn").addEventListener("click", () => delete sessionStorage.open_cart)
+
 const archives = document.querySelectorAll(".archive-content")
  
 const scrollThrottler = new tasteyThrottler
@@ -167,10 +169,10 @@ accrediationSectionObserver.observe(document.querySelector('#accreditation-secti
 //COUNTER FUNCTIONS
 const t = 50
 function accreditationCounter(){    
-        o = setInterval(firstValueCount,t)
-        p = setInterval(secondValueCount,t)
-        q = setInterval(thirdValueCount,t)
-        r = setInterval(fourthValueCount,t*2)
+    o = setInterval(firstValueCount,t)
+    p = setInterval(secondValueCount,t)
+    q = setInterval(thirdValueCount,t)
+    r = setInterval(fourthValueCount,t*2)
 }
 
 const faqs = document.querySelectorAll(".reviews"),
