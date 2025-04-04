@@ -9,8 +9,8 @@ body:not(.loading)::before {
 .archive-content-container {
     --timeline-position: 0;
     --timeline-length: 100%;
-    --archive-transition-time: 200ms;
-    --archive-content-transition-time: 800ms;
+    --archive-transition-time: 500ms;
+    --archive-content-transition-time: 500ms;
     width: 100%;
     overflow: hidden;
     margin-top: 4rem;
