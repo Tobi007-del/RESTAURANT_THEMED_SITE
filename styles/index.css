@@ -46,7 +46,6 @@ hero-content-wrapper, .tastey-meals-carousel {
     font-size: .75rem;
     font-weight: 600;
     word-spacing: .1rem;
-    letter-spacing: .025rem;
     position: relative;
     width: fit-content;
     left: 2.75rem;
@@ -74,7 +73,6 @@ hero-content-wrapper, .tastey-meals-carousel {
 .welcome-message-wrapper {
     font-size: clamp(.75rem, 4svh, .95rem);
     word-spacing: .05rem;
-    letter-spacing: .05rem;
     line-height: 1.25rem;
     color: var(--current-theme-accent-color);
 }
@@ -319,7 +317,7 @@ hero-content-wrapper, .tastey-meals-carousel {
     }
     .tastey-meals-carousel {
         --gradient-dark-color: rgb(0, 0, 0, .65);
-        --gradient-percent: 28%;
+        --gradient-percent: 100%;
     }
     .tastey-meals-carousel-controls {
         display: none;
