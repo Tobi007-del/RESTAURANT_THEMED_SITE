@@ -868,10 +868,8 @@ main.about-section {
 }
 
 @media only screen and (max-width: 25rem) {
-
-    /* .archive-content-header-wrapper h2::after, .archive-content-header-wrapper h2::before {
-        
-    } */
+    .archive-content-header-wrapper h2::after, 
+    .archive-content-header-wrapper h2::before,
     .about-title-wrapper h2::before,
     .about-title-wrapper h2::after {
         display: none;
