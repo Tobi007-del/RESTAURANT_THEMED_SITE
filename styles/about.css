@@ -6,7 +6,7 @@ body:not(.loading)::before {
     background: var(--current-theme-inverse-color);
 }
 
-main {
+main:first-of-type {
     margin-top: 4.75rem;
     width: 100%;
 }
@@ -410,6 +410,10 @@ main.about-section {
     display: flex;
     flex-direction: column;
     gap: 0;
+}
+
+.video-content-wrapper {
+    margin-block: 4rem;
 }
 
 .accreditation-sections,
