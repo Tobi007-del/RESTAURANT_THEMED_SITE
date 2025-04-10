@@ -412,41 +412,6 @@ main.about-section {
     gap: 0;
 }
 
-.about-title-wrapper {
-    padding: .5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-block: 2rem;
-    margin-block: .5rem;
-    background-image: linear-gradient(transparent, #ed8f2325, transparent);
-}
-
-.about-title-wrapper h2 {
-    position: relative;
-    width: fit-content;
-    text-align: center;
-}
-
-.about-title-wrapper h2::before,
-.about-title-wrapper h2::after {
-    content: '';
-    background-size: 100% .285rem;
-    background-image: linear-gradient(transparent .15rem, var(--tastey-brand-color) .135rem);
-    width: 2rem;
-    position: absolute;
-    top: .5rem;
-    height: .575rem;
-}
-
-.about-title-wrapper h2::before {
-    left: -2.75rem;
-}
-
-.about-title-wrapper h2::after {
-    right: -2.75rem;
-}
-
 .accreditation-sections,
 .review-panel-container {
     position: relative;
@@ -869,9 +834,7 @@ main.about-section {
 
 @media only screen and (max-width: 25rem) {
     .archive-content-header-wrapper h2::after, 
-    .archive-content-header-wrapper h2::before,
-    .about-title-wrapper h2::before,
-    .about-title-wrapper h2::after {
+    .archive-content-header-wrapper h2::before {
         display: none;
     }
 
