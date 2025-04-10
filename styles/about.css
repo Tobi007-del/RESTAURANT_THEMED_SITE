@@ -456,7 +456,7 @@ main.about-section {
 
 .review-panel-container,
 .accreditation-sections {
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.2) 65%, rgba(0, 0, 0, 0.8)) top/100% 50% no-repeat, linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 65%, rgba(0, 0, 0, 0.8)) bottom/100% 50% no-repeat, url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') center/cover no-repeat fixed, var(--darker-black);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2) 65%, rgba(0, 0, 0, 0.75)) top/100% 50% no-repeat, linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 65%, rgba(0, 0, 0, 0.75)) bottom/100% 50% no-repeat, url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') center/cover no-repeat fixed, var(--darker-black);
 }
 
 .accreditation-sections-content,
