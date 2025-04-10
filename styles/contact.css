@@ -1,5 +1,5 @@
-h1,h2,h3,h4,h5,h6,p {
-    margin: 0;
+body:not(.loading)::before {
+    background: var(--current-theme-inverse-color);
 }
 
 .contact-banner-section-wrapper {
@@ -25,8 +25,8 @@ h1,h2,h3,h4,h5,h6,p {
 }
 
 .contact-section-wrapper  {
-    background-color: var(--current-theme-inverse-color);
     padding-inline: 5dvw;
+    padding-block-end: 1rem;
 }
 
 .contact-section {
@@ -37,7 +37,8 @@ h1,h2,h3,h4,h5,h6,p {
     column-gap: 2.5dvw;
     row-gap: 2.5rem;
     border-radius: .5rem;
-    background: linear-gradient(to left, var(--current-theme-main-color), var(--tastey-brand-light-accent-color), var(--tastey-brand-light-accent-color));
+    background: var(--lighter-black);
+    border: .05rem solid var(--border-color);
 }
 
 .contact-section > div {
@@ -185,7 +186,6 @@ form .submit-btn:hover {
 
 @media only screen and (max-width: 36rem) {
 .contact-section {
-    background: linear-gradient(to top, var(--current-theme-main-color), var(--tastey-brand-light-accent-color), var(--tastey-brand-light-accent-color));
     padding-inline: 3dvw;
 }
 }

@@ -1,6 +1,8 @@
 *,*::after,*::before {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
+    margin: 0;
+    padding: 0;
 }
 
 img, button, a {
@@ -25,7 +27,7 @@ img, button, a {
     --current-theme-inverse-color: black;
     --current-theme-inverse-accent-color: rgba(0, 0, 0, 0.75);
     --current-theme-inverse-transparent-color: rgba(0, 0, 0, 0.1);
-    --current-theme-inverse-alt-transparent-color: rgba(100, 100, 100, .5);
+    --border-color: rgba(255, 255, 255, .25);
     --lighter-black: rgb(20,20,20);
     --darker-black: rgb(15,15,15);
     --main-text-color: lightgrey;
@@ -58,7 +60,6 @@ html, *::after, *::before, aside, button, input, textarea, video::cue {
 
 body {
     width: 100%;
-    margin: 0;
     overflow-x: hidden;
 }
 
@@ -127,6 +128,21 @@ img {
     background: radial-gradient(circle at center, rgba(255,255,255,0.475), transparent 50%), center/var(--tastey-icon-size) no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), center/cover no-repeat var(--tastey-background-url), var(--darker-black);
 }
 
+:where(button) {
+    background: none;
+    border: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 200ms ease;
+}
+
+:where(button):hover {
+    cursor: pointer;
+    filter: brightness(1.1);
+}
+
 .Tastey-text {
     font-family: 'Times New Roman', Times, serif!important;
 }
@@ -170,8 +186,8 @@ img {
     background: var(--lighter-black);
     max-width: 90%;
     padding: 18px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
-    border: .05rem solid rgba(255, 255, 255, .25);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5), -2px -2px 6px rgba(0, 0, 0, 0.5);
+    border: .05rem solid var(--border-color);
     border-radius: 15px;
 }
 
@@ -188,7 +204,6 @@ img {
 .dialog-question {
     color: var(--current-theme-fade-color);
     font-size: 0.9rem;
-    margin: 0;
 }
 
 .dialog-bottom-section {
@@ -198,14 +213,10 @@ img {
 }
 
 .tastey-dialog button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 0.85rem;
     height: 38px;
     width: 80px;
     border-radius: 20px;
-    border: none;
     transition: 100ms ease;
 }
 
@@ -258,7 +269,7 @@ nav {
     transition: 450ms ease;
 }
 
-@media only screen and (min-width: 36rem) and (min-height: 30rem) {
+@media only screen and (min-width: 40rem) and (min-height: 30rem) {
     nav {
         transform: translateY(.5rem);
     }
@@ -336,7 +347,6 @@ div.tastey-logo {
 }
 
 .company-name-section span h3, .company-name-section span h6 {
-    margin: 0;
     white-space: nowrap;
 }
 
@@ -395,13 +405,8 @@ div.tastey-logo {
     align-items: center;
 }
 
-.user-service-wrapper a, .navbar-cart {
-    border-radius: .25rem;
-}
-
 .reservation-btn { 
     background-color: var(--tastey-brand-accent-color);
-    border: none;
     width: fit-content;
     padding: .65rem;
     padding-inline: 1rem;
@@ -421,20 +426,23 @@ div.tastey-logo {
     display: none;
 }
 
+.user-container,
 .cart-container {
     position: relative;
-    padding: 1rem 0rem 1rem 1vw;
+    padding: 1rem 0rem 1rem 1.25vw;
 }
 
+.user-container .user-dropdown.close,
 .cart-container .mini-meal-cart.close {
     display: none;
 }
 
-.cart-container:hover .navbar-cart, .cart-container:has(:focus-visible) .navbar-cart {
+.user-container:is(:hover, :has(:focus-visible)) .navbar-user, .cart-container:is(:hover, :has(:focus-visible)) .navbar-cart {
     cursor: pointer;
     opacity: 1;
 }
 
+nav .user-contaienr:has(:focus-visible) .user-dropdown,
 nav .cart-container:has(:focus-visible) .mini-meal-cart {
     display: block;
 }
@@ -443,30 +451,41 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     display: none;
 }
 
-.Cart {
-    position: relative;
-    display: inline-block;
+.navbar-user,
+.navbar-cart {
+    width: 1.65rem;
+    height: 1.65rem;
+    opacity: 0.85;
+    align-items: center;
+}
+
+.navbar-user {
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .navbar-cart {
-    opacity: 0.85;
-    border: none;
-    background-color: transparent;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: .25rem;
+}
+
+.navbar-user img {
+    background: var(--current-theme-inverse-color);
+}
+
+.Cart {
+    position: relative;
+    display: inline-flex;
 }
 
 .navbar-cart svg {
-    width: 1.65rem;
-    height: 1.65rem;
+    transform: translateY(0.125rem) scale(1.05);
+    width: 100%;
+    height: 100%;
     fill: var(--current-theme-inverse-color);
 }
 
 .cart-icon.empty {
-    transform: scaleX(.9);
+    scale: .9 1;
 }
 
 .Cart[data-cart = '0'] .cart-icon.empty {
@@ -510,6 +529,112 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     font-weight: bold;
 }
 
+.user-dropdown {
+    z-index: 14;
+    position: absolute;
+    top: 3.2rem;
+    right: calc(-2.65rem - 1.5vw);
+    width: clamp(5rem,90dvw,14rem);
+    height: fit-content;
+    border-radius: .5rem;
+    background-color: var(--lighter-black);
+    border: .05rem solid var(--border-color); 
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5), -2px -2px 6px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-dropdown > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    overflow: hidden;   
+}
+
+.user-dropdown-top-section {
+    border-bottom: .15rem solid var(--border-color);
+    padding: 1rem;
+}
+
+.sign-in-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    background-color: var(--tastey-brand-accent-color);
+    text-align: center;
+    width: 100%;
+    padding: .65rem;
+    padding-inline: 1rem;
+    font-size: .85rem;
+    border-radius: .25rem;
+    position: relative;
+    font-weight: 600;
+    color: var(--current-theme-inverse-accent-color);
+}
+
+.sign-in-button:hover {
+    background-color: var(--tastey-brand-color);
+    color: var(--current-theme-inverse-color);
+}
+
+.sign-in-button svg {
+    height: 1.1em;
+    width: 1.5em;
+    vertical-align: middle;
+}
+
+.user-dropdown-bottom-section > a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1.05rem;
+    font-size: .85rem;
+    padding: .6rem;
+    color: var(--main-text-color);
+    transition: 100ms ease;
+}
+
+.user-dropdown-bottom-section > a:not(:last-child) {
+    border-bottom: .05rem solid var(--border-color);
+}
+
+.user-dropdown-bottom-section > a:hover {
+    font-size: .865rem;
+    font-weight: bold;
+    background-color: var(--current-theme-transparent-color);
+}
+
+.user-dropdown-bottom-section > a span {
+    width: 1.55rem;
+    height: 1.55rem;
+    overflow: hidden;
+}
+
+.user-dropdown-bottom-section > a span * {
+    width: 100%;
+    height: 100%;
+}
+
+.user-dropdown-bottom-section > a span img {
+    background: var(--current-theme-sub-color);
+    border-radius: 50%;
+}
+
+.user-dropdown-bottom-section > a span svg {
+    display: none;
+}
+
+.user-dropdown-bottom-section > a.no-likes .unliked-heart-icon {
+    display: inline-block;
+}
+
+.user-dropdown-bottom-section > a.likes .liked-heart-icon {
+    display: inline-block;
+}
+
 .mini-meal-cart {
     z-index: 10;
     position: absolute;
@@ -519,7 +644,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     height: 30rem;
     border-radius: .5rem;
     background-color: rgba(255, 255, 255, 0.25);
-    box-shadow: 2px 2px 2.5rem rgba(255, 255, 255, 0.1);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5), -2px -2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .mini-meal-cart::after, .mini-meal-cart::before {
@@ -595,10 +720,6 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     display: flex;
 }
 
-.mini-meal-cart p, .mini-meal-cart button, .mini-meal-cart h2, .mini-meal-cart h5, .mini-meal-cart h6 {
-    margin: 0;
-}
-
 .mini-cart-top-section {
     display: flex;
     justify-content: space-between;
@@ -643,7 +764,6 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 
 .mini-cart-top-section button {
     background-color: transparent;
-    border: none;
     display: inline-flex;
     padding: 0;
     height: 100%;
@@ -681,6 +801,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 
 .mini-empty-cart-text h6 {
     font-size: .9rem;
+    text-align: center;
 }
 
 .mini-empty-cart-text a {
@@ -845,10 +966,6 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     pointer-events: none;
 }
 
-.mini-cart-tastey-order-info p, .mini-cart-tastey-order-info h5 {
-    margin: 0;
-}
-
 .mini-cart-tastey-order-info {
     flex: 0 1 78.5%;
     display: flex;
@@ -915,10 +1032,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 }
 
 .mini-cart-tastey-order-text-wrapper div:nth-of-type(2) button {
-    border: none;
     width: fit-content;
-    padding: 0;
-    margin: 0;
     border-radius: .1rem;
     background-color: transparent;
     opacity: .95;
@@ -1010,13 +1124,9 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 .mini-cart-sign {
     position: relative;
     flex: 1 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
     padding: 0;
     height: 5rem;
-    border: none;
     opacity: .85;
 }
 
@@ -1096,7 +1206,6 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 .mini-cart-order-number {
     position: relative;
     display: inline-block;
-    margin: 0;
     margin-inline: .25rem;
     color: var(--current-theme-fade-color);
     font-size: .85rem;
@@ -1159,7 +1268,6 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 }
 
 .mini-cart-checkout-preview p {
-    margin: 0;
     display: inline-flex;
 }
 
@@ -1191,12 +1299,11 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     font-size: .9rem;
     background-color: var(--tastey-brand-light-accent-color);
     color: var(--current-theme-inverse-color);
-    border: none;
     border-radius: .25rem;
     color: var(--current-theme-inverse-accent-color);
     display: inline-flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     text-align: center;
     font-weight: bold;
     gap: .2rem;
@@ -1282,12 +1389,6 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
   align-items: center;
   justify-content: center;
   z-index: 4;
-}
-
-#quick-scroll-wrapper button {
-    margin: 0;
-    padding: 0;
-    border: none;
 }
 
 #quick-scroll-show{
@@ -1417,18 +1518,20 @@ footer {
 }
 
 .footer-top-section > div {
-    flex: 1 1 20rem;
+    flex: 1 1 18rem;
     max-width: 100dvw;
     min-width: 5rem;
     height: fit-content;
     display: flex;
     flex-direction: column;
-    padding-inline: 2dvw;
-    gap: 1.25rem;
+    padding-inline: 1dvw;
+    column-gap: 1rem;
+    row-gap: 1.25rem;
 }
 
-.footer-top-section p, .footer-top-section h2 {
-    margin: 0;
+.footer-top-section a {
+    display: inline-block;
+    width: fit-content;
 }
 
 .footer-top-section h2 {
@@ -1436,7 +1539,7 @@ footer {
     color: var(--main-text-color);
 }
 
-.footer-top-section p, .footer-top-section a:not(.see-more, .view-bag, .reserve) {
+.footer-top-section p, .footer-top-section a:not(.see-more, .forward) {
     font-size: .95rem;
     color: var(--sub-text-color);
 }
@@ -1448,13 +1551,13 @@ footer {
     column-gap: 2rem;
 }
 
-.footer-top-section .see-more, .footer-top-section .view-bag, .footer-top-section .reserve {
+.footer-top-section .see-more, .footer-top-section .forward {
     color: var(--tastey-brand-light-accent-color);
     position: relative;
     white-space: nowrap;
 }
 
-.view-bag::after, .reserve::after {
+.forward::after {
     content: '\00BB';
     position: absolute; 
     font-size: 1.5rem;
@@ -1462,16 +1565,16 @@ footer {
     left: calc(100% + .25rem);
 }
 
-.view-bag:hover::after, .reserve:hover::after {
+.forward:hover::after {
     transform: scale(1.25);
     transition: transform 250ms ease;
 }
 
-.footer-top-section .see-more:hover, .view-bag:hover, .reserve:hover {
+.footer-top-section .see-more:hover, .forward:hover {
     color: var(--tastey-brand-accent-color);
 }
 
-.footer-top-section .see-more:hover, .view-bag:hover, .reserve:hover {
+.footer-top-section .see-more:hover, .forward:hover {
     text-decoration: underline;
 }
 
@@ -1487,6 +1590,12 @@ footer {
 .footer-top-section .see-more:hover::after {
     rotate: 135deg;
     transition: rotate 500ms ease;
+}
+
+.footer-quick-links-section div {
+    display: flex;
+    gap: .75rem;
+    flex-direction: column;
 }
 
 .footer-contact-section div {
@@ -1507,11 +1616,12 @@ footer {
     gap: 0;
 }
 
-.footer-special-section h2, .footer-special-section p {
+.footer-special-section p {
     margin-bottom: 1rem;
 }
 
 .offers-container {
+    margin-top: 1rem;
     position: relative;
 }
 
@@ -1521,9 +1631,8 @@ footer {
     top: 1rem;
     height: 4rem;
     width: 2rem;
-    padding: 0;
+    border-radius: .25rem;
     background-color: transparent;
-    border: none;
 }
 
 .footer-arrow-container > svg {
@@ -1646,11 +1755,8 @@ footer {
 }
 
 .footer-add-to-cart-button {
-    border: none;
     width: 100%;
     height: 1.35rem;
-    margin: 0;
-    padding: 0;
     border-radius: .25rem;
     background-color: var(--tastey-brand-accent-color);
     color: var(--current-theme-fade-color);
@@ -1819,7 +1925,7 @@ footer {
 @media only screen and (max-width: 50rem) {
     nav {
         width: 100%;
-        padding: 1dvw;
+        padding: 1.25dvw;
         left: 0;
     }
     .navigation-section ul {
@@ -1828,10 +1934,13 @@ footer {
     .user-service-wrapper {
         gap: 1dvw;
     }
+    .user-dropdown {
+        right: -2.5rem;
+    }
 }
 
 
-@media only screen and (max-width:36rem) {
+@media only screen and (max-width: 40rem) {
     :root {
         --bar-width: 2rem;
         --bar-height: .25rem;
@@ -1839,7 +1948,7 @@ footer {
         --burger-margin: 1dvw;
         --foreground: var(--current-theme-inverse-accent-color);
         --background-color: var(--foreground);
-        --animation-timing: 250ms ease-in-out; 
+        --animation-timing: 250ms ease; 
         --hamburger-height: calc(var(--bar-height) * 3 + var(--bar-gap) * 2);
     }
     nav {
@@ -1886,7 +1995,6 @@ footer {
         flex-direction: column;
         width: 60dvw;
         height: 100dvh;
-        margin: 0;
         justify-content: center;
         align-items: center;
         line-height: 4.5rem;
@@ -1916,12 +2024,12 @@ footer {
         margin-left: var(--burger-margin);
     }
     .hamburger {
+        --x-width: calc(var(--hamburger-height)*1.41421356237);
         display: flex;
         flex-direction: column; 
         gap: var(--bar-gap);
         width: max-content;
         cursor: pointer;
-        --x-width: calc(var(--hamburger-height)*1.41421356237)
     }
     .hamburger::before,
     .hamburger::after,
@@ -1939,8 +2047,6 @@ footer {
     }
     .hamburger input {
         appearance: none;
-        padding: 0;
-        margin: 0;
         outline-offset: .75rem;
     }
     .hamburger:has(input:checked)::before {
@@ -1971,6 +2077,13 @@ footer {
     }
     .hamburger-icon:has(input:checked) + .navigation-section.smooth::after, .navigation-section.smooth {
         transition: translate 1000ms ease;
+    }
+    .user-container,
+    .cart-container {
+        padding: 1rem 0rem 1rem .85rem;
+    }
+    .user-dropdown {
+        right: -3.5rem;
     }
     #quick-scroll-show svg, #to-top svg, #to-bottom svg {
         fill: var(--current-theme-inverse-color);
@@ -2026,8 +2139,14 @@ footer {
     }
 }
 
-@media only screen and (max-width: 13.5rem) {
-    .company-name-section span h3, .company-name-section span h6 {
+@media only screen and (max-width: 16rem) {
+    .company-name-section span  {
+        opacity: 0;
+    }
+}
+
+@media only screen and (max-width: 12rem) {
+    .company-name-section {
         opacity: 0;
     }
 }

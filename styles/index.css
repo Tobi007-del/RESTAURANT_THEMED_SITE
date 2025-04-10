@@ -34,10 +34,6 @@ hero-content-wrapper, .tastey-meals-carousel {
     pointer-events: none;
 }
 
-.hero-content-wrapper p ,.hero-content-wrapper h1 {
-    margin: 0;
-}
-
 .greeting-wrapper, .welcome-text-wrapper {
     pointer-events: none;
 }
