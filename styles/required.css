@@ -63,6 +63,10 @@ body {
     overflow-x: hidden;
 }
 
+body:has(.tastey-dialog[open]) {
+    overflow: hidden;
+}
+
 body::before {
     content: '';
     position: fixed;
@@ -107,6 +111,7 @@ main.dev > div.dev-content > p {
 
 *:focus-visible {
     outline-width: .15rem;
+    transition: none!important;
 }
 
 a {
@@ -140,7 +145,7 @@ img {
 
 :where(button):hover {
     cursor: pointer;
-    filter: brightness(1.1);
+    filter: brightness(1.15);
 }
 
 .Tastey-text {
@@ -180,6 +185,7 @@ img {
 }
 
 .tastey-dialog {
+    margin: auto;
     display: flex;
     flex-direction: column;
     gap: .8rem;
@@ -1558,38 +1564,37 @@ footer {
 }
 
 .forward::after {
-    content: '\00BB';
-    position: absolute; 
-    font-size: 1.5rem;
-    top: -.45rem;
-    left: calc(100% + .25rem);
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23F0AD5F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='2' y1='8' x2='14' y2='8'/%3E%3Cpolyline points='8 3 14 8 8 13'/%3E%3C/svg%3E");
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    top: 0.1rem;
+    margin-left: 0.2rem;
+    scale: 0.75;
 }
 
-.forward:hover::after {
-    transform: scale(1.25);
+.footer-top-section .forward:hover::after {
+    transform: translate(2px) scale(1.05);
     transition: transform 250ms ease;
 }
 
-.footer-top-section .see-more:hover, .forward:hover {
-    color: var(--tastey-brand-accent-color);
-}
-
-.footer-top-section .see-more:hover, .forward:hover {
+.footer-top-section :is(.see-more, .forward):hover {
     text-decoration: underline;
 }
 
 .footer-top-section .see-more::after {
-    content: '\2716';
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23F0AD5F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='8' y1='2' x2='8' y2='14'/%3E%3Cline x1='2' y1='8' x2='14' y2='8'/%3E%3C/svg%3E");
+    width: 1rem;
+    height: 1rem;
     position: absolute;
-    margin-left: .4rem;
-    font-size: .7rem;
-    top: .1rem;
-    rotate: 45deg;
+    top: 0.1rem;
+    margin-left: 0.2rem;
+    scale: 0.75;
 }
 
 .footer-top-section .see-more:hover::after {
-    rotate: 135deg;
-    transition: rotate 500ms ease;
+    transform: rotate(180deg);
+    transition: transform 500ms ease;
 }
 
 .footer-quick-links-section div {
@@ -1638,8 +1643,8 @@ footer {
 .footer-arrow-container > svg {
     height: 100%;
     width: 2rem;
-    fill: var(--current-theme-inverse-accent-color);
-    opacity: .75;
+    fill: var(--tastey-brand-light-accent-color);
+    opacity: 0.8;
     transition: 300ms ease;
 }
 

@@ -23,7 +23,7 @@
     <link rel="preload" href="assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png" as="image"type="image/png">
     <link rel="preload" href="assets/tastey-meal-images/tastey_preloader.gif" as="image" type="image/jpg">
     <link rel="stylesheet" href="styles/required.css">
-    <!-- <link rel="stylesheet" href="styles/reservation.css"> -->
+    <link rel="stylesheet" href="styles/reservation.css">
     <link rel="stylesheet" href="styles/scroll-bar.css">
 </head>
 <body class="loading" data-cart="0" data-mini-bag="true">
@@ -93,10 +93,37 @@
             </div>
         </div>
     </nav>
-
-    <main class="dev">
-        <div class="Tastey-blur-bc dev-content">
-            <p>This page is still in the development phase!</p>
+    <div class="reserve-banner-section-wrapper">
+          <h1>Reserve a Seat</h1>  
+          <h3>Come Dine at the Tastey Restaurant</h3>
+    </div>
+   
+    <main class="reserve-section-wrapper">
+        <div class="reserve-section Tastey-blur-bc">
+            <div class="reserve-form-wrapper-container">
+                <div class="reserve-form-wrapper  Tastey-blur-bc">
+                    <div class="reserve-form-title-wrapper">
+                        <em class="Tastey-text">Wanna book a reservation?</em>
+                        <h1>Fill this form</h1>
+                    </div>
+                    <form method="get" action="success.html" class="reserve-form">
+                        <div class="reserve-form-section">
+                            <input placeholder="Enter your name" type="text" id="name" name="name" required autocomplete="name">
+                            <input placeholder="Email address" type="email" id="email" name="email" required autocomplete="email">
+                        </div>
+                        <div class="reserve-form-section">
+                            <input placeholder="Phone number" type="tel" id="phone" name="phone" required autocomplete="tel">
+                            <input placeholder="Number of Guests" type="number" id="guests" name="guests" required autocomplete="on">
+                        </div>
+                        <div class="reserve-form-section">
+                            <input placeholder="Date" type="date" id="date" name="date" required autocomplete="on">
+                            <input placeholder="12:00PM" type="time" id="time" name="guests" required autocomplete="on">
+                        </div>
+                        <textarea placeholder="Any Special Request?" id="message" name="message" required autocomplete="on" class="Tastey-blur"></textarea>
+                        <button type="submit" title="Submit Message" class="Tastey-blur submit-btn">SUBMIT</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </main>
     
@@ -113,14 +140,14 @@
                         <a href="reservation.html" class="reserve forward" title="Reserve a seat">RESERVE A SEAT</a>
                     </div>
                 </div>
-                <div class="footer-contact-section">
-                    <a href="contact.html" title="Contact us at Tastey"><h2>Contact info</h2></a>
+                <div class="footer-reserve-section">
+                    <a href="reserve.html" title="Contact us at Tastey"><h2>Contact info</h2></a>
                     <div>
                         <a href="tel: +2349052425395">Call: <span>+234 905 242 5395</span></a>
                         <a href="mailto: tobioketade007@gmail.com">Email: <span>info@tastey.com</span></a>
                         <p>Address: 123 Main St, City, State, Zip</p>
                     </div>
-                    <a href="contact.html" title="Contact us at Tastey" class="see-more">SEE MORE INFO</a>
+                    <a href="reserve.html" title="Contact us at Tastey" class="see-more">SEE MORE INFO</a>
                 </div>
                 <div class="footer-special-section">
                     <a href="menu.html" title="See more on our menu"><h2>Special Offers</h2></a>
@@ -162,7 +189,6 @@
             </div>
         </div>
     </footer>
-    <!-- <script type="module" src="scripts/reservation.js"></script> -->
     <script type="module" src="scripts/mini-bag.js"></script>
     <script type="module" src="scripts/footer.js"></script>
 </body>
