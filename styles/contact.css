@@ -43,19 +43,19 @@ body:not(.loading)::before {
 
 .contact-section > div {
     max-width: 100%;
-    height: 31rem;
+    min-height: 31rem;
     min-width: 10rem;
     border-radius: .5rem;
     overflow: hidden;
 }
 
 .contact-form-wrapper-container {
-    flex: 1 1 17.5rem;
+    flex: 1 1 20rem;
     display: flex;
     justify-content: center;
     align-items: center;    
     background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-3.png') no-repeat top/cover, radial-gradient(35rem circle at center, rgba(255,255,255,0.475), transparent 40%), center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
-    padding: .75rem;
+    padding: .75rem 2dvw;
 }
 
 .contact-form-wrapper {
@@ -64,11 +64,23 @@ body:not(.loading)::before {
     max-width: 40rem;
     border-radius: inherit;
     display: flex;
+    background-color: var(--current-theme-transparent-color);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: .25rem;
+}
+
+.contact-form-content {
+    width: 100%;
+    height: 100%;
+    background-color: var(--current-theme-transparent-color);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: inherit;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-inline: 2dvw;
-    padding-block: 1.75rem;
-    background-color: var(--current-theme-inverse-transparent-color);
+    padding: 2rem 1rem;
 }
 
 .contact-form-title-wrapper {
@@ -90,6 +102,7 @@ body:not(.loading)::before {
     font-size: 1.65rem;
     font-weight: bolder;
     position: relative;
+    margin-bottom: 3rem;
 }
 
 .contact-form-title-wrapper h1::after {
@@ -115,15 +128,6 @@ form input, form textarea {
     padding: .75rem;
     border-radius: .35rem;
     border: none;
-    background-color: var(--current-theme-fade-color);
-}
-
-form input:hover, form textarea:hover {
-    background-color: var(--current-theme-sub-color);
-}
-
-form input::placeholder, form textarea::placeholder {
-    color: var(--current-theme-inverse-accent-color);
 }
 
 form textarea {
@@ -132,6 +136,7 @@ form textarea {
 }
 
 form .submit-btn {
+    margin-top: 1rem;
     width: 100%;
     background-color: var(--tastey-brand-accent-color);
     color: var(--current-theme-inverse-accent-color);
@@ -151,19 +156,46 @@ form .submit-btn:hover {
 }
 
 .reserve-section {
-    flex: 1 0 12rem;
+    position: relative;
+    flex: 1 1 10rem;
     display: flex;
     flex-direction: column;
     justify-content: end;
-    height: 100%;
-    background: url('../assets/tastey-meal-images/reservation.webp') no-repeat center/cover, radial-gradient(35rem circle at center, rgba(255,255,255,0.475), transparent 40%), center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'),center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
-    box-shadow: inset 10rem -10rem 15rem var(--current-theme-inverse-accent-color);
+    min-height: 100%;
+    background: radial-gradient(35rem circle at center, rgba(255,255,255,0.475), transparent 40%), center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'),center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
     gap: 1.1rem;
     padding-block-end: 2rem;
     padding-inline: 2.5dvw;
 }
 
+.reserve-bg-wrapper,
+.reserve-bg {
+    width: 100%;
+    height: 100%;
+}
+
+.reserve-bg-wrapper {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+}
+
+.reserve-bg-wrapper::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    box-shadow: inset 10rem -10rem 15rem var(--current-theme-inverse-accent-color);
+    pointer-events: none;
+}
+
+.reserve-bg {
+    object-fit: cover;
+}
+
 .reserve-section > div {
+    z-index: 1;
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -180,6 +212,7 @@ form .submit-btn:hover {
 }
 
 .reserve-section .reservation-btn {
+    z-index: 1;
     padding-inline: 1rem;
     padding-block: .75rem;
     color: var(--current-theme-inverse-accent-color);

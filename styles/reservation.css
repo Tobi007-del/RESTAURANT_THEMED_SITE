@@ -55,7 +55,7 @@ body:not(.loading)::before {
     justify-content: center;
     align-items: center;    
     background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-3.png') no-repeat top/cover, radial-gradient(35rem circle at center, rgba(255,255,255,0.475), transparent 40%), center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
-    padding: .75rem;
+    padding: .75rem 2dvw;
 }
 
 .reserve-form-wrapper {
@@ -64,11 +64,23 @@ body:not(.loading)::before {
     max-width: 40rem;
     border-radius: inherit;
     display: flex;
+    background-color: var(--current-theme-transparent-color);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: .25rem;
+}
+
+.reserve-form-content {
+    width: 100%;
+    height: 100%;
+    background-color: var(--current-theme-transparent-color);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: inherit;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-inline: 2dvw;
-    padding-block: 1.75rem;
-    background-color: var(--current-theme-inverse-transparent-color);
+    padding: 2rem 1rem;
 }
 
 .reserve-form-title-wrapper {
@@ -116,7 +128,7 @@ form {
     gap: .25rem;
 }
 
-.reserve-form-section input {
+.reserve-form-section .field {
     flex: 1 0 15rem;
 }
 
@@ -125,15 +137,6 @@ form input, form textarea {
     padding: .75rem;
     border-radius: .35rem;
     border: none;
-    background-color: var(--current-theme-fade-color);
-}
-
-form input:hover, form textarea:hover {
-    background-color: var(--current-theme-sub-color);
-}
-
-form input::placeholder, form textarea::placeholder {
-    color: var(--current-theme-inverse-accent-color);
 }
 
 form textarea {
@@ -142,6 +145,7 @@ form textarea {
 }
 
 form .submit-btn {
+    margin-top: 1rem;
     width: 100%;
     background-color: var(--tastey-brand-accent-color);
     color: var(--current-theme-inverse-accent-color);

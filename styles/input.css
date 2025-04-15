@@ -1,0 +1,339 @@
+:where(:root) {
+    --i-font-size: 1rem;
+    --i-height: 3.5rem;
+    --i-normal-color: rgba(0, 0, 0, 0.45);
+    --i-focus-color: var(--current-theme-inverse-accent-color);
+    --i-success-color: green;
+    --i-error-color: #b00020;
+    --p-meter-color-weak: #b81a0a;
+    --p-meter-color-fair: #f68b1e;
+    --p-meter-color-strong: #0a8b1e;
+    --p-meter-color-very-strong: #39FF14;
+}
+
+.field, .field *, .checkbox-field, .checkbox-field * {
+    transition-property: transform, background-color, color, border-color, right, left, top, bottom, width, height;
+    transition-duration: 150ms;
+    transition-timing-function: ease;
+}
+
+.field {
+    --i-current-color: var(--i-normal-color);
+    width: 100%;
+    max-width: 100%;
+    padding-top: 1rem;
+    -webkit-font-smoothing: antialiased;
+}
+
+.field:where(:has(.input:is(:focus, :-webkit-autofill, :not(:placeholder-shown):not([type="date"]):not([type="time"]):not([type="month"]):not([type="week"]), :user-valid:is([type="date"], [type="time"], [type="month"], [type="week"])))) {
+    --i-current-color: var(--i-focus-color);
+}
+
+.field.success {
+    --i-current-color: var(--i-success-color);
+}
+
+.field.error {
+    --i-current-color: var(--i-error-color);
+}
+
+.input-field {
+    position: relative;
+    min-width: 3rem;
+    height: var(--i-height);
+    width: 100%;
+    padding: 1rem;
+    border-radius: .25rem;
+    display: inline-flex;
+    align-items: baseline;
+}
+
+.input-field:has(textarea) {
+    height: fit-content;
+}
+
+.input-field:has(i) {
+    padding-right: 0;
+}
+
+.input-outline {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    pointer-events: none;
+    text-align: left;
+}
+
+.input-outline > * {
+    height: 100%;
+    border-color: var(--i-current-color)!important;
+    pointer-events: none;
+}
+
+.field:has(.input:focus) .input-outline > * {
+    border-width: .125rem!important;
+}
+
+.input-outline-leading {
+    width: 0.75rem;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: 0;
+    border-left: 1px solid;
+    border-right: none;
+}
+
+.input-outline-trailing {
+    flex: 1;
+    border-top-left-radius: 0;
+    border-top-right-radius: .25rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: .25rem;
+    border-left: none;
+    border-right: 1px solid;
+}
+
+.input-outline-leading, .input-outline-trailing {
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+}
+
+.input-outline-notch {
+    position: relative;
+    width: auto;
+    max-width: calc(100% - .75rem);
+    flex: 0 0 auto;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+}
+
+.field:has(i) .input-outline-notch {
+    max-width: calc(100% - 3.75rem);
+}
+
+.field:has(.input:is(:focus, :-webkit-autofill, :not(:placeholder-shown):not([type="date"]):not([type="time"]):not([type="month"]):not([type="week"]), :user-valid:is([type="date"], [type="time"], [type="month"], [type="week"]))) .input-outline-notch,
+.field:has(.input:is([type="date"], [type="time"], [type="month"], [type="week"])) .input-outline-notch {
+    border-top: none;
+}
+
+.field:not(:has(.input:is(:focus, :-webkit-autofill, :not(:placeholder-shown):not([type="date"]):not([type="time"]):not([type="month"]):not([type="week"]), :user-valid:is([type="date"], [type="time"], [type="month"], [type="week"])))) .input-outline-notch {
+    width: auto!important;
+}
+
+.input-floating-label {
+    color: var(--i-current-color);
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    top: calc(var(--i-height) / 2);
+    transform: translateY(-50%);
+    font-weight: 400;
+    font-size: var(--i-font-size);
+    line-height: 1.15rem;
+    transform-origin: left top;
+    white-space: nowrap;
+    will-change: transform;
+}
+
+.field:has(.input:is(:focus, :-webkit-autofill, :not(:placeholder-shown):not([type="date"]):not([type="time"]):not([type="month"]):not([type="week"]), :user-valid:is([type="date"], [type="time"], [type="month"], [type="week"]))) .input-floating-label,
+.field:has(.input:is([type="date"], [type="time"], [type="month"], [type="week"])) .input-floating-label {
+    transform: translateY(-2.1rem) scale(0.75);
+    left: .25rem;
+    right: auto;
+    max-width: 133%;
+}
+
+.field:has(.input:is(:focus, :-webkit-autofill, :not(:placeholder-shown):not([type="date"]):not([type="time"]):not([type="month"]):not([type="week"]), :user-valid:is([type="date"], [type="time"], [type="month"], [type="week"]))) .input-floating-label.shake {
+    transition: 100ms ease;
+    transform: translateY(-2.1rem) translateX(.25rem) scale(0.75);
+}
+
+.input {
+    border: none;
+    display: flex;
+    appearance: none;
+    background: none;
+    color: var(--i-current-color);
+    caret-color: var(--i-current-color);
+    border-radius: 0;
+    font-size: var(--i-font-size);
+    height: 100%;
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+}
+
+.input:focus {
+    outline: none;
+}
+
+/* .field:has(.input:-webkit-autofill) .input-outline > * {
+    background-color: var(--current-theme-inverse-transparent-color);
+} */
+
+.input:-webkit-autofill {
+    transition: background-color 50000000s ease-in-out 0s!important;
+    -webkit-text-fill-color: var(--i-current-color)!important;
+}
+
+.input-icon {
+    padding: 0.75rem;
+    align-self: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.field:has(input[type="password"]) .input-password-visible-icon,
+.field:has(input[type="text"]) .input-password-hidden-icon {
+    display: none;
+}
+
+.helper-line {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding-inline: 1rem;
+}
+
+.helper-text::before {
+    content: "";
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    height: .2rem;
+}
+
+.helper-text {
+    font-size: 0.75rem;
+    color: var(--i-current-color);
+    line-height: normal;
+    opacity: 0;
+}
+
+.helper-text.show {
+    opacity: 1;
+}
+
+.password-meter {
+    --p-meter-current-color: var(--p-meter-color-weak);
+    display: none;
+    margin-top: .75rem;
+}
+
+.field:has(.input[name="password"]:not(:placeholder-shown)) .password-meter {
+    display: block;
+}
+
+.password-meter[data-strength-level="2"] {
+    --p-meter-current-color: var(--p-meter-color-fair);
+}
+
+.password-meter[data-strength-level="3"] {
+    --p-meter-current-color: var(--p-meter-color-strong);
+}
+
+.password-meter[data-strength-level="4"] {
+    --p-meter-current-color: var(--p-meter-color-very-strong);
+}
+
+.password-meter::after {
+    content: "";
+    position: relative;
+    bottom: 0;
+    display: block;
+    text-align: right;
+    font-size: 0.75rem;
+    margin-top: .75rem;
+    color: var(--p-meter-current-color);
+    line-height: normal;
+}
+
+.password-meter[data-strength-level="1"]::after {
+    content: "Weak";
+}
+
+.password-meter[data-strength-level="2"]::after {
+    content: "Fair";
+}
+
+.password-meter[data-strength-level="3"]::after {
+    content: "Strong";
+}
+
+.password-meter[data-strength-level="4"]::after {
+    content: "Very Strong";
+}
+
+.password-strength-meter {
+    display: flex;
+}
+
+.password-strength-meter > div {
+    flex: 1;
+    margin-right: .25rem;
+    height: .225rem;
+}
+
+.password-meter[data-strength-level="1"] .p-weak,
+.password-meter[data-strength-level="2"] :is(.p-weak, .p-fair),
+.password-meter[data-strength-level="3"] :is(.p-weak, .p-fair, .p-strong),
+.password-meter[data-strength-level="4"] :is(.p-weak, .p-fair, .p-strong, .p-very-strong) {
+    background-color: var(--p-meter-current-color);
+}
+
+.checkbox-field {
+    position: relative;
+    cursor: pointer;
+    font-size: .875rem;
+    gap: .5rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.checkbox {
+    display: none;
+}
+
+.checkmark {
+    position: relative;
+    height: 1rem;
+    width: 1rem;
+    background-color: var(--current-theme-fade-color);
+    border-color: var(--current-theme-inverse-accent-color);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.25rem;
+    transition: 150ms ease;
+}
+
+.checkbox:checked + .checkmark {
+    background-color: var(--tastey-brand-color);
+    border-color: var(--current-theme-inverse-color);
+}
+
+.checkmark::after {
+    content: "";
+    display: none;
+    position: absolute;
+    margin: auto;
+    inset: 0;
+    width: .275rem;
+    height: .65rem;
+    border: solid var(--attractive-accent-color);
+    border-width: 0 0.125rem 0.125rem 0;
+    transform: rotate(45deg);
+}
+
+.checkbox:checked + .checkmark::after {
+    display: block;
+}
