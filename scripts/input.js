@@ -1,29 +1,25 @@
-const form = document.querySelector(".input-form"),
-loginErrorMessage = document.querySelector(".login-error-message"),
-fields = {
+const forms = document.querySelectorAll(".input-form"),
+loginErrorMessage = document.querySelector(".login-error-message")
+
+forms.forEach((form, n) => {
+const fields = {
     name: form?.querySelector("input[name='name']"),
     email: form?.querySelector("input[name='email']"),
     password: form?.querySelector("input[name='password']"),
-    confirmPassword: form?.querySelector("input[name='confirmPassword']"),
+    'confirm-password': form?.querySelector("input[name='confirm-password']"),
     tel: form?.querySelector("input[name='tel']"),
     guests: form?.querySelector("input[name='guests']"),
     date: form?.querySelector("input[name='date']"),
     time: form?.querySelector("input[name='time']"),
     message: form?.querySelector("textarea[name='message']"),
 },
-errors = {
-    name: false,
-    email: false,
-    password: false,
-    confirmPassword: false,
-    tel: false,
-    guests: false,
-    date: false,
-    time: false,
-    message: false,
-}
+errors = {}
+Object.keys(fields).forEach(key => errors[key] = false)
 
-form?.addEventListener("input", e => validateField(e.target.name))
+form?.addEventListener("input", e => {
+    e.target.toggleAttribute("data-filled", e.target.value !== '')
+    validateField(e.target.name)
+})
 form?.addEventListener("focusout", e => validateField(e.target.name, true))
 
 form?.addEventListener("submit", e => {
@@ -81,7 +77,7 @@ function validateField(field, notify = false, force = false) {
             fields[field].closest(".field").querySelector(".password-meter")?.setAttribute("data-strength-level", strengthLevel)
             errorCondition = value.length < 8
             break
-        case "confirmPassword":
+        case "confirm-password":
             errorCondition = value === "" || value !== fields.password.value.trim()
             break
         case "tel":
@@ -109,3 +105,5 @@ function validateForm() {
     Object.keys(fields).forEach(field => validateField(field, true, true))
     return Object.values(errors).filter(error => !error).length === Object.keys(errors).length
 }
+window[`validateForm${n+1}`] = validateForm
+})
