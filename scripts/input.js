@@ -1,109 +1,113 @@
+window.validateFormOnServer = window.validateFormOnServer ?? async function() { return true }
+
 const forms = document.querySelectorAll(".input-form"),
-loginErrorMessage = document.querySelector(".login-error-message")
+loginErrorMessage = document.querySelector(".login-error-message"),
+violationsPriority = ["valueMissing", "typeMismatch", "patternMismatch", "stepMismatch", "tooShort", "tooLong", "rangeUnderflow", "rangeOverflow", "badInput", "customError"]
 
 forms.forEach((form, n) => {
-const fields = {
-    name: form?.querySelector("input[name='name']"),
-    email: form?.querySelector("input[name='email']"),
-    password: form?.querySelector("input[name='password']"),
-    'confirm-password': form?.querySelector("input[name='confirm-password']"),
-    tel: form?.querySelector("input[name='tel']"),
-    guests: form?.querySelector("input[name='guests']"),
-    date: form?.querySelector("input[name='date']"),
-    time: form?.querySelector("input[name='time']"),
-    message: form?.querySelector("textarea[name='message']"),
-},
-errors = {}
-Object.keys(fields).forEach(key => errors[key] = false)
-
-form?.addEventListener("input", e => {
-    e.target.toggleAttribute("data-filled", e.target.value !== '')
-    validateField(e.target.name)
+const inputs = form?.getElementsByClassName("input")
+form?.addEventListener("input", ({ target }) => {
+    const isFilled = target.type === "checkbox" || target.type === "radio" ? target.checked : target.value !== '' || target.files?.length > 0
+    target.toggleAttribute("data-filled", isFilled)
+    validateInput(target)
 })
-form?.addEventListener("focusout", e => validateField(e.target.name, true))
 
-form?.addEventListener("submit", e => {
-    e.preventDefault()
-    validateForm() && form?.submit()
+form?.addEventListener("focusout", ({ target }) => validateInput(target, true))
+
+form?.addEventListener("submit", async e => {
+    toggleSubmitLoader(true)
+    try {
+        e.preventDefault()
+        if (!validateFormOnClient()) return
+        if (!await window.validateFormOnServer()) return 
+        form?.submit()
+    } catch(error) {
+        console.log(error)
+    } finally {
+        toggleSubmitLoader(false)
+    }
 })
 
 form?.querySelectorAll(".input-floating-label").forEach(label => label.addEventListener("transitionend", () => label.classList.remove("shake")))
 
 form?.querySelectorAll(".input-password-visible-icon, .input-password-hidden-icon").forEach(icon => icon.addEventListener("click", () => {
-    const input = icon.closest(".field").querySelector("input")
+    const input = icon.closest(".field").querySelector(".input")
     input.type = input.type === "password" ? "text" : "password"
 }))
 
-function toggleError(field, bool, notify = false, force = false) {
-    loginErrorMessage?.remove()
-    errors[field] = bool
-    const fieldEl = fields[field].closest(".field"),
-    helperText = fieldEl.querySelector(".helper-text"),
-    floatingLabel = fieldEl.querySelector(".input-floating-label"),
-    input = fieldEl.querySelector("input")
+function toggleSubmitLoader(bool) {
+    form?.classList.toggle("submit-loading", bool)
+}
+
+function toggleError(input, bool, notify = false, force = false) {
+    if (loginErrorMessage) loginErrorMessage.textContent = ""
+    const fieldEl = input.closest(".field"),
+    floatingLabel = fieldEl.querySelector(".input-floating-label")
     if (bool && notify) {
         fieldEl.classList.add("error")
-        helperText.classList.add("show")
+        toggleHelper(input, true)
         floatingLabel.classList.add("shake")
     } else if (!bool) {
         fieldEl.classList.remove("error")
-        helperText.classList.remove("show")
+        toggleHelper(input, false)
     }
     if (!force) 
     if (input.value === "") {
         fieldEl.classList.remove("error")
-        helperText.classList.remove("show") 
+        toggleHelper(input, false) 
     }
 }
 
-function validateField(field, notify = false, force = false) {
-    if (!fields[field]) return
-    const value = fields[field].value.trim()
-    let errorCondition
-    switch(field) {
-        case "name": 
-            errorCondition = !/^.{2,}$/.test(value)
-            break
-        case "email":
-            errorCondition = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-            break
+function toggleHelper(input, bool) {
+    const violation = violationsPriority.find(violation => input.validity[violation]) ?? "invalid"
+    input.closest(".field").querySelectorAll(`.helper-text:not([data-violation="${violation}"])`).forEach(helper => helper.classList.remove("show"))
+    input.closest(".field").querySelector(`.helper-text[data-violation="${violation}"]`)?.classList.toggle("show", bool)
+}
+
+function forceRevalidate(input) {
+    input.checkValidity()
+    input.dispatchEvent(new Event('input'))
+}
+
+function validateInput(input, notify = false, force = false) {
+    if (!input.classList.contains("input")) return
+    let value, errorCondition, file
+    switch(input.name) {
         case "password":
+            value = input.value?.trim()
             let strengthLevel = 0
-            if (/[a-z]/.test(value)) strengthLevel ++
-            if (/[A-Z]/.test(value)) strengthLevel ++
-            if (/[0-9]/.test(value)) strengthLevel ++
-            if (/[\W_]/.test(value)) strengthLevel ++
             if (value.length < 8) strengthLevel = 1
-            fields[field].closest(".field").querySelector(".password-meter")?.setAttribute("data-strength-level", strengthLevel)
+            else {
+                if (/[a-z]/.test(value)) strengthLevel ++
+                if (/[A-Z]/.test(value)) strengthLevel ++
+                if (/[0-9]/.test(value)) strengthLevel ++
+                if (/[\W_]/.test(value)) strengthLevel ++
+            }
+            input.closest(".field").querySelector(".password-meter")?.setAttribute("data-strength-level", strengthLevel)
             errorCondition = value.length < 8
             break
         case "confirm-password":
-            errorCondition = value === "" || value !== fields.password.value.trim()
-            break
-        case "tel":
-            errorCondition = !/^\+?(\d[\d-.()\s]*){7,15}$/.test(value)
-            break
-        case "guests":
-            errorCondition = !/^\d+$/.test(value) || value < 1
+            value = input.value?.trim()
+            errorCondition = value === "" || value !== [...inputs].find(input => input.name === "password")?.value?.trim()
+            break     
+        case "image":
+            file = input.files?.[0]
+            errorCondition = !file ? input.required : !file.type.startsWith("image/")
             break
         case "date":
-            errorCondition = !/^\d{4}-\d{2}-\d{2}$/.test(value) || new Date(value) < new Date()
+            if (input.min) break
+            input.min = new Date().toISOString().split('T')[0]
+            forceRevalidate(input)
             break
-        case "time":
-            errorCondition = !/^\d{2}:\d{2}$/.test(value)
-            break
-        case "message":
-            errorCondition = value.length < 10
-            break            
-        default: 
-            errorCondition = false
     }
-    toggleError(field, errorCondition, notify, force)
+    errorCondition = errorCondition ?? !input.validity?.valid
+    toggleError(input, errorCondition, notify, force)
 }
 
-function validateForm() {
-    Object.keys(fields).forEach(field => validateField(field, true, true))
-    return Object.values(errors).filter(error => !error).length === Object.keys(errors).length
+function validateFormOnClient() {
+    Array.from(inputs)?.forEach(input => validateInput(input, true, true))
+    return Array.from(inputs).every(input => input.validity.valid)
 }
-window[`validateForm${n+1}`] = validateForm
+
+window[`validateFormOnClient${n+1}`] = validateFormOnClient
 })

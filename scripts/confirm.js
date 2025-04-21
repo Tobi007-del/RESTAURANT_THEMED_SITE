@@ -35,7 +35,8 @@ class tasteyConfirmDialog {
 
     show() {
         this.#dialog.showModal()
-        setTimeout(() => this.#confirmBtn.focus(), 500)
+        document.addEventListener("keyup", this.handleKeyUp.bind(this))
+        this.#confirmBtn.focus()
     }
 
     remove() {
@@ -51,5 +52,15 @@ class tasteyConfirmDialog {
     cancel() {
         this.remove()
         this.#resolve(false)
+    }
+
+    handleKeyUp(e) {
+        const key = e.key.toString().toLowerCase() 
+        if (document.activeElement.tagName === 'INPUT') return
+        switch(key) {
+            case "escape":
+                this.cancel()
+                break
+        }
     }
 }

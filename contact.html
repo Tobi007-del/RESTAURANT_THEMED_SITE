@@ -110,7 +110,7 @@
                             <em class="Tastey-text">Have a question?</em>
                             <h1>Email Us</h1>
                         </div>
-                        <form method="get" action="success.html" class="contact-form input-form">
+                        <form method="post" action="success.html" class="contact-form input-form" novalidate>
                             <div class="field">
                                 <label class="input-field" for="name">
                                     <span class="input-outline">
@@ -120,10 +120,11 @@
                                         </span>
                                         <span class="input-outline-trailing"></span>
                                     </span>
-                                    <input name="name" type="text" autocomplete="name" placeholder="" class="input">
+                                    <input required minlength="2" name="name" type="text" autocomplete="name" placeholder="" class="input">
                                 </label>
                                 <div class="helper-line">
-                                    <p class="helper-text">Name must be at least 2 characters</p>
+                                    <p class="helper-text" data-violation="valueMissing">Name cannot be empty</p>
+                                    <p class="helper-text" data-violation="tooShort">Name must be at least 2 characters</p>
                                 </div>
                             </div>
                             <div class="field">
@@ -135,10 +136,11 @@
                                         </span>
                                         <span class="input-outline-trailing"></span>
                                     </span>
-                                    <input name="email" type="text" inputmode="email" autocomplete="email" placeholder="" class="input">
+                                    <input required name="email" type="email" inputmode="email" autocomplete="email" placeholder="" class="input">
                                 </label>
                                 <div class="helper-line">
-                                    <p class="helper-text">Invalid Email Address</p>
+                                    <p class="helper-text" data-violation="valueMissing">Email Address cannot be empty</p>
+                                    <p class="helper-text" data-violation="typeMismatch">Invalid Email Address</p>
                                 </div>
                             </div>
                             <div class="field">
@@ -150,10 +152,11 @@
                                         </span>
                                         <span class="input-outline-trailing"></span>
                                     </span>
-                                    <textarea name="message" autocomplete="on" class="input" placeholder=""></textarea>
+                                    <textarea required minlength="10" name="message" autocomplete="on" class="input" placeholder=""></textarea>
                                 </label>
                                 <div class="helper-line">
-                                    <p class="helper-text">Message cannot be less than 10 characters</p>
+                                    <p class="helper-text" data-violation="valueMissing">Message cannot be empty</p>
+                                    <p class="helper-text" data-violation="tooShort">Message must be at least 10 characters</p>
                                 </div>
                             </div>
                             <button type="submit" title="Submit Message" class="Tastey-blur submit-btn">SUBMIT</button>
