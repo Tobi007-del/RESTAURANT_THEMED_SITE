@@ -1,7 +1,7 @@
 import data from "./fetch-meals.js"
 import { Tastey } from "./TasteyManager.js"
 import Toast from "/T007_TOOLS/T007_toast_library/T007_toast.js"
-import Confirm from "./confirm.js"
+import { Confirm } from "/T007_TOOLS/T007_dialog_library/T007_dialog.js"
 import { check, formatValue, formatLabel, standardize, panning, scrollContentTo, remToPx, pxToRem, rand, clamp, handleContentEditableEnterKeyPress } from "./utils.js"
 import { autoRemoveScroller } from "./build-scroller.js"
 import { notificationQuery } from "./service-worker-helper.js"
