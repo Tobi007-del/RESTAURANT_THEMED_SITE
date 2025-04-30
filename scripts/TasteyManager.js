@@ -10,10 +10,13 @@ const mobileThreshold = remToPx(36)
 //calling the stars maker function page startup
 stars(document.querySelectorAll(".magic-star"))
 //a basic loading page implementation
-window.addEventListener('load', () => {
-    document.body.classList.remove("loading")
-    setTimeout(autoRemoveScroller)
-})
+const load = () => {
+    if (!document.body.classList.contains("loading")) return
+   document.body.classList.remove("loading")
+   setTimeout(autoRemoveScroller)
+}
+window.addEventListener('load', load)
+setTimeout(load, 5000)
 
 function displayWelcomeNotification() {
     let randomImgSrc
