@@ -569,7 +569,7 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
     top: 3.2rem;
     right: 0;
     width: clamp(5rem,90dvw,22.5rem);
-    height: 30rem;
+    height: 30.5rem;
     border-radius: .5rem;
     background-color: rgba(255, 255, 255, 0.25);
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5), -2px -2px 6px rgba(0, 0, 0, 0.5);
@@ -745,13 +745,13 @@ nav .cart-container:has(:focus-visible) .mini-meal-cart.close .close-cart-button
 }
 
 .mini-cart-idle-content {
-    opacity: 0;
-    height: .5rem;
+    visibility: hidden;
+    height: .75rem;
 }
 
 .mini-cart-order-review-section { 
     background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-2.png'), var(--darker-black);
-    flex: 0 0 14.5rem;
+    flex: 0 0 15rem;
     width: 100%;
     padding-inline: 1.25rem;
     padding-block-end: .5rem;

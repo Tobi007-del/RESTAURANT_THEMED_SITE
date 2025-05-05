@@ -137,7 +137,7 @@ function getCardsQuery() {
     return (document.body.classList.contains("cart") && (document.body.dataset.cart != 0) && (window.innerWidth >= remToPx(55)) && (window.innerHeight >= remToPx(32.55)) && (CSS && CSS.supports('position', 'sticky')))
 }
 
-const liftOffset = () => {return pxToRem(tasteyMealOrders[0].getBoundingClientRect().height) - 6}
+const liftOffset = () => pxToRem(tasteyMealOrders[0].getBoundingClientRect().height) - 6
 
 function isCardStacked(i) {
     const currTop = Math.round(pxToRem(tasteyMealOrders[i].getBoundingClientRect()?.top))
@@ -151,8 +151,10 @@ function isCardStacked(i) {
 
 function positionCards() {
 if (getCardsQuery() && !Tastey.isEmpty()) {
-    const gap = pxToRem((checkoutSection?.getBoundingClientRect().height - (tasteyMealOrders[0]?.getBoundingClientRect().height + orderNumberWrapper?.getBoundingClientRect().height + remToPx(0.75))) / tasteyMealOrders.length)
-    const bottom = pxToRem(window.innerHeight - (remToPx(9.1 + (tasteyMealOrders.length * gap)) + tasteyMealOrders[0]?.getBoundingClientRect().height))
+    const orsrect = orderReviewSectionContent.getBoundingClientRect(),
+    rect = tasteyMealOrders[0]?.getBoundingClientRect(),
+    gap = pxToRem((checkoutSection?.getBoundingClientRect().height - (rect.height + orderNumberWrapper?.getBoundingClientRect().height + remToPx(0.75))) / tasteyMealOrders.length)
+    const bottom = pxToRem(window.innerHeight - (remToPx(9.1 + (tasteyMealOrders.length * gap)) + rect.height))
     mealCart.style.setProperty('--bottom', `${bottom}rem`)
     for (let i = 0; i < tasteyMealOrders.length; i++) {
         const top = 9.25 + (i * gap)
@@ -188,7 +190,7 @@ if (getCardsQuery() && !Tastey.isEmpty()) {
             tasteyMealOrders[i].classList.toggle("lift", isCardStacked(i))
         }
         function moveToCard() {
-            let pos = orderReviewSectionContent.getBoundingClientRect().height - (orderReviewSectionContent.getBoundingClientRect().height - (((tasteyMealOrders[i].getBoundingClientRect().height - remToPx(gap) + remToPx(1.25)) * (i+1)) + orderNumberWrapper.getBoundingClientRect().height + remToPx(2.5))) - tasteyMealOrders[i].getBoundingClientRect().height
+            let pos = orsrect.height - (orsrect.height - (((rect.height - remToPx(gap) + remToPx(1.25)) * (i+1)) + orderNumberWrapper.getBoundingClientRect().height + remToPx(2.5))) - rect.height
             scrollContentTo(pos)
             tasteyMealOrders[i].classList.remove("lift")
         }        
@@ -257,23 +259,24 @@ function getMiniCardsQuery() {
     return (CSS && CSS.supports('position', 'sticky'))
 }
 
-const offset = () => {
-    return pxToRem(mcOrderReviewSection?.getBoundingClientRect().height - mcTasteyMealOrders[0]?.getBoundingClientRect().height) - 4
-}
+const offset = () => pxToRem(mcOrderReviewSection?.getBoundingClientRect().height - mcTasteyMealOrders[0]?.getBoundingClientRect().height) - 4
 
 function isMCardStacked(i) {
-    if (mcTasteyMealOrders[i].getBoundingClientRect().top >= (remToPx(1.05 + (gap * i)) + mcTasteyMealOrders[i].getBoundingClientRect().height))
+    const rect = mcTasteyMealOrders[i].getBoundingClientRect()
+    if (rect.top > (remToPx(0.775 + (gap * i)) + rect.height))
         return false
     else return true
 }
 
 function positionMiniCards() {
     if (getMiniCardsQuery() && !Tastey.isEmpty()) {
-        gap = offset() / mcTasteyMealOrders.length    
-        const bottom = pxToRem(mcOrderReviewSection?.getBoundingClientRect().height) - (((mcTasteyMealOrders.length * gap)) + pxToRem(mcTasteyMealOrders[mcTasteyMealOrders.length-1]?.getBoundingClientRect().height)) 
+        gap = offset() / mcTasteyMealOrders.length   
+        const orsrect = mcOrderReviewSection.getBoundingClientRect(),
+        rect = mcTasteyMealOrders[mcTasteyMealOrders.length-1].getBoundingClientRect(),
+        bottom = pxToRem(orsrect.height) - (((mcTasteyMealOrders.length * gap)) + pxToRem(rect.height)) 
         mcOrderReviewSection.style.setProperty('--mini-bottom', `${bottom}rem`)
         for (let i = 0; i < mcTasteyMealOrders.length; i++) {
-            mcTasteyMealOrders[i].style.setProperty('--mini-sticky-top', `${.25+(i*gap)}rem`)
+            mcTasteyMealOrders[i].style.setProperty('--mini-sticky-top', `${0.25+(i*gap)}rem`)
             mcTasteyMealOrders[i].onclick = () => {if (document.activeElement.tagName.toLowerCase() !== "button") moveToCard()}
             for (const button of mcTasteyMealOrders[i].querySelectorAll("button")) {
                 button.onfocus = () => {
@@ -289,7 +292,7 @@ function positionMiniCards() {
             }, {passive: false})
             mcTasteyMealOrders[i].addEventListener("touchend", mcTasteyMealOrders[i].cpe = () => handleCardPointerEnd(mcTasteyMealOrders[i]))
             function moveToCard() {
-                let pos = mcOrderReviewSection.getBoundingClientRect().height - (mcOrderReviewSection.getBoundingClientRect().height - (((mcTasteyMealOrders[mcTasteyMealOrders.length-1].getBoundingClientRect().height - remToPx(gap) + remToPx(.5)) * (i+1)))) - mcTasteyMealOrders[mcTasteyMealOrders.length-1].getBoundingClientRect().height
+                let pos = orsrect.height - (orsrect.height - (((rect.height - remToPx(gap) + remToPx(.5)) * (i+1)))) - rect.height
                 scrollContentTo(pos,"smooth",mcOrderReviewSection)
             }
         }
