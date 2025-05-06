@@ -31,6 +31,7 @@
     justify-content: space-between;
     background-color: var(--darker-black);
     border-radius: .25rem;
+    border: .05rem solid var(--border-color);
     position: relative;
 }
 

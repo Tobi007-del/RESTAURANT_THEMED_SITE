@@ -3,12 +3,18 @@ body {
 }
 
 body:not(.loading)::before {
+    background: center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png'), var(--current-theme-inverse-color);
+}
+
+.tastey-archives,
+.video-content-wrapper {
     background: var(--current-theme-inverse-color);
 }
 
-main:first-of-type {
-    margin-top: 4.75rem;
+main.tastey-archives {
     width: 100%;
+    padding-top: 4.75rem;
+    padding-bottom: 2rem;
 }
 
 .archive-content-container {
@@ -19,7 +25,6 @@ main:first-of-type {
     width: calc(100% - 4dvw);
     overflow: hidden;
     margin-inline: 2dvw;
-    margin-bottom: 2rem;
     background: var(--lighter-black);
     border-radius: 1rem;
     border: .05rem solid var(--border-color);
@@ -413,7 +418,7 @@ main.about-section {
 }
 
 .video-content-wrapper {
-    margin-top: 4rem;
+    padding-top: 4rem;
 }
 
 .accreditation-sections,
@@ -423,9 +428,9 @@ main.about-section {
     padding-block: 5rem;
 }
 
-.review-panel-container,
-.accreditation-sections {
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.3) 65%, rgba(0, 0, 0, 0.75)) top/100% 50% no-repeat, linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 65%, rgba(0, 0, 0, 0.75)) bottom/100% 50% no-repeat, linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)) center/cover, url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-4.png') center/cover no-repeat fixed, var(--darker-black);
+.accreditation-sections,
+.review-panel-container {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.35) 65%, rgba(0, 0, 0, 0.80)) top/100% 50% no-repeat, linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 65%, rgba(0, 0, 0, 0.80)) bottom/100% 50% no-repeat, linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)) center/cover;
 }
 
 .accreditation-sections-content,
@@ -434,6 +439,9 @@ main.about-section {
     border-radius: .5rem;
     display: flex;
     align-items: center;
+    background: var(--lighter-black);
+    border-radius: 1rem;
+    border: .05rem solid var(--border-color);
 }
 
 .accreditation-sections-content {
@@ -485,6 +493,7 @@ main.about-section {
     justify-content: center;
     padding-inline: 3.5rem;
     height: 30rem;
+    background-color: var(--current-theme-inverse-color);
 }
 
 .reservation-content-wrapper-content>div:first-of-type {
@@ -564,8 +573,8 @@ main.about-section {
 
 .review-header {
     color: var(--current-theme-sub-color);
-    font-size: clamp(1.8rem, 4vw, 2.15rem);
-    margin: 0 0 2rem 0;
+    font-size: clamp(1.75rem, 4vw, 2.1rem);
+    margin: 1rem 0 2rem 0;
     font-weight: bold;
 }
 
@@ -680,6 +689,7 @@ main.about-section {
     .reservation-content-wrapper-content {
         position: relative;
         padding-inline: 0;
+        background-color: transparent;
     }
 
     .reservation-content-wrapper-content>div:first-of-type {
