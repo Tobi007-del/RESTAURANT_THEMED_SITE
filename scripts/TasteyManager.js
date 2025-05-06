@@ -76,8 +76,8 @@ burger.addEventListener('change', e => {
 })
 
 const nav = document.querySelector(".navigation-section")
-nav.classList.add("smooth")
-window.addEventListener('resize', () => nav.classList.toggle("smooth", window.innerWidth > mobileThreshold))
+nav.classList.toggle("smooth", window.innerWidth <= mobileThreshold)
+window.addEventListener('resize', () => nav.classList.toggle("smooth", window.innerWidth <= mobileThreshold))
 document.querySelector('.nav-link:nth-of-type(3)').addEventListener('click', () => {if(sessionStorage.open_cart) delete sessionStorage.open_cart})
 
 
