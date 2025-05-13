@@ -121,7 +121,6 @@
                                         <input required minlength="2" name="name" type="text" autocomplete="name" placeholder="" class="input">
                                     </label>
                                     <div class="helper-line">
-                                        <p class="helper-text" data-violation="auto"></p>
                                         <p class="helper-text" data-violation="valueMissing">Name cannot be empty</p>
                                         <p class="helper-text" data-violation="tooShort">Name must be at least 2 characters</p>
                                     </div>
@@ -139,7 +138,6 @@
                                             class="input">
                                     </label>
                                     <div class="helper-line">
-                                        <p class="helper-text" data-violation="auto"></p>
                                         <p class="helper-text" data-violation="valueMissing">Email Address cannot be empty</p>
                                         <p class="helper-text" data-violation="typeMismatch">Invalid Email Address</p>
                                     </div>
@@ -159,7 +157,6 @@
                                             autocomplete="tel" placeholder="" class="input">
                                     </label>
                                     <div class="helper-line">
-                                        <p class="helper-text" data-violation="auto"></p>
                                         <p class="helper-text" data-violation="valueMissing">Phone Number cannot be empty</p>
                                         <p class="helper-text" data-violation="patternMismatch">Invalid Phone Number</p>
                                     </div>
@@ -177,7 +174,6 @@
                                             placeholder="" class="input">
                                     </label>
                                     <div class="helper-line">
-                                        <p class="helper-text" data-violation="auto"></p>
                                         <p class="helper-text" data-violation="valueMissing">Number of Guests cannot be empty</p>
                                         <p class="helper-text" data-violation="rangeUnderflow">Number of Guests must be at least 1</p>
                                         <p class="helper-text" data-violation="rangeOverflow">Number of Guests cannot be more than 30</p>
@@ -194,11 +190,10 @@
                                             </span>
                                             <span class="input-outline-trailing"></span>
                                         </span>
-                                        <input required name="date" type="date" inputmode="number" autocomplete="on" placeholder=""
+                                        <input required name="date" custom="onward_date" type="date" inputmode="number" autocomplete="on" placeholder=""
                                             class="input">
                                     </label>
                                     <div class="helper-line">
-                                        <p class="helper-text" data-violation="auto"></p>
                                         <p class="helper-text" data-violation="valueMissing">Date cannot be empty</p>
                                         <p class="helper-text" data-violation="rangeUnderflow">Date must be from today onward</p>
                                     </div>
@@ -216,7 +211,6 @@
                                             class="input">
                                     </label>
                                     <div class="helper-line">
-                                        <p class="helper-text" data-violation="auto"></p>
                                         <p class="helper-text" data-violation="valueMissing">Time cannot be empty</p>
                                     </div>
                                 </div>
@@ -228,12 +222,12 @@
                                         <span class="input-outline-notch" style="width:7.6rem;">
                                             <span class="input-floating-label">Any Special Requests</span>
                                         </span>
+                                        </span>
                                         <span class="input-outline-trailing"></span>
                                     </span>
                                     <textarea minlength="3" name="specialRequest" autocomplete="on" class="input" placeholder=""></textarea>
                                 </label>
-                                <div class="helper-line">
-                                    <p class="helper-text" data-violation="auto"></p>
+                                <div class="helper-line"
                                     <p class="helper-text" data-violation="tooShort">Special Requests must be at least 3 characters</p>
                                 </div>
                             </div>
