@@ -687,221 +687,220 @@ function updateStates(id) {
 
 //a function to handle the editing of meals
 async function handleEditMealOrders(id,{currentTarget: el}) {
-    try {
-        const meal = allMeals.find(meal => Number(meal.id) === Number(id))
-        if (!meal) return
-        const { label, picSrc } = meal
-        const c = el.textContent
-        const n = parseInt(c)
-        if (Tastey.getOrdersValue(id) === n) return
-        if (isNaN(n)) {
-            editMeal(id)
-            Toast({ data: { type: "warning", image: picSrc, body: `You cannot update ${label} to "${c}"` }, tag: `${id}${c}NEdi` })
-            return
-        }
-        if (n <= 0) {
-            handleDeleteMeal(id)
-            return
-        }
-        if (n > maxOrders) {
-            editMeal(id)
-            Toast({ data: { type: "warning", image: picSrc, body: `You cannot have more than ${maxOrders} ${label} in bag` }, tag: `${id}MEdi` })
-            return
-        }
-        toggleLoader(id, true)
-        // #TASTEY CRUD - CU
-        if (await Tastey.editMeal(id,n)) {
-            Tastey.calculateCheckoutDetails(allMeals, currency)
-            editMeal(id)
-            updateStates(id)
-            setButtonState(id)
-            Toast({ data: { type: "success", image: picSrc, body: `You updated ${label} to ${n} in bag` }, tag: `${id}SEdi` })
-        } else {
-            Toast({ data: { type: "error", image: picSrc, body: `Could not update ${label} to ${n} in bag` }, tag: `${id}EEdi` })                
-        }
-        toggleLoader(id, false)
-    } catch(err) {
-        console.error(err)
-    }
+  try {
+      const meal = allMeals.find(meal => Number(meal.id) === Number(id))
+      if (!meal) return
+      const { label, picSrc } = meal
+      const c = el.textContent
+      const n = parseInt(c)
+      if (Tastey.getOrdersValue(id) === n) return
+      if (isNaN(n)) {
+          editMeal(id)
+          Toast.warn(`You cannot update ${label} to "${c}"`, { image: picSrc, tag: `${id}${c}NEdi` })
+          return
+      }
+      if (n <= 0) {
+          handleDeleteMeal(id)
+          return
+      }
+      if (n > maxOrders) {
+          editMeal(id)
+          Toast.warn(`You cannot have more than ${maxOrders} ${label} in bag`, { image: picSrc, tag: `${id}MEdi` })
+          return
+      }
+      toggleLoader(id, true)
+      // #TASTEY CRUD - CU
+      if (await Tastey.editMeal(id,n)) {
+          Tastey.calculateCheckoutDetails(allMeals, currency)
+          editMeal(id)
+          updateStates(id)
+          setButtonState(id)
+          Toast.success(`You updated ${label} to ${n} in bag`, { image: picSrc, tag: `${id}SEdi` })
+      } else {
+          Toast.error(`Could not update ${label} to ${n} in bag`, { image: picSrc, tag: `${id}EEdi` })                
+      }
+      toggleLoader(id, false)
+  } catch(err) {
+      console.error(err)
+  }
 }
 
 //a function to handle the adding of a meal
 async function handleAddMeal(id,n=1) {
-    try {
-        const meal = allMeals.find(meal => Number(meal.id) === Number(id))
-        if (!meal) return
-        const { label, picSrc } = meal
-        if (Tastey.getOrdersValue(id) >= maxOrders) {
-            Toast({ data: { type: "warning", image: picSrc, body: `You cannot add more than ${maxOrders} ${formatLabel(label, n)} to bag` }, tag: `${id}MAdd` })
-            return
-        }
-        toggleLoader(id, true)
-        // #TASTEY CRUD - CU
-        if (await Tastey.addMeal(id,n)) {
-            Tastey.calculateCheckoutDetails(allMeals, currency)
-            addMeal(id,meal)
-            updateStates(id)
-            setButtonState(id)
-            Toast({ data: { type: "success", image: picSrc, body: `You added ${n} ${formatLabel(label, n)} to bag` }, tag: `${id}SAdd` })
-        } else {
-            Toast({ data: { type: "error", image: picSrc, body: `Could not add ${n} ${formatLabel(label, n)} to bag` }, tag: `${id}EAdd` })
-        }
-        toggleLoader(id, false)
-    } catch(err) {
-        console.error(err)
-    }
+  try {
+      const meal = allMeals.find(meal => Number(meal.id) === Number(id))
+      if (!meal) return
+      const { label, picSrc } = meal
+      if (Tastey.getOrdersValue(id) >= maxOrders) {
+          Toast.warn(`You cannot add more than ${maxOrders} ${formatLabel(label, n)} to bag`, { image: picSrc, tag: `${id}MAdd` })
+          return
+      }
+      toggleLoader(id, true)
+      // #TASTEY CRUD - CU
+      if (await Tastey.addMeal(id,n)) {
+          Tastey.calculateCheckoutDetails(allMeals, currency)
+          addMeal(id,meal)
+          updateStates(id)
+          setButtonState(id)
+          Toast.success(`You added ${n} ${formatLabel(label, n)} to bag`, { image: picSrc, tag: `${id}SAdd` })
+      } else {
+          Toast.error(`Could not add ${n} ${formatLabel(label, n)} to bag`, { image: picSrc, tag: `${id}EAdd` })
+      }
+      toggleLoader(id, false)
+  } catch(err) {
+      console.error(err)
+  }
 }
 
 //a function to handle the removing of a meal
 async function handleRemoveMeal(id,n=1) {
-    try {
-        const meal = allMeals.find(meal => Number(meal.id) === Number(id))        
-        if (!meal) return
-        const { label, picSrc } = meal
-        const orders = Tastey.getOrdersValue(id)
-        if(orders === 1) { 
-            handleDeleteMeal(id)
-            return
-        }
-        toggleLoader(id, true)
-        // #TASTEY CRUD - UD
-        if (await Tastey.removeMeal(id,n)) {
-            Tastey.calculateCheckoutDetails(allMeals, currency)
-            removeMeal(id)
-            updateStates(id)
-            setButtonState(id)
-            Toast({ data: { type: "success", image: picSrc, body: `You removed ${n} ${formatLabel(label, n)} from bag` }, tag: `${id}SRem` })                
-        } else {
-            Toast({ data: { type: "error", image: picSrc, body: `Could not remove ${n} ${formatLabel(label, n)} from bag` }, tag: `${id}ERem` })
-        }
-        toggleLoader(id, false)
-    } catch(err) {
-        console.error(err)
-    }
+  try {
+      const meal = allMeals.find(meal => Number(meal.id) === Number(id))        
+      if (!meal) return
+      const { label, picSrc } = meal
+      const orders = Tastey.getOrdersValue(id)
+      if(orders === 1) { 
+          handleDeleteMeal(id)
+          return
+      }
+      toggleLoader(id, true)
+      // #TASTEY CRUD - UD
+      if (await Tastey.removeMeal(id,n)) {
+          Tastey.calculateCheckoutDetails(allMeals, currency)
+          removeMeal(id)
+          updateStates(id)
+          setButtonState(id)
+          Toast.success(`You removed ${n} ${formatLabel(label, n)} from bag`, { image: picSrc, tag: `${id}SRem` })                
+      } else {
+          Toast.error(`Could not remove ${n} ${formatLabel(label, n)} from bag`, { image: picSrc, tag: `${id}ERem` })
+      }
+      toggleLoader(id, false)
+  } catch(err) {
+      console.error(err)
+  }
 }
 
 //a function for deleting orders
 async function handleDeleteMeal(id, dir = "auto") {
-    try {
-        const meal = allMeals.find(meal => Number(meal.id) === Number(id))
-        if (!meal) return
-        const { label, picSrc } = meal        
-        toggleDelLoader(id, true)
-        // #TASTEY CRUD - D
-        if (await Tastey.deleteMeal(id)) {
-            Tastey.calculateCheckoutDetails(allMeals, currency)
-            if (!getCardsQuery() && document.body.classList.contains("cart")) {
-                deleteMeal(id)
-            } else {
-                if (bagQuery) 
-                    removeCard(id, dir)    
-                if (miniBagQuery)
-                    removeMiniCard(id, dir)         
-                await new Promise(resolve => setTimeout(() => {
-                    deleteMeal(id)
-                    resolve()
-                }, removeStall))
-            } 
-            updateStates(id)
-            setButtonState(id)
-            Toast({ data: { type: "success", image: picSrc, body: `You removed ${label} from bag` }, tag: `${id}SDel` })
-        } else {
-            Toast({ data: { type: "error", image: picSrc, body: `Could not remove ${label} from bag` }, tag: `${id}EDel` })
-        }
-        toggleDelLoader(id, false)
-    } catch(err) {
-        console.error(err)
-    }
+  try {
+      const meal = allMeals.find(meal => Number(meal.id) === Number(id))
+      if (!meal) return
+      const { label, picSrc } = meal        
+      toggleDelLoader(id, true)
+      // #TASTEY CRUD - D
+      if (await Tastey.deleteMeal(id)) {
+          Tastey.calculateCheckoutDetails(allMeals, currency)
+          if (!getCardsQuery() && document.body.classList.contains("cart")) {
+              deleteMeal(id)
+          } else {
+              if (bagQuery) 
+                  removeCard(id, dir)    
+              if (miniBagQuery)
+                  removeMiniCard(id, dir)         
+              await new Promise(resolve => setTimeout(() => {
+                  deleteMeal(id)
+                  resolve()
+              }, removeStall))
+          } 
+          updateStates(id)
+          setButtonState(id)
+          Toast.success(`You removed ${label} from bag`, { image: picSrc, tag: `${id}SDel` })
+      } else {
+          Toast.error(`Could not remove ${label} from bag`, { image: picSrc, tag: `${id}EDel` })
+      }
+      toggleDelLoader(id, false)
+  } catch(err) {
+      console.error(err)
+  }
 }
 
 //The clear cart function is a bit different due to its async nature
 async function handleClearCart() {   
-    try{
-        if (Tastey.isEmpty()) {
-            Toast({ data: {type: "warning", body: "Your Shopping Bag is already empty" }, tag: 'EBag' })
-            return
-        }
-        const shouldCartClear = await Confirm(`You are about to remove ${standardize(Tastey.ordersInTotal)} ${formatLabel("orders", Tastey.ordersInTotal)} from your Shopping Bag`)
-        if (shouldCartClear) {
-            toggleClearLoader(true)
-            // #TASTEY CRUD - D
-            if (await Tastey.clearCart()) {
-                if (!getCardsQuery() && document.body.classList.contains("cart")) {
-                    clearCart()
-                } else {
-                    if (bagQuery) 
-                        removeAllCards()
-                    if (miniBagQuery)
-                        removeAllMiniCards()
-                    await new Promise(resolve => setTimeout(() => {
-                        clearCart()
-                        resolve()
-                    }, emptyStall))
-                }
-                Tastey.calculateCheckoutDetails(allMeals, currency)
-                setCheckoutState()
-                setCartStates()
-                allMeals.forEach(({id}) => setButtonState(id))
-                allMeals.forEach(({id}) => setOrderStates(id))
-                Toast({ data: { type: "success", body: `You Shopping bag has been emptied` }, tag: 'SCba' })                
-            } else {
-                Toast({ data: { type: "error", body: `Could not empty Shopping bag` } , tag: 'ECba' })
-            }
-            toggleClearLoader(false)
-        }        
-    } catch(err) {
-        console.error(err)
-    }
+  try{
+      if (Tastey.isEmpty()) {
+          Toast.warn("Your Shopping Bag is already empty", { tag: 'EBag' })
+          return
+      }
+      const shouldCartClear = await Confirm(`You are about to remove ${standardize(Tastey.ordersInTotal)} ${formatLabel("orders", Tastey.ordersInTotal)} from your Shopping Bag`)
+      if (shouldCartClear) {
+          toggleClearLoader(true)
+          // #TASTEY CRUD - D
+          if (await Tastey.clearCart()) {
+              if (!getCardsQuery() && document.body.classList.contains("cart")) {
+                  clearCart()
+              } else {
+                  if (bagQuery) 
+                      removeAllCards()
+                  if (miniBagQuery)
+                      removeAllMiniCards()
+                  await new Promise(resolve => setTimeout(() => {
+                      clearCart()
+                      resolve()
+                  }, emptyStall))
+              }
+              Tastey.calculateCheckoutDetails(allMeals, currency)
+              setCheckoutState()
+              setCartStates()
+              allMeals.forEach(({id}) => setButtonState(id))
+              allMeals.forEach(({id}) => setOrderStates(id))
+              Toast.success(`You Shopping bag has been emptied`, { tag: 'SCba' })                
+          } else {
+              Toast.error(`Could not empty Shopping bag`, { tag: 'ECba' })
+          }
+          toggleClearLoader(false)
+      }        
+  } catch(err) {
+      console.error(err)
+  }
 }
 
 //a function to handle likes
 async function handleLikes(id) {
-    try {
-        const meal = allMeals.find(meal => Number(meal.id) === Number(id))
-        if (!meal) return
-        const { label, picSrc } = meal
-        const tasteyMeal = document.querySelector(`.tastey-meal[data-id="${id}"]`),
-        tasteyMealOrder = document.querySelector(`.tastey-meal-order[data-id="${id}"]`),
-        mcTasteyMealOrder = document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"]`)
-        const like = mealsQuery ? !JSON.parse(tasteyMeal.dataset.like) : !JSON.parse(tasteyMealOrder?.dataset.like ?? mcTasteyMealOrder?.dataset.like)
-        toggleLikeLoader(id, true)
-        //#CRUD - CU
-        if (await Tastey.handleLikes(id, like)) {            
-            if (mealsQuery) {
-                tasteyMeal.dataset.like = like
-                tasteyMeal.querySelector(".heart-icon-wrapper").title = like ? "Tap to unlike" : "Tap to like!"
-            }
-            if (bagQuery && tasteyMealOrder) {
-                tasteyMealOrder.dataset.like = like
-                tasteyMealOrder.querySelector(".wishlist-toggler").title = like ? `Remove ${label} from Wishlist` : `Add ${label} to Wishlist`
-            }
-            if (miniBagQuery && mcTasteyMealOrder) {
-                mcTasteyMealOrder.dataset.like = like
-                mcTasteyMealOrder.querySelector(".mini-cart-wishlist-toggler").title = like ? `Remove ${label} from Wishlist` : `Add ${label} to Wishlist`
-            }  
-            Toast({ data: { type: "success", image: picSrc, body: like ? `You added ${label} to Wishlist` : `You removed ${label} from Wishlist` }, tag: `${id}SLik` })
-        } else {
-            Toast({ data: { type: "error", image: picSrc, body: like ? `Could not add ${label} to Wishlist` : `Could not remove ${label} from Wishlist` }, tag: `${id}ELik` })
-        }
-        toggleLikeLoader(id, false)
-    } catch(err) {
-        console.error(err)
-    }
+  try {
+      const meal = allMeals.find(meal => Number(meal.id) === Number(id))
+      if (!meal) return
+      const { label, picSrc } = meal
+      const tasteyMeal = document.querySelector(`.tastey-meal[data-id="${id}"]`),
+      tasteyMealOrder = document.querySelector(`.tastey-meal-order[data-id="${id}"]`),
+      mcTasteyMealOrder = document.querySelector(`.mini-cart-tastey-meal-order[data-id="${id}"]`)
+      const like = mealsQuery ? !JSON.parse(tasteyMeal.dataset.like) : !JSON.parse(tasteyMealOrder?.dataset.like ?? mcTasteyMealOrder?.dataset.like)
+      toggleLikeLoader(id, true)
+      //#CRUD - CU
+      if (await Tastey.handleLikes(id, like)) {            
+          if (mealsQuery) {
+              tasteyMeal.dataset.like = like
+              tasteyMeal.querySelector(".heart-icon-wrapper").title = like ? "Tap to unlike" : "Tap to like!"
+          }
+          if (bagQuery && tasteyMealOrder) {
+              tasteyMealOrder.dataset.like = like
+              tasteyMealOrder.querySelector(".wishlist-toggler").title = like ? `Remove ${label} from Wishlist` : `Add ${label} to Wishlist`
+          }
+          if (miniBagQuery && mcTasteyMealOrder) {
+              mcTasteyMealOrder.dataset.like = like
+              mcTasteyMealOrder.querySelector(".mini-cart-wishlist-toggler").title = like ? `Remove ${label} from Wishlist` : `Add ${label} to Wishlist`
+          }  
+          Toast.success(like ? `You added ${label} to Wishlist` : `You removed ${label} from Wishlist`, { image: picSrc, tag: `${id}SLik` })
+      } else {
+          Toast.error(like ? `Could not add ${label} to Wishlist` : `Could not remove ${label} from Wishlist`, { image: picSrc, tag: `${id}ELik` })
+      }
+      toggleLikeLoader(id, false)
+  } catch(err) {
+      console.error(err)
+  }
 }
 
 function handleCheckout() {
-    const id = Tastey.tasteyRecord.tasteyOrders[Tastey.tasteyMeals - 1].id
-    const meal = allMeals.find(meal => meal.id === id)
-    const { picSrc: lastOrderPicSrc } = meal 
-    const title = "Tastey",
-    options = {
-        body: `We are sorry :) but checkout is currently unavailable! We see you are trying to check out ${standardize(Tastey.ordersInTotal)} Tastey orders with a total cost of ${formatValue(currency, Tastey.totalCost)}`,
-        image: `${lastOrderPicSrc}`,
-        vibrate: [200, 100, 200, 100, 200, 100, 200],
-        tag: "tastey-checkout-notification",
-        renotify: true
-    }
-    Toast( { data: { type: "warning", body: "Checkout is currently unavailable!" }, tag: 'UChe' } )
-    notificationQuery(title, options, "Check Out")
+  const id = Tastey.tasteyRecord.tasteyOrders[Tastey.tasteyMeals - 1].id
+  const meal = allMeals.find(meal => meal.id === id)
+  const { picSrc: lastOrderPicSrc } = meal 
+  const title = "Tastey",
+  options = {
+      body: `We are sorry :) but checkout is currently unavailable! We see you are trying to check out ${standardize(Tastey.ordersInTotal)} Tastey orders with a total cost of ${formatValue(currency, Tastey.totalCost)}`,
+      image: `${lastOrderPicSrc}`,
+      vibrate: [200, 100, 200, 100, 200, 100, 200],
+      tag: "tastey-checkout-notification",
+      renotify: true
+  }
+  Toast.warn("Checkout is currently unavailable!", { tag: 'UChe' })
+  notificationQuery(title, options, "Check Out")
 }
-

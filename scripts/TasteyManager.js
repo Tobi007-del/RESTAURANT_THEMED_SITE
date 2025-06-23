@@ -52,7 +52,7 @@ function displayWelcomeNotification() {
         tag: "tastey-welcome-notification",
         renotify: true
     }
-    Toast({ data: { type: "info", body: infoMssg, tag: "tastey-welcome-notification" } })
+    Toast.info(infoMssg, { tag: "tastey-welcome-notification" })
     notificationQuery(title, options, "Welcome")
 }
 if (!sessionStorage.is_this_first_visit_to_Tastey) {
