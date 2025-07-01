@@ -128,7 +128,7 @@ form {
     gap: .25rem;
 }
 
-.reserve-form-section .field {
+.reserve-form-section > * {
     flex: 1 0 15rem;
 }
 

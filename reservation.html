@@ -107,128 +107,127 @@
                         <em class="Tastey-text">Wanna book a reservation?</em>
                         <h1>Fill this form</h1>
                     </div>
-                        <form method="post" action="success.html" class="reserve-form input-form" novalidate>
+                        <form method="post" action="success.html" class="reserve-form t007-input-form" novalidate>
                             <div class="reserve-form-section">
-                                <div class="field">
-                                    <label class="input-field" for="name">
-                                        <span class="input-outline">
-                                            <span class="input-outline-leading"></span>
-                                            <span class="input-outline-notch" style="width:2.45rem;">
-                                                <span class="input-floating-label">Name</span>
+                                <div class="t007-input-field">
+                                    <label class="t007-input-wrapper" for="name">
+                                        <span class="t007-input-outline">
+                                            <span class="t007-input-outline-leading"></span>
+                                            <span class="t007-input-outline-notch" style="width:2.45rem;">
+                                                <span class="t007-input-floating-label">Name</span>
                                             </span>
-                                            <span class="input-outline-trailing"></span>
+                                            <span class="t007-input-outline-trailing"></span>
                                         </span>
-                                        <input required minlength="2" name="name" type="text" autocomplete="name" placeholder="" class="input">
+                                        <input required minlength="2" name="name" type="text" autocomplete="name" placeholder="" class="t007-input">
                                     </label>
-                                    <div class="helper-line">
-                                        <p class="helper-text" data-violation="valueMissing">Name cannot be empty</p>
-                                        <p class="helper-text" data-violation="tooShort">Name must be at least 2 characters</p>
+                                    <div class="t007-input-helper-line">
+                                        <p class="t007-input-helper-text" data-violation="valueMissing">Name cannot be empty</p>
+                                        <p class="t007-input-helper-text" data-violation="tooShort">Name must be at least 2 characters</p>
                                     </div>
                                 </div>
-                                <div class="field">
-                                    <label class="input-field" for="email">
-                                        <span class="input-outline">
-                                            <span class="input-outline-leading"></span>
-                                            <span class="input-outline-notch" style="width:2.35rem;">
-                                                <span class="input-floating-label">Email</span>
+                                <div class="t007-input-field">
+                                    <label class="t007-input-wrapper" for="email">
+                                        <span class="t007-input-outline">
+                                            <span class="t007-input-outline-leading"></span>
+                                            <span class="t007-input-outline-notch" style="width:2.35rem;">
+                                                <span class="t007-input-floating-label">Email</span>
                                             </span>
-                                            <span class="input-outline-trailing"></span>
+                                            <span class="t007-input-outline-trailing"></span>
                                         </span>
                                         <input required name="email" type="email" inputmode="email" autocomplete="email" placeholder=""
-                                            class="input">
+                                            class="t007-input">
                                     </label>
-                                    <div class="helper-line">
-                                        <p class="helper-text" data-violation="valueMissing">Email Address cannot be empty</p>
-                                        <p class="helper-text" data-violation="typeMismatch">Invalid Email Address</p>
+                                    <div class="t007-input-helper-line">
+                                        <p class="t007-input-helper-text" data-violation="valueMissing">Email Address cannot be empty</p>
+                                        <p class="t007-input-helper-text" data-violation="typeMismatch">Invalid Email Address</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="reserve-form-section">
-                                <div class="field">
-                                    <label class="input-field" for="tel">
-                                        <span class="input-outline">
-                                            <span class="input-outline-leading"></span>
-                                            <span class="input-outline-notch" style="width:5.35rem;">
-                                                <span class="input-floating-label">Phone Number</span>
+                                <div class="t007-input-field">
+                                    <label class="t007-input-wrapper" for="tel">
+                                        <span class="t007-input-outline">
+                                            <span class="t007-input-outline-leading"></span>
+                                            <span class="t007-input-outline-notch" style="width:5.35rem;">
+                                                <span class="t007-input-floating-label">Phone Number</span>
                                             </span>
-                                            <span class="input-outline-trailing"></span>
+                                            <span class="t007-input-outline-trailing"></span>
                                         </span>
                                         <input required pattern="^\+?(\d[\d\-\.\(\)\s]*){7,15}$" name="tel" type="tel" inputmode="tel"
-                                            autocomplete="tel" placeholder="" class="input">
+                                            autocomplete="tel" placeholder="" class="t007-input">
                                     </label>
-                                    <div class="helper-line">
-                                        <p class="helper-text" data-violation="valueMissing">Phone Number cannot be empty</p>
-                                        <p class="helper-text" data-violation="patternMismatch">Invalid Phone Number</p>
+                                    <div class="t007-input-helper-line">
+                                        <p class="t007-input-helper-text" data-violation="valueMissing">Phone Number cannot be empty</p>
+                                        <p class="t007-input-helper-text" data-violation="patternMismatch">Invalid Phone Number</p>
                                     </div>
                                 </div>
-                                <div class="field">
-                                    <label class="input-field" for="guests">
-                                        <span class="input-outline">
-                                            <span class="input-outline-leading"></span>
-                                            <span class="input-outline-notch" style="width:6.5rem;">
-                                                <span class="input-floating-label">Number of Guests</span>
+                                <div class="t007-input-field">
+                                    <label class="t007-input-wrapper" for="guests">
+                                        <span class="t007-input-outline">
+                                            <span class="t007-input-outline-leading"></span>
+                                            <span class="t007-input-outline-notch" style="width:6.5rem;">
+                                                <span class="t007-input-floating-label">Number of Guests</span>
                                             </span>
-                                            <span class="input-outline-trailing"></span>
+                                            <span class="t007-input-outline-trailing"></span>
                                         </span>
                                         <input required min="1" max="30" name="guests" type="number" inputmode="number" autocomplete="on"
-                                            placeholder="" class="input">
+                                            placeholder="" class="t007-input">
                                     </label>
-                                    <div class="helper-line">
-                                        <p class="helper-text" data-violation="valueMissing">Number of Guests cannot be empty</p>
-                                        <p class="helper-text" data-violation="rangeUnderflow">Number of Guests must be at least 1</p>
-                                        <p class="helper-text" data-violation="rangeOverflow">Number of Guests cannot be more than 30</p>
+                                    <div class="t007-input-helper-line">
+                                        <p class="t007-input-helper-text" data-violation="valueMissing">Number of Guests cannot be empty</p>
+                                        <p class="t007-input-helper-text" data-violation="rangeUnderflow">Number of Guests must be at least 1</p>
+                                        <p class="t007-input-helper-text" data-violation="rangeOverflow">Number of Guests cannot be more than 30</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="reserve-form-section">
-                                <div class="field">
-                                    <label class="input-field" for="date">
-                                        <span class="input-outline">
-                                            <span class="input-outline-leading"></span>
-                                            <span class="input-outline-notch" style="width:2.15rem;">
-                                                <span class="input-floating-label">Date</span>
+                                <div class="t007-input-field">
+                                    <label class="t007-input-wrapper" for="date">
+                                        <span class="t007-input-outline">
+                                            <span class="t007-input-outline-leading"></span>
+                                            <span class="t007-input-outline-notch" style="width:2.15rem;">
+                                                <span class="t007-input-floating-label">Date</span>
                                             </span>
-                                            <span class="input-outline-trailing"></span>
+                                            <span class="t007-input-outline-trailing"></span>
                                         </span>
                                         <input required name="date" custom="onward_date" type="date" inputmode="number" autocomplete="on" placeholder=""
-                                            class="input">
+                                            class="t007-input">
                                     </label>
-                                    <div class="helper-line">
-                                        <p class="helper-text" data-violation="valueMissing">Date cannot be empty</p>
-                                        <p class="helper-text" data-violation="rangeUnderflow">Date must be from today onward</p>
+                                    <div class="t007-input-helper-line">
+                                        <p class="t007-input-helper-text" data-violation="valueMissing">Date cannot be empty</p>
+                                        <p class="t007-input-helper-text" data-violation="rangeUnderflow">Date must be from today onward</p>
                                     </div>
                                 </div>
-                                <div class="field">
-                                    <label class="input-field" for="time">
-                                        <span class="input-outline">
-                                            <span class="input-outline-leading"></span>
-                                            <span class="input-outline-notch" style="width:2.2rem;">
-                                                <span class="input-floating-label">Time</span>
+                                <div class="t007-input-field">
+                                    <label class="t007-input-wrapper" for="time">
+                                        <span class="t007-input-outline">
+                                            <span class="t007-input-outline-leading"></span>
+                                            <span class="t007-input-outline-notch" style="width:2.2rem;">
+                                                <span class="t007-input-floating-label">Time</span>
                                             </span>
-                                            <span class="input-outline-trailing"></span>
+                                            <span class="t007-input-outline-trailing"></span>
                                         </span>
                                         <input required name="time" type="time" inputmode="number" autocomplete="on" placeholder=""
-                                            class="input">
+                                            class="t007-input">
                                     </label>
-                                    <div class="helper-line">
-                                        <p class="helper-text" data-violation="valueMissing">Time cannot be empty</p>
+                                    <div class="t007-input-helper-line">
+                                        <p class="t007-input-helper-text" data-violation="valueMissing">Time cannot be empty</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="field">
-                                <label class="input-field" for="specialRequest">
-                                    <span class="input-outline">
-                                        <span class="input-outline-leading"></span>
-                                        <span class="input-outline-notch" style="width:7.6rem;">
-                                            <span class="input-floating-label">Any Special Requests</span>
+                            <div class="t007-input-field">
+                                <label class="t007-input-wrapper" for="specialRequest">
+                                    <span class="t007-input-outline">
+                                        <span class="t007-input-outline-leading"></span>
+                                        <span class="t007-input-outline-notch" style="width:7.6rem;">
+                                            <span class="t007-input-floating-label">Any Special Requests</span>
                                         </span>
-                                        </span>
-                                        <span class="input-outline-trailing"></span>
+                                        <span class="t007-input-outline-trailing"></span>
                                     </span>
-                                    <textarea minlength="3" name="specialRequest" autocomplete="on" class="input" placeholder=""></textarea>
+                                    <textarea minlength="3" name="specialRequest" autocomplete="on" class="t007-input" placeholder=""></textarea>
                                 </label>
-                                <div class="helper-line"
-                                    <p class="helper-text" data-violation="tooShort">Special Requests must be at least 3 characters</p>
+                                <div class="t007-input-helper-line">
+                                    <p class="t007-input-helper-text" data-violation="tooShort">Special Requests must be at least 3 characters</p>
                                 </div>
                             </div>
                             <button type="submit" title="Submit Message" class="Tastey-blur submit-btn">SUBMIT</button>

@@ -116,7 +116,7 @@ function handleCardPointerMove(e, currentCard) {
         currentCard.dataset.pointerTicker = false
     })
     currentCard.dataset.pointerTicker = true
-}    
+}
 
 function handleCardPointerEnd(currentCard) {
     cancelAnimationFrame(currentCard.cpRAF)
@@ -131,7 +131,7 @@ function handleCardPointerEnd(currentCard) {
     currentCard.style.removeProperty("transition")
     currentCard.style.removeProperty("transform")
     currentCard.style.removeProperty("opacity")
-}  
+}
 
 function getCardsQuery() {
     return (document.body.classList.contains("cart") && (document.body.dataset.cart != 0) && (window.innerWidth >= remToPx(55)) && (window.innerHeight >= remToPx(32.55)) && (CSS && CSS.supports('position', 'sticky')))
