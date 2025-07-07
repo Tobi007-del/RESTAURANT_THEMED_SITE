@@ -1233,6 +1233,7 @@ body.cart:hover .tastey-meal-order::after {
     max-width: 5ch;
     white-space: nowrap;
     overflow: auto;
+    scrollbar-width: none;
 }
 
 .cart-order-number::-webkit-scrollbar {
