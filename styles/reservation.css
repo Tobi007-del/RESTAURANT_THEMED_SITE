@@ -125,7 +125,7 @@ form {
 .reserve-form-section {
     display: flex;
     flex-wrap: wrap;
-    gap: .25rem;
+    gap: 1rem;
 }
 
 .reserve-form-section > * {
