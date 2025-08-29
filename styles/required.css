@@ -38,6 +38,10 @@ img, button, a {
     --soft-red: rgb(255, 35, 35);
 }
 
+.t007-input-field {
+  --t007-input-focused-color: var(--tastey-brand-color);
+}
+
 @keyframes spin {
     to {
         rotate: 360deg;
