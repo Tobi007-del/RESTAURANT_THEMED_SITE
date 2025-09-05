@@ -1,11 +1,10 @@
-const audios = document.querySelectorAll("audio")
+const audios = document.querySelectorAll("audio");
 
-for(const audio of audios) {
-    if (audio.dataset.controls === "tastey-audio-controls") {
-        const audioContainer = document.createElement('div')
-        audioContainer.className = "audio-container paused"
-        audioContainer.innerHTML = 
-        `
+for (const audio of audios) {
+  if (audio.dataset.controls === "tastey-audio-controls") {
+    const audioContainer = document.createElement("div");
+    audioContainer.className = "audio-container paused";
+    audioContainer.innerHTML = `
         <div class="audio-container">
             <div class="audio-controls-container">
                 <div>
@@ -49,183 +48,204 @@ for(const audio of audios) {
                 </div>
             </div>
         </div>            
-        `
-        const parentDiv = audio.parentNode
-        parentDiv.insertBefore(audioContainer, audio)
-        audioContainer.append(audio)
+        `;
+    const parentDiv = audio.parentNode;
+    parentDiv.insertBefore(audioContainer, audio);
+    audioContainer.append(audio);
 
-        const playPauseBtn = audioContainer.querySelector(".audio-play-pause-btn"),
-        muteBtn = audioContainer.querySelector(".audio-mute-btn"),
-        currentTimeElem = audioContainer.querySelector(".audio-current-time"),
-        totalTimeElem = audioContainer.querySelector(".audio-total-time"),
-        volumeSlider = audioContainer.querySelector(".audio-volume-slider"),
-        timelineContainer = audioContainer.querySelector(".audio-timeline-container"),
-        svgs = audioContainer.querySelectorAll("svg")
+    const playPauseBtn = audioContainer.querySelector(".audio-play-pause-btn"),
+      muteBtn = audioContainer.querySelector(".audio-mute-btn"),
+      currentTimeElem = audioContainer.querySelector(".audio-current-time"),
+      totalTimeElem = audioContainer.querySelector(".audio-total-time"),
+      volumeSlider = audioContainer.querySelector(".audio-volume-slider"),
+      timelineContainer = audioContainer.querySelector(
+        ".audio-timeline-container",
+      ),
+      svgs = audioContainer.querySelectorAll("svg");
 
-        //resizing controls
-        function controlsResize() {           
-            let controlsSize = 25;
-            // controlsSize = getComputedStyle(videoContainer).getPropertyValue("--controls-size")
-            svgs.forEach(svg => {
-                svg.setAttribute("preserveAspectRatio", "xMidYMid meet")
-                if(!svg.classList.contains("audio-replay-icon")) 
-                    svg.setAttribute("viewBox", `0 0 ${controlsSize} ${controlsSize}`)
-            })
-        }
-        controlsResize()
-
-        timelineContainer.addEventListener('pointerdown', e => {
-            timelineContainer.setPointerCapture(e.pointerId)
-            isScrubbing = true 
-            toggleScrubbing(e)
-            timelineContainer.addEventListener("pointermove", handleTimelineUpdate)
-            timelineContainer.addEventListener("pointerup", e => {
-                isScrubbing = false 
-                toggleScrubbing(e)
-                timelineContainer.removeEventListener("pointermove", handleTimelineUpdate)
-                timelineContainer.releasePointerCapture(e.pointerId)
-            }, { once:true })
-        })
-
-        //Timeline 
-        let isScrubbing = false
-        let wasPaused = audio.autoplay
-        function toggleScrubbing(e) {
-            const rect = timelineContainer.getBoundingClientRect()
-            const percent = Math.min(Math.max(0, e.clientX - rect.x), rect.width) / rect.width
-            audioContainer.classList.toggle("scrubbing", isScrubbing)
-            if (isScrubbing) {
-                wasPaused = audio.paused
-                audio.pause()
-            } else {
-                audio.currentTime = percent * audio.duration
-                if (!wasPaused) {
-                    audio.play()     
-                }
-            }
-
-            handleTimelineUpdate(e)
-        }
-
-        function handleTimelineUpdate(e) {
-            const rect = timelineContainer.getBoundingClientRect()
-            const percent = Math.min(Math.max(0, e.clientX - rect.x), rect.width) / rect.width
-            if (isScrubbing) 
-                timelineContainer.style.setProperty("--audio-progress-position", percent)
-        }
-
-        audio.addEventListener("loadeddata", () => totalTimeElem.textContent = formatDuration(audio.duration))
-
-        audio.addEventListener("timeupdate", () => {
-            currentTimeElem.textContent = formatDuration(audio.currentTime)
-            const percent = audio.currentTime / audio.duration
-            timelineContainer.style.setProperty("--audio-progress-position", percent)
-            if (audio.currentTime < audio.duration) {
-                audioContainer.classList.remove("replay")
-            }
-        })
-
-        const leadingZeroFormatter = new Intl.NumberFormat(undefined, {
-            minimumIntegerDigits: 2,
-        })
-        
-        function formatDuration(time) {
-            const seconds = Math.floor(time % 60)
-            const minutes = Math.floor(time / 60) % 60
-            const hours = Math.floor(time / 3600)
-            if(hours === 0)
-                return `${minutes}:${leadingZeroFormatter.format(seconds)}`
-            else 
-                return `${hours}:${leadingZeroFormatter.format(minutes)}:${leadingZeroFormatter.format(seconds)}`
-        }
-
-        //Volume
-        muteBtn.addEventListener("click", toggleMute)
-
-        volumeSlider.addEventListener("input", e => {
-            audio.volume = (e.target.value / 100)
-            audio.muted = e.target.value === 0
-        })
-
-        function toggleMute() {
-            audio.muted = !audio.muted
-        }
-
-        audio.addEventListener("volumechange", volumeState)
-
-        function volumeState() {
-            let { min, max , value, offsetWidth } = volumeSlider
-            value = audio.volume * 100
-            let volumeLevel = ""
-            if (audio.muted || value === 0) {
-                value = 0
-                volumeLevel = "muted"
-            } else if (value > (max/2)) {
-                volumeLevel = "high"
-            } else {
-                volumeLevel = "low"
-            }
-            let volumePosition = `${((value - min) / (max - min)) * ((offsetWidth - 5) > 0 ? (offsetWidth - 5) : 55) }px`
-            let volumePercent = `${((value-min) / (max - min)) * 100}%`
-            volumeSlider.value = value
-            volumeSlider.dataset.volume = `${value.toFixed()}`
-            volumeSlider.style.setProperty("--audio-volume-position", volumePosition)
-            volumeSlider.style.setProperty("--audio-volume-percent", volumePercent)
-            audioContainer.dataset.volumeLevel = volumeLevel
-        }
-
-        volumeState()
-
-        audio.addEventListener("ended", () => audioContainer.classList.add("replay"))
-
-        playPauseBtn.addEventListener("click", togglePlay)
-
-        function togglePlay() {
-            audio.paused ? audio.play() : audio.pause()
-        }
-
-        audio.addEventListener("play", e => {
-            for (const media of document.querySelectorAll('video, audio')) {
-                if (media !== e.target) media.pause()
-            }
-            audioContainer.classList.remove("paused")
-
-            if ('mediaSession' in navigator) {
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: e.currentTarget.dataset.mediaTitle,
-                    artwork: [
-                        {src: e.currentTarget.dataset.mediaArtwork}
-                    ]
-                })
-    
-                navigator.mediaSession.setActionHandler('play', ()=>{audio.play()})
-                navigator.mediaSession.setActionHandler('pause', ()=>{audio.pause()})
-                navigator.mediaSession.playbackState = 'playing'
-            }
-        })
-
-        audio.addEventListener("pause", () => {
-            audioContainer.classList.add("paused")
-            if ('mediaSession' in navigator) 
-                navigator.mediaSession.playbackState = 'paused'
-        })
-
-        const restraintTime = 3000
-        let restraintIdTwo, hoverId
-        volumeSlider.parentElement.addEventListener("mousemove", () => {
-            hoverId = setTimeout(() => {
-                if (volumeSlider.parentElement.matches(':hover')) {
-                    volumeSlider.parentElement.classList.add("hover")
-                    if (restraintIdTwo) clearTimeout(restraintIdTwo)
-                    restraintIdTwo = setTimeout(() => {
-                        volumeSlider.parentElement.classList.remove("hover")
-                    }, restraintTime)                    
-                }
-            }, 250)
-        })
-
-        volumeSlider.parentElement.addEventListener("mouseup", () => {
-            if (hoverId) clearTimeout(hoverId)
-        })
+    //resizing controls
+    function controlsResize() {
+      let controlsSize = 25;
+      // controlsSize = getComputedStyle(videoContainer).getPropertyValue("--controls-size")
+      svgs.forEach((svg) => {
+        svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+        if (!svg.classList.contains("audio-replay-icon"))
+          svg.setAttribute("viewBox", `0 0 ${controlsSize} ${controlsSize}`);
+      });
     }
+    controlsResize();
+
+    timelineContainer.addEventListener("pointerdown", (e) => {
+      timelineContainer.setPointerCapture(e.pointerId);
+      isScrubbing = true;
+      toggleScrubbing(e);
+      timelineContainer.addEventListener("pointermove", handleTimelineUpdate);
+      timelineContainer.addEventListener(
+        "pointerup",
+        (e) => {
+          isScrubbing = false;
+          toggleScrubbing(e);
+          timelineContainer.removeEventListener(
+            "pointermove",
+            handleTimelineUpdate,
+          );
+          timelineContainer.releasePointerCapture(e.pointerId);
+        },
+        { once: true },
+      );
+    });
+
+    //Timeline
+    let isScrubbing = false;
+    let wasPaused = audio.autoplay;
+    function toggleScrubbing(e) {
+      const rect = timelineContainer.getBoundingClientRect();
+      const percent =
+        Math.min(Math.max(0, e.clientX - rect.x), rect.width) / rect.width;
+      audioContainer.classList.toggle("scrubbing", isScrubbing);
+      if (isScrubbing) {
+        wasPaused = audio.paused;
+        audio.pause();
+      } else {
+        audio.currentTime = percent * audio.duration;
+        if (!wasPaused) {
+          audio.play();
+        }
+      }
+
+      handleTimelineUpdate(e);
+    }
+
+    function handleTimelineUpdate(e) {
+      const rect = timelineContainer.getBoundingClientRect();
+      const percent =
+        Math.min(Math.max(0, e.clientX - rect.x), rect.width) / rect.width;
+      if (isScrubbing)
+        timelineContainer.style.setProperty(
+          "--audio-progress-position",
+          percent,
+        );
+    }
+
+    audio.addEventListener(
+      "loadeddata",
+      () => (totalTimeElem.textContent = formatDuration(audio.duration)),
+    );
+
+    audio.addEventListener("timeupdate", () => {
+      currentTimeElem.textContent = formatDuration(audio.currentTime);
+      const percent = audio.currentTime / audio.duration;
+      timelineContainer.style.setProperty("--audio-progress-position", percent);
+      if (audio.currentTime < audio.duration) {
+        audioContainer.classList.remove("replay");
+      }
+    });
+
+    const leadingZeroFormatter = new Intl.NumberFormat(undefined, {
+      minimumIntegerDigits: 2,
+    });
+
+    function formatDuration(time) {
+      const seconds = Math.floor(time % 60);
+      const minutes = Math.floor(time / 60) % 60;
+      const hours = Math.floor(time / 3600);
+      if (hours === 0)
+        return `${minutes}:${leadingZeroFormatter.format(seconds)}`;
+      else
+        return `${hours}:${leadingZeroFormatter.format(minutes)}:${leadingZeroFormatter.format(seconds)}`;
+    }
+
+    //Volume
+    muteBtn.addEventListener("click", toggleMute);
+
+    volumeSlider.addEventListener("input", (e) => {
+      audio.volume = e.target.value / 100;
+      audio.muted = e.target.value === 0;
+    });
+
+    function toggleMute() {
+      audio.muted = !audio.muted;
+    }
+
+    audio.addEventListener("volumechange", volumeState);
+
+    function volumeState() {
+      let { min, max, value, offsetWidth } = volumeSlider;
+      value = audio.volume * 100;
+      let volumeLevel = "";
+      if (audio.muted || value === 0) {
+        value = 0;
+        volumeLevel = "muted";
+      } else if (value > max / 2) {
+        volumeLevel = "high";
+      } else {
+        volumeLevel = "low";
+      }
+      let volumePosition = `${((value - min) / (max - min)) * (offsetWidth - 5 > 0 ? offsetWidth - 5 : 55)}px`;
+      let volumePercent = `${((value - min) / (max - min)) * 100}%`;
+      volumeSlider.value = value;
+      volumeSlider.dataset.volume = `${value.toFixed()}`;
+      volumeSlider.style.setProperty("--audio-volume-position", volumePosition);
+      volumeSlider.style.setProperty("--audio-volume-percent", volumePercent);
+      audioContainer.dataset.volumeLevel = volumeLevel;
+    }
+
+    volumeState();
+
+    audio.addEventListener("ended", () =>
+      audioContainer.classList.add("replay"),
+    );
+
+    playPauseBtn.addEventListener("click", togglePlay);
+
+    function togglePlay() {
+      audio.paused ? audio.play() : audio.pause();
+    }
+
+    audio.addEventListener("play", (e) => {
+      for (const media of document.querySelectorAll("video, audio")) {
+        if (media !== e.target) media.pause();
+      }
+      audioContainer.classList.remove("paused");
+
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: e.currentTarget.dataset.mediaTitle,
+          artwork: [{ src: e.currentTarget.dataset.mediaArtwork }],
+        });
+
+        navigator.mediaSession.setActionHandler("play", () => {
+          audio.play();
+        });
+        navigator.mediaSession.setActionHandler("pause", () => {
+          audio.pause();
+        });
+        navigator.mediaSession.playbackState = "playing";
+      }
+    });
+
+    audio.addEventListener("pause", () => {
+      audioContainer.classList.add("paused");
+      if ("mediaSession" in navigator)
+        navigator.mediaSession.playbackState = "paused";
+    });
+
+    const restraintTime = 3000;
+    let restraintIdTwo, hoverId;
+    volumeSlider.parentElement.addEventListener("mousemove", () => {
+      hoverId = setTimeout(() => {
+        if (volumeSlider.parentElement.matches(":hover")) {
+          volumeSlider.parentElement.classList.add("hover");
+          if (restraintIdTwo) clearTimeout(restraintIdTwo);
+          restraintIdTwo = setTimeout(() => {
+            volumeSlider.parentElement.classList.remove("hover");
+          }, restraintTime);
+        }
+      }, 250);
+    });
+
+    volumeSlider.parentElement.addEventListener("mouseup", () => {
+      if (hoverId) clearTimeout(hoverId);
+    });
+  }
 }

@@ -1,35 +1,64 @@
 //module imports
-import { meals, allMeals, currency, maxOrders, getDOMElements, handleAddMeal, handleClearCart, handleLikes, handleCheckout, getCardsQuery, positionCards, adjustCards } from "./CRUD.js"
-import { Tastey, mobileThreshold } from "./TasteyManager.js"
-import { tasteyDebouncer, check, formatValue, formatLabel, standardize, clamp, panning, scrollContentTo, remToPx, syncScrollToTop, syncScrollToBottom, positionGradient } from "./utils.js"
-import { autoRemoveScroller, quickScrollShow, removeScrolls, quickScrolls } from "./build-scroller.js"
+import {
+  meals,
+  allMeals,
+  currency,
+  maxOrders,
+  getDOMElements,
+  handleAddMeal,
+  handleClearCart,
+  handleLikes,
+  handleCheckout,
+  getCardsQuery,
+  positionCards,
+  adjustCards,
+} from "./CRUD.js";
+import { Tastey, mobileThreshold } from "./TasteyManager.js";
+import {
+  tasteyDebouncer,
+  check,
+  formatValue,
+  formatLabel,
+  standardize,
+  clamp,
+  panning,
+  scrollContentTo,
+  remToPx,
+  syncScrollToTop,
+  syncScrollToBottom,
+  positionGradient,
+} from "./utils.js";
+import {
+  autoRemoveScroller,
+  quickScrollShow,
+  removeScrolls,
+  quickScrolls,
+} from "./build-scroller.js";
 
+const tasteyOffSetTop = remToPx(13.26);
 
-const tasteyOffSetTop = remToPx(13.26)
+tasteyMenu(meals);
+tasteyBag();
 
-tasteyMenu(meals)
-tasteyBag()
+function tasteyMenu(meals) {
+  const main = document.querySelector("main.menu");
+  Object.entries(meals).forEach((meal) => {
+    const section = meal[0];
+    const sectionName = meal[1][0].category;
 
-function tasteyMenu(meals){ 
-    const main = document.querySelector('main.menu')
-    Object.entries(meals).forEach(meal => {
-        const section = meal[0]
-        const sectionName = meal[1][0].category
+    const menuSection = document.createElement("div");
+    menuSection.className += `${sectionName}-section menu-sections`;
+    const menuHeader = document.createElement("div");
+    menuHeader.className += `tastey-menu-title-wrapper ${section}`;
+    menuHeader.innerHTML += `<h1>${sectionName.toUpperCase()}</h1>`;
+    menuSection.append(menuHeader);
+    const menuContainer = document.createElement("div");
+    menuContainer.className += `tastey-menu tastey-${section}`;
 
-        const menuSection = document.createElement('div')
-        menuSection.className += `${sectionName}-section menu-sections`
-        const menuHeader = document.createElement('div')
-        menuHeader.className +=`tastey-menu-title-wrapper ${section}`
-        menuHeader.innerHTML += `<h1>${sectionName.toUpperCase()}</h1>`
-        menuSection.append(menuHeader)
-        const menuContainer = document.createElement('div')
-        menuContainer.className += `tastey-menu tastey-${section}`
-
-        meal[1].forEach(({ id, label, description, price, like, picSrc}) => {
-            like = Tastey.getLikeValue(id) ?? like ?? false 
-            const orders = Tastey.getOrdersValue(id)
-            menuContainer.innerHTML += 
-            `
+    meal[1].forEach(({ id, label, description, price, like, picSrc }) => {
+      like = Tastey.getLikeValue(id) ?? like ?? false;
+      const orders = Tastey.getOrdersValue(id);
+      menuContainer.innerHTML += `
             <div class="tastey-meal" data-id='${id}' data-like="${like}" data-discount="${price.discount ?? 0}">
                     <div class="tastey-meal-content">
                         <div class="tastey-meal-image-wrapper">
@@ -48,25 +77,24 @@ function tasteyMenu(meals){
                             </div>
                             <div class="price-container">
                                 <button type="button" class="add-to-cart-button ${orders >= maxOrders ? "disabled" : ""}" title="Add ${label} to Bag" data-id="${id}" data-orders="${standardize(orders)}" tabindex="${orders >= maxOrders ? -1 : 0}">Add to Bag</button>
-                                <span class="product-price" data-discount="${price.discount ?? 0}">${formatValue(currency,check(price.currentValue,price.discount))}</span>
+                                <span class="product-price" data-discount="${price.discount ?? 0}">${formatValue(currency, check(price.currentValue, price.discount))}</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            `
-        })
-        menuSection.append(menuContainer)
-        main.append(menuSection)
-    })  
+            `;
+    });
+    menuSection.append(menuContainer);
+    main.append(menuSection);
+  });
 }
 
 function tasteyBag() {
-    try {
-        const main = document.querySelector('main.meal-cart')
-        main.classList.add("meal-cart")
-        main.dataset.cart = "0"
-        main.innerHTML += 
-        `
+  try {
+    const main = document.querySelector("main.meal-cart");
+    main.classList.add("meal-cart");
+    main.dataset.cart = "0";
+    main.innerHTML += `
             <div class="cart-section">
                 <div class="checkout-section">
                     <div class="checkout-section-content">
@@ -136,15 +164,16 @@ function tasteyBag() {
                     </div>
                 </div>
             </div>
-        `        
+        `;
 
-        const orderReviewSectionContent = document.querySelector(".order-review-section-content")
-    
-        Tastey.tasteyRecord.tasteyOrders?.forEach(({ id, orders }) => {
-            const meal = allMeals.find(meal => meal.id === id)
-            const { label, category, price, serving, picSrc } = meal
-            orderReviewSectionContent.innerHTML += 
-            `
+    const orderReviewSectionContent = document.querySelector(
+      ".order-review-section-content",
+    );
+
+    Tastey.tasteyRecord.tasteyOrders?.forEach(({ id, orders }) => {
+      const meal = allMeals.find((meal) => meal.id === id);
+      const { label, category, price, serving, picSrc } = meal;
+      orderReviewSectionContent.innerHTML += `
                 <div class="tastey-meal-order" data-id="${id}" data-like="${Tastey.getLikeValue(id) ?? false}" data-orders="${standardize(orders)}" data-discount="${price.discount ?? 0}">
                     <div class="tastey-meal-order-content">
                     <div class="tastey-order-image-wrapper">
@@ -187,220 +216,274 @@ function tasteyBag() {
                                         <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z" id="b"/></defs><use fill-rule="nonzero" xlink:href="#b"/></svg>
                                     </button>
                                 </span>                   
-                            <p class="serving-size" data-serving=${serving ?'"' + serving + '"' : "NG"}>Note: </p>
+                            <p class="serving-size" data-serving=${serving ? '"' + serving + '"' : "NG"}>Note: </p>
                             </span>         
                             <span class="order-price">
-                                <h3 class="meal-price" data-discount="${price.discount ?? 0}">${formatValue(currency,check(price.currentValue,price.discount))}</h3>
-                                <h3 class="actual-meal-price">${formatValue(currency,price.currentValue)}</h3>
+                                <h3 class="meal-price" data-discount="${price.discount ?? 0}">${formatValue(currency, check(price.currentValue, price.discount))}</h3>
+                                <h3 class="actual-meal-price">${formatValue(currency, price.currentValue)}</h3>
                             </span>
                         </div>
                     </div>
                     </div>
                 </div>
-            `   
-        })        
-    } catch (error) {
-        console.error(`Error occured while restoring Tastey Bag: ${error}`)
-    }
+            `;
+    });
+  } catch (error) {
+    console.error(`Error occured while restoring Tastey Bag: ${error}`);
+  }
 }
 
 //DOM Elements
 const tastey = document.getElementById("tastey"),
-tasteyMeals = document.querySelectorAll(".tastey-meal"),
-heartIconWrappers = document.querySelectorAll(".heart-icon-wrapper"),
-tasteyMealOrders = document.getElementsByClassName("tastey-meal-order"),
-checkoutSection = document.querySelector(".checkout-section"),
-orderNumberWrapper = document.querySelector(".order-number-wrapper"),
-attentionGrabber = document.querySelector(".attention-grabber"),
-attentionGrabberTwo = document.querySelector(".attention-grabber-two"),
-tasteyMealsImages = document.querySelectorAll(".tastey-meal-image"),
-categorySwitcherContainer = document.querySelector("aside.category-switcher-container"),
-switchers = document.querySelectorAll(".switcher"),
-menuHeaders = document.querySelectorAll(".tastey-menu-title-wrapper h1"),
-menuToggler = document.querySelector(".menu-toggler"),
-continueShoppingBtn = document.querySelector(".continue-shopping-button"),
-mcContinueShoppingBtn = document.querySelector(".mini-continue-shopping-button"),
-mcShoppingBtn = document.querySelector(".mini-cart-continue-shopping-button"),
-mcShoppingBagBtn = document.querySelector(".mini-cart-shopping-bag-button"),
-cartToggler = document.querySelector(".cart-toggler"),
-addToCartBtns = document.querySelectorAll(".add-to-cart-button"),
-clearCartBtn = document.querySelector(".clear-cart-btn"),
-checkoutBtn = document.querySelector(".checkout-btn")
+  tasteyMeals = document.querySelectorAll(".tastey-meal"),
+  heartIconWrappers = document.querySelectorAll(".heart-icon-wrapper"),
+  tasteyMealOrders = document.getElementsByClassName("tastey-meal-order"),
+  checkoutSection = document.querySelector(".checkout-section"),
+  orderNumberWrapper = document.querySelector(".order-number-wrapper"),
+  attentionGrabber = document.querySelector(".attention-grabber"),
+  attentionGrabberTwo = document.querySelector(".attention-grabber-two"),
+  tasteyMealsImages = document.querySelectorAll(".tastey-meal-image"),
+  categorySwitcherContainer = document.querySelector(
+    "aside.category-switcher-container",
+  ),
+  switchers = document.querySelectorAll(".switcher"),
+  menuHeaders = document.querySelectorAll(".tastey-menu-title-wrapper h1"),
+  menuToggler = document.querySelector(".menu-toggler"),
+  continueShoppingBtn = document.querySelector(".continue-shopping-button"),
+  mcContinueShoppingBtn = document.querySelector(
+    ".mini-continue-shopping-button",
+  ),
+  mcShoppingBtn = document.querySelector(".mini-cart-continue-shopping-button"),
+  mcShoppingBagBtn = document.querySelector(".mini-cart-shopping-bag-button"),
+  cartToggler = document.querySelector(".cart-toggler"),
+  addToCartBtns = document.querySelectorAll(".add-to-cart-button"),
+  clearCartBtn = document.querySelector(".clear-cart-btn"),
+  checkoutBtn = document.querySelector(".checkout-btn");
 
 //DOM operations
-getDOMElements()
-window.addEventListener('load', positionCards)
+getDOMElements();
+window.addEventListener("load", positionCards);
 
-addToCartBtns.forEach(btn => btn.onclick = e => handleAddMeal(btn.dataset.id))
+addToCartBtns.forEach(
+  (btn) => (btn.onclick = (e) => handleAddMeal(btn.dataset.id)),
+);
 
-clearCartBtn.addEventListener('click', handleClearCart)
+clearCartBtn.addEventListener("click", handleClearCart);
 
-checkoutBtn.addEventListener('click', handleCheckout)
+checkoutBtn.addEventListener("click", handleCheckout);
 
-heartIconWrappers.forEach((heartIconWrapper,i) => heartIconWrapper.addEventListener('click', () => handleLikes(addToCartBtns[i].dataset.id)))
+heartIconWrappers.forEach((heartIconWrapper, i) =>
+  heartIconWrapper.addEventListener("click", () =>
+    handleLikes(addToCartBtns[i].dataset.id),
+  ),
+);
 
-tasteyMealsImages.forEach((tasteyMealsImage,i) => tasteyMealsImage.addEventListener('dblclick', () => handleLikes(addToCartBtns[i].dataset.id)))
+tasteyMealsImages.forEach((tasteyMealsImage, i) =>
+  tasteyMealsImage.addEventListener("dblclick", () =>
+    handleLikes(addToCartBtns[i].dataset.id),
+  ),
+);
 
 //handling the panning of the food images
-panning(document.querySelectorAll(".tastey-meal-image, .tastey-order-image"))
+panning(document.querySelectorAll(".tastey-meal-image, .tastey-order-image"));
 
 function onPageScroll() {
-    if (!document.body.classList.contains('cart')) {
-        categorySwitcherContainer.classList.remove('show')
-        controlActiveSwitcher(window.scrollY, [...menuHeaders])
-        toggleMenuHeader()
-    } else {
-        adjustCards()
-    }
+  if (!document.body.classList.contains("cart")) {
+    categorySwitcherContainer.classList.remove("show");
+    controlActiveSwitcher(window.scrollY, [...menuHeaders]);
+    toggleMenuHeader();
+  } else {
+    adjustCards();
+  }
 }
 
-const resizeDebouncer = new tasteyDebouncer
-let scrollTicker = false
+const resizeDebouncer = new tasteyDebouncer();
+let scrollTicker = false;
 //window event listeners
-window.addEventListener("resize", resizeDebouncer.debounce(positionCards,200))
+window.addEventListener("resize", resizeDebouncer.debounce(positionCards, 200));
 window.addEventListener("scroll", () => {
-    if (scrollTicker) return
-    requestAnimationFrame(() => {
-        onPageScroll()
-        scrollTicker = false
-    })
-    scrollTicker = true
-})   
+  if (scrollTicker) return;
+  requestAnimationFrame(() => {
+    onPageScroll();
+    scrollTicker = false;
+  });
+  scrollTicker = true;
+});
 
-quickScrollShow.addEventListener('click', () => categorySwitcherContainer.classList.toggle('show'))
-removeScrolls.addEventListener('click', () => categorySwitcherContainer.classList.remove('show'))
+quickScrollShow.addEventListener("click", () =>
+  categorySwitcherContainer.classList.toggle("show"),
+);
+removeScrolls.addEventListener("click", () =>
+  categorySwitcherContainer.classList.remove("show"),
+);
 
-continueShoppingBtn.onclick = mcContinueShoppingBtn.onclick = mcShoppingBtn.onclick = e => {
-    e.preventDefault()
-    openMenu()
-}
+continueShoppingBtn.onclick =
+  mcContinueShoppingBtn.onclick =
+  mcShoppingBtn.onclick =
+    (e) => {
+      e.preventDefault();
+      openMenu();
+    };
 
-mcShoppingBagBtn.onclick = e => {
-    e.preventDefault()
-    openCart()
-}
+mcShoppingBagBtn.onclick = (e) => {
+  e.preventDefault();
+  openCart();
+};
 
 function toggleMenuHeader(bool = null) {
-    const menuTitle = document.querySelector('#magic')
-    if (bool !== null) {
-        menuTitle.classList.toggle('hide', !bool)
-        attentionGrabber.classList.toggle('hide',!bool)
-        attentionGrabberTwo.classList.toggle('hide',!bool)
-        return
-    }
-    if (tastey.getBoundingClientRect().y < (tasteyOffSetTop - 50)) {
-        menuTitle.classList.add('hide')
-        attentionGrabber.classList.add('hide')
-        attentionGrabberTwo.classList.add('hide')
-    } else {
-        menuTitle.classList.remove('hide')
-        attentionGrabber.classList.remove('hide')
-        attentionGrabberTwo.classList.remove('hide')
-    }
+  const menuTitle = document.querySelector("#magic");
+  if (bool !== null) {
+    menuTitle.classList.toggle("hide", !bool);
+    attentionGrabber.classList.toggle("hide", !bool);
+    attentionGrabberTwo.classList.toggle("hide", !bool);
+    return;
+  }
+  if (tastey.getBoundingClientRect().y < tasteyOffSetTop - 50) {
+    menuTitle.classList.add("hide");
+    attentionGrabber.classList.add("hide");
+    attentionGrabberTwo.classList.add("hide");
+  } else {
+    menuTitle.classList.remove("hide");
+    attentionGrabber.classList.remove("hide");
+    attentionGrabberTwo.classList.remove("hide");
+  }
 }
 
 function openMenu() {
-    delete sessionStorage.open_cart
-    document.body.classList.remove("cart")
-    document.querySelector(".mini-meal-cart").classList.add('close')
-    syncScrollToTop("instant")
-    controlActiveSwitcher(window.scrollY,[...menuHeaders])
-    quickScrolls.classList.remove('show')
-    categorySwitcherContainer.classList.remove('show')
-    setTimeout(autoRemoveScroller, 200)
-    setTimeout(toggleMenuHeader, 0, true)
+  delete sessionStorage.open_cart;
+  document.body.classList.remove("cart");
+  document.querySelector(".mini-meal-cart").classList.add("close");
+  syncScrollToTop("instant");
+  controlActiveSwitcher(window.scrollY, [...menuHeaders]);
+  quickScrolls.classList.remove("show");
+  categorySwitcherContainer.classList.remove("show");
+  setTimeout(autoRemoveScroller, 200);
+  setTimeout(toggleMenuHeader, 0, true);
 }
 
 function openCart() {
-    sessionStorage.open_cart = true
-    document.body.classList.add("cart")
-    document.querySelector(".mini-meal-cart").classList.add('close')
-    positionCards()
-    getCardsQuery() ? syncScrollToBottom("instant") : syncScrollToTop("instant")
-    quickScrolls.classList.remove('show')
-    categorySwitcherContainer.classList.remove('show')
-    setTimeout(autoRemoveScroller, 200)
+  sessionStorage.open_cart = true;
+  document.body.classList.add("cart");
+  document.querySelector(".mini-meal-cart").classList.add("close");
+  positionCards();
+  getCardsQuery() ? syncScrollToBottom("instant") : syncScrollToTop("instant");
+  quickScrolls.classList.remove("show");
+  categorySwitcherContainer.classList.remove("show");
+  setTimeout(autoRemoveScroller, 200);
 }
 
-if (sessionStorage.open_cart) openCart()
+if (sessionStorage.open_cart) openCart();
 
 //toggling between menu and cart
-menuToggler.addEventListener('click', openMenu)
-cartToggler.addEventListener('click', openCart)
+menuToggler.addEventListener("click", openMenu);
+cartToggler.addEventListener("click", openCart);
 
 //using the intersection observer to turn the lights off/on
-const tasteyObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            document.body.style.setProperty("--global-light-color", "rgba(255,255,255,0.475)")
-        } else if ((tastey.getBoundingClientRect().bottom < 0) && (entry.target.id !== "tastey")) {
-            document.body.style.setProperty("--global-light-color", "var(--darker-black)")
-        }
-    })
-},{root:null,rootMargin:`-${remToPx(3.5)}px`,threshold:[0,.5,1]})
-menuHeaders.forEach(worthy => tasteyObserver.observe(worthy))
-tasteyObserver.observe(tastey)
+const tasteyObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        document.body.style.setProperty(
+          "--global-light-color",
+          "rgba(255,255,255,0.475)",
+        );
+      } else if (
+        tastey.getBoundingClientRect().bottom < 0 &&
+        entry.target.id !== "tastey"
+      ) {
+        document.body.style.setProperty(
+          "--global-light-color",
+          "var(--darker-black)",
+        );
+      }
+    });
+  },
+  { root: null, rootMargin: `-${remToPx(3.5)}px`, threshold: [0, 0.5, 1] },
+);
+menuHeaders.forEach((worthy) => tasteyObserver.observe(worthy));
+tasteyObserver.observe(tastey);
 
 // positioning gradient where necessary
-let pointerTicker = false
-document.querySelectorAll("main").forEach(main => {
-    main.addEventListener("pointermove", e => {
-        if (pointerTicker) return
-        requestAnimationFrame(() => {
-            if (document.body.classList.contains("cart")) 
-                positionGradient(e,document.querySelector("main.meal-cart"))
-            if (window.innerWidth > mobileThreshold) {
-                if(!document.body.classList.contains("cart")) {
-                    for(const card of tasteyMeals) {
-                        positionGradient(e, card)
-                    }
-                } else {
-                    positionGradient(e, checkoutSection)
-                    positionGradient(e, orderNumberWrapper)
-                    if (!getCardsQuery()) 
-                        for(const card of Array.from(tasteyMealOrders)) {
-                            positionGradient(e,card)
-                        }
-                }
+let pointerTicker = false;
+document.querySelectorAll("main").forEach((main) => {
+  main.addEventListener("pointermove", (e) => {
+    if (pointerTicker) return;
+    requestAnimationFrame(() => {
+      if (document.body.classList.contains("cart"))
+        positionGradient(e, document.querySelector("main.meal-cart"));
+      if (window.innerWidth > mobileThreshold) {
+        if (!document.body.classList.contains("cart")) {
+          for (const card of tasteyMeals) {
+            positionGradient(e, card);
+          }
+        } else {
+          positionGradient(e, checkoutSection);
+          positionGradient(e, orderNumberWrapper);
+          if (!getCardsQuery())
+            for (const card of Array.from(tasteyMealOrders)) {
+              positionGradient(e, card);
             }
-            pointerTicker = false
-        })  
-        pointerTicker = true
-    })
-}) 
+        }
+      }
+      pointerTicker = false;
+    });
+    pointerTicker = true;
+  });
+});
 
-tastey.addEventListener("click", e => {
-    let active = getComputedStyle(tastey).getPropertyValue("--global-light-width") == "140rem" ? true : false
-    if(active) {
-        document.body.style.setProperty("--global-light-width", "35rem")
-        e.target.style.cursor = "zoom-in"
-    } else {
-        document.body.style.setProperty("--global-light-width", "140rem")
-        e.target.style.cursor = "zoom-out"
-    }
-})
+tastey.addEventListener("click", (e) => {
+  let active =
+    getComputedStyle(tastey).getPropertyValue("--global-light-width") ==
+    "140rem"
+      ? true
+      : false;
+  if (active) {
+    document.body.style.setProperty("--global-light-width", "35rem");
+    e.target.style.cursor = "zoom-in";
+  } else {
+    document.body.style.setProperty("--global-light-width", "140rem");
+    e.target.style.cursor = "zoom-out";
+  }
+});
 
 function controlActiveSwitcher(ordinate, arr) {
-    let index = -1;
-    for (const i in arr) {
-        if(Math.floor(ordinate) >= Math.floor(Math.round((menuHeaders[i].getBoundingClientRect().top + window.scrollY) - tasteyOffSetTop) - (window.innerHeight/4))) 
-            index ++
-    }
-    //clamping index incase of any error
-    markSwitcher(clamp(0, index, arr.length - 1))
+  let index = -1;
+  for (const i in arr) {
+    if (
+      Math.floor(ordinate) >=
+      Math.floor(
+        Math.round(
+          menuHeaders[i].getBoundingClientRect().top +
+            window.scrollY -
+            tasteyOffSetTop,
+        ) -
+          window.innerHeight / 4,
+      )
+    )
+      index++;
+  }
+  //clamping index incase of any error
+  markSwitcher(clamp(0, index, arr.length - 1));
 }
 
 switchers.forEach((switcher, i) => {
-    switcher.addEventListener('click', () => { 
-        let scrollPosition = Math.round((menuHeaders[i].getBoundingClientRect().top + window.scrollY) - tasteyOffSetTop)
-        scrollContentTo(scrollPosition, "instant")
-        setTimeout(() => {
-            document.body.style.setProperty("--global-light-color", "rgba(255,255,255,0.475)")
-        }, 25)
-    })
-})
+  switcher.addEventListener("click", () => {
+    let scrollPosition = Math.round(
+      menuHeaders[i].getBoundingClientRect().top +
+        window.scrollY -
+        tasteyOffSetTop,
+    );
+    scrollContentTo(scrollPosition, "instant");
+    setTimeout(() => {
+      document.body.style.setProperty(
+        "--global-light-color",
+        "rgba(255,255,255,0.475)",
+      );
+    }, 25);
+  });
+});
 
 function markSwitcher(id) {
-    switchers.forEach(switcher => switcher.classList.remove("active"))
-    switchers[id].classList.add("active")
+  switchers.forEach((switcher) => switcher.classList.remove("active"));
+  switchers[id].classList.add("active");
 }

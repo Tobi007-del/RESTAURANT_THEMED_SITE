@@ -1,11 +1,16 @@
-import { syncScrollToTop, syncScrollToBottom, tasteyThrottler, tasteyDebouncer, remToPx } from "./utils.js"
-export { autoRemoveScroller, quickScrollShow, quickScrolls, removeScrolls }
+import {
+  syncScrollToTop,
+  syncScrollToBottom,
+  tasteyThrottler,
+  tasteyDebouncer,
+  remToPx,
+} from "./utils.js";
+export { autoRemoveScroller, quickScrollShow, quickScrolls, removeScrolls };
 
 (function buildScroller() {
-    const scroller = document.createElement('div')
-    scroller.id = "quick-scroll-wrapper"
-    scroller.innerHTML += 
-    `
+  const scroller = document.createElement("div");
+  scroller.id = "quick-scroll-wrapper";
+  scroller.innerHTML += `
             <div id = "scroller-circle">
                 <svg id="scroll-circle" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
                     <path fill="none" stroke-width = "5" id="circle" d ="M2.5 50 a 46,46 0 1,1 95,0 a 46,46 0 1,1 -95,0"/>
@@ -33,73 +38,74 @@ export { autoRemoveScroller, quickScrollShow, quickScrolls, removeScrolls }
                 </svg>
             </button>
         </div>
-    `
-    document.body.appendChild(scroller)
-})()
+    `;
+  document.body.appendChild(scroller);
+})();
 
 const toTop = document.getElementById("to-top"),
-toBottom = document.getElementById("to-bottom"),
-removeScrolls = document.getElementById("remove-quick-scrolls"),
-quickScrollShow = document.getElementById("quick-scroll-show"),
-quickScroll = document.getElementById("quick-scroll-wrapper"),
-quickScrolls = document.getElementById("quick-scrolls")
-
+  toBottom = document.getElementById("to-bottom"),
+  removeScrolls = document.getElementById("remove-quick-scrolls"),
+  quickScrollShow = document.getElementById("quick-scroll-show"),
+  quickScroll = document.getElementById("quick-scroll-wrapper"),
+  quickScrolls = document.getElementById("quick-scrolls");
 
 //Quick scrolls implementation
-removeScrolls.addEventListener('click', () => {
-    quickScroll.style.display = "none"
-    categorySwitcherContainer.classList.remove('show')
-})
- 
-toTop.addEventListener('click', () => syncScrollToTop("instant"))
- 
-toBottom.addEventListener('click', () => syncScrollToBottom("instant"))
- 
-quickScrollShow.addEventListener('click', () => {
-    quickScrolls.classList.toggle('show')
-    quickScrollShow.title = quickScrolls.classList.contains("show") ? "Close scroller" : "Open scroller"
-    autoRemoveScroller()
-})
+removeScrolls.addEventListener("click", () => {
+  quickScroll.style.display = "none";
+  categorySwitcherContainer.classList.remove("show");
+});
+
+toTop.addEventListener("click", () => syncScrollToTop("instant"));
+
+toBottom.addEventListener("click", () => syncScrollToBottom("instant"));
+
+quickScrollShow.addEventListener("click", () => {
+  quickScrolls.classList.toggle("show");
+  quickScrollShow.title = quickScrolls.classList.contains("show")
+    ? "Close scroller"
+    : "Open scroller";
+  autoRemoveScroller();
+});
 
 const circle = document.getElementById("circle"),
-length = circle.getTotalLength()
+  length = circle.getTotalLength();
 
 // The start position of the drawing
-circle.style.strokeDasharray = length
-circle.style.strokeDashoffset = length
-
+circle.style.strokeDasharray = length;
+circle.style.strokeDashoffset = length;
 
 function drawOnScroll() {
-    const scrollpercent = (document.body.scrollTop + document.documentElement.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
-    quickScrollShow.style.transform = `rotate(${(180 * scrollpercent)}deg)`
-    circle.style.strokeDashoffset = length - (length * scrollpercent)
+  const scrollpercent =
+    (document.body.scrollTop + document.documentElement.scrollTop) /
+    (document.documentElement.scrollHeight -
+      document.documentElement.clientHeight);
+  quickScrollShow.style.transform = `rotate(${180 * scrollpercent}deg)`;
+  circle.style.strokeDashoffset = length - length * scrollpercent;
 }
 
 function onscroll() {
-    quickScrolls.classList.remove('show')
-    const scrolledTo = window.scrollY + window.innerHeight
-    const threshold = 0
-    const isReachBottom = document.documentElement.scrollHeight - threshold <= scrolledTo
-    const isReachTop = window.scrollY === 0
-    if (isReachBottom || isReachTop) 
-        quickScroll.style.display = "flex"
-    if ((window.innerWidth >= remToPx(36)) && (window.innerHeight >= remToPx(30))) 
-        document.querySelector('nav').classList.toggle('top', !isReachTop)
-    drawOnScroll()
+  quickScrolls.classList.remove("show");
+  const scrolledTo = window.scrollY + window.innerHeight;
+  const threshold = 0;
+  const isReachBottom =
+    document.documentElement.scrollHeight - threshold <= scrolledTo;
+  const isReachTop = window.scrollY === 0;
+  if (isReachBottom || isReachTop) quickScroll.style.display = "flex";
+  if (window.innerWidth >= remToPx(36) && window.innerHeight >= remToPx(30))
+    document.querySelector("nav").classList.toggle("top", !isReachTop);
+  drawOnScroll();
 }
 
 //window event listeners
-const scrollThrottler = new tasteyThrottler
-const scrollDebouncer = new tasteyDebouncer
-window.addEventListener("scroll", scrollThrottler.throttle(onscroll), 10)   
-window.addEventListener("scroll", scrollDebouncer.debounce(onscroll), 150)
-window.addEventListener("resize", autoRemoveScroller)
+const scrollThrottler = new tasteyThrottler();
+const scrollDebouncer = new tasteyDebouncer();
+window.addEventListener("scroll", scrollThrottler.throttle(onscroll), 10);
+window.addEventListener("scroll", scrollDebouncer.debounce(onscroll), 150);
+window.addEventListener("resize", autoRemoveScroller);
 
 //a function to remove the scroller when necessary
 function autoRemoveScroller() {
-    const difference = document.documentElement.scrollHeight - window.innerHeight
-    if (Number(difference) == 0) 
-        quickScroll.style.display = "none"
-    else 
-        quickScroll.style.display = "flex"
+  const difference = document.documentElement.scrollHeight - window.innerHeight;
+  if (Number(difference) == 0) quickScroll.style.display = "none";
+  else quickScroll.style.display = "flex";
 }

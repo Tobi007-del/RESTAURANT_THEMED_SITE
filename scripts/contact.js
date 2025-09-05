@@ -1,3 +1,3 @@
-import { panning } from "./utils.js"
+import { panning } from "./utils.js";
 
-panning(document.querySelector(".reserve-bg"))
+panning(document.querySelector(".reserve-bg"));

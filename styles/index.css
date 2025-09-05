@@ -1,334 +1,362 @@
 body {
-    padding: 0;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 main {
-    width: 100%;
-    height: 100svh;
-    display: flex;
-    align-items: end;
+  width: 100%;
+  height: 100svh;
+  display: flex;
+  align-items: end;
 }
 
-main, .hero-content-wrapper, .tastey-meals-carousel {
-    min-height: 20rem;
+main,
+.hero-content-wrapper,
+.tastey-meals-carousel {
+  min-height: 20rem;
 }
 
-hero-content-wrapper, .tastey-meals-carousel {
-    flex: 0;
+hero-content-wrapper,
+.tastey-meals-carousel {
+  flex: 0;
 }
 
 .hero-content-wrapper {
-    position: absolute;
-    margin-left: 15%;
-    width: 30rem;
-    color: var(--current-theme-fade-color);
-    display: flex;
-    height: 100svh;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1rem;
-    z-index: 1;
-    pointer-events: none;
+  position: absolute;
+  margin-left: 15%;
+  width: 30rem;
+  color: var(--current-theme-fade-color);
+  display: flex;
+  height: 100svh;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 1;
+  pointer-events: none;
 }
 
-.greeting-wrapper, .welcome-text-wrapper {
-    pointer-events: none;
+.greeting-wrapper,
+.welcome-text-wrapper {
+  pointer-events: none;
 }
 
 .greeting-wrapper p {
-    font-size: .75rem;
-    font-weight: 600;
-    word-spacing: .1rem;
-    position: relative;
-    width: fit-content;
-    left: 2.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  word-spacing: 0.1rem;
+  position: relative;
+  width: fit-content;
+  left: 2.75rem;
 }
 
 .greeting-wrapper p::before {
-    content: '';
-    background-size: 100% .285rem;
-    background-image: linear-gradient(transparent .15rem, var(--tastey-brand-color) .135rem);
-    width: 2rem;
-    position: absolute;
-    top: .1rem;
-    height: .575rem;
-    left: -2.75rem;
+  content: "";
+  background-size: 100% 0.285rem;
+  background-image: linear-gradient(
+    transparent 0.15rem,
+    var(--tastey-brand-color) 0.135rem
+  );
+  width: 2rem;
+  position: absolute;
+  top: 0.1rem;
+  height: 0.575rem;
+  left: -2.75rem;
 }
 
 .welcome-text-wrapper h1 {
-    font-size: clamp(2.25rem, 13svh, 5rem); 
+  font-size: clamp(2.25rem, 13svh, 5rem);
 }
 
 .welcome-text-wrapper.old-taker h1 {
-    font-size: clamp(2rem, 11svh, 4.75rem);
+  font-size: clamp(2rem, 11svh, 4.75rem);
 }
 
 .welcome-message-wrapper {
-    font-size: clamp(.75rem, 4svh, .95rem);
-    word-spacing: .05rem;
-    line-height: 1.25rem;
-    color: var(--current-theme-accent-color);
+  font-size: clamp(0.75rem, 4svh, 0.95rem);
+  word-spacing: 0.05rem;
+  line-height: 1.25rem;
+  color: var(--current-theme-accent-color);
 }
 
 .welcome-message-wrapper p > span {
-    display: block;
+  display: block;
 }
 
 .welcome-message-wrapper p span span {
-    color: var(--tastey-brand-color);
+  color: var(--tastey-brand-color);
 }
 
 .quick-links-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    pointer-events: all;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  pointer-events: all;
 }
 
 .quick-links-wrapper .reservation-btn {
-    padding: 1rem;
-    padding-inline: 2rem;
-    transition: transform 300ms ease-in-out;
+  padding: 1rem;
+  padding-inline: 2rem;
+  transition: transform 300ms ease-in-out;
 }
 
 .quick-links-wrapper .reservation-btn:hover {
-    transform: scale(1.025);
+  transform: scale(1.025);
 }
 
 .open-menu-btn {
-    border: none;
-    background-color: transparent;
-    color: var(--current-theme-sub-color);
-    font-size: .8rem;
-    font-weight: 600;
+  border: none;
+  background-color: transparent;
+  color: var(--current-theme-sub-color);
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .tastey-meals-carousel {
-    --gradient-percent: 35%;
-    --gradient-dark-color: rgba(0, 0, 0, .75);
-    --gradient-light-color: transparent;
-    position: absolute;
-    width: 100%;
-    height: 100svh;
-    display: flex;
-    scroll-snap-type: x mandatory;
-    overflow-x: scroll;
-    scrollbar-width: none;
+  --gradient-percent: 35%;
+  --gradient-dark-color: rgba(0, 0, 0, 0.75);
+  --gradient-light-color: transparent;
+  position: absolute;
+  width: 100%;
+  height: 100svh;
+  display: flex;
+  scroll-snap-type: x mandatory;
+  overflow-x: scroll;
+  scrollbar-width: none;
 }
 
 .tastey-meals-carousel::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .tastey-meal {
-    flex: 0 0 auto;
-    width: 100%;
-    height: 100%;
-    scroll-snap-align: start;
-    background: linear-gradient(to right, var(--gradient-dark-color) var(--gradient-percent), var(--gradient-light-color), var(--gradient-dark-color)), var(--background-url) no-repeat center/cover, radial-gradient(35rem circle at center 14rem, rgba(255,255,255,0.475), transparent 40%), center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  background:
+    linear-gradient(
+      to right,
+      var(--gradient-dark-color) var(--gradient-percent),
+      var(--gradient-light-color),
+      var(--gradient-dark-color)
+    ),
+    var(--background-url) no-repeat center/cover,
+    radial-gradient(
+      35rem circle at center 14rem,
+      rgba(255, 255, 255, 0.475),
+      transparent 40%
+    ),
+    center 6rem/18.75rem no-repeat
+      url("../assets/tastey-meal-icons/tastey-icon.png"),
+    center/cover no-repeat
+      url("../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png"),
+    var(--darker-black);
 }
 
 .tastey-meal_one {
-    --background-url: url('../assets/tastey-meal-images/tastey_meal_one.jpg');
+  --background-url: url("../assets/tastey-meal-images/tastey_meal_one.jpg");
 }
 
 .tastey-meal_two {
-    --background-url: url('../assets/tastey-meal-images/tastey_meal_two.jpg');
+  --background-url: url("../assets/tastey-meal-images/tastey_meal_two.jpg");
 }
 
 .tastey-meal_three {
-    --background-url: url('../assets/tastey-meal-images/tastey_meal_three.jpg');
+  --background-url: url("../assets/tastey-meal-images/tastey_meal_three.jpg");
 }
 
 .tastey-meal_four {
-    --background-url: url('../assets/tastey-meal-images/tastey_meal_four.jpg');
+  --background-url: url("../assets/tastey-meal-images/tastey_meal_four.jpg");
 }
 
 .tastey-meal_five {
-    --background-url: url('../assets/tastey-meal-images/tastey_meal_five.jpg');
+  --background-url: url("../assets/tastey-meal-images/tastey_meal_five.jpg");
 }
 
 .tastey-meal_six {
-    --background-url: url('../assets/tastey-meal-images/tastey_meal_six.jpg');
+  --background-url: url("../assets/tastey-meal-images/tastey_meal_six.jpg");
 }
 
 .tastey-meal_seven {
-    --background-url: url('../assets/tastey-meal-images/tastey_meal_seven.jpg');
+  --background-url: url("../assets/tastey-meal-images/tastey_meal_seven.jpg");
 }
 
 .tastey-meals-carousel-controls {
-    width: fit-content;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2.5rem;
-    z-index: 1;
-    margin-left: 7.5dvw;
-    margin-bottom: 7.5svh;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  z-index: 1;
+  margin-left: 7.5dvw;
+  margin-bottom: 7.5svh;
 }
 
-.tastey-meals-toggler, .tastey-meals-switcher {
-    flex: 1;
-    display: flex;
+.tastey-meals-toggler,
+.tastey-meals-switcher {
+  flex: 1;
+  display: flex;
 }
 
 .tastey-meals-toggler {
-    justify-content: center;
-    gap: 1rem;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .toggler {
-    width: .5rem;
-    height: .5rem;
-    border: none;
-    border-radius: .25rem;
-    padding: 0;
-    background-color: var(--current-theme-sub-color);
+  width: 0.5rem;
+  height: 0.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0;
+  background-color: var(--current-theme-sub-color);
 }
 
 .toggler:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .toggler.active {
-    outline: .1rem solid var(--tastey-brand-color);
-    background-color: transparent;
+  outline: 0.1rem solid var(--tastey-brand-color);
+  background-color: transparent;
 }
 
 .tastey-meals-switcher {
-    gap: .25rem;
+  gap: 0.25rem;
 }
 
 .switcher-arrows {
-    height: 1rem;
-    border: none;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    transition: transform 250ms ease;
+  height: 1rem;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  transition: transform 250ms ease;
 }
 
 .switcher-arrows:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .switcher-arrows:nth-child(1):hover {
-    transform: scale(1.3) translateX(-.1rem);
+  transform: scale(1.3) translateX(-0.1rem);
 }
 
 .switcher-arrows:nth-child(2):hover {
-    transform: scale(1.3) translateX(.1rem);
+  transform: scale(1.3) translateX(0.1rem);
 }
 
 .switcher-arrows svg {
-    width: .9rem;
-    height: .9rem;
-    transform: scale(1.1);
-    fill: var(--current-theme-sub-color);
-    transition: transform 250ms ease;
+  width: 0.9rem;
+  height: 0.9rem;
+  transform: scale(1.1);
+  fill: var(--current-theme-sub-color);
+  transition: transform 250ms ease;
 }
 
-@media only screen and (orientation:landscape) and (max-height: 30rem) {
-    .hero-content-wrapper {
-        width: max-content;
-        gap: 2svh;
-    }
-    .welcome-text-wrapper h1 {
-        width: 100%;
-    }
-    .welcome-message-wrapper p span {
-        display: inline;
-        margin-left: .25rem;
-    }
-    .tastey-meals-carousel-controls {
-        gap: 4rem;
-    }
-    .tastey-meals-switcher {
-        gap: .5rem;
-    }
-    .switcher-arrows svg {
-        height: 1rem;
-        width: 1rem;
-    }
+@media only screen and (orientation: landscape) and (max-height: 30rem) {
+  .hero-content-wrapper {
+    width: max-content;
+    gap: 2svh;
+  }
+  .welcome-text-wrapper h1 {
+    width: 100%;
+  }
+  .welcome-message-wrapper p span {
+    display: inline;
+    margin-left: 0.25rem;
+  }
+  .tastey-meals-carousel-controls {
+    gap: 4rem;
+  }
+  .tastey-meals-switcher {
+    gap: 0.5rem;
+  }
+  .switcher-arrows svg {
+    height: 1rem;
+    width: 1rem;
+  }
 }
 
 @media only screen and (max-height: 20rem) {
-    .tastey-meals-carousel-controls {
-        display: none;
-    }
+  .tastey-meals-carousel-controls {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 50rem) {
-    .hero-content-wrapper {
-        width: 100%;
-        width: 35.5rem;
-        margin-left: 0;
-        padding-inline-start: 11.5dvw;
-    }
+  .hero-content-wrapper {
+    width: 100%;
+    width: 35.5rem;
+    margin-left: 0;
+    padding-inline-start: 11.5dvw;
+  }
 }
 
 @media only screen and (max-width: 36rem) {
-    .hero-content-wrapper {
-        padding-inline-start: 5.5dvw;
-        padding-inline-end: 12.5dvw;
-        width: 100%;
-    } 
-    .welcome-text-wrapper h1 {
-        font-size: clamp(2.25rem, 12svh, 4.2rem);
-    }
-    .welcome-text-wrapper.old-taker h1 {
-        font-size: clamp(2rem, 10svh, 3.95rem);
-    }
+  .hero-content-wrapper {
+    padding-inline-start: 5.5dvw;
+    padding-inline-end: 12.5dvw;
+    width: 100%;
+  }
+  .welcome-text-wrapper h1 {
+    font-size: clamp(2.25rem, 12svh, 4.2rem);
+  }
+  .welcome-text-wrapper.old-taker h1 {
+    font-size: clamp(2rem, 10svh, 3.95rem);
+  }
 }
 
 @media only screen and (max-width: 30rem) {
-    .hero-content-wrapper {
-        align-items: center;
-        text-align: center;
-        padding-inline: 5vw;
-    }
-    .welcome-text-wrapper h1 {
-        font-size: clamp(2rem, 10svh, 3.5rem);
-    }
-    .welcome-text-wrapper.old-taker h1 {
-        font-size: clamp(1.75rem, 8svh, 3.25rem);
-    }
-    .quick-links-wrapper {
-        gap: 7.5dvw;
-    }
-    .greeting-wrapper p {
-        left: unset;
-    }
-    .greeting-wrapper p::after {
-        content: '';
-        background-size: 100% .285rem;
-        background-image: linear-gradient(transparent .15rem, var(--tastey-brand-color) .135rem);
-        width: 2rem;
-        position: absolute;
-        top: .1rem;
-        height: .575rem;
-        right: -2.75rem;        
-    }
-    .tastey-meals-carousel {
-        --gradient-dark-color: rgb(0, 0, 0, .65);
-        --gradient-percent: 100%;
-    }
-    .tastey-meals-carousel-controls {
-        display: none;
-    }
+  .hero-content-wrapper {
+    align-items: center;
+    text-align: center;
+    padding-inline: 5vw;
+  }
+  .welcome-text-wrapper h1 {
+    font-size: clamp(2rem, 10svh, 3.5rem);
+  }
+  .welcome-text-wrapper.old-taker h1 {
+    font-size: clamp(1.75rem, 8svh, 3.25rem);
+  }
+  .quick-links-wrapper {
+    gap: 7.5dvw;
+  }
+  .greeting-wrapper p {
+    left: unset;
+  }
+  .greeting-wrapper p::after {
+    content: "";
+    background-size: 100% 0.285rem;
+    background-image: linear-gradient(
+      transparent 0.15rem,
+      var(--tastey-brand-color) 0.135rem
+    );
+    width: 2rem;
+    position: absolute;
+    top: 0.1rem;
+    height: 0.575rem;
+    right: -2.75rem;
+  }
+  .tastey-meals-carousel {
+    --gradient-dark-color: rgb(0, 0, 0, 0.65);
+    --gradient-percent: 100%;
+  }
+  .tastey-meals-carousel-controls {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 18.4rem) {
-    .welcome-text-wrapper h1 {
-        font-size: clamp(1.75rem, 9svh, 3rem);
-    }
-    .welcome-text-wrapper.old-taker h1 {
-        font-size: clamp(1.5rem, 7svh, 2.75rem);
-    }
-    .hero-content-wrapper {
-        overflow: hidden;
-    }
+  .welcome-text-wrapper h1 {
+    font-size: clamp(1.75rem, 9svh, 3rem);
+  }
+  .welcome-text-wrapper.old-taker h1 {
+    font-size: clamp(1.5rem, 7svh, 2.75rem);
+  }
+  .hero-content-wrapper {
+    overflow: hidden;
+  }
 }

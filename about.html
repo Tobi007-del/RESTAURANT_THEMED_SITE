@@ -1,375 +1,671 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <!-- Global Metadata -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="About The Tastey Restaurant">
-    <meta name="description" content="Wanna tease your taste buds? try a Tastey meal now!"/>
-    <meta name="robots" content="index,follow">
-    <meta name="googlebot" content="index,follow">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="About The Tastey Restaurant" />
+    <meta
+      name="description"
+      content="Wanna tease your taste buds? try a Tastey meal now!"
+    />
+    <meta name="robots" content="index,follow" />
+    <meta name="googlebot" content="index,follow" />
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url">
-    <meta property="og:title" content="About The Tastey Restaurant">
-    <meta property="og:description" content="Wanna tease your taste buds? try a Tastey meal now!">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" />
+    <meta property="og:title" content="About The Tastey Restaurant" />
+    <meta
+      property="og:description"
+      content="Wanna tease your taste buds? try a Tastey meal now!"
+    />
     <!-- Twitter -->
-    <meta property="twitter:card" content="Tastey">
-    <meta property="twitter:url">
-    <meta property="twitter:title" content="About The Tastey Restaurant">
-    <meta property="twitter:description" content="Wanna tease your taste buds? try a Tastey meal now!">
+    <meta property="twitter:card" content="Tastey" />
+    <meta property="twitter:url" />
+    <meta property="twitter:title" content="About The Tastey Restaurant" />
+    <meta
+      property="twitter:description"
+      content="Wanna tease your taste buds? try a Tastey meal now!"
+    />
     <title>About &bull; Tastey</title>
-    <link rel="icon" type="image/jpeg" sizes="32x32" href="assets/tastey-meal-icons/tastey-icon.jpeg">
-    <link rel="preload" href="assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png" as="image" type="image/jpg">
-    <link rel="preload" href="assets/tastey-meal-images/tastey_preloader.gif" as="image" type="image/gif">
-    <link rel="stylesheet" href="styles/required.css">
-    <link rel="stylesheet" href="styles/audio.css">
-    <link rel="stylesheet" href="styles/about.css">
-    <link rel="stylesheet" href="styles/scroll-bar.css">
-</head>
-<body class="loading" data-cart="0" data-mini-bag="true">
+    <link
+      rel="icon"
+      type="image/jpeg"
+      sizes="32x32"
+      href="assets/tastey-meal-icons/tastey-icon.jpeg"
+    />
+    <link
+      rel="preload"
+      href="assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png"
+      as="image"
+      type="image/jpg"
+    />
+    <link
+      rel="preload"
+      href="assets/tastey-meal-images/tastey_preloader.gif"
+      as="image"
+      type="image/gif"
+    />
+    <link rel="stylesheet" href="styles/required.css" />
+    <link rel="stylesheet" href="styles/audio.css" />
+    <link rel="stylesheet" href="styles/about.css" />
+    <link rel="stylesheet" href="styles/scroll-bar.css" />
+  </head>
+  <body class="loading" data-cart="0" data-mini-bag="true">
     <nav class="Tastey-blur">
-        <div class="company-name-section">
-            <div class="tastey-logo magic">
-                <span class="magic-star">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
-                </span>
-                <span class="magic-star">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
-                </span>
-                <span class="magic-star">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
-                </span>
-                <span class="magic-star">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
-                </span>
-                <span class="magic-star">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
-                </span>
-                <span class="magic-star">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
-                </span>
-            </div>
-            <div>
-                <span>
-                    <h3><a href="index.html">Tastey</a></h3>
-                </span>
-                <span>
-                    <h6>Food from Dreams</h6>
-                </span>
-            </div>
+      <div class="company-name-section">
+        <div class="tastey-logo magic">
+          <span class="magic-star">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+              <path
+                d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"
+              />
+            </svg>
+          </span>
+          <span class="magic-star">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+              <path
+                d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"
+              />
+            </svg>
+          </span>
+          <span class="magic-star">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+              <path
+                d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"
+              />
+            </svg>
+          </span>
+          <span class="magic-star">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+              <path
+                d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"
+              />
+            </svg>
+          </span>
+          <span class="magic-star">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+              <path
+                d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"
+              />
+            </svg>
+          </span>
+          <span class="magic-star">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+              <path
+                d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"
+              />
+            </svg>
+          </span>
         </div>
-        <div class="hamburger-icon">
-            <label for="menu" class="hamburger">
-                <input type="checkbox" name="menu" id="menu" title="Toggle Menu bar" tabindex="1">
-            </label>
+        <div>
+          <span>
+            <h3><a href="index.html">Tastey</a></h3>
+          </span>
+          <span>
+            <h6>Food from Dreams</h6>
+          </span>
         </div>
-        <div class="navigation-section">
-            <ul>
-                <li class="nav-link">
-                    <a href="index.html">HOME</a>
-                </li>
-                <li class="nav-link active">
-                    <a href="about.html">ABOUT</a>
-                </li>
-                <li class="nav-link">
-                    <a href="menu.html">MENU</a>
-                </li>
-                <li class="nav-link">
-                    <a href="contact.html">CONTACT</a>
-                </li>
-            </ul>
+      </div>
+      <div class="hamburger-icon">
+        <label for="menu" class="hamburger">
+          <input
+            type="checkbox"
+            name="menu"
+            id="menu"
+            title="Toggle Menu bar"
+            tabindex="1"
+          />
+        </label>
+      </div>
+      <div class="navigation-section">
+        <ul>
+          <li class="nav-link">
+            <a href="index.html">HOME</a>
+          </li>
+          <li class="nav-link active">
+            <a href="about.html">ABOUT</a>
+          </li>
+          <li class="nav-link">
+            <a href="menu.html">MENU</a>
+          </li>
+          <li class="nav-link">
+            <a href="contact.html">CONTACT</a>
+          </li>
+        </ul>
+      </div>
+      <div class="user-service-section">
+        <div class="user-service-wrapper">
+          <a href="reservation.html">
+            <div title="Reservation" class="reservation-btn">RESERVATION</div>
+          </a>
+          <div class="cart-container">
+            <button
+              type="button"
+              title="Shopping Bag"
+              class="navbar-cart Cart"
+              data-cart="0"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="cart-icon"
+                viewBox="0 -960 960 960"
+              >
+                <path
+                  d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="cart-icon empty"
+                viewBox="0 -960 960 960"
+              >
+                <path
+                  d="M200-80q-33 0-56.5-23.5T120-160v-480q0-33 23.5-56.5T200-720h80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720h80q33 0 56.5 23.5T840-640v480q0 33-23.5 56.5T760-80H200Zm0-80h560v-480H200v480Zm280-240q83 0 141.5-58.5T680-600h-80q0 50-35 85t-85 35q-50 0-85-35t-35-85h-80q0 83 58.5 141.5T480-400ZM360-720h240q0-50-35-85t-85-35q-50 0-85 35t-35 85ZM200-160v-480 480Z"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
-        <div class="user-service-section">
-            <div class="user-service-wrapper">
-                <a href="reservation.html">
-                    <div title="Reservation" class="reservation-btn">
-                        RESERVATION
-                    </div>
-                </a>
-                <div class="cart-container">
-                    <button type="button" title="Shopping Bag" class="navbar-cart Cart" data-cart="0">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="cart-icon" viewBox="0 -960 960 960">
-                            <path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"/>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="cart-icon empty" viewBox="0 -960 960 960">
-                            <path d="M200-80q-33 0-56.5-23.5T120-160v-480q0-33 23.5-56.5T200-720h80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720h80q33 0 56.5 23.5T840-640v480q0 33-23.5 56.5T760-80H200Zm0-80h560v-480H200v480Zm280-240q83 0 141.5-58.5T680-600h-80q0 50-35 85t-85 35q-50 0-85-35t-35-85h-80q0 83 58.5 141.5T480-400ZM360-720h240q0-50-35-85t-85-35q-50 0-85 35t-35 85ZM200-160v-480 480Z"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
+      </div>
     </nav>
-    
+
     <main class="tastey-archives">
-        <div class="archive-content-container">
-            <div class="archive-content-header-wrapper">
-                <h5>Since 1973</h5>
-                <h2>The Tastey Archives</h2>
-            </div>
-            <div class="archive-content-sub-header-wrapper">
-                <h3>Let's go on a trip down the Tastey Timeline</h3>
-                <p>Tastey has a rich history of delicious traditions filled with nothing but a dreamy atmosphere and a workspace where simply everyone can simply thrive.</p>
-            </div>
-            <div class="archives-content-wrapper">
-                <div class="tastey-timeline"></div>
-                <div class="tastey-timeline-seeker"></div>
-            </div>
+      <div class="archive-content-container">
+        <div class="archive-content-header-wrapper">
+          <h5>Since 1973</h5>
+          <h2>The Tastey Archives</h2>
         </div>
+        <div class="archive-content-sub-header-wrapper">
+          <h3>Let's go on a trip down the Tastey Timeline</h3>
+          <p>
+            Tastey has a rich history of delicious traditions filled with
+            nothing but a dreamy atmosphere and a workspace where simply
+            everyone can simply thrive.
+          </p>
+        </div>
+        <div class="archives-content-wrapper">
+          <div class="tastey-timeline"></div>
+          <div class="tastey-timeline-seeker"></div>
+        </div>
+      </div>
     </main>
 
     <main class="about-section">
-        <div class="video-content-wrapper">
-            <video tmgcontrols tmg--initial-mode="theater" poster="assets/tastey-meal-images/tastey_bar.jpg" tmg--media--title="The Tastey Commercial" tmg--media--artist="The Tastey Restaurant" tmg--settings--preview-images--address="assets/tastey-dining-video-preview-imgs/preview$.jpg" tmg--settings--preview-images--fps="2" tmg--settings--progress-bar="true" tmg--settings--beta="true">
-                <source src="assets/videos/tastey-dining-video.mp4" type="video/mp4">
-                Tastey cannot seem to play the video 
-                <track kind="subtitles" srclang="en" src="assets/subtitles/tastey-dining-video.vtt" label="English">
-            </video> 
+      <div class="video-content-wrapper">
+        <video
+          tmgcontrols
+          tmg--initial-mode="theater"
+          poster="assets/tastey-meal-images/tastey_bar.jpg"
+          tmg--media--title="The Tastey Commercial"
+          tmg--media--artist="The Tastey Restaurant"
+          tmg--settings--preview-images--address="assets/tastey-dining-video-preview-imgs/preview$.jpg"
+          tmg--settings--preview-images--fps="2"
+          tmg--settings--progress-bar="true"
+          tmg--settings--beta="true"
+        >
+          <source
+            src="assets/videos/tastey-dining-video.mp4"
+            type="video/mp4"
+          />
+          Tastey cannot seem to play the video
+          <track
+            kind="subtitles"
+            srclang="en"
+            src="assets/subtitles/tastey-dining-video.vtt"
+            label="English"
+          />
+        </video>
+      </div>
+      <div class="accreditation-sections" id="accreditation-section-container">
+        <div class="accreditation-sections-content">
+          <div class="accreditation-section">
+            <span>
+              <span>
+                <p class="number-values" id="first-value">-- --</p>
+              </span>
+              <span>
+                <p class="accreditation-text">Daily Visitors</p>
+              </span>
+            </span>
+          </div>
+          <div class="accreditation-section">
+            <span>
+              <span>
+                <p class="number-values" id="second-value">-- --</p>
+              </span>
+              <span>
+                <p class="accreditation-text">Delieveries Monthly</p>
+              </span>
+            </span>
+          </div>
+          <div class="accreditation-section">
+            <span>
+              <span>
+                <p class="number-values" id="third-value">-- --</p>
+              </span>
+              <span>
+                <p class="accreditation-text">Positive Feedback</p>
+              </span>
+            </span>
+          </div>
+          <div class="accreditation-section">
+            <span>
+              <span>
+                <p class="number-values" id="fourth-value">-- --</p>
+              </span>
+              <span>
+                <p class="accreditation-text">Award and Honors</p>
+              </span>
+            </span>
+          </div>
         </div>
-        <div class="accreditation-sections" id="accreditation-section-container">
-            <div class="accreditation-sections-content">
-                <div class="accreditation-section">
-                    <span>
-                        <span>
-                            <p class="number-values" id="first-value">-- --</p>
-                        </span>
-                        <span>
-                            <p class="accreditation-text">Daily Visitors</p>
-                        </span>
-                    </span>
-                    </div>
-                    <div class="accreditation-section">
-                    <span>
-                        <span>
-                            <p class="number-values" id="second-value">-- --</p>
-                        </span>
-                        <span>
-                            <p class="accreditation-text">Delieveries Monthly</p>
-                        </span>
-                    </span>
-                    </div>
-                    <div class="accreditation-section">
-                    <span>
-                        <span>
-                            <p class="number-values" id="third-value">-- --</p>
-                        </span>
-                        <span>
-                            <p class="accreditation-text">Positive Feedback</p>
-                        </span>
-                        </span>
-                    </div>
-                    <div class="accreditation-section">
-                    <span>
-                        <span>
-                            <p class="number-values" id="fourth-value">-- --</p>
-                        </span>
-                        <span>
-                            <p class="accreditation-text">Award and Honors</p>
-                        </span>
-                    </span>
-                    </div>
+      </div>
+      <div class="reservation-content-wrapper">
+        <div class="reservation-content-wrapper-content">
+          <div>
+            <h2>Come spend the evening!</h2>
+            <p>
+              At Tastey's, we believe in creating a truly unique dining
+              experience. Wanna know what makes this Restaurant prestigious...
+              Then make a reservation and come have a wonderful evening with
+              that special person.
+            </p>
+            <div>
+              <a
+                href="reservation.html"
+                title="Reservation"
+                class="reservation-btn Tastey-blur"
+                >MAKE A RESERVATION</a
+              >
             </div>
+          </div>
+          <div></div>
         </div>
-        <div class="reservation-content-wrapper">
-            <div class="reservation-content-wrapper-content">
+      </div>
+      <div class="review-panel-container">
+        <div class="review-panel-content">
+          <div class="review-top">
+            <h2 class="review-header">What Our Visitors Say!</h2>
+          </div>
+          <div class="review-content">
+            <div class="qa">
+              <div class="reviews" id="first-review">
                 <div>
-                    <h2>Come spend the evening!</h2>
-                    <p>
-                        At Tastey's, we believe in creating a truly unique dining experience. Wanna know what makes this Restaurant prestigious... Then make a reservation and come have a wonderful evening with that special person.
-                    </p>
-                    <div>
-                        <a href="reservation.html" title="Reservation" class="reservation-btn Tastey-blur">MAKE A RESERVATION</a>
-                    </div>
+                  <img
+                    alt="visitor-image"
+                    src="assets/tastey-reviewers/Mike.jpeg"
+                  />
+                  <p>Hear Mike's positive review about Tastey!</p>
                 </div>
+                <button
+                  type="button"
+                  title="Toggle Audio"
+                  class="toggle-audio-content"
+                >
+                  <svg
+                    class="plus show"
+                    id="first-plus"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill="#5f6368"
+                  >
+                    <path
+                      d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"
+                    />
+                  </svg>
+                  <svg
+                    class="minus hide"
+                    id="first-minus"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill="#5f6368"
+                  >
+                    <path d="M200-440v-80h560v80H200Z" />
+                  </svg>
+                </button>
+              </div>
+              <div class="review-answers hide" id="first-answer">
+                <div class="audio-content-wrapper">
+                  <audio
+                    data-controls="tastey-audio-controls"
+                    data-media-title="Mike's Review about Tastey"
+                    data-media-artwork="assets/tastey-reviewers/Mike.jpeg"
+                  >
+                    <source
+                      src="assets/audio/A Boogie Wit Da Hoodie - Drowning (sped up TikTok) ft. Kodak Black.mp3"
+                    />
+                  </audio>
+                </div>
+              </div>
+            </div>
+            <div class="qa">
+              <div class="reviews" id="second-review">
                 <div>
+                  <img
+                    alt="visitor-image"
+                    src="assets/tastey-reviewers/Amanda.jpeg"
+                  />
+                  <p>Hear Amanda's comment on Tastey meals</p>
                 </div>
+                <button
+                  type="button"
+                  title="Toggle Audio"
+                  class="toggle-audio-content"
+                >
+                  <svg
+                    class="plus show"
+                    id="second-plus"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill="#5f6368"
+                  >
+                    <path
+                      d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"
+                    />
+                  </svg>
+                  <svg
+                    class="minus hide"
+                    id="second-minus"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill="#5f6368"
+                  >
+                    <path d="M200-440v-80h560v80H200Z" />
+                  </svg>
+                </button>
+              </div>
+              <div class="review-answers hide" id="second-answer">
+                <div class="audio-content-wrapper">
+                  <audio
+                    data-controls="tastey-audio-controls"
+                    data-media-title="Amanda's comment on Tastey meals!"
+                    data-media-artwork="assets/tastey-reviewers/Amanda.jpeg"
+                  >
+                    <source
+                      src="assets/audio/A Boogie Wit Da Hoodie - Drowning (sped up TikTok) ft. Kodak Black.mp3"
+                    />
+                  </audio>
+                </div>
+              </div>
             </div>
-        </div>
-        <div class="review-panel-container">
-            <div class="review-panel-content">
-                <div class="review-top">
-                    <h2 class="review-header">What Our Visitors Say!</h2>
-                </div>                
-                <div class="review-content">
-                    <div class="qa">
-                        <div class="reviews" id="first-review">
-                            <div>
-                                <img alt="visitor-image" src="assets/tastey-reviewers/Mike.jpeg">
-                                <p>Hear Mike's positive review about Tastey!</p>
-                            </div>      
-                            <button type="button" title="Toggle Audio" class="toggle-audio-content">
-                                <svg class="plus show" id="first-plus" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
-                                <svg class="minus hide" id="first-minus" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M200-440v-80h560v80H200Z"/></svg>          
-                            </button>
-                        </div>
-                        <div class="review-answers hide" id="first-answer">
-                            <div class="audio-content-wrapper">
-                                <audio data-controls="tastey-audio-controls" data-media-title="Mike's Review about Tastey" data-media-artwork="assets/tastey-reviewers/Mike.jpeg">
-                                    <source src="assets/audio/A Boogie Wit Da Hoodie - Drowning (sped up TikTok) ft. Kodak Black.mp3">
-                                </audio>        
-                            </div>
-                        </div>
-                    </div>
-                    <div class="qa">
-                        <div class="reviews" id="second-review">
-                            <div>
-                                <img alt="visitor-image" src="assets/tastey-reviewers/Amanda.jpeg">
-                                <p>Hear Amanda's comment on Tastey meals</p>
-                            </div>    
-                            <button type="button" title="Toggle Audio" class="toggle-audio-content">
-                                <svg class="plus show" id="second-plus" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
-                                <svg class="minus hide" id="second-minus" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M200-440v-80h560v80H200Z"/></svg>
-                            </button>
-                        </div>
-                        <div class="review-answers hide" id="second-answer">
-                            <div class="audio-content-wrapper">
-                                <audio data-controls="tastey-audio-controls" data-media-title="Amanda's comment on Tastey meals!" data-media-artwork="assets/tastey-reviewers/Amanda.jpeg">
-                                    <source src="assets/audio/A Boogie Wit Da Hoodie - Drowning (sped up TikTok) ft. Kodak Black.mp3">
-                                </audio>        
-                            </div>
-                        </div>
-                    </div>
-                    <div class="qa">
-                        <div class="reviews" id="third-review">
-                            <div>
-                                <img alt="visitor-image" src="assets/tastey-reviewers/Ezekiel.jpeg">
-                                <p>Hear Ezekiel's take on our Tastey Special!</p>
-                            </div>    
-                            <button type="button" title="Toggle Audio" class="toggle-audio-content">
-                                <svg class="plus show" id="third-plus" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
-                                <svg class="minus hide" id="third-minus" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M200-440v-80h560v80H200Z"/></svg>
-                            </button>
-                        </div>
-                        <div class="review-answers hide" id="third-answer">
-                            <div class="audio-content-wrapper">
-                                <audio data-controls="tastey-audio-controls" data-media-title="Ezekiel's take on our Tastey Special!" data-media-artwork="assets/tastey-reviewers/Ezekiel.jpeg">
-                                    <source src="assets/audio/A Boogie Wit Da Hoodie - Drowning (sped up TikTok) ft. Kodak Black.mp3">
-                                </audio>        
-                            </div>
-                        </div>
-                    </div>
-                    <div class="qa">
-                        <div class="reviews" id="fourth-review">
-                            <div>
-                                <img alt="visitor-image" src="assets/tastey-reviewers/Vanessa.jpeg">
-                                <p>Hear Vanessa's thoughts on Tastey reservations</p>
-                            </div>    
-                            <button type="button" title="Toggle Audio" class="toggle-audio-content">
-                                <svg class="plus show" id="fourth-plus" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
-                                <svg class="minus hide" id="fourth-minus" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M200-440v-80h560v80H200Z"/></svg>
-                            </button>
-                        </div>
-                        <div class="review-answers hide" id="fourth-answer">
-                            <div class="audio-content-wrapper">
-                                <audio data-controls="tastey-audio-controls" data-media-title="Vanessa's thoughts on Tastey reservations" data-media-artwork="assets/tastey-reviewers/Vanessa.jpeg">
-                                    <source src="assets/audio/A Boogie Wit Da Hoodie - Drowning (sped up TikTok) ft. Kodak Black.mp3">
-                                </audio>        
-                            </div>
-                        </div>
-                    </div>                    
-                </div>                
+            <div class="qa">
+              <div class="reviews" id="third-review">
+                <div>
+                  <img
+                    alt="visitor-image"
+                    src="assets/tastey-reviewers/Ezekiel.jpeg"
+                  />
+                  <p>Hear Ezekiel's take on our Tastey Special!</p>
+                </div>
+                <button
+                  type="button"
+                  title="Toggle Audio"
+                  class="toggle-audio-content"
+                >
+                  <svg
+                    class="plus show"
+                    id="third-plus"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill="#5f6368"
+                  >
+                    <path
+                      d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"
+                    />
+                  </svg>
+                  <svg
+                    class="minus hide"
+                    id="third-minus"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill="#5f6368"
+                  >
+                    <path d="M200-440v-80h560v80H200Z" />
+                  </svg>
+                </button>
+              </div>
+              <div class="review-answers hide" id="third-answer">
+                <div class="audio-content-wrapper">
+                  <audio
+                    data-controls="tastey-audio-controls"
+                    data-media-title="Ezekiel's take on our Tastey Special!"
+                    data-media-artwork="assets/tastey-reviewers/Ezekiel.jpeg"
+                  >
+                    <source
+                      src="assets/audio/A Boogie Wit Da Hoodie - Drowning (sped up TikTok) ft. Kodak Black.mp3"
+                    />
+                  </audio>
+                </div>
+              </div>
             </div>
+            <div class="qa">
+              <div class="reviews" id="fourth-review">
+                <div>
+                  <img
+                    alt="visitor-image"
+                    src="assets/tastey-reviewers/Vanessa.jpeg"
+                  />
+                  <p>Hear Vanessa's thoughts on Tastey reservations</p>
+                </div>
+                <button
+                  type="button"
+                  title="Toggle Audio"
+                  class="toggle-audio-content"
+                >
+                  <svg
+                    class="plus show"
+                    id="fourth-plus"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill="#5f6368"
+                  >
+                    <path
+                      d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"
+                    />
+                  </svg>
+                  <svg
+                    class="minus hide"
+                    id="fourth-minus"
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 -960 960 960"
+                    width="24px"
+                    fill="#5f6368"
+                  >
+                    <path d="M200-440v-80h560v80H200Z" />
+                  </svg>
+                </button>
+              </div>
+              <div class="review-answers hide" id="fourth-answer">
+                <div class="audio-content-wrapper">
+                  <audio
+                    data-controls="tastey-audio-controls"
+                    data-media-title="Vanessa's thoughts on Tastey reservations"
+                    data-media-artwork="assets/tastey-reviewers/Vanessa.jpeg"
+                  >
+                    <source
+                      src="assets/audio/A Boogie Wit Da Hoodie - Drowning (sped up TikTok) ft. Kodak Black.mp3"
+                    />
+                  </audio>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </main>
 
     <footer>
-        <div class="footer-content Tastey-blur-bc">
-            <div class="footer-top-section">
-                <div class="footer-quick-links-section">
-                    <h2>Quick Links</h2>
-                    <div>
-                        <a href="#" class="forward">Help Center</a>
-                        <a href="#" class="forward">Report a Problem</a>
-                        <a href="#" class="forward">Delivery Information</a>
-                        <a href="#" class="forward">Terms and Conditions</a>
-                        <a href="#" class="forward">Privacy Policy</a>
-                    </div>
-                </div>
-                <div class="footer-contact-section">
-                    <a href="contact.html" title="Contact us at Tastey">
-                        <h2>Contact info</h2>
-                    </a>
-                    <div>
-                        <a href="tel: +2349052425395">Call: <span>+234 905 242 5395</span></a>
-                        <a href="mailto: tobioketade007@gmail.com">Email: <span>info@tastey.com</span></a>
-                        <p>Address: 123 Main St, City, State, Zip</p>
-                        <a href="https://www.linkedin.com/in/tobi-oketade-340801284/?profileId=ACoAAEUsqKABSVQZorBr14WrXkx-5lMT4xMpJCU">LinkedIn:
-                            <span style="text-decoration: underline;">The Tastey Restaurant</span></a>
-                        <a href="index">Website: <span style="text-decoration: underline;">Tastey.com</span></a>
-                    </div>
-                    <a href="contact.html" title="Contact us at Tastey" class="see-more">SEE MORE INFO</a>
-                </div>
-                <div class="footer-about-section">
-                    <a href="about.html" title="See more about Tastey">
-                        <h2>About us</h2>
-                    </a>
-                    <p>
-                        At Tastey's, we believe in creating a truly unique dining experience. Wanna know what makes us
-                        Tastey... Then make a reservation and come have a wonderful evening with that special person.
-                    </p>
-                    <div>
-                        <a href="about.html" title="See more about Tastey" class="see-more">READ MORE</a>
-                        <a href="reservation.html" class="reserve forward" title="Reserve a seat">RESERVE A SEAT</a>
-                    </div>
-                </div>
-                <div class="footer-special-section">
-                    <a href="menu.html" title="See more on our menu">
-                        <h2>Special Offers</h2>
-                    </a>
-                    <p>
-                        Check out our special offers and discounts.
-                    </p>
-                    <div>
-                        <a href="menu.html" title="See more on our menu" class="see-more">SEE MORE OFFERS!</a>
-                        <a href="menu.html" class="view-bag forward" title="View Shopping Bag">VIEW BAG</a>
-                    </div>
-                </div>
+      <div class="footer-content Tastey-blur-bc">
+        <div class="footer-top-section">
+          <div class="footer-quick-links-section">
+            <h2>Quick Links</h2>
+            <div>
+              <a href="#" class="forward">Help Center</a>
+              <a href="#" class="forward">Report a Problem</a>
+              <a href="#" class="forward">Delivery Information</a>
+              <a href="#" class="forward">Terms and Conditions</a>
+              <a href="#" class="forward">Privacy Policy</a>
             </div>
-            <div class="footer-bottom-section">
-                <div class="footer-rights-section">
-                    <p>© 2024 <span>Tastey.</span> All rights reserved.</p>
-                </div>
-                <div class="footer-social-section">
-                    <a href="#" class="facebook" title="Tastey Facebook handle">
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
-                            viewBox="0 0 30 30">
-                            <path
-                                d="M15,3C8.373,3,3,8.373,3,15c0,6.016,4.432,10.984,10.206,11.852V18.18h-2.969v-3.154h2.969v-2.099c0-3.475,1.693-5,4.581-5 c1.383,0,2.115,0.103,2.461,0.149v2.753h-1.97c-1.226,0-1.654,1.163-1.654,2.473v1.724h3.593L19.73,18.18h-3.106v8.697 C22.481,26.083,27,21.075,27,15C27,8.373,21.627,3,15,3z">
-                            </path>
-                        </svg>
-                    </a>
-                    <a href="#" class="twitter" title="Tastey Twitter handle">
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
-                            viewBox="0 0 30 30">
-                            <path
-                                d="M28,6.937c-0.957,0.425-1.985,0.711-3.064,0.84c1.102-0.66,1.947-1.705,2.345-2.951c-1.03,0.611-2.172,1.055-3.388,1.295 c-0.973-1.037-2.359-1.685-3.893-1.685c-2.946,0-5.334,2.389-5.334,5.334c0,0.418,0.048,0.826,0.138,1.215 c-4.433-0.222-8.363-2.346-10.995-5.574C3.351,6.199,3.088,7.115,3.088,8.094c0,1.85,0.941,3.483,2.372,4.439 c-0.874-0.028-1.697-0.268-2.416-0.667c0,0.023,0,0.044,0,0.067c0,2.585,1.838,4.741,4.279,5.23 c-0.447,0.122-0.919,0.187-1.406,0.187c-0.343,0-0.678-0.034-1.003-0.095c0.679,2.119,2.649,3.662,4.983,3.705 c-1.825,1.431-4.125,2.284-6.625,2.284c-0.43,0-0.855-0.025-1.273-0.075c2.361,1.513,5.164,2.396,8.177,2.396 c9.812,0,15.176-8.128,15.176-15.177c0-0.231-0.005-0.461-0.015-0.69C26.38,8.945,27.285,8.006,28,6.937z">
-                            </path>
-                        </svg>
-                    </a>
-                    <a href="#" class="instagram" title="Tastey Instagram handle">
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
-                            viewBox="0 0 24 24">
-                            <path
-                                d="M 8 3 C 5.243 3 3 5.243 3 8 L 3 16 C 3 18.757 5.243 21 8 21 L 16 21 C 18.757 21 21 18.757 21 16 L 21 8 C 21 5.243 18.757 3 16 3 L 8 3 z M 8 5 L 16 5 C 17.654 5 19 6.346 19 8 L 19 16 C 19 17.654 17.654 19 16 19 L 8 19 C 6.346 19 5 17.654 5 16 L 5 8 C 5 6.346 6.346 5 8 5 z M 17 6 A 1 1 0 0 0 16 7 A 1 1 0 0 0 17 8 A 1 1 0 0 0 18 7 A 1 1 0 0 0 17 6 z M 12 7 C 9.243 7 7 9.243 7 12 C 7 14.757 9.243 17 12 17 C 14.757 17 17 14.757 17 12 C 17 9.243 14.757 7 12 7 z M 12 9 C 13.654 9 15 10.346 15 12 C 15 13.654 13.654 15 12 15 C 10.346 15 9 13.654 9 12 C 9 10.346 10.346 9 12 9 z">
-                            </path>
-                        </svg>
-                    </a>
-                    <a href="#" class="youtube" title="Tastey YouTube handle">
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
-                            viewBox="0 0 64 64">
-                            <path
-                                d="M53.527,17.427C55.714,19.677,56,23.252,56,32s-0.286,12.323-2.473,14.573C51.34,48.822,49.062,49,32,49	s-19.34-0.178-21.527-2.427C8.286,44.323,8,40.748,8,32s0.286-12.323,2.473-14.573S14.938,15,32,15S51.34,15.178,53.527,17.427z M27.95,39.417l12.146-7.038L27.95,25.451V39.417z">
-                            </path>
-                        </svg>
-                    </a>
-                </div>
+          </div>
+          <div class="footer-contact-section">
+            <a href="contact.html" title="Contact us at Tastey">
+              <h2>Contact info</h2>
+            </a>
+            <div>
+              <a href="tel: +2349052425395"
+                >Call: <span>+234 905 242 5395</span></a
+              >
+              <a href="mailto: tobioketade007@gmail.com"
+                >Email: <span>info@tastey.com</span></a
+              >
+              <p>Address: 123 Main St, City, State, Zip</p>
+              <a
+                href="https://www.linkedin.com/in/tobi-oketade-340801284/?profileId=ACoAAEUsqKABSVQZorBr14WrXkx-5lMT4xMpJCU"
+                >LinkedIn:
+                <span style="text-decoration: underline"
+                  >The Tastey Restaurant</span
+                ></a
+              >
+              <a href="index"
+                >Website:
+                <span style="text-decoration: underline">Tastey.com</span></a
+              >
             </div>
+            <a href="contact.html" title="Contact us at Tastey" class="see-more"
+              >SEE MORE INFO</a
+            >
+          </div>
+          <div class="footer-about-section">
+            <a href="about.html" title="See more about Tastey">
+              <h2>About us</h2>
+            </a>
+            <p>
+              At Tastey's, we believe in creating a truly unique dining
+              experience. Wanna know what makes us Tastey... Then make a
+              reservation and come have a wonderful evening with that special
+              person.
+            </p>
+            <div>
+              <a
+                href="about.html"
+                title="See more about Tastey"
+                class="see-more"
+                >READ MORE</a
+              >
+              <a
+                href="reservation.html"
+                class="reserve forward"
+                title="Reserve a seat"
+                >RESERVE A SEAT</a
+              >
+            </div>
+          </div>
+          <div class="footer-special-section">
+            <a href="menu.html" title="See more on our menu">
+              <h2>Special Offers</h2>
+            </a>
+            <p>Check out our special offers and discounts.</p>
+            <div>
+              <a href="menu.html" title="See more on our menu" class="see-more"
+                >SEE MORE OFFERS!</a
+              >
+              <a
+                href="menu.html"
+                class="view-bag forward"
+                title="View Shopping Bag"
+                >VIEW BAG</a
+              >
+            </div>
+          </div>
         </div>
+        <div class="footer-bottom-section">
+          <div class="footer-rights-section">
+            <p>© 2024 <span>Tastey.</span> All rights reserved.</p>
+          </div>
+          <div class="footer-social-section">
+            <a href="#" class="facebook" title="Tastey Facebook handle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="100"
+                height="100"
+                viewBox="0 0 30 30"
+              >
+                <path
+                  d="M15,3C8.373,3,3,8.373,3,15c0,6.016,4.432,10.984,10.206,11.852V18.18h-2.969v-3.154h2.969v-2.099c0-3.475,1.693-5,4.581-5 c1.383,0,2.115,0.103,2.461,0.149v2.753h-1.97c-1.226,0-1.654,1.163-1.654,2.473v1.724h3.593L19.73,18.18h-3.106v8.697 C22.481,26.083,27,21.075,27,15C27,8.373,21.627,3,15,3z"
+                ></path>
+              </svg>
+            </a>
+            <a href="#" class="twitter" title="Tastey Twitter handle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="100"
+                height="100"
+                viewBox="0 0 30 30"
+              >
+                <path
+                  d="M28,6.937c-0.957,0.425-1.985,0.711-3.064,0.84c1.102-0.66,1.947-1.705,2.345-2.951c-1.03,0.611-2.172,1.055-3.388,1.295 c-0.973-1.037-2.359-1.685-3.893-1.685c-2.946,0-5.334,2.389-5.334,5.334c0,0.418,0.048,0.826,0.138,1.215 c-4.433-0.222-8.363-2.346-10.995-5.574C3.351,6.199,3.088,7.115,3.088,8.094c0,1.85,0.941,3.483,2.372,4.439 c-0.874-0.028-1.697-0.268-2.416-0.667c0,0.023,0,0.044,0,0.067c0,2.585,1.838,4.741,4.279,5.23 c-0.447,0.122-0.919,0.187-1.406,0.187c-0.343,0-0.678-0.034-1.003-0.095c0.679,2.119,2.649,3.662,4.983,3.705 c-1.825,1.431-4.125,2.284-6.625,2.284c-0.43,0-0.855-0.025-1.273-0.075c2.361,1.513,5.164,2.396,8.177,2.396 c9.812,0,15.176-8.128,15.176-15.177c0-0.231-0.005-0.461-0.015-0.69C26.38,8.945,27.285,8.006,28,6.937z"
+                ></path>
+              </svg>
+            </a>
+            <a href="#" class="instagram" title="Tastey Instagram handle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="100"
+                height="100"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M 8 3 C 5.243 3 3 5.243 3 8 L 3 16 C 3 18.757 5.243 21 8 21 L 16 21 C 18.757 21 21 18.757 21 16 L 21 8 C 21 5.243 18.757 3 16 3 L 8 3 z M 8 5 L 16 5 C 17.654 5 19 6.346 19 8 L 19 16 C 19 17.654 17.654 19 16 19 L 8 19 C 6.346 19 5 17.654 5 16 L 5 8 C 5 6.346 6.346 5 8 5 z M 17 6 A 1 1 0 0 0 16 7 A 1 1 0 0 0 17 8 A 1 1 0 0 0 18 7 A 1 1 0 0 0 17 6 z M 12 7 C 9.243 7 7 9.243 7 12 C 7 14.757 9.243 17 12 17 C 14.757 17 17 14.757 17 12 C 17 9.243 14.757 7 12 7 z M 12 9 C 13.654 9 15 10.346 15 12 C 15 13.654 13.654 15 12 15 C 10.346 15 9 13.654 9 12 C 9 10.346 10.346 9 12 9 z"
+                ></path>
+              </svg>
+            </a>
+            <a href="#" class="youtube" title="Tastey YouTube handle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="100"
+                height="100"
+                viewBox="0 0 64 64"
+              >
+                <path
+                  d="M53.527,17.427C55.714,19.677,56,23.252,56,32s-0.286,12.323-2.473,14.573C51.34,48.822,49.062,49,32,49	s-19.34-0.178-21.527-2.427C8.286,44.323,8,40.748,8,32s0.286-12.323,2.473-14.573S14.938,15,32,15S51.34,15.178,53.527,17.427z M27.95,39.417l12.146-7.038L27.95,25.451V39.417z"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
     </footer>
-    <script src="/TMG_MEDIA_PROTOTYPE/prototype-2/prototype-2.js" defer></script>
+    <script
+      src="/TMG_MEDIA_PROTOTYPE/prototype-2/prototype-2.js"
+      defer
+    ></script>
     <script src="scripts/audio.js"></script>
     <script type="module" src="scripts/about.js"></script>
     <script type="module" src="scripts/mini-bag.js"></script>
     <script type="module" src="scripts/footer.js"></script>
-</body>
+  </body>
 </html>

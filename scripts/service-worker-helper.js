@@ -1,40 +1,49 @@
 export async function registerTasteyServiceWorker() {
-    if("serviceWorker" in navigator)
-        await navigator.serviceWorker.register('Tastey_service_worker.js').catch(error => console.log('Registration failed with ' + error))
-    else 
-        console.error("Service workers are not supported.")
+  if ("serviceWorker" in navigator)
+    await navigator.serviceWorker
+      .register("Tastey_service_worker.js")
+      .catch((error) => console.log("Registration failed with " + error));
+  else console.error("Service workers are not supported.");
 }
 
 export function notificationQuery(title, options, type = "") {
-    options.icon = "assets/tastey-meal-icons/tastey-icon.jpeg"
-    options.badge = "assets/tastey-meal-icons/tastey-icon.png"
-    options.actions = [
-        {
-            action: "open-reservation",
-            title: "Reservation",
-            type: "button",
-            icon: "assets/tastey-meal-icons/reservation-icon.png"
-        },
-        {
-            action: "open-menu",
-            title: "Open Menu",
-            type: "button",
-            icon: "assets/tastey-meal-icons/menu-icon.svg"
-        }
-    ]
-    if (Notification?.permission === "granted") {
-        registerTasteyServiceWorker()
-        navigator.serviceWorker.ready.then(registration => registration.showNotification(title, options))
-    } else if (Notification && Notification?.permission !== "denied") {
-        Notification.requestPermission().then(status => {
-            if (status === "granted") {
-                registerTasteyServiceWorker()
-                navigator.serviceWorker.ready.then(registration => registration.showNotification(title, options))
-            } else {
-                alert(`You have to give notifiction permission to get the Tastey ${type} Notification`)
-            }
-        })
-    } else {
-        alert(`You have to give notifiction permission to get the Tastey ${type} Notification`)
-    }
+  options.icon = "assets/tastey-meal-icons/tastey-icon.jpeg";
+  options.badge = "assets/tastey-meal-icons/tastey-icon.png";
+  options.actions = [
+    {
+      action: "open-reservation",
+      title: "Reservation",
+      type: "button",
+      icon: "assets/tastey-meal-icons/reservation-icon.png",
+    },
+    {
+      action: "open-menu",
+      title: "Open Menu",
+      type: "button",
+      icon: "assets/tastey-meal-icons/menu-icon.svg",
+    },
+  ];
+  if (Notification?.permission === "granted") {
+    registerTasteyServiceWorker();
+    navigator.serviceWorker.ready.then((registration) =>
+      registration.showNotification(title, options),
+    );
+  } else if (Notification && Notification?.permission !== "denied") {
+    Notification.requestPermission().then((status) => {
+      if (status === "granted") {
+        registerTasteyServiceWorker();
+        navigator.serviceWorker.ready.then((registration) =>
+          registration.showNotification(title, options),
+        );
+      } else {
+        alert(
+          `You have to give notifiction permission to get the Tastey ${type} Notification`,
+        );
+      }
+    });
+  } else {
+    alert(
+      `You have to give notifiction permission to get the Tastey ${type} Notification`,
+    );
+  }
 }

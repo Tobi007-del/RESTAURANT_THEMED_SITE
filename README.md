@@ -22,55 +22,53 @@ It is a personal project and I would really like to describe it as just practice
 
 ### Visusal Previews
 
-
 ![Desktop Preview of the Preloader for Tastey](./assets/Tastey-previews/Tastey-loading-desktop-preview.png)
-*Desktop view of the Tastey Preloader*
+_Desktop view of the Tastey Preloader_
 
 ![Mobile Preview of the Preloader for Tastey](./assets/Tastey-previews/Tastey-loading-mobile-preview.png)
-*Mobile view of the Tastey Preloader*
+_Mobile view of the Tastey Preloader_
 
 ![Desktop Preview of the homepage for Tastey](./assets/Tastey-previews/Tastey-desktop-preview.png)
-*Desktop view of the Tastey Landing Page*
+_Desktop view of the Tastey Landing Page_
 
 ![Mobile Preview of the homepage for Tastey](./assets/Tastey-previews/Tastey-mobile-preview.png)
-*Mobile view of the Tastey Landing Page*
-
+_Mobile view of the Tastey Landing Page_
 
 ![Desktop Preview of the menu for Tastey](./assets/Tastey-previews/Tastey-menu-desktop.png)
-*Desktop view of the Tastey Manu*
+_Desktop view of the Tastey Manu_
 
 ![Mobile Preview of the menu for Tastey](./assets/Tastey-previews/Tastey-menu-mobile.png)
-*Mobile view of the Tastey Menu*
+_Mobile view of the Tastey Menu_
 
 ![Desktop Preview of the Shopping Bag for Tastey](./assets/Tastey-previews/Tastey-bag-desktop.png)
-*Desktop view of the Tastey Shopping Bag*
+_Desktop view of the Tastey Shopping Bag_
 
 ![Mobile Preview of the Shopping Bag for Tastey](./assets/Tastey-previews/Tastey-bag-mobile.png)
-*Mobile view of the Tastey Shopping Bag*
+_Mobile view of the Tastey Shopping Bag_
 
 ![Default View of the mini bag for Tastey](./assets/Tastey-previews/Tastey-mini-bag.png)
-*Default view of the Tastey Mini Bag*
+_Default view of the Tastey Mini Bag_
 
 ![Responsive View of the mini bag for Tastey](./assets/Tastey-previews/Tastey-responsive-mini-bag.png)
-*Responsive view of the Tastey Mini Bag*
+_Responsive view of the Tastey Mini Bag_
 
 ![Desktop Preview of the about page for Tastey](./assets/Tastey-previews/Tastey-about-desktop-preview.png)
-*Desktop view of the Tastey About Page*
+_Desktop view of the Tastey About Page_
 
 ![Mobile Preview of the about page for Tastey](./assets/Tastey-previews/Tastey-about-mobile-preview.png)
-*Mobile view of the Tastey About Page*
+_Mobile view of the Tastey About Page_
 
 ![Desktop Preview of the contact page for Tastey](./assets/Tastey-previews/Tastey-contact-desktop-preview.png)
-*Desktop view of the Tastey Contact Page*
+_Desktop view of the Tastey Contact Page_
 
 ![Mobile Preview of the contact page for Tastey](./assets/Tastey-previews/Tastey-contact-mobile-preview.png)
-*Mobile view of the Tastey Contact Page*
+_Mobile view of the Tastey Contact Page_
 
-### More Info! 
+### More Info!
 
 #### Folder Contents
 
-- assets 
+- assets
   - audio
   - subtitles
   - tastey-archive-images
@@ -131,10 +129,8 @@ It is a personal project and I would really like to describe it as just practice
 - Vanilla Javascript
 
 ### Links
-To view the live preview of this webpage, you can visit *[here][1]* or you can also visit *[here][2]* to view the github repository that houses this project
 
-[1]: <https://tobi007-del.github.io/RESTAURANT_THEMED_SITE/index.html>
-"LIVE PREVIEW OF THE TASTEY WEBSITE"
+To view the live preview of this webpage, you can visit _[here][1]_ or you can also visit _[here][2]_ to view the github repository that houses this project
 
-[2]: <https://github.com/Tobi007-del/RESTAURANT_THEMED_SITE>
-"GITHUB REPOSITORY FOR THIS PROJECT"
+[1]: https://tobi007-del.github.io/RESTAURANT_THEMED_SITE/index.html "LIVE PREVIEW OF THE TASTEY WEBSITE"
+[2]: https://github.com/Tobi007-del/RESTAURANT_THEMED_SITE "GITHUB REPOSITORY FOR THIS PROJECT"

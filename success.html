@@ -1,56 +1,70 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <!-- Global Metadata -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tastey</title>
-    <link rel="icon" type="image/jpeg" sizes="32x32" href="assets/tastey-meal-icons/tastey-icon.jpeg">
-    <link rel="stylesheet" href="styles/required.css">
-    <link rel="stylesheet" href="styles/scroll-bar.css">
+    <link
+      rel="icon"
+      type="image/jpeg"
+      sizes="32x32"
+      href="assets/tastey-meal-icons/tastey-icon.jpeg"
+    />
+    <link rel="stylesheet" href="styles/required.css" />
+    <link rel="stylesheet" href="styles/scroll-bar.css" />
     <style>
-        body {
-            display: flex;
-            height: 100dvh;
-        }
-        body > div {
-            margin: auto;
-            width: 20rem;
-            max-width: 90vw;
-            border-radius: .5rem;
-            text-align: center;
-        }
-        body > div > img {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            border-radius: inherit;            
-        }
-        body > div > h3 {
-            color: var(--current-theme-sub-color);
-            font-size: 1.15rem;
-        }  
-        body > div > a {
-            color: var(--attractive-color);
-            text-decoration: underline;
-            font-size: 1.1rem;
-        } 
+      body {
+        display: flex;
+        height: 100dvh;
+      }
+      body > div {
+        margin: auto;
+        width: 20rem;
+        max-width: 90vw;
+        border-radius: 0.5rem;
+        text-align: center;
+      }
+      body > div > img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: inherit;
+      }
+      body > div > h3 {
+        color: var(--current-theme-sub-color);
+        font-size: 1.15rem;
+      }
+      body > div > a {
+        color: var(--attractive-color);
+        text-decoration: underline;
+        font-size: 1.1rem;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div>
-        <img src="assets/tastey-meal-icons/message-success-icon.jpeg" title="Message sent successfully">
-        <h3>Hello <span class="friendship"></span> Friend, your message has been submitted successfully!</h3>
-        <script>
-            (function() {
-                if (!sessionStorage.tastey_friendship_log && localStorage.tastey_friendship_log) {
-                    document.querySelector(".friendship").textContent = "Old"
-                } else {
-                    document.querySelector(".friendship").textContent = "New"   
-                }
-                // FT for "First Timer" & OT for "Old Taker"
-            })()
-        </script>
-        <a href="index.html">Back to Home</a>
+      <img
+        src="assets/tastey-meal-icons/message-success-icon.jpeg"
+        title="Message sent successfully"
+      />
+      <h3>
+        Hello <span class="friendship"></span> Friend, your message has been
+        submitted successfully!
+      </h3>
+      <script>
+        (function () {
+          if (
+            !sessionStorage.tastey_friendship_log &&
+            localStorage.tastey_friendship_log
+          ) {
+            document.querySelector(".friendship").textContent = "Old";
+          } else {
+            document.querySelector(".friendship").textContent = "New";
+          }
+          // FT for "First Timer" & OT for "Old Taker"
+        })();
+      </script>
+      <a href="index.html">Back to Home</a>
     </div>
-</body>
+  </body>
 </html>

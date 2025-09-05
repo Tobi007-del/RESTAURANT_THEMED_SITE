@@ -1,17 +1,33 @@
-import { allMeals, currency, maxOrders, getDOMElements, handleCheckout, positionMiniCards, adjustMiniCards } from "./CRUD.js"
-import { Tastey } from "./TasteyManager.js"
-import { tasteyDebouncer, check, formatValue, standardize, panning, positionGradient, syncScrollToTop, syncScrollToBottom } from "./utils.js"
+import {
+  allMeals,
+  currency,
+  maxOrders,
+  getDOMElements,
+  handleCheckout,
+  positionMiniCards,
+  adjustMiniCards,
+} from "./CRUD.js";
+import { Tastey } from "./TasteyManager.js";
+import {
+  tasteyDebouncer,
+  check,
+  formatValue,
+  standardize,
+  panning,
+  positionGradient,
+  syncScrollToTop,
+  syncScrollToBottom,
+} from "./utils.js";
 
-tasteyMiniBag()
+tasteyMiniBag();
 
 function tasteyMiniBag() {
-    const cartContainer = document.querySelector(".cart-container")
-    try {
-        const miniCart = document.createElement("div")
-        miniCart.className += "mini-meal-cart close"
-        miniCart.dataset.cart = 0
-        miniCart.innerHTML += 
-        `
+  const cartContainer = document.querySelector(".cart-container");
+  try {
+    const miniCart = document.createElement("div");
+    miniCart.className += "mini-meal-cart close";
+    miniCart.dataset.cart = 0;
+    miniCart.innerHTML += `
             <div class="mini-meal-cart-content">
                 <div class="mini-cart-top-section">
                     <div class="mini-cart-title-wrapper">
@@ -65,14 +81,15 @@ function tasteyMiniBag() {
                     </div>
                 </div>
             </div>                                
-        `        
-        cartContainer.append(miniCart)
-        const mcOrderReviewSection = document.querySelector(".mini-cart-order-review-section")
-        Tastey.tasteyRecord.tasteyOrders?.forEach(({ id, orders }) => {
-            const meal = allMeals.find(meal => meal.id === id)
-            const { label, price, serving, picSrc } = meal
-            mcOrderReviewSection.innerHTML += 
-            `
+        `;
+    cartContainer.append(miniCart);
+    const mcOrderReviewSection = document.querySelector(
+      ".mini-cart-order-review-section",
+    );
+    Tastey.tasteyRecord.tasteyOrders?.forEach(({ id, orders }) => {
+      const meal = allMeals.find((meal) => meal.id === id);
+      const { label, price, serving, picSrc } = meal;
+      mcOrderReviewSection.innerHTML += `
             <div class="mini-cart-tastey-meal-order" data-id="${id}" data-like="${Tastey.getLikeValue(id) ?? false}" data-orders="${standardize(orders)}" data-discount="${price.discount ?? 0}">               
                 <div class="mini-cart-tastey-order-image-wrapper">
                         <img class="mini-cart-tastey-order-image" src="${picSrc}" loading="lazy" alt="Image of ${label}" title="${label}">
@@ -80,10 +97,10 @@ function tasteyMiniBag() {
                     <div class="mini-cart-tastey-order-info">
                         <div class="mini-cart-tastey-order-text-wrapper">
                             <div class="mini-cart-tastey-order-text">
-                                <h5 data-serving=${serving ?'"' + serving + '"' : "NG"} title="${label}">${label}</h5>
+                                <h5 data-serving=${serving ? '"' + serving + '"' : "NG"} title="${label}">${label}</h5>
                                 <span>
-                                <p class="mini-cart-meal-price">${formatValue(currency,check(price.currentValue,price.discount))}</p>
-                                <p  class="mini-cart-actual-meal-price">${formatValue(currency,price.currentValue)}</p>
+                                <p class="mini-cart-meal-price">${formatValue(currency, check(price.currentValue, price.discount))}</p>
+                                <p  class="mini-cart-actual-meal-price">${formatValue(currency, price.currentValue)}</p>
                                 </span>
                             </div>
                             <div>
@@ -102,87 +119,110 @@ function tasteyMiniBag() {
                         </div>
                         <div class="mini-cart-toggle-wrapper">
                             <span class="mini-cart-toggle">
-                                <button type="button" title="Remove 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="mini-cart-sign mini-cart-minus${orders > 1 ? " hover" : ""}">
+                                <button type="button" title="Remove 1 ${label[label.length - 1] === "s" ? label.slice(0, label.length - 1) : label}" class="mini-cart-sign mini-cart-minus${orders > 1 ? " hover" : ""}">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     <svg width="12" height="4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a"/></defs><use fill-rule="nonzero" xlink:href="#a"/></svg>
                                 </button>
                                     <p class="mini-cart-order-number" contenteditable="plaintext-only">${standardize(orders)}</p>
-                                <button type="button" title="Add 1 ${label[label.length - 1] === 's' ? label.slice(0,label.length - 1) : label}" class="mini-cart-sign mini-cart-add hover${orders >= maxOrders ? " disabled" : ""}" tabindex="${orders >= maxOrders ? -1 : 0}">
+                                <button type="button" title="Add 1 ${label[label.length - 1] === "s" ? label.slice(0, label.length - 1) : label}" class="mini-cart-sign mini-cart-add hover${orders >= maxOrders ? " disabled" : ""}" tabindex="${orders >= maxOrders ? -1 : 0}">
                                     <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z" id="b"/></defs><use fill-rule="nonzero" xlink:href="#b"/></svg>
                                 </button>
                             </span>      
                         </div>
                     </div>
                 </div>            
-            `
-        })
-    } catch (error) {
-        console.error("Error occured while restoring Mini Tastey Bag: " + error)
-    }
+            `;
+    });
+  } catch (error) {
+    console.error("Error occured while restoring Mini Tastey Bag: " + error);
+  }
 }
 
 //DOM Elements
 const navbarCart = document.querySelector(".navbar-cart"),
-cartContainer = document.querySelector(".cart-container"),
-miniMealCart = document.querySelector(".mini-meal-cart"),
-closeCartBtn = document.querySelector(".close-cart-button"),
-mcShoppingBagBtn = document.querySelector(".mini-cart-shopping-bag-button"),
-mcOrderReviewSection = document.querySelector(".mini-cart-order-review-section"),
-mcCheckoutBtn = document.querySelector(".mini-cart-checkout-button")
+  cartContainer = document.querySelector(".cart-container"),
+  miniMealCart = document.querySelector(".mini-meal-cart"),
+  closeCartBtn = document.querySelector(".close-cart-button"),
+  mcShoppingBagBtn = document.querySelector(".mini-cart-shopping-bag-button"),
+  mcOrderReviewSection = document.querySelector(
+    ".mini-cart-order-review-section",
+  ),
+  mcCheckoutBtn = document.querySelector(".mini-cart-checkout-button");
 
 //DOM Operations
-getDOMElements()
-window.addEventListener('load', positionMiniCards)
+getDOMElements();
+window.addEventListener("load", positionMiniCards);
 
 function openMiniCart() {
-    positionMiniCards()
-    syncScrollToBottom("instant", mcOrderReviewSection)
+  positionMiniCards();
+  syncScrollToBottom("instant", mcOrderReviewSection);
 }
 
-navbarCart.addEventListener("click", () => miniMealCart.classList.toggle("close"))
-navbarCart.addEventListener("click", openMiniCart)
-navbarCart.addEventListener("pointerover", openMiniCart)
-navbarCart.addEventListener("focus", openMiniCart)
-closeCartBtn.addEventListener("click", () => miniMealCart.classList.add("close"))
-mcShoppingBagBtn.addEventListener("click", () => sessionStorage.open_cart = true)
+navbarCart.addEventListener("click", () =>
+  miniMealCart.classList.toggle("close"),
+);
+navbarCart.addEventListener("click", openMiniCart);
+navbarCart.addEventListener("pointerover", openMiniCart);
+navbarCart.addEventListener("focus", openMiniCart);
+closeCartBtn.addEventListener("click", () =>
+  miniMealCart.classList.add("close"),
+);
+mcShoppingBagBtn.addEventListener(
+  "click",
+  () => (sessionStorage.open_cart = true),
+);
 
 //handling the panning of the food images
-panning(document.querySelectorAll(".mini-cart-tastey-order-image"))
+panning(document.querySelectorAll(".mini-cart-tastey-order-image"));
 
 //closing the cart automatically when necessary for a better experience and for privacy reasons
-let timeout
-const itv = 45000
-miniMealCart.addEventListener("mouseover", () => {if(timeout) clearTimeout(timeout)})
-cartContainer.addEventListener("mouseleave", handleCartView)
-document.body.addEventListener("mouseleave", handleCartView)
+let timeout;
+const itv = 45000;
+miniMealCart.addEventListener("mouseover", () => {
+  if (timeout) clearTimeout(timeout);
+});
+cartContainer.addEventListener("mouseleave", handleCartView);
+document.body.addEventListener("mouseleave", handleCartView);
 
 function handleCartView() {
-    if (timeout) clearTimeout(timeout)
-    timeout = setTimeout(() => {if((!cartContainer.matches(":hover") && !cartContainer.matches(":focus-within"))) miniMealCart.classList.add("close")}, itv);
+  if (timeout) clearTimeout(timeout);
+  timeout = setTimeout(() => {
+    if (
+      !cartContainer.matches(":hover") &&
+      !cartContainer.matches(":focus-within")
+    )
+      miniMealCart.classList.add("close");
+  }, itv);
 }
 
-document.addEventListener("visibilitychange", () => {if(document.visibilityState === "hidden") miniMealCart.classList.add("close")})
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden")
+    miniMealCart.classList.add("close");
+});
 
-const mcResizeDebouncer = new tasteyDebouncer
-let mcScrollTicker = false
+const mcResizeDebouncer = new tasteyDebouncer();
+let mcScrollTicker = false;
 mcOrderReviewSection.addEventListener("scroll", () => {
-    if (mcScrollTicker) return
-    requestAnimationFrame(() => {
-        adjustMiniCards()
-        mcScrollTicker = false
-    })
-    mcScrollTicker = true
-})
-window.addEventListener("resize", mcResizeDebouncer.debounce(positionMiniCards, 200))
+  if (mcScrollTicker) return;
+  requestAnimationFrame(() => {
+    adjustMiniCards();
+    mcScrollTicker = false;
+  });
+  mcScrollTicker = true;
+});
+window.addEventListener(
+  "resize",
+  mcResizeDebouncer.debounce(positionMiniCards, 200),
+);
 
-let mcPointerTicker = false
-miniMealCart.addEventListener("pointermove", e => {
-    if (mcPointerTicker) return
-    requestAnimationFrame(() => {
-        positionGradient(e, miniMealCart)
-        mcPointerTicker = false
-    })
-    mcPointerTicker = true
-})
+let mcPointerTicker = false;
+miniMealCart.addEventListener("pointermove", (e) => {
+  if (mcPointerTicker) return;
+  requestAnimationFrame(() => {
+    positionGradient(e, miniMealCart);
+    mcPointerTicker = false;
+  });
+  mcPointerTicker = true;
+});
 
-mcCheckoutBtn.addEventListener("click", handleCheckout)
+mcCheckoutBtn.addEventListener("click", handleCheckout);

@@ -1,177 +1,193 @@
 body:not(.loading)::before {
-    background: var(--current-theme-inverse-color);
+  background: var(--current-theme-inverse-color);
 }
 
 .reserve-banner-section-wrapper {
-    margin-top: 3.5rem;
-    height: 11.5rem;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    background: url('../assets/tastey-meal-images/reservation.webp') center/cover;
-    box-shadow: inset 5rem 5rem 10rem var(--current-theme-inverse-color), inset -5rem -5rem 10rem var(--current-theme-inverse-color);
-    text-align: center;
+  margin-top: 3.5rem;
+  height: 11.5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background: url("../assets/tastey-meal-images/reservation.webp") center/cover;
+  box-shadow:
+    inset 5rem 5rem 10rem var(--current-theme-inverse-color),
+    inset -5rem -5rem 10rem var(--current-theme-inverse-color);
+  text-align: center;
 }
 
 .reserve-banner-section-wrapper h1 {
-    color: var(--current-theme-sub-color);
-    font-size: 2rem;
+  color: var(--current-theme-sub-color);
+  font-size: 2rem;
 }
 
 .reserve-banner-section-wrapper h3 {
-    color: var(--current-theme-accent-color);
-    font-size: .75rem;
+  color: var(--current-theme-accent-color);
+  font-size: 0.75rem;
 }
 
-.reserve-section-wrapper  {
-    padding-inline: 5dvw;
-    padding-block-end: 1rem;
+.reserve-section-wrapper {
+  padding-inline: 5dvw;
+  padding-block-end: 1rem;
 }
 
 .reserve-section {
-    display: flex;
-    flex-flow: row wrap;
-    padding-inline: 2.5dvw;
-    padding-block: 2.5rem;
-    column-gap: 2.5dvw;
-    row-gap: 2.5rem;
-    border-radius: .5rem;
-    background: var(--lighter-black);
-    border: .05rem solid var(--border-color);
+  display: flex;
+  flex-flow: row wrap;
+  padding-inline: 2.5dvw;
+  padding-block: 2.5rem;
+  column-gap: 2.5dvw;
+  row-gap: 2.5rem;
+  border-radius: 0.5rem;
+  background: var(--lighter-black);
+  border: 0.05rem solid var(--border-color);
 }
 
 .reserve-section > div {
-    max-width: 100%;
-    min-height: 31rem;
-    min-width: 10rem;
-    border-radius: .5rem;
-    overflow: hidden;
+  max-width: 100%;
+  min-height: 31rem;
+  min-width: 10rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
 }
 
 .reserve-form-wrapper-container {
-    flex: 1 1 17.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-    background: url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-3.png') no-repeat top/cover, radial-gradient(35rem circle at center, rgba(255,255,255,0.475), transparent 40%), center 6rem/18.75rem no-repeat url('../assets/tastey-meal-icons/tastey-icon.png'), center/cover no-repeat url('../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png'), var(--darker-black);
-    padding: .75rem 2dvw;
+  flex: 1 1 17.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background:
+    url("../assets/tastey-food-themed-backgrounds/dark-food-themed-background-3.png")
+      no-repeat top/cover,
+    radial-gradient(
+      35rem circle at center,
+      rgba(255, 255, 255, 0.475),
+      transparent 40%
+    ),
+    center 6rem/18.75rem no-repeat
+      url("../assets/tastey-meal-icons/tastey-icon.png"),
+    center/cover no-repeat
+      url("../assets/tastey-food-themed-backgrounds/dark-food-themed-background-1.png"),
+    var(--darker-black);
+  padding: 0.75rem 2dvw;
 }
 
 .reserve-form-wrapper {
-    width: 100%;
-    height: 100%;
-    max-width: 40rem;
-    border-radius: inherit;
-    display: flex;
-    background-color: var(--current-theme-transparent-color);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    padding: .25rem;
+  width: 100%;
+  height: 100%;
+  max-width: 40rem;
+  border-radius: inherit;
+  display: flex;
+  background-color: var(--current-theme-transparent-color);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 0.25rem;
 }
 
 .reserve-form-content {
-    width: 100%;
-    height: 100%;
-    background-color: var(--current-theme-transparent-color);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border-radius: inherit;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 2rem 1rem;
+  width: 100%;
+  height: 100%;
+  background-color: var(--current-theme-transparent-color);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem 1rem;
 }
 
 .reserve-form-title-wrapper {
-    display: flex; 
-    flex-direction: column;
-    align-items: center;
-    gap: .5rem;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
 }
 
 .reserve-form-title-wrapper em {
-    color: var(--attractive-color);
-    font-size: 1.1rem;
-    font-weight: bold;
+  color: var(--attractive-color);
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
 .reserve-form-title-wrapper h1 {
-    color: var(--current-theme-sub-color);
-    font-size: 1.65rem;
-    font-weight: bolder;
-    position: relative;
-    margin-bottom: 3rem;
+  color: var(--current-theme-sub-color);
+  font-size: 1.65rem;
+  font-weight: bolder;
+  position: relative;
+  margin-bottom: 3rem;
 }
 
 .reserve-form-title-wrapper h1::after {
-    content: '';
-    position: absolute;
-    top: calc(100% + .25rem);
-    left: -10%;
-    width: 120%;
-    height: 1.15rem;
-    background: url('../assets/tastey-meal-icons/line-2.png') no-repeat center/cover;
-    opacity: .75;
+  content: "";
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: -10%;
+  width: 120%;
+  height: 1.15rem;
+  background: url("../assets/tastey-meal-icons/line-2.png") no-repeat
+    center/cover;
+  opacity: 0.75;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    gap: .25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .reserve-form-section {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .reserve-form-section > * {
-    flex: 1 0 15rem;
+  flex: 1 0 15rem;
 }
 
-form input, form textarea {
-    flex: 1;
-    padding: .75rem;
-    border-radius: .35rem;
-    border: none;
+form input,
+form textarea {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 0.35rem;
+  border: none;
 }
 
 form textarea {
-    min-height: 8rem;
-    resize: none;
+  min-height: 8rem;
+  resize: none;
 }
 
 form .submit-btn {
-    margin-top: 1rem;
-    width: 100%;
-    background-color: var(--tastey-brand-accent-color);
-    color: var(--current-theme-inverse-accent-color);
-    padding-block: .85rem;
-    border-radius: .35rem;
-    font-size: .75rem;
-    font-weight: bold;
-    border: none;
-    transition: 200ms ease;
+  margin-top: 1rem;
+  width: 100%;
+  background-color: var(--tastey-brand-accent-color);
+  color: var(--current-theme-inverse-accent-color);
+  padding-block: 0.85rem;
+  border-radius: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border: none;
+  transition: 200ms ease;
 }
 
 form .submit-btn:hover {
-    transform: scale(1.01);
-    background-color: var(--tastey-brand-color);
-    color: var(--current-theme-inverse-color);
-    cursor: pointer;
+  transform: scale(1.01);
+  background-color: var(--tastey-brand-color);
+  color: var(--current-theme-inverse-color);
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 36rem) {
-    .reserve-section {
-        padding-inline: 3dvw;
-    }
+  .reserve-section {
+    padding-inline: 3dvw;
+  }
 }
 
 @media only screen and (max-width: 28.5rem) {
-    .reserve-section-wrapper {
-        padding-inline: 0;
-    }
+  .reserve-section-wrapper {
+    padding-inline: 0;
+  }
 }
