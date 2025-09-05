@@ -1,3 +1,5 @@
+import { Alert } from "/T007_TOOLS/T007_dialog_library/T007_dialog.js";
+
 export async function registerTasteyServiceWorker() {
   if ("serviceWorker" in navigator)
     await navigator.serviceWorker
@@ -26,24 +28,24 @@ export function notificationQuery(title, options, type = "") {
   if (Notification?.permission === "granted") {
     registerTasteyServiceWorker();
     navigator.serviceWorker.ready.then((registration) =>
-      registration.showNotification(title, options),
+      registration.showNotification(title, options)
     );
   } else if (Notification && Notification?.permission !== "denied") {
     Notification.requestPermission().then((status) => {
       if (status === "granted") {
         registerTasteyServiceWorker();
         navigator.serviceWorker.ready.then((registration) =>
-          registration.showNotification(title, options),
+          registration.showNotification(title, options)
         );
       } else {
-        alert(
-          `You have to give notifiction permission to get the Tastey ${type} Notification`,
+        Alert(
+          `You have to give notifiction permission to get the Tastey ${type} Notification`
         );
       }
     });
   } else {
-    alert(
-      `You have to give notifiction permission to get the Tastey ${type} Notification`,
+    Alert(
+      `You have to give notifiction permission to get the Tastey ${type} Notification`
     );
   }
 }
