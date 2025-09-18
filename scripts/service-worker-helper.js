@@ -39,13 +39,13 @@ export function notificationQuery(title, options, type = "") {
         );
       } else {
         Alert(
-          `You have to give notifiction permission to get the Tastey ${type} Notification`
+          `You have to give notification permission to get the Tastey ${type} Notification`
         );
       }
     });
   } else {
     Alert(
-      `You have to give notifiction permission to get the Tastey ${type} Notification`
+      `You have to give notification permission to get the Tastey ${type} Notification`
     );
   }
 }
