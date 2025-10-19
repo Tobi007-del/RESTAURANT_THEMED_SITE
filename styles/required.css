@@ -44,6 +44,11 @@ a {
   --soft-red: rgb(255, 35, 35);
 }
 
+.T_M_G-media-container {
+  --T_M_G-video-brand-color: var(--tastey-brand-color);
+  --T_M_G-video-brand-complement-color: rgb(from var(--T_M_G-video-brand-color) r g b / 0.4);
+}
+
 .t007-input-field {
   --t007-input-focused-color: var(--tastey-brand-color);
 }
