@@ -256,7 +256,7 @@ hero-content-wrapper,
   transition: transform 250ms ease;
 }
 
-@media only screen and (orientation: landscape) and (max-height: 30rem) {
+@media (orientation: landscape) and (max-height: 30rem) {
   .hero-content-wrapper {
     width: max-content;
     gap: 2svh;
@@ -280,13 +280,13 @@ hero-content-wrapper,
   }
 }
 
-@media only screen and (max-height: 20rem) {
+@media (max-height: 20rem) {
   .tastey-meals-carousel-controls {
     display: none;
   }
 }
 
-@media only screen and (max-width: 50rem) {
+@media (max-width: 50rem) {
   .hero-content-wrapper {
     width: 100%;
     width: 35.5rem;
@@ -295,7 +295,7 @@ hero-content-wrapper,
   }
 }
 
-@media only screen and (max-width: 36rem) {
+@media (max-width: 36rem) {
   .hero-content-wrapper {
     padding-inline-start: 5.5dvw;
     padding-inline-end: 12.5dvw;
@@ -309,7 +309,7 @@ hero-content-wrapper,
   }
 }
 
-@media only screen and (max-width: 30rem) {
+@media (max-width: 30rem) {
   .hero-content-wrapper {
     align-items: center;
     text-align: center;
@@ -349,7 +349,7 @@ hero-content-wrapper,
   }
 }
 
-@media only screen and (max-width: 18.4rem) {
+@media (max-width: 18.4rem) {
   .welcome-text-wrapper h1 {
     font-size: clamp(1.75rem, 9svh, 3rem);
   }

@@ -46,7 +46,9 @@ a {
 
 .T_M_G-media-container {
   --T_M_G-video-brand-color: var(--tastey-brand-color);
-  --T_M_G-video-brand-complement-color: rgb(from var(--T_M_G-video-brand-color) r g b / 0.4);
+  --T_M_G-video-brand-complement-color: rgb(
+    from var(--T_M_G-video-brand-color) r g b / 0.4
+  );
 }
 
 .t007-input-field {
@@ -244,7 +246,7 @@ nav {
   transition: 450ms ease;
 }
 
-@media only screen and (min-width: 40rem) and (min-height: 30rem) {
+@media (min-width: 40rem) and (min-height: 30rem) {
   nav {
     transform: translateY(0.5rem);
   }
@@ -836,7 +838,7 @@ nav
   overflow-x: hidden;
 }
 
-@media only screen and (max-height: 32.5rem) and (min-width: 25rem) {
+@media (max-height: 32.5rem) and (min-width: 25rem) {
   .mini-meal-cart {
     width: clamp(25rem, 90dvw, 36rem);
     height: clamp(15rem, calc(100dvh - 4rem), 17rem);
@@ -878,8 +880,7 @@ nav
   }
 }
 
-@media only screen and (max-width: 21.75rem),
-  only screen and (max-height: 32.5rem) and (max-width: 38.5rem) {
+@media (max-width: 21.75rem), (max-height: 32.5rem) and (max-width: 38.5rem) {
   .mini-meal-cart
     .mini-cart-tastey-order-text
     h5:not([data-serving="NG"])::after {
@@ -890,8 +891,7 @@ nav
   }
 }
 
-@media only screen and (max-width: 17.5rem),
-  only screen and (max-height: 32.5rem) and (max-width: 40rem) {
+@media (max-width: 17.5rem), (max-height: 32.5rem) and (max-width: 40rem) {
   .mini-meal-cart .mini-cart-checkout .mini-cart-checkout-button::after {
     display: none;
   }
@@ -1950,7 +1950,7 @@ footer {
   fill: #f12020;
 }
 
-@media only screen and (min-width: 70rem) and (min-height: 30rem) {
+@media (min-width: 70rem) and (min-height: 30rem) {
   nav .cart-container:hover .mini-meal-cart {
     display: flex;
   }
@@ -1982,7 +1982,7 @@ footer {
   }
 }
 
-@media only screen and (max-width: 50rem) {
+@media (max-width: 50rem) {
   nav {
     width: 100%;
     padding: 1.25dvw;
@@ -1999,7 +1999,7 @@ footer {
   }
 }
 
-@media only screen and (max-width: 40rem) {
+@media (max-width: 40rem) {
   :root {
     --bar-width: 2rem;
     --bar-height: 0.25rem;
@@ -2187,13 +2187,13 @@ footer {
   }
 }
 
-@media only screen and (max-width: 30rem) {
+@media (max-width: 30rem) {
   .footer-arrow-container {
     display: none;
   }
 }
 
-@media only screen and (max-height: 30rem) {
+@media (max-height: 30rem) {
   nav {
     width: 100%;
     left: 0;
@@ -2208,13 +2208,13 @@ footer {
   }
 }
 
-@media only screen and (max-width: 16rem) {
+@media (max-width: 16rem) {
   .company-name-section span {
     opacity: 0;
   }
 }
 
-@media only screen and (max-width: 12rem) {
+@media (max-width: 12rem) {
   .company-name-section {
     opacity: 0;
   }

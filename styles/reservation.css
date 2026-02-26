@@ -180,13 +180,13 @@ form .submit-btn:hover {
   cursor: pointer;
 }
 
-@media only screen and (max-width: 36rem) {
+@media (max-width: 36rem) {
   .reserve-section {
     padding-inline: 3dvw;
   }
 }
 
-@media only screen and (max-width: 28.5rem) {
+@media (max-width: 28.5rem) {
   .reserve-section-wrapper {
     padding-inline: 0;
   }

@@ -356,7 +356,7 @@ main.tastey-archives {
   position: absolute;
 }
 
-@media only screen and (min-width: 45.01rem) {
+@media (min-width: 45.01rem) {
   .archive:nth-child(odd) .archive-time-wrapper h4::before {
     left: 3.2rem;
   }
@@ -708,7 +708,7 @@ main.about-section {
   cursor: pointer;
 }
 
-@media only screen and (max-width: 60rem) {
+@media (max-width: 60rem) {
   .reservation-content-wrapper-content {
     position: relative;
     padding-inline: 0;
@@ -736,7 +736,7 @@ main.about-section {
   }
 }
 
-@media only screen and (max-width: 45rem) {
+@media (max-width: 45rem) {
   .accreditation-sections-content {
     flex-flow: column nowrap;
     height: fit-content;
@@ -760,7 +760,7 @@ main.about-section {
   }
 }
 
-@media only screen and (max-width: 45rem) {
+@media (max-width: 45rem) {
   .archive-content-container .archives-content-wrapper {
     padding-block-start: 0;
   }
@@ -819,7 +819,7 @@ main.about-section {
   }
 }
 
-@media only screen and (max-width: 36rem) {
+@media (max-width: 36rem) {
   .reviews > div > img {
     flex: 0 0 2.5rem;
     height: 2.5rem;
@@ -845,7 +845,7 @@ main.about-section {
   }
 }
 
-@media only screen and (max-width: 30rem) {
+@media (max-width: 30rem) {
   .tastey-timeline,
   .tastey-timeline-seeker {
     left: 1.5rem;
@@ -874,7 +874,7 @@ main.about-section {
   }
 }
 
-@media only screen and (max-width: 25rem) {
+@media (max-width: 25rem) {
   .archive-content-header-wrapper h2::after,
   .archive-content-header-wrapper h2::before {
     display: none;
@@ -890,7 +890,7 @@ main.about-section {
   }
 }
 
-@media only screen and (max-width: 20rem) {
+@media (max-width: 20rem) {
   .archive-img-wrapper {
     display: none;
   }
@@ -904,7 +904,7 @@ main.about-section {
   }
 }
 
-@media only screen and (max-width: 16rem) {
+@media (max-width: 16rem) {
   .archive {
     word-break: break-all;
   }
