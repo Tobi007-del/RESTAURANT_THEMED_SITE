@@ -1459,7 +1459,7 @@ body.cart:hover .tastey-meal-order::after {
   content: " (" attr(data-cart) " orders)";
 }
 
-@media only screen and (max-width: 70rem) {
+@media (max-width: 70rem) {
   .attention-grabber,
   .attention-grabber-two {
     display: none;
@@ -1510,7 +1510,7 @@ body.cart:hover .tastey-meal-order::after {
   }
 }
 
-@media only screen and (min-width: 70rem) and (min-height: 30rem) {
+@media (min-width: 70rem) and (min-height: 30rem) {
   .heart-icon-wrapper {
     opacity: 0;
     transform: translateY(25%);
@@ -1527,7 +1527,7 @@ body.cart:hover .tastey-meal-order::after {
   }
 }
 
-@media only screen and (max-width: 55rem) {
+@media (max-width: 55rem) {
   .tastey-meal-order-content {
     height: fit-content;
     flex-flow: row wrap;
@@ -1557,7 +1557,7 @@ body.cart:hover .tastey-meal-order::after {
   }
 }
 
-@media only screen and (min-width: 55rem) and (min-height: 32.55rem) {
+@media (min-width: 55rem) and (min-height: 32.55rem) {
   @supports (position: sticky) {
     .tastey-meal-order,
     .order-number-wrapper {
@@ -1691,7 +1691,7 @@ body.cart:hover .tastey-meal-order::after {
   }
 }
 
-@media only screen and (max-width: 50rem) {
+@media (max-width: 50rem) {
   .tastey-order-price-wrapper {
     row-gap: 1.25rem;
     column-gap: 2rem;
@@ -1703,7 +1703,7 @@ body.cart:hover .tastey-meal-order::after {
   }
 }
 
-@media only screen and (max-width: 46.25rem) {
+@media (max-width: 46.25rem) {
   main.meal-cart {
     justify-content: center;
   }
@@ -1729,7 +1729,7 @@ body.cart:hover .tastey-meal-order::after {
   }
 }
 
-@media only screen and (max-width: 36rem) {
+@media (max-width: 36rem) {
   .tooltip-text {
     top: 0.5rem;
     background: none;
@@ -1885,13 +1885,13 @@ body.cart:hover .tastey-meal-order::after {
   }
 }
 
-@media only screen and (min-height: 34rem) {
+@media (min-height: 34rem) {
   main.meal-cart[data-cart="0"] {
     touch-action: none;
   }
 }
 
-@media only screen and (max-height: 30rem) {
+@media (max-height: 30rem) {
   aside.menu-cart-toggler-container {
     height: 55dvh;
     scale: 0.9;
@@ -1916,13 +1916,13 @@ body.cart:hover .tastey-meal-order::after {
   }
 }
 
-@media only screen and (max-height: 32.5rem) and (min-width: 46.25rem) {
+@media (max-height: 32.5rem) and (min-width: 46.25rem) {
   .order-preview:last-child {
     display: none;
   }
 }
 
-@media only screen and (max-height: 26.5rem) and (min-width: 46.25rem) {
+@media (max-height: 26.5rem) and (min-width: 46.25rem) {
   .order-preview:first-child {
     display: none;
   }
@@ -1932,7 +1932,7 @@ body.cart:hover .tastey-meal-order::after {
   }
 }
 
-@media only screen and (max-height: 21.5rem) and (min-width: 46.25rem) {
+@media (max-height: 21.5rem) and (min-width: 46.25rem) {
   .order-summary {
     display: none;
   }
@@ -1957,7 +1957,7 @@ body.cart:hover .tastey-meal-order::after {
   }
 }
 
-@media only screen and (max-width: 20rem) {
+@media (max-width: 20rem) {
   .cart-title-wrapper h3 {
     translate: 0;
     width: 100%;
@@ -2000,7 +2000,7 @@ body.cart:hover .tastey-meal-order::after {
   }
 }
 
-@media only screen and (max-width: 18.4rem) {
+@media (max-width: 18.4rem) {
   .product-price:not([data-discount="0"])::after {
     display: none;
   }
