@@ -11,7 +11,7 @@ import {
   remToPx,
   stars,
 } from "./utils.js";
-import Toast from "/T007_TOOLS/T007_toast_library/T007_toast.js";
+import toast from "https://cdn.jsdelivr.net/npm/@t007/toast@latest/dist/standalone.min.js";
 
 const mobileThreshold = remToPx(36);
 
@@ -64,7 +64,7 @@ function displayWelcomeNotification() {
       tag: "tastey-welcome-notification",
       renotify: true,
     };
-  Toast.info(infoMssg, { tag: "tastey-welcome-notification" });
+  toast.info(infoMssg, { tag: "tastey-welcome-notification" });
   notificationQuery(title, options, "Welcome");
 }
 if (!sessionStorage.is_this_first_visit_to_Tastey) {

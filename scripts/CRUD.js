@@ -1,7 +1,7 @@
 import data from "./fetch-meals.js";
 import { Tastey } from "./TasteyManager.js";
-import Toast from "/T007_TOOLS/T007_toast_library/T007_toast.js";
-import { Confirm } from "/T007_TOOLS/T007_dialog_library/T007_dialog.js";
+import toast from "https://cdn.jsdelivr.net/npm/@t007/toast@latest/dist/standalone.min.js";
+import { confirm } from "https://cdn.jsdelivr.net/npm/@t007/dialog@latest/dist/standalone.min.js";
 import {
   check,
   formatValue,
@@ -98,11 +98,12 @@ let heartIconWrappers,
 //using a function to get only the necessary DOM Elements so as to avoid errors
 function getDOMElements() {
   if (mealsQuery) {
-    (heartIconWrappers = document.getElementsByClassName("heart-icon-wrapper")),
-      (tasteyMeals = document.getElementsByClassName("tastey-meal"));
+    ((heartIconWrappers =
+      document.getElementsByClassName("heart-icon-wrapper")),
+      (tasteyMeals = document.getElementsByClassName("tastey-meal")));
   }
   if (bagQuery) {
-    (tasteyMealOrders = document.getElementsByClassName("tastey-meal-order")),
+    ((tasteyMealOrders = document.getElementsByClassName("tastey-meal-order")),
       (tasteyOrderImages =
         document.getElementsByClassName("tastey-order-image")),
       (wishlistTogglers = document.getElementsByClassName("wishlist-toggler")),
@@ -115,17 +116,17 @@ function getDOMElements() {
       (orderNumberWrapper = document.querySelector(".order-number-wrapper")),
       (orderReviewSectionContent = document.querySelector(
         ".order-review-section-content",
-      ));
-    (cartNumberElement = document.querySelector(".cart-number")),
+      )));
+    ((cartNumberElement = document.querySelector(".cart-number")),
       (mealsNumberElement = document.querySelector(".meals-number")),
       (actualPriceElement = document.querySelector(".actual-price")),
       (totalDiscountElement = document.querySelector(".total-discount")),
       (savedElement = document.querySelector(".saved")),
       (totalPriceElement = document.querySelector(".total-price")),
-      (TOTALCOSTElement = document.querySelector(".TOTAL-COST"));
+      (TOTALCOSTElement = document.querySelector(".TOTAL-COST")));
   }
   if (miniBagQuery) {
-    (miniMealCart = document.querySelector(".mini-meal-cart")),
+    ((miniMealCart = document.querySelector(".mini-meal-cart")),
       (mcOrderReviewSection = document.querySelector(
         ".mini-cart-order-review-section",
       )),
@@ -149,7 +150,7 @@ function getDOMElements() {
       (mcActualPriceElement = document.querySelector(
         ".mini-cart-actual-price",
       )),
-      (mcTOTALCOSTElement = document.querySelector(".mini-cart-TOTAL-COST"));
+      (mcTOTALCOSTElement = document.querySelector(".mini-cart-TOTAL-COST")));
   }
   setCartStates();
   resetBagEventListeners();
@@ -999,7 +1000,7 @@ async function handleEditMealOrders(id, { currentTarget: el }) {
     if (Tastey.getOrdersValue(id) === n) return;
     if (isNaN(n)) {
       editMeal(id);
-      Toast.warn(`You cannot update ${label} to "${c}"`, {
+      toast.warn(`You cannot update ${label} to "${c}"`, {
         image: picSrc,
         tag: `${id}${c}NEdi`,
       });
@@ -1011,7 +1012,7 @@ async function handleEditMealOrders(id, { currentTarget: el }) {
     }
     if (n > maxOrders) {
       editMeal(id);
-      Toast.warn(`You cannot have more than ${maxOrders} ${label} in bag`, {
+      toast.warn(`You cannot have more than ${maxOrders} ${label} in bag`, {
         image: picSrc,
         tag: `${id}MEdi`,
       });
@@ -1024,12 +1025,12 @@ async function handleEditMealOrders(id, { currentTarget: el }) {
       editMeal(id);
       updateStates(id);
       setButtonState(id);
-      Toast.success(`You updated ${label} to ${n} in bag`, {
+      toast.success(`You updated ${label} to ${n} in bag`, {
         image: picSrc,
         tag: `${id}SEdi`,
       });
     } else {
-      Toast.error(`Could not update ${label} to ${n} in bag`, {
+      toast.error(`Could not update ${label} to ${n} in bag`, {
         image: picSrc,
         tag: `${id}EEdi`,
       });
@@ -1047,7 +1048,7 @@ async function handleAddMeal(id, n = 1) {
     if (!meal) return;
     const { label, picSrc } = meal;
     if (Tastey.getOrdersValue(id) >= maxOrders) {
-      Toast.warn(
+      toast.warn(
         `You cannot add more than ${maxOrders} ${formatLabel(label, n)} to bag`,
         { image: picSrc, tag: `${id}MAdd` },
       );
@@ -1060,12 +1061,12 @@ async function handleAddMeal(id, n = 1) {
       addMeal(id, meal);
       updateStates(id);
       setButtonState(id);
-      Toast.success(`You added ${n} ${formatLabel(label, n)} to bag`, {
+      toast.success(`You added ${n} ${formatLabel(label, n)} to bag`, {
         image: picSrc,
         tag: `${id}SAdd`,
       });
     } else {
-      Toast.error(`Could not add ${n} ${formatLabel(label, n)} to bag`, {
+      toast.error(`Could not add ${n} ${formatLabel(label, n)} to bag`, {
         image: picSrc,
         tag: `${id}EAdd`,
       });
@@ -1094,12 +1095,12 @@ async function handleRemoveMeal(id, n = 1) {
       removeMeal(id);
       updateStates(id);
       setButtonState(id);
-      Toast.success(`You removed ${n} ${formatLabel(label, n)} from bag`, {
+      toast.success(`You removed ${n} ${formatLabel(label, n)} from bag`, {
         image: picSrc,
         tag: `${id}SRem`,
       });
     } else {
-      Toast.error(`Could not remove ${n} ${formatLabel(label, n)} from bag`, {
+      toast.error(`Could not remove ${n} ${formatLabel(label, n)} from bag`, {
         image: picSrc,
         tag: `${id}ERem`,
       });
@@ -1134,12 +1135,12 @@ async function handleDeleteMeal(id, dir = "auto") {
       }
       updateStates(id);
       setButtonState(id);
-      Toast.success(`You removed ${label} from bag`, {
+      toast.success(`You removed ${label} from bag`, {
         image: picSrc,
         tag: `${id}SDel`,
       });
     } else {
-      Toast.error(`Could not remove ${label} from bag`, {
+      toast.error(`Could not remove ${label} from bag`, {
         image: picSrc,
         tag: `${id}EDel`,
       });
@@ -1154,10 +1155,10 @@ async function handleDeleteMeal(id, dir = "auto") {
 async function handleClearCart() {
   try {
     if (Tastey.isEmpty()) {
-      Toast.warn("Your Shopping Bag is already empty", { tag: "EBag" });
+      toast.warn("Your Shopping Bag is already empty", { tag: "EBag" });
       return;
     }
-    const shouldCartClear = await Confirm(
+    const shouldCartClear = await confirm(
       `You are about to remove ${standardize(Tastey.ordersInTotal)} ${formatLabel("orders", Tastey.ordersInTotal)} from your Shopping Bag`,
     );
     if (shouldCartClear) {
@@ -1181,9 +1182,9 @@ async function handleClearCart() {
         setCartStates();
         allMeals.forEach(({ id }) => setButtonState(id));
         allMeals.forEach(({ id }) => setOrderStates(id));
-        Toast.success(`You Shopping bag has been emptied`, { tag: "SCba" });
+        toast.success(`You Shopping bag has been emptied`, { tag: "SCba" });
       } else {
-        Toast.error(`Could not empty Shopping bag`, { tag: "ECba" });
+        toast.error(`Could not empty Shopping bag`, { tag: "ECba" });
       }
       toggleClearLoader(false);
     }
@@ -1230,14 +1231,14 @@ async function handleLikes(id) {
         mcTasteyMealOrder.querySelector(".mini-cart-wishlist-toggler").title =
           like ? `Remove ${label} from Wishlist` : `Add ${label} to Wishlist`;
       }
-      Toast.success(
+      toast.success(
         like
           ? `You added ${label} to Wishlist`
           : `You removed ${label} from Wishlist`,
         { image: picSrc, tag: `${id}SLik` },
       );
     } else {
-      Toast.error(
+      toast.error(
         like
           ? `Could not add ${label} to Wishlist`
           : `Could not remove ${label} from Wishlist`,
@@ -1262,6 +1263,6 @@ function handleCheckout() {
       tag: "tastey-checkout-notification",
       renotify: true,
     };
-  Toast.warn("Checkout is currently unavailable!", { tag: "UChe" });
+  toast.warn("Checkout is currently unavailable!", { tag: "UChe" });
   notificationQuery(title, options, "Check Out");
 }

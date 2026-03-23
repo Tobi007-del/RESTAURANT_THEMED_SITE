@@ -19,7 +19,7 @@ a {
   --font-family:
     "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
     Arial, sans-serif;
-  --T_M_G-video-font-family: var(--font-family);
+  --tmg-video-font-family: var(--font-family);
   --t007-toast-background: rgb(from #eb9634 r g b/.4);
   --tastey-brand-color: #ed8f23;
   --tastey-brand-transparent-color: #ed8f2385;
@@ -44,14 +44,14 @@ a {
   --soft-red: rgb(255, 35, 35);
 }
 
-.T_M_G-media-container {
-  --T_M_G-video-brand-color: var(--tastey-brand-color);
-  --T_M_G-video-brand-complement-color: rgb(
-    from var(--T_M_G-video-brand-color) r g b / 0.4
+.tmg-media-container {
+  --tmg-video-brand-color: var(--tastey-brand-color);
+  --tmg-video-brand-complement-color: rgb(
+    from var(--tmg-video-brand-color) r g b / 0.4
   );
 }
 
-.t007-input-field {
+:where(:not(.tmg-media-container)) .t007-input-field {
   --t007-input-focused-color: var(--tastey-brand-color);
 }
 
