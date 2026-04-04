@@ -1,4 +1,4 @@
-import { alert } from "https://cdn.jsdelivr.net/npm/@t007/dialog@latest/dist/standalone.min.js";
+import { alert } from "https://esm.sh/@t007/dialog@latest";
 
 export async function registerTasteyServiceWorker() {
   if ("serviceWorker" in navigator)

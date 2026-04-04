@@ -1,7 +1,7 @@
 import data from "./fetch-meals.js";
 import { Tastey } from "./TasteyManager.js";
-import toast from "https://cdn.jsdelivr.net/npm/@t007/toast@latest/dist/standalone.min.js";
-import { confirm } from "https://cdn.jsdelivr.net/npm/@t007/dialog@latest/dist/standalone.min.js";
+import toast from "https://esm.sh/@t007/toast@latest";
+import { confirm } from "https://esm.sh/@t007/dialog@latest";
 import {
   check,
   formatValue,

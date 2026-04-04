@@ -11,7 +11,7 @@ import {
   remToPx,
   stars,
 } from "./utils.js";
-import toast from "https://cdn.jsdelivr.net/npm/@t007/toast@latest/dist/standalone.min.js";
+import toast from "https://esm.sh/@t007/toast@latest";
 
 const mobileThreshold = remToPx(36);
 
